@@ -1,0 +1,37 @@
+{
+  "collection": [
+    {
+      "text": [
+        {
+          "text": "Intelligent Finance"
+        }
+      ],
+      "icon": {
+        "src": "../../assets/flexiblocks/page/home.png",
+        "alt": "alt text"
+      }
+    },
+    {
+      "text": [
+        {
+          "text": "ICT Group"
+        }
+      ],
+      "icon": {
+        "src": "../../assets/flexiblocks/page/home.png",
+        "alt": "alt text"
+      }
+    },
+    {
+      "text": [
+        {
+          "text": "FIBO Cloud"
+        }
+      ],
+      "icon": {
+        "src": "../../assets/flexiblocks/page/home.png",
+        "alt": "alt text"
+      }
+    }
+  ]
+}

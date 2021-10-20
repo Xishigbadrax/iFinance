@@ -1,0 +1,24 @@
+{
+  "text": [
+    {
+      "text": "Хүссэн мэдээллээ хаанаас ч хэзээ ч ...",
+      "color": "alpha",
+      "variant": "h4"
+    },
+    {
+      "text": "Интернэт байхад л та салбарын орлого зарлагаа ч хянах боломжтой",
+      "color": "omegaDark",
+      "variant": "medium"
+    }
+  ],
+  "images": [
+    {
+      "src": "../../assets/flexiblocks/page/multiple.png",
+      "alt": "alt text",
+      "radius": "lg",
+      "shadow": "default",
+      "border": "lg",
+      "effects": ["fadeInDown"]
+    }
+  ]
+}
