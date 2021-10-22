@@ -49,6 +49,7 @@ const ContentForm = ({ id, form: { action, fields, buttons } = {} }) => {
   const formId = id
 
   useEffect(() => {
+    
     return () =>
       success !== undefined &&
       submitting === false &&
@@ -71,6 +72,7 @@ const ContentForm = ({ id, form: { action, fields, buttons } = {} }) => {
 
   const onSubmit = e => {
     handleSubmit(e, { action })
+    console.log(formValues, "valueesss");
   }
 
   return (

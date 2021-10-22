@@ -4,16 +4,16 @@
   },
   "text": [
     {
-      "text": "Don't Just Take our Word for it!",
+      "text": "Дэлхийд танигдсан систем",
       "variant": "h2",
       "space": 3
     },
     {
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "text": "Белги улсын open-source Odoo ERP систем нь дэлхий даяаар 7 сая гаруй системд ашиглагддаг",
       "variant": "medium"
     },
     {
-      "text": "Sed do eiusmod tempor incididunt ut labore Lorem ipsum dolor sit amet.",
+      "text": "Манай Odoo ERP SaaS бүтээгдэхүүн нь",
       "variant": "medium"
     }
   ],
@@ -21,12 +21,12 @@
     {
       "text": [
         {
-          "text": "570",
+          "text": "7",
           "color": "betaLight",
           "variant": "h1"
         },
         {
-          "text": "Active Users",
+          "text": "Гаруй дотоодын системийн интеграци",
           "color": "omegaDark",
           "variant": "h5"
         }
@@ -35,40 +35,12 @@
     {
       "text": [
         {
-          "text": "1300",
+          "text": "5",
           "color": "beta",
           "variant": "h1"
         },
         {
-          "text": "Downloads",
-          "color": "omegaDark",
-          "variant": "h5"
-        }
-      ]
-    },
-    {
-      "text": [
-        {
-          "text": "420",
-          "color": "betaDark",
-          "variant": "h1"
-        },
-        {
-          "text": "Positive Feedback",
-          "color": "omegaDark",
-          "variant": "h5"
-        }
-      ]
-    },
-    {
-      "text": [
-        {
-          "text": "810",
-          "color": "betaDarker",
-          "variant": "h1"
-        },
-        {
-          "text": "A++ Rating",
+          "text": "Ердөө 5хан минутад бэлэн болно",
           "color": "omegaDark",
           "variant": "h5"
         }

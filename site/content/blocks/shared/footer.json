@@ -1,7 +1,7 @@
 {
   "images": [
     {
-      "src": "../../assets/flexiblocks/shared/logo.png",
+      "src": "../../assets/flexiblocks/shared/logos.png",
       "alt": "alt text"
     }
   ],
@@ -9,24 +9,24 @@
     {
       "text": [
         {
-          "text": "Quick Links"
+          "text": "Холбоос"
         }
       ],
       "buttons": [
         {
-          "text": "Home",
+          "text": "Эхлэл",
           "type": "ANCHOR",
           "link": "#hero",
           "variant": "links.nav-light"
         },
         {
-          "text": "Blog",
+          "text": "Нийтлэл",
           "type": "MODAL",
           "link": "advertisement",
           "variant": "links.nav-light"
         },
         {
-          "text": "Contact Us",
+          "text": "Холбоо барих",
           "type": "MODAL",
           "link": "contact",
           "variant": "links.nav-light"
@@ -36,7 +36,7 @@
     {
       "text": [
         {
-          "text": "Legal Stuff"
+          "text": "Legal stuff"
         }
       ],
       "buttons": [
@@ -63,17 +63,17 @@
     {
       "text": [
         {
-          "text": "Social Media"
+          "text": "Сошиал медиа"
         }
       ],
       "buttons": [
         {
-          "text": "Github",
+          "text": "Facebook",
           "type": "PAGE",
-          "link": "https://github.com/gatsby",
+          "link": "https://www.facebook.com/ifinance.mn",
           "variant": "links.nav-light",
           "icon": {
-            "src": "../../assets/flexiblocks/icons/bxl-github.svg",
+            "src": "../../assets/flexiblocks/icons/Facebook.svg",
             "color": "#2f4f4f"
           }
         },

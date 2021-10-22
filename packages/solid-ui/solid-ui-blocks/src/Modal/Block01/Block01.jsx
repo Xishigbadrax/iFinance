@@ -63,6 +63,7 @@ const ModalBlock01 = ({ content, reverse }) => {
                 reverse={reverse}
               />
             )}
+            
             {map && (
               <Reveal
                 effect={reverse ? 'fadeInRight' : 'fadeInLeft'}

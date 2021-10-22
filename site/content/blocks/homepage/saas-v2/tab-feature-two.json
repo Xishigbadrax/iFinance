@@ -1,54 +1,44 @@
 {
   "text": [
     {
-      "text": "GROW YOUR BUSINESS",
+      "text": "Бизнесээ удирдах",
       "color": "omegaDark",
       "variant": "h4"
     },
     {
-      "text": "Best Marketing Service for **Technological Era**",
+      "text": "Бизнес санхүүгээ хянах **Хялбар арга**",
       "variant": "h2"
     },
     {
-      "text": "Target your audience based on their interests. Lorem ipsum dolor sit amet, consectetur magna aliqua.",
+      "text": "Орлого зарлага, ажилчид, хүний нөөц бүгдийг нэг дороос удирд.",
       "variant": "medium"
     }
   ],
   "images": [
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-two.png",
+      "src": "../../../assets/flexiblocks/page/hr.jpg",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default"
     },
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-two-overlay-one.png",
+      "src": "../../../assets/flexiblocks/page/employees.png",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default",
       "effects": ["fadeInDown", "floatFaster"],
       "position": {
-        "top": "-30%",
-        "right": "5%"
+        "top": "-50%",
+        "left": "30%"
       }
     },
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-two-overlay-two.png",
+      "src": "../../../assets/flexiblocks/page/home.png",
       "alt": "alt text",
       "effects": ["fadeInBounce", "float"],
       "position": {
-        "top": "-15%",
-        "left": "10%"
-      }
-    },
-
-    {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-two-overlay-three.png",
-      "alt": "alt text",
-      "effects": ["fadeInBounce", "floatFaster"],
-      "position": {
-        "bottom": "-10%",
-        "left": "20%"
+        "top": "100%",
+        "left": "70%"
       }
     }
   ],
@@ -56,34 +46,34 @@
     {
       "text": [
         {
-          "text": "15+",
+          "text": "7.000.000+",
           "color": "beta",
           "variant": "h2",
           "space": 1
         },
         {
-          "text": "Advanced Panel",
+          "text": "Дэлхийн шилдэгүүдийн нэг",
           "variant": "h6"
         },
         {
-          "text": "Tempor incididunt ut labore et dolore magna aliqua."
+          "text": "Олон улсад танигдсан бүтээгдэхүүнийг бид Монгол улсын нөхцөлд тааруулан дотоодын системүүдтэй холбон таньд хүргэж байна"
         }
       ]
     },
     {
       "text": [
         {
-          "text": "10+",
+          "text": "7+",
           "color": "beta",
           "variant": "h2",
           "space": 1
         },
         {
-          "text": "Report Metrics",
+          "text": "Системүүдийн холболт",
           "variant": "h6"
         },
         {
-          "text": "Tempor incididunt ut labore et dolore magna aliqua."
+          "text": "Дотоодын шилдэг системүүдийг бүгдийг холбосон цогц шийдэл"
         }
       ]
     }

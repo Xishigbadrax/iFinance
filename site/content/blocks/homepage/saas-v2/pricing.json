@@ -1,20 +1,20 @@
 {
   "text": [
     {
-      "text": "Ready to start tracking your expenses?",
+      "text": "Ашиглахад бэлэн үү?",
       "color": "omegaDark",
       "variant": "h4"
     },
     {
-      "text": "Our Pricing Plans",
+      "text": "Үнийн санал",
       "variant": "h1"
     },
     {
-      "text": "Building great customer relationships is just a step away",
+      "text": "Та бүхэн нэмэлтээр модуль захиалах бол бидэнтэй холбогдоорой",
       "variant": "medium"
     },
     {
-      "textGroup": ["Monthly", "Annually (Save 10%)"]
+      "textGroup": ["Сараар", "Жилээр"]
     }
   ],
   "collection": [
@@ -24,23 +24,12 @@
       },
       "text": [
         {
-          "text": "Starter",
+          "text": "Ломбард модуль",
           "color": "omegaDark",
           "variant": "h5"
         },
         {
-          "textGroup": ["$29", "$25"],
-          "color": "omegaDarker",
-          "variant": "h2"
-        },
-        {
-          "text": "/month"
-        },
-        {
-          "textGroup": ["", "Save 10%"]
-        },
-        {
-          "text": "For up to 10 customers and 1 agent"
+          "text": "Хэдэн ч салбар хэдэн ч харилцагч бүртгэх боломж"
         }
       ],
       "icon": {
@@ -50,7 +39,7 @@
       },
       "buttons": [
         {
-          "text": "Choose Starter",
+          "text": "Худалдан авах",
           "type": "MODAL",
           "link": "authentication",
           "variant": "primary",
@@ -61,7 +50,7 @@
         {
           "text": [
             {
-              "text": "10 Customers",
+              "text": "Хур системтэй холбогдох боломжтой",
               "variant": "h6"
             }
           ],
@@ -73,7 +62,7 @@
         {
           "text": [
             {
-              "text": "1 Agent",
+              "text": "Corporate gateways, Qpay ...",
               "variant": "h6"
             }
           ],
@@ -85,7 +74,7 @@
         {
           "text": [
             {
-              "text": "Deal pipeline",
+              "text": "Олон салбар",
               "variant": "h6"
             }
           ],
@@ -97,7 +86,7 @@
         {
           "text": [
             {
-              "text": "Meeting scheduling",
+              "text": "Бүх салбарын мэдээллийг нэг дороос",
               "variant": "h6"
             }
           ],
@@ -115,24 +104,12 @@
       },
       "text": [
         {
-          "text": "Professional",
+          "text": "ББСБ модуль",
           "color": "omegaLight",
           "variant": "h5"
         },
         {
-          "textGroup": ["$49", "$45"],
-          "color": "white",
-          "variant": "h2"
-        },
-        {
-          "text": "/month",
-          "color": "omega"
-        },
-        {
-          "textGroup": ["", "Save 10%"]
-        },
-        {
-          "text": "For up to 100 customers and 10 agent",
+          "text": "ББСБ-д хэрэгтэй бүх систем нэг дор",
           "color": "omega"
         }
       ],
@@ -143,7 +120,7 @@
       },
       "buttons": [
         {
-          "text": "Choose Professional",
+          "text": "Худалдан авах",
           "type": "MODAL",
           "link": "authentication",
           "variant": "secondary",
@@ -154,7 +131,7 @@
         {
           "text": [
             {
-              "text": "100 Customers",
+              "text": "Монгол банк ЗМС холболт",
               "color": "omegaLight",
               "variant": "h6"
             }
@@ -167,7 +144,7 @@
         {
           "text": [
             {
-              "text": "10 Agents",
+              "text": "Төрийн мэдээлэл солилцооны ХУР систем",
               "color": "omegaLight",
               "variant": "h6"
             }
@@ -180,7 +157,7 @@
         {
           "text": [
             {
-              "text": "Sales analytics",
+              "text": "Corporate gateways, Qpay ...",
               "color": "omegaLight",
               "variant": "h6"
             }
@@ -193,33 +170,7 @@
         {
           "text": [
             {
-              "text": "Smart send times",
-              "color": "omegaLight",
-              "variant": "h6"
-            }
-          ],
-          "icon": {
-            "src": "../../../assets/flexiblocks/icons/bx-check.svg",
-            "color": "omega"
-          }
-        },
-        {
-          "text": [
-            {
-              "text": "1:1 video creation",
-              "color": "omegaLight",
-              "variant": "h6"
-            }
-          ],
-          "icon": {
-            "src": "../../../assets/flexiblocks/icons/bx-check.svg",
-            "color": "omega"
-          }
-        },
-        {
-          "text": [
-            {
-              "text": "Single sign-on",
+              "text": "Монгол Банкны валютын ханш",
               "color": "omegaLight",
               "variant": "h6"
             }
@@ -237,23 +188,12 @@
       },
       "text": [
         {
-          "text": "Organization",
+          "text": "Үл хөдлөх түрээс",
           "color": "alpha",
           "variant": "h5"
         },
         {
-          "textGroup": ["$99", "$95"],
-          "color": "omegaDarker",
-          "variant": "h2"
-        },
-        {
-          "text": "/month"
-        },
-        {
-          "textGroup": ["", "Save 10%"]
-        },
-        {
-          "text": "Unlimited customers and agents"
+          "text": "Бүх төрлийн үл хөдлөх бүртгэх боломжтой"
         }
       ],
       "icon": {
@@ -263,18 +203,19 @@
       },
       "buttons": [
         {
-          "text": "Choose Organization",
+          "text": "Худалдан авах",
           "type": "MODAL",
           "link": "authentication",
           "variant": "primary",
-          "width": "100%"
+          "width": "100%",
+          "target": "disable"
         }
       ],
       "collection": [
         {
           "text": [
             {
-              "text": "Unlimited Customers",
+              "text": "Үл хөдлөх бүртгэх",
               "variant": "h6"
             }
           ],
@@ -286,7 +227,7 @@
         {
           "text": [
             {
-              "text": "Unlimited Agents",
+              "text": "Гэрээ байгуулах",
               "variant": "h6"
             }
           ],
@@ -298,7 +239,7 @@
         {
           "text": [
             {
-              "text": "Predictive lead scoring",
+              "text": "Орлого зарлагын мэдээлэл",
               "variant": "h6"
             }
           ],
@@ -310,7 +251,7 @@
         {
           "text": [
             {
-              "text": "User roles",
+              "text": "Хугацаа хэтэрсэн сануулга",
               "variant": "h6"
             }
           ],

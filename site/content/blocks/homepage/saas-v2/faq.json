@@ -1,16 +1,16 @@
 {
   "text": [
     {
-      "text": "We Are Here To Help You",
+      "text": "Таньд туслая",
       "color": "beta",
       "variant": "h4"
     },
     {
-      "text": "Frequently Asked Questions",
+      "text": "Байнгын асуудаг асуултууд",
       "variant": "h2"
     },
     {
-      "text": "We help startups, corporations and nonprofits.",
+      "text": "Таньд өөр асуулт байвал бидэнтэй холбогдоорой",
       "variant": "medium"
     }
   ],
@@ -18,11 +18,11 @@
     {
       "text": [
         {
-          "text": "Which license do I need to use an item in a commercial?",
+          "text": "Худалдан авалт хийгээд л систем маань бэлэн болно гэж үү?",
           "variant": "h5"
         },
         {
-          "text": "As an Internet marketing strategy, SEO considers how search engines work, the computer-programmed algorithms that dictate search engine behavior."
+          "text": "Бид нэвтрүүлэлт хийгдэхэд шаардлагатай бүх технологийн процессийг автоматжуулсан ба 5 минутын дотор бэлэн болно."
         }
       ],
       "icon": {
@@ -34,11 +34,11 @@
     {
       "text": [
         {
-          "text": "What do you mean by item and end product in license terms?",
+          "text": "Худалдан авах модулиудаас гадна дагалдах модиулууд байгаа юу?",
           "variant": "h5"
         },
         {
-          "text": "Social media marketing is the use of social media platforms and websites to promote a product or service and is becoming more popular."
+          "text": "Бид зөвхөн өөрсдийн хийсэн модулийг борлуулж байгаа бөгөөд Odoo ERP ийн бусад үндсэн модиулууд үнэгүй байдаг"
         }
       ],
       "icon": {
@@ -50,11 +50,11 @@
     {
       "text": [
         {
-          "text": "What are some examples of permitted end products?",
+          "text": "Хэрвээ бидний онцлогт таарахгүй бусад компаниас өөр зарчмаар явдаг бол яах вэ?",
           "variant": "h5"
         },
         {
-          "text": "Content marketing is a form of marketing focused on creating, publishing, and distributing content for a targeted audience online."
+          "text": "Бид хэрэглэгчдийн хүсэлтээр нэмэлт хөгжүүлэлтийн гэрээ байгуулан зөвхөн та бүхэнд зориулсан модиулыг хөгжүүлэх болно бидэнтэй холбогдоорй"
         }
       ],
       "icon": {
@@ -66,11 +66,11 @@
     {
       "text": [
         {
-          "text": "Are item packs/bundles still limited to a single-end product?",
+          "text": "Бусад системийн холболтыг бүгдийг нь хийх үү?",
           "variant": "h5"
         },
         {
-          "text": "Social media marketing is the use of social media platforms and websites to promote a product or service and is becoming more popular."
+          "text": "Манай системд холбогдсон холболтуудыг ашиглахын тулд та бүхэн шаардлагатай гэрээ хэлэлцээрийг байгуулж бидэнд хэрэгтэй файлуудыг өгөхөд л болно"
         }
       ],
       "icon": {

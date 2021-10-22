@@ -13,7 +13,9 @@ const useForm = () => {
     if (action) setAction(action)
     setTarget(e.target)
     setSubmitting(true)
+    console.log(values, action, "eeee");
   }
+
 
   const sendValues = useCallback(() => {
     const form = new FormData(target)

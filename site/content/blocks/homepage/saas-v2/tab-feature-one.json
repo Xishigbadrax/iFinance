@@ -1,44 +1,44 @@
 {
   "text": [
     {
-      "text": "Innovative Solutions",
+      "text": "Хэрэгтэй бүхнээ нэг дороос",
       "color": "omega",
       "variant": "h4"
     },
     {
-      "text": "**Innovative Features** Integrated for Teams",
+      "text": "**ХУР систем, Монгол Банк ЗМС, Corporate Gateway, Ebarimt**",
       "variant": "h2"
     },
     {
-      "text": "Lorem ipsum dolor sit amet, consectetur magna aliqua. Eaque ipsa quae ab illo inventore veritatis. Nemo enim ipsam voluptatem voluptas.",
+      "text": "Төрийн мэдээллийн систем ХУР, Монгол Банкны зээлийн мэдээллийн сан ЗМС, Банкнуудын Corporate gateway, НӨАТУС буюу ebarimt.mn",
       "variant": "medium"
     }
   ],
   "images": [
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-one.png",
+      "src": "../../../assets/flexiblocks/page/mongolbank.png",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default"
     },
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-one-overlay-two.png",
+      "src": "../../../assets/flexiblocks/page/hur.jpeg",
       "alt": "alt text",
       "effects": ["fadeInDown", "float"],
       "position": {
-        "bottom": "-15%",
-        "left": "10%"
+        "bottom": "-70%",
+        "left": "50%"
       }
     },
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-one-overlay-one.png",
+      "src": "../../../assets/flexiblocks/page/ebarimt.png",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default",
       "effects": ["fadeInUp", "floatFaster"],
       "position": {
-        "top": "-20%",
-        "right": "17.5%"
+        "top": "-110%",
+        "right": "40%"
       }
     }
   ],
@@ -46,7 +46,7 @@
     {
       "text": [
         {
-          "text": "Analytics"
+          "text": "Анализ хийх"
         }
       ],
       "icon": {
@@ -57,7 +57,7 @@
     {
       "text": [
         {
-          "text": "Consultation"
+          "text": "Зөвөлгөө өгөх"
         }
       ],
       "icon": {
@@ -68,7 +68,7 @@
     {
       "text": [
         {
-          "text": "Reports"
+          "text": "Тайлан гаргах"
         }
       ],
       "icon": {
@@ -79,7 +79,7 @@
     {
       "text": [
         {
-          "text": "Live Support"
+          "text": "Зөвөлгөө, Тусламж"
         }
       ],
       "icon": {

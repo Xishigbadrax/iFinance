@@ -1,35 +1,35 @@
 {
   "text": [
     {
-      "text": "Versatile Platform",
+      "text": "SaaS",
       "color": "omega",
       "variant": "h4"
     },
     {
-      "text": "**Versatile System** for All Software Startups",
+      "text": "**ERP системийг SaaS-аар** Хялбар, Хурдан, Найдвартай",
       "variant": "h2"
     },
     {
-      "text": "Target your audience based on their interests. Lorem ipsum dolor sit amet, consectetur magna aliqua.",
+      "text": "Манай SaaS бүтээгдэхүүнийг сонгосноор ERP систем нэвтрүүлэлт 5хан минутад хийгдэнэ",
       "variant": "medium"
     }
   ],
   "images": [
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-three.png",
+      "src": "../../../assets/flexiblocks/page/saas.png",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default"
     },
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/tab-feature-three-overlay-one.png",
+      "src": "../../../assets/flexiblocks/page/home.png",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default",
       "effects": ["fadeInDown", "float"],
       "position": {
         "top": "-35%",
-        "left": "25%"
+        "left": "50%"
       }
     }
   ],
@@ -42,12 +42,9 @@
       },
       "text": [
         {
-          "text": "Automatic interest detection",
+          "text": "Цаг хугацаа хэмнэсэн автоматжуулалт",
           "color": "omegaDarker",
           "variant": "h5"
-        },
-        {
-          "text": "Tempor incididunt ut labore et dolore magna aliqua consectetur."
         }
       ]
     },
@@ -59,12 +56,9 @@
       },
       "text": [
         {
-          "text": "Daily email reports",
+          "text": "Хүссэн үедээ хаанаас ч хянах боломж",
           "color": "omegaDarker",
           "variant": "h5"
-        },
-        {
-          "text": "Tempor incididunt ut labore et dolore magna aliqua consectetur."
         }
       ]
     }

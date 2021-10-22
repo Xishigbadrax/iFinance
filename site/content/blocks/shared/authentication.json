@@ -3,24 +3,16 @@
     {
       "text": [
         {
-          "text": "Register",
+          "text": "Бүртгүүлэх",
           "variant": "h4"
         },
         {
-          "text": "**Create** an Account.",
+          "text": "**Бүртгэл** Үүсгэх.",
           "color": "omegaDarker",
           "variant": "h2",
           "space": 2
-        },
-        {
-          "text": "Start your 14 days free trial.",
-          "color": "omegaDark",
-          "space": 2
-        },
-        {
-          "text": "No credit card required.",
-          "color": "omega"
         }
+       
       ],
       "images": [
         {
@@ -34,7 +26,7 @@
             "identifier": "name",
             "type": "TEXT",
             "placeholder": {
-              "text": "Full Name"
+              "text": "Хэрэглэгийн Нэр"
             },
             "icon": {
               "src": "../../assets/flexiblocks/icons/bx-user.svg",
@@ -45,7 +37,7 @@
             "identifier": "email",
             "type": "EMAIL",
             "placeholder": {
-              "text": "Email Address"
+              "text": "И-майл хаяг"
             },
             "icon": {
               "src": "../../assets/flexiblocks/icons/bx-envelope.svg",
@@ -56,7 +48,7 @@
             "identifier": "password",
             "type": "PASSWORD",
             "placeholder": {
-              "text": "Password"
+              "text": "Нууц үг"
             },
             "icon": {
               "src": "../../assets/flexiblocks/icons/bx-lock-alt.svg",
@@ -67,29 +59,19 @@
             "identifier": "confirm-password",
             "type": "PASSWORD",
             "placeholder": {
-              "text": "Confirm Password"
-            },
-            "icon": {
-              "src": "../../assets/flexiblocks/icons/bx-lock-alt.svg",
-              "color": "alpha"
-            }
-          },
-          {
-            "identifier": "agree",
-            "type": "CHECKBOX",
-            "placeholder": {
-              "text": "I agree to all statements in the Terms of Use."
+              "text": "Нууц үг давтах"
             },
             "icon": {
               "src": "../../assets/flexiblocks/icons/bx-lock-alt.svg",
               "color": "alpha"
             }
           }
+       
         ],
         "buttons": [
           {
-            "text": "Create Account",
-            "type": "PAGE",
+            "text": "Бүртгүүлэх",
+            "type": "SUBMIT",
             "link": "",
             "variant": "secondary",
             "width": "200px"
@@ -100,16 +82,16 @@
     {
       "text": [
         {
-          "text": "Login"
+          "text": "Нэвтрэх"
         },
         {
-          "text": "**Welcome** Back.",
+          "text": "**Тавтай** Морилно уу.",
           "color": "omegaDarker",
           "variant": "h2",
           "space": 2
         },
         {
-          "text": "Log in to your account with the data you entered during registration.",
+          "text": "Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.",
           "color": "omegaDark"
         }
       ],
@@ -125,7 +107,7 @@
             "identifier": "email",
             "type": "EMAIL",
             "placeholder": {
-              "text": "Email Address"
+              "text": "И-Майл хаяг"
             },
             "icon": {
               "src": "../../assets/flexiblocks/icons/bx-envelope.svg",
@@ -136,39 +118,24 @@
             "identifier": "password",
             "type": "PASSWORD",
             "placeholder": {
-              "text": "Password"
-            },
-            "icon": {
-              "src": "../../assets/flexiblocks/icons/bx-lock-alt.svg",
-              "color": "alpha"
-            }
-          },
-          {
-            "identifier": "remember",
-            "type": "CHECKBOX",
-            "placeholder": {
-              "text": "Keep me signed in on this device"
+              "text": "Нууц Үг"
             },
             "icon": {
               "src": "../../assets/flexiblocks/icons/bx-lock-alt.svg",
               "color": "alpha"
             }
           }
+          
         ],
         "buttons": [
           {
-            "text": "Login",
+            "text": "Нэвтрэх",
             "type": "PAGE",
             "link": "",
             "variant": "secondary",
             "width": "200px"
-          },
-          {
-            "text": "Need to find your Password?",
-            "type": "TAB",
-            "link": "authentication.2",
-            "variant": "links.normal"
           }
+         
         ]
       }
     },

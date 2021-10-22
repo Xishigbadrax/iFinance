@@ -1,24 +1,24 @@
 {
   "text": [
     {
-      "text": "Advanced Customer Service Platform",
+      "text": "Таньд илүү их хэрэгтэй юу ???",
       "color": "beta",
       "variant": "h4"
     },
     {
-      "text": "Platform Overview",
+      "text": "Зөвхөн танай хамт олонд зориулж",
       "color": "omegaDarker",
       "variant": "h2"
     },
     {
-      "text": "Hassle-free platform and specialists to help you with your marketing campaigns.",
+      "text": "Өөрсдийн хэв маягт зориулж нэмэлт боломжуудыг хийлгэх боломжтой",
       "color": "omegaDark",
       "variant": "medium"
     }
   ],
   "images": [
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/hero.png",
+      "src": "../../../assets/flexiblocks/page/coding.jpeg",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default",

@@ -1,24 +1,19 @@
 {
   "text": [
     {
-      "text": "Advanced Features",
+      "text": "Зөвхөн компани дотроо харилцах хувийн чат суваг",
       "color": "beta",
       "variant": "h4"
     },
     {
-      "text": "Scheduling Panel Overview",
-      "color": "omegaDarker",
-      "variant": "h2"
-    },
-    {
-      "text": "Lorem ipsum dolor sit amet, consectetur magna aliqua. Eaque ipsa quae ab illo.",
+      "text": "Нэмэлтээр илүү програм эсвэл олон нийтийн сүлжээ ашиглах шаардлагагүй",
       "color": "omegaDark",
       "variant": "medium"
     }
   ],
   "images": [
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/hero.png",
+      "src": "../../../assets/flexiblocks/page/video-call.png",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default",

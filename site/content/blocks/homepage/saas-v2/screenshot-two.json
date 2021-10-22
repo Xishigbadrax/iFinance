@@ -1,24 +1,19 @@
 {
   "text": [
     {
-      "text": "Advanced Customer Service Platform",
+      "text": "Хүссэн мэдээллээ хаанаас ч хэзээ ч ...",
       "color": "alpha",
       "variant": "h4"
     },
     {
-      "text": "Acquisition Panel Screenshot",
-      "color": "omegaDarker",
-      "variant": "h2"
-    },
-    {
-      "text": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "text": "Интернэт байхад л та салбарын орлого зарлагаа ч хянах боломжтой",
       "color": "omegaDark",
       "variant": "medium"
     }
   ],
   "images": [
     {
-      "src": "../../../assets/flexiblocks/homepage/saas-v2/hero.png",
+      "src": "../../../assets/flexiblocks/page/multiple.png",
       "alt": "alt text",
       "radius": "lg",
       "shadow": "default",
