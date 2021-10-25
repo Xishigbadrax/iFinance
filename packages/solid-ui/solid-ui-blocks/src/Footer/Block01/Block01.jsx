@@ -32,10 +32,10 @@ const FooterBlock01 = ({ content: { images, collection } }) => {
               </GLink>
             </Box>
             <Box pt='2' mb={[2, 4]}>
-              © {new Date().getFullYear()}, All Rights Reserved.
+              © {new Date().getFullYear()}, Бүх мэдээлэл хуулиар баталгаажсан.
             </Box>
             <Box>
-              <PoweredByGatsby />
+              {/* <PoweredByGatsby /> */}
             </Box>
           </Box>
           {collection?.map(
