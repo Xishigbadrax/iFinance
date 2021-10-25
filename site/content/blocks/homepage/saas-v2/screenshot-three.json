@@ -1,0 +1,24 @@
+{
+  "text": [
+    {
+      "text": "Зөвхөн компани дотроо харилцах хувийн чат суваг",
+      "color": "beta",
+      "variant": "h4"
+    },
+    {
+      "text": "Нэмэлтээр илүү програм эсвэл олон нийтийн сүлжээ ашиглах шаардлагагүй",
+      "color": "omegaDark",
+      "variant": "medium"
+    }
+  ],
+  "images": [
+    {
+      "src": "../../../assets/flexiblocks/page/video-call.png",
+      "alt": "alt text",
+      "radius": "lg",
+      "shadow": "default",
+      "border": "lg",
+      "effects": ["fadeInDown"]
+    }
+  ]
+}

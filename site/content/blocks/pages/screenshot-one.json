@@ -1,0 +1,29 @@
+{
+  "text": [
+    {
+      "text": "Таньд илүү их хэрэгтэй юу ???",
+      "color": "beta",
+      "variant": "h4"
+    },
+    {
+      "text": "Зөвхөн танай хамт олонд зориулж",
+      "color": "omegaDarker",
+      "variant": "h2"
+    },
+    {
+      "text": "Өөрсдийн хэв маягт зориулж нэмэлт боломжуудыг хийлгэх боломжтой",
+      "color": "omegaDark",
+      "variant": "medium"
+    }
+  ],
+  "images": [
+    {
+      "src": "../../assets/flexiblocks/page/coding.jpeg",
+      "alt": "alt text",
+      "radius": "lg",
+      "shadow": "default",
+      "border": "lg",
+      "effects": ["fadeInDown"]
+    }
+  ]
+}

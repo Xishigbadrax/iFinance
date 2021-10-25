@@ -1,0 +1,36 @@
+{
+  "text": [
+    {
+      "text": "Санхүүгийн цогц шийдэл бүхий ERP, CRM платформ",
+      "color": "omegaDarker",
+      "variant": "h4"
+    },
+    {
+      "text": "Хүссэнээрээ санхүүгээ удирд",
+      "color": "white",
+      "variant": "h1"
+    },
+    {
+      "text": "SaaS үйлчилгээ 5 минутад өөрийн програм хангамжтай болох",
+      "color": "omegaDarker",
+      "variant": "medium"
+    }
+  ],
+  "images": [
+    {
+      "src": "../../../assets/flexiblocks/page/home.png",
+      "alt": "alt text",
+      "radius": "lg",
+      "shadow": "default",
+      "effects": ["fadeInDown"]
+    }
+  ],
+  "buttons": [
+    {
+      "text": "Үргэлжлүүлэх",
+      "type": "MODAL",
+      "link": "authentication",
+      "variant": "white"
+    }
+  ]
+}

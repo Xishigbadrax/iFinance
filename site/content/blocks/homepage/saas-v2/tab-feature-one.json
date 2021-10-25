@@ -1,0 +1,91 @@
+{
+  "text": [
+    {
+      "text": "Хэрэгтэй бүхнээ нэг дороос",
+      "color": "omega",
+      "variant": "h4"
+    },
+    {
+      "text": "**ХУР систем, Монгол Банк ЗМС, Corporate Gateway, Ebarimt**",
+      "variant": "h2"
+    },
+    {
+      "text": "Төрийн мэдээллийн систем ХУР, Монгол Банкны зээлийн мэдээллийн сан ЗМС, Банкнуудын Corporate gateway, НӨАТУС буюу ebarimt.mn",
+      "variant": "medium"
+    }
+  ],
+  "images": [
+    {
+      "src": "../../../assets/flexiblocks/page/mongolbank.png",
+      "alt": "alt text",
+      "radius": "lg",
+      "shadow": "default"
+    },
+    {
+      "src": "../../../assets/flexiblocks/page/hur.jpeg",
+      "alt": "alt text",
+      "effects": ["fadeInDown", "float"],
+      "position": {
+        "bottom": "-70%",
+        "left": "50%"
+      }
+    },
+    {
+      "src": "../../../assets/flexiblocks/page/ebarimt.png",
+      "alt": "alt text",
+      "radius": "lg",
+      "shadow": "default",
+      "effects": ["fadeInUp", "floatFaster"],
+      "position": {
+        "top": "-110%",
+        "right": "40%"
+      }
+    }
+  ],
+  "collection": [
+    {
+      "text": [
+        {
+          "text": "Анализ хийх"
+        }
+      ],
+      "icon": {
+        "src": "../../../assets/flexiblocks/icons/bx-analyse.svg",
+        "color": "beta"
+      }
+    },
+    {
+      "text": [
+        {
+          "text": "Зөвөлгөө өгөх"
+        }
+      ],
+      "icon": {
+        "src": "../../../assets/flexiblocks/icons/bx-calendar-check.svg",
+        "color": "beta"
+      }
+    },
+    {
+      "text": [
+        {
+          "text": "Тайлан гаргах"
+        }
+      ],
+      "icon": {
+        "src": "../../../assets/flexiblocks/icons/bx-bar-chart-alt.svg",
+        "color": "beta"
+      }
+    },
+    {
+      "text": [
+        {
+          "text": "Зөвөлгөө, Тусламж"
+        }
+      ],
+      "icon": {
+        "src": "../../../assets/flexiblocks/icons/bx-chat.svg",
+        "color": "beta"
+      }
+    }
+  ]
+}
