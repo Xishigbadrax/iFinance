@@ -7,7 +7,8 @@ module.exports = {
       resolve: '@elegantstack/gatsby-theme-flexiblocks',
       options: {
         createDemoPages: true,
-        colorMode: false
+        colorMode: false,
+        icon: "./public/favicon.png",
       }
     }
   ],
