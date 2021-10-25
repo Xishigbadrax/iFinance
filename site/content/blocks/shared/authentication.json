@@ -1,5 +1,66 @@
 {
   "collection": [
+    
+    {
+      "text": [
+        {
+          "text": "Нэвтрэх"
+        },
+        {
+          "text": "**Тавтай** Морилно уу.",
+          "color": "omegaDarker",
+          "variant": "h2",
+          "space": 2
+        },
+        {
+          "text": "Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.",
+          "color": "omegaDark"
+        }
+      ],
+      "images": [
+        {
+          "src": "../../assets/flexiblocks/shared/login.jpg",
+          "alt": "alt text"
+        }
+      ],
+      "form": {
+        "fields": [
+          {
+            "identifier": "email",
+            "type": "EMAIL",
+            "placeholder": {
+              "text": "И-Майл хаяг"
+            },
+            "icon": {
+              "src": "../../assets/flexiblocks/icons/bx-envelope.svg",
+              "color": "alpha"
+            }
+          },
+          {
+            "identifier": "password",
+            "type": "PASSWORD",
+            "placeholder": {
+              "text": "Нууц Үг"
+            },
+            "icon": {
+              "src": "../../assets/flexiblocks/icons/bx-lock-alt.svg",
+              "color": "alpha"
+            }
+          }
+          
+        ],
+        "buttons": [
+          {
+            "text": "Нэвтрэх",
+            "type": "PAGE",
+            "link": "",
+            "variant": "secondary",
+            "width": "200px"
+          }
+         
+        ]
+      }
+    },
     {
       "text": [
         {
@@ -76,66 +137,6 @@
             "variant": "secondary",
             "width": "200px"
           }
-        ]
-      }
-    },
-    {
-      "text": [
-        {
-          "text": "Нэвтрэх"
-        },
-        {
-          "text": "**Тавтай** Морилно уу.",
-          "color": "omegaDarker",
-          "variant": "h2",
-          "space": 2
-        },
-        {
-          "text": "Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.",
-          "color": "omegaDark"
-        }
-      ],
-      "images": [
-        {
-          "src": "../../assets/flexiblocks/shared/login.jpg",
-          "alt": "alt text"
-        }
-      ],
-      "form": {
-        "fields": [
-          {
-            "identifier": "email",
-            "type": "EMAIL",
-            "placeholder": {
-              "text": "И-Майл хаяг"
-            },
-            "icon": {
-              "src": "../../assets/flexiblocks/icons/bx-envelope.svg",
-              "color": "alpha"
-            }
-          },
-          {
-            "identifier": "password",
-            "type": "PASSWORD",
-            "placeholder": {
-              "text": "Нууц Үг"
-            },
-            "icon": {
-              "src": "../../assets/flexiblocks/icons/bx-lock-alt.svg",
-              "color": "alpha"
-            }
-          }
-          
-        ],
-        "buttons": [
-          {
-            "text": "Нэвтрэх",
-            "type": "PAGE",
-            "link": "",
-            "variant": "secondary",
-            "width": "200px"
-          }
-         
         ]
       }
     },
