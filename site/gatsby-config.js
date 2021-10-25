@@ -6,15 +6,15 @@ module.exports = {
     {
       resolve: '@elegantstack/gatsby-theme-flexiblocks',
       options: {
-        createDemoPages: true,
-        colorMode: true
+        createDemoPages: false,
+        colorMode: false
       }
     }
   ],
   // Customize your site metadata
   siteMetadata: {
-    title: 'FlexiBlocks Theme',
-    name: 'FlexiBlocks',
-    description: 'My site description...'
+    title: 'iFinance',
+    name: 'iFinance',
+    description: 'iFinance'
   }
 }
