@@ -25,13 +25,8 @@
           "type": "PAGE",
           "link": "#tab-feature-one",
           "variant": "links.nav-white"
-        },
-        {
-          "text": "Бидний тухай",
-          "type": "PAGE",
-          "link": "/innerpage/about-us-01/",
-          "variant": "links.nav-white"
         }
+        
       ]
     },
     {
