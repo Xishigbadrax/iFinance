@@ -32,7 +32,7 @@ const FooterBlock01 = ({ content: { images, collection } }) => {
               </GLink>
             </Box>
             <Box pt='2' mb={[2, 4]}>
-              © {new Date().getFullYear()}, Бүх мэдээлэл хуулиар баталгаажсан.
+              © {new Date().getFullYear()}, Intelligent Finance LLC.
             </Box>
             <Box>
               {/* <PoweredByGatsby /> */}

@@ -1,5 +1,6 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext,useState } from 'react'
 import PropTypes from 'prop-types'
+import {Button, Input}  from 'antd'
 import { Box, css, Spinner } from 'theme-ui'
 import Reveal from '@solid-ui-components/Reveal'
 import ContentButtons from '@solid-ui-components/ContentButtons'
@@ -45,9 +46,9 @@ const styles = {
 
 const ContentForm = ({ id, form: { action, fields, buttons } = {} }) => {
   const { handleSubmit, submitting, success } = useForm()
-  const { formValues, setFormValues } = useContext(FormContext)
+  const [ formValues, setFormValues ] = useState();
   const formId = id
-
+  const [test, setTest] = useState(); 
   useEffect(() => {
     
     return () =>
@@ -72,80 +73,93 @@ const ContentForm = ({ id, form: { action, fields, buttons } = {} }) => {
 
   const onSubmit = e => {
     handleSubmit(e, { action })
+    
+   
     console.log(formValues, "valueesss");
+  }
+  const onChangeName = e => {
+    console.log(e, "ner shuu")
   }
 
   return (
-    <form
-      css={css(styles.form)}
-      onSubmit={onSubmit}
-      method='POST'
-      action={action}
-      demo={action ? undefined : 'demo'}
-    >
-      <Box variant='forms.row'>
-        {fields?.map(({ identifier, value, ...props }, index) => {
-          let Component
-          switch (props.type) {
-            case 'PASSWORD':
-            case 'EMAIL':
-            case 'TEXT':
-              Component = FormInput
-              break
-            case 'TEXTAREA':
-              Component = FormTextarea
-              break
-            case 'CHECKBOX':
-              Component = FormCheckbox
-              break
-            case 'HIDDEN':
-              Component = FormHidden
-              break
-            default:
-              break
-          }
+    <div>
+      {/* <input onChange={(e) => onChangeName(e.target.value)} placeholder="нэр" />
+      <input onChange={(e) => onChangeName(e.target.value)} placeholder="email" />
+      <input onChange={(e) => onChangeName(e.target.value)} placeholder="password" />
+      <input onChange={(e) => onChangeName(e.target.value)} placeholder="password dawtah" /> */}
+      <Input placeholder="odoo" />
+      <Button type="primary"  >alii</Button>
+    </div>
+    // <form
+    //   css={css(styles.form)}
+    //   onSubmit={onSubmit}
+    //   method='POST'
+    //   action={action}
+    //   demo={action ? undefined : 'demo'}
+    // >
+    //   <Box variant='forms.row'>
+    //     {fields?.map(({ identifier, value, ...props }, index) => {
+    //       let Component
+    //       switch (props.type) {
+    //         case 'PASSWORD':
+    //         case 'EMAIL':
+    //         case 'TEXT':
+    //           Component = FormInput
+    //           break
+    //         case 'TEXTAREA':
+    //           Component = FormTextarea
+    //           break
+    //         case 'CHECKBOX':
+    //           Component = FormCheckbox
+    //           break
+    //         case 'HIDDEN':
+    //           Component = FormHidden
+    //           break
+    //         default:
+    //           break
+    //       }
 
-          return (
-            <Box
-              key={`index-${index}`}
-              variant={props.compact ? 'forms.compact' : 'forms.full'}
-            >
-              <Component
-                {...props}
-                onChange={onChange}
-                name={identifier}
-                id={`${formId}.${identifier}`}
-                value={formValues?.[formId]?.[identifier] || value || undefined}
-              />
-            </Box>
-          )
-        })}
-      </Box>
-      <Box sx={{ textAlign: `center` }}>
-        <ContentButtons
-          content={buttons}
-          wrapperStyles={styles.buttonsWrapper}
-        />
-      </Box>
-      <Box
-        sx={styles.responseOverlay}
-        css={(submitting || success) && styles.responseOverlay.active}
-      >
-        {submitting && (
-          <Reveal effect='fadeInDown'>
-            <Spinner size='64' color='alpha' />
-          </Reveal>
-        )}
-        {success === true && (
-          <Reveal effect='fadeInDown'>
-            <BiCheckCircle size='64' css={css({ color: `success` })} />
-          </Reveal>
-        )}
-        {success === false && (
-          <BiErrorCircle size='64' css={css({ color: `error` })} />
-        )}
-      </Box>
-    </form>
+    //       return (
+    //         <Box
+    //           key={`index-${index}`}
+    //           variant={props.compact ? 'forms.compact' : 'forms.full'}
+    //         >
+    //           <Component
+    //             {...props}
+    //             onChange={onChange}
+    //             name={identifier}
+    //             id={`${formId}.${identifier}`}
+    //             value={formValues?.[formId]?.[identifier] || value || undefined}
+    //           />
+    //         </Box>
+    //       )
+    //     })}
+    //   </Box>
+    //   <Box sx={{ textAlign: `center` }}>
+    //     <ContentButtons
+    //       content={buttons}
+    //       wrapperStyles={styles.buttonsWrapper}
+    //     />
+    //   </Box>
+    //   <Box
+    //     sx={styles.responseOverlay}
+    //     css={(submitting || success) && styles.responseOverlay.active}
+    //   >
+    //     {submitting && (
+    //       <Reveal effect='fadeInDown'>
+    //         <Spinner size='64' color='alpha' />
+    //       </Reveal>
+    //     )}
+    //     {success === true && (
+    //       <Reveal effect='fadeInDown'>
+    //         <BiCheckCircle size='64' css={css({ color: `success` })} />
+    //       </Reveal>
+    //     )}
+    //     {success === false && (
+    //       <BiErrorCircle size='64' css={css({ color: `error` })} />
+    //     )}
+    //   </Box>
+    // </form>
   )
 }
 
