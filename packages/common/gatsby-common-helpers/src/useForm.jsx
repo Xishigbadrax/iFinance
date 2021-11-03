@@ -12,7 +12,7 @@ const useForm = () => {
     if (values) setValues(values)
     if (action) setAction(action)
     setTarget(e.target)
-    setSubmitting(true)
+    // setSubmitting(true)
     console.log(values, action, "eeee");
   }
 

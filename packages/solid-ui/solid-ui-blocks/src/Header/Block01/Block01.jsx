@@ -13,11 +13,15 @@ const styles = {
     position: `relative`,
     zIndex: 10,
     '.nav-container': {
-      bg: `headerBg`,
+      bg: `headerActiveBg`,
       position: `fixed`,
+      boxShadow: `0 0 25px rgba(140,152,164,.25)`,
       transition: `all 250ms ease-in`,
       // overflow: `hidden`,
-      py: 3
+      py: [3, null, 2],
+      '.button-group-link.level-1, button-group-link.level-1:visited': {
+        color: `headerActiveColor`
+      }
     },
     '.nav-sticky .nav-container': {
       bg: `headerActiveBg`,
@@ -29,6 +33,7 @@ const styles = {
     },
     //Make buttons in header smaller
     '.button-group-button': {
+      
       minWidth: 120,
       fontSize: 1,
       px: 3,
@@ -120,6 +125,7 @@ const HeaderBlock01 = ({ content: { images, collection }, menuJustify }) => {
                                 content={buttons}
                                 variant='vertical'
                               />
+                             
                             </Box>
                           )
                       )}
