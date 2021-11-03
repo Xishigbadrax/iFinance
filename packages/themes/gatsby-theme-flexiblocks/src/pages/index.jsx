@@ -1,5 +1,5 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
+import React,{ Component } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import { graphql } from 'gatsby'
 import { Container } from 'theme-ui'
@@ -29,11 +29,13 @@ import { normalizeBlockContentNodes } from '@blocks-helpers'
 import theme from './_theme'
 import styles from './_styles'
 import Context from '../../../../context/Context';
-import { Button, Image, Modal } from 'antd';
+import { Button, Image, Modal, Alert } from 'antd';
 import "tailwindcss/tailwind.css"
 import logo from "./assets/logos.png";
-import { Form, Input, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, message } from 'antd';
+import "./style.css";
+import { UserOutlined, LockOutlined,PhoneOutlined,MailOutlined  } from '@ant-design/icons';
+import MaskedInput from 'antd-mask-input'
 
 
 const HomePage = props => {
@@ -42,96 +44,374 @@ const HomePage = props => {
   const content = normalizeBlockContentNodes(allBlockContent?.nodes)
 
   const [registerModal, setRegisterModal] = useState(false);
+  const [loginModal, setLoginModal] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
+  const [messageShow, setmessageShow] = useState(false);
+  const [text, settext] = useState('');
+  const [status, setstatus] = useState('');
+  const [title, settitle] = useState('');
+  const [deviceInfo, setDeviceInfo] = useState(null);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState('');
+  const [confirmCode, setConfirmCode] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(false);
+  const [userName, setUserName] = useState('');
 
-  
-    const onFinish = (values) => {
+
+useEffect(() => {
+  fetch("https://geolocation-db.com/json/297364b0-2bc6-11ec-a8a6-1fc54772a803")
+  .then( response => response.json())
+  .then( data => setDeviceInfo(data));
+},[]);
+
+  const success = () => {
+       message.success('Амжилттай нэвтэрлээ');
+  };
+
+
+  console.log(sessionId, "ideee")
+    const onFinishRegister = async (values) => {
       console.log('Received values of form: ', values);
+      setEmail(values.email);
+      setPassword(values.password);
+      var data = {
+        jsonrpc: 2.0,
+        
+        
+        params: {
+          db: "test",
+          name: values.name,
+          login: values.email,
+          password: values.password,
+          confirm_password: values.confirm_password,
+          phone_number: values.phone_number,
+          session_id: sessionId
+        }
+      }
+
+      const res = await axios.post('http://192.168.1.15/api/signup', data, {
+        headers: {
+          "Set-Cookie":"session_id="+sessionId,
+          "Content-Type": "application/json",
+        }
+      }
+      
+      )
+      // ,{headers:{"Set-Cookie":"session_id="+sessionId }});
+      
+      console.log(res,"sign up res");
+      if(res.data.result && res.data.result.msg){
+        setConfirmMessage(res.data.result.msg);
+        setConfirmModal(true);
+        setRegisterModal(false);
+      }
+      else if(res.data.error && res.data.error.data.message){
+            settitle("Алдлаа гарлаа");
+            settext(res.data.error.data.message);
+            setstatus("error");
+            setmessageShow(true);
+      }
+      else{
+        settitle("Алдлаа");
+        setConfirmMessage("Бүртгэхэд алдаа гарлаа");
+        setstatus("error");
+        setmessageShow(true);
+      }
+    };
+    const onFinishLogin = async (values) => {
+      console.log('Received values of form: ', values);
+      const res = await axios.post('http://192.168.1.15/api/login',{
+        jsonrpc: 2.0,
+        params: {
+          db: "test",
+          login: values.name,
+          password: values.password,
+          device: {
+            device_name: "Computer",
+            mac_address: [
+              deviceInfo.IPv4,
+              deviceInfo.country_name
+            ]
+        }
+        }
+      },{
+        headers: {
+          "Set-Cookie":"session_id="+sessionId,
+          "Content-Type": "application/json",
+        }
+      });
+      if(res.data.result && res.data.result){
+        setUserName(res.data.result.name);
+        message.success('Амжилттай нэвтэрлээ');
+        setIsLogin(true);
+        setLoginModal(false);
+      } else{
+        settitle("Алдлаа");
+        setConfirmMessage("Нэвтрэхэд алдаа гарлаа");
+        setstatus("error");
+        setmessageShow(true);
+      }
+      console.log(res,"login res");
+
     };
     const handleCancel = () => {
+      setRegisterModal(false);
+      setLoginModal(false);
+      setmessageShow(false);
+      setConfirmModal(false);
+    }
+    const handleCancelMessage = () => {
+   
+      setmessageShow(false);
+
+    }
+    
+    const handleOk = () => {
       setRegisterModal(false);
     }
     const onRegister = () => {
       setRegisterModal(true);
     }
+    const onConfirmEmail = async () => {
+      const res = await axios.post('http://192.168.1.15/api/signup/confirm',{
+        jsonrpc: 2.0,
+        params: {
+          code: confirmCode,
+          db: "test",
+          login: email,
+          password: password,
+          device: {
+            device_name: "Computer",
+            mac_address: [
+              deviceInfo.IPv4,
+              deviceInfo.country_name
+            ]
+        }
+        }
+      },{
+        headers: {
+          "Set-Cookie":"session_id="+sessionId,
+          "Content-Type": "application/json",
+        }
+      });
+      if(res.data.result && res.data.result){
+        setUserName(res.data.result.name);
+        setIsLogin(true);
+        setConfirmModal(false);
+        message.success('Амжилттай нэвтэрлээ');
 
-    <Modal
-      visible={registerModal}
-      title="Мэдээлэл"
-      onCancel={handleCancel}
-      footer={[]}
+      } else{
+        settitle("Алдлаа");
+        settext("Баталгаажуулхад алдаа гарлаа");
+        setstatus("error");
+        setmessageShow(true);
+      }
+
+      console.log(res,"confirm res");
+    }
+   
+    const onLogin = async () => {
+      setLoginModal(true);
+     
+    }
+    const onLogout = async () => {
+      setLoginModal(true);
+     
+    }
+    
+    // const network = require('network');
+    // network.get_active_interface(function(err, obj) {
+    //   console.log(obj.mac_address);
+    // })
+  return (
+   
+    <Layout theme={theme} {...props}>
+
+
+      <Modal
+        visible={messageShow}
+        title="Мэдээлэл"
+        onOk={handleOk}
+        onCancel={handleCancelMessage}
+        footer={[]}
       >
-      <div>
-      <Form
+        <Alert message={title} description={text} type={status} />
+      </Modal>
+      <Modal
+        visible={confirmModal}
+        title="Мэдээлэл"
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[]}
+      >
+         <div style={{display:"flex", justifyContent: "center", fontSize: "2.25rem", marginBottom: "10px"}}>
+           <div style={{marginRight: "5%", color: "#6366F1", fontWeight:"bold"}}>Бүртгэл</div>
+           <div style={{color:"#2D3748", fontWeight: "bold"}}>Баталгаажуулах</div>
+           </div>
+            <p>{confirmMessage}</p>   
+            <MaskedInput mask="1111" onChange={(e) =>setConfirmCode(e.target.value) } style={{marginBottom: "1rem"}} placeholder="Баталгаажуулах тоо" />
+            <div style={{textAlign: "center"}}> 
+            <Button onClick={onConfirmEmail} style={{width: "15rem", height: "3rem", backgroundColor:"#A855F7", fontSize: "16px", borderRadius: "15px", border: "none"}} type="primary">Баталгаажуулах</Button>
+            </div>
+      </Modal>
+      {/* Register modal */}
+
+       <Modal title="" visible={registerModal} onOk={handleOk} footer={[]} onCancel={handleCancel}>
+         <div style={{display:"flex", justifyContent: "center", fontSize: "2.25rem", marginBottom: "10px"}}>
+           <div style={{marginRight: "5%", color: "#6366F1", fontWeight:"bold"}}>Бүртгэл</div>
+           <div style={{color:"#2D3748", fontWeight: "bold"}}>Үүсгэх</div>
+         </div>
+       <Form
       name="normal_login"
       className="login-form"
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      onFinish={onFinishRegister}
     >
       <Form.Item
-        name="username"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
+        name="name"
+        rules={[{ required: true, message: 'Хэрэглэгийн нэрээ оруулна уу!' }]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input  style={{color: "#6366F1" , height: "4rem", fontSize: "50px", borderRadius: "0.5rem"}} prefix={<UserOutlined style={{fontSize: "24px"}} className="site-form-item-icon" />} placeholder="Хэрэглэгчийн нэр" />
+      </Form.Item>
+      <Form.Item
+     name="phone_number"
+     rules={[{ required: true, message: 'Утасны дугаараа оруулна уу!' }]}
+   >
+     <Input maxLength={8}  style={{color: "#6366F1", height: "4rem", fontSize: "18px", borderRadius: "0.5rem"}} prefix={<PhoneOutlined style={{fontSize: "24px"}} className="site-form-item-icon" />} placeholder="Утасны дугаар" />
+   </Form.Item>
+      <Form.Item
+        name="email"
+        rules={[{ required: true, message: 'И-Майл хаягаа оруулна уу!' }]}
+      >
+        <Input
+        style={{color: "#6366F1", height: "4rem", fontSize: "18px", borderRadius: "0.5rem"}}
+          prefix={<MailOutlined style={{fontSize: "24px"}} className="site-form-item-icon" />}
+          type="email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          placeholder="И-Майл хаяг"
+        />
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[{ required: true, message: 'Please input your Password!' }]}
+        rules={[{ required: true, message: 'Нууц үгээ оруулна уу!' }]}
       >
         <Input
-          prefix={<LockOutlined className="site-form-item-icon" />}
+        style={{color: "#6366F1", height: "4rem", fontSize: "18px", borderRadius: "0.5rem"}}
+          prefix={<LockOutlined style={{fontSize: "24px"}} className="site-form-item-icon" />}
           type="password"
-          placeholder="Password"
+          placeholder="Нууц үг"
         />
       </Form.Item>
-      <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <a className="login-form-forgot" href="">
-          Forgot password
-        </a>
+      <Form.Item
+        name="confirm_password"
+        rules={[{ required: true, message: 'Нууц үгээ оруулна уу!' }]}
+      >
+        <Input
+        style={{color: "#6366F1", height: "4rem", fontSize: "18px", borderRadius: "0.5rem"}}
+          prefix={<LockOutlined style={{fontSize: "24px"}} className="site-form-item-icon" />}
+          type="password"
+          placeholder="Нууц үг давтах"
+        />
       </Form.Item>
+   
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
+      <Form.Item >
+        <div>
+          <div style={{ textAlign: "center"}}>
+        <Button style={{width: "15rem", height: "3rem", backgroundColor:"#A855F7", fontSize: "16px", borderRadius: "15px", border: "none"}} type="primary"  htmlType="submit" className="login-form-button">
+          Бүртгүүлэх
         </Button>
-        Or <a href="">register now!</a>
+      </div>
+       
+         </div>
       </Form.Item>
     </Form>
-</div>
-</Modal>
-  
-  return (
-    
-    <Layout theme={theme} {...props}>
-      <ContextProvider>
+
+    {/* Login modal */}
+
+      </Modal>
+      <Modal title="" visible={loginModal} footer={[]} onCancel={handleCancel}>
+         <div style={{display:"flex", justifyContent: "center", fontSize: "2.25rem", marginBottom: "10px"}}>
+           <div style={{marginRight: "5%", color: "#6366F1", fontWeight:"bold"}}>Нэвтрэх</div>
+           
+         </div>
+       <Form
+      name="normal_login"
+      className="login-form"
+      initialValues={{ remember: true }}
+      onFinish={onFinishLogin}
+    >
+      <Form.Item
+        name="name"
+        rules={[{ required: true, message: 'Хэрэглэгийн нэрээ оруулна уу!' }]}
+      >
+        <Input  style={{color: "#718096" , height: "60px", fontSize: "50px", borderRadius: "0.5rem"}} prefix={<UserOutlined style={{fontSize: "24px"}} className="site-form-item-icon" />} placeholder="Хэрэглэгчийн нэр" />
+      </Form.Item>
+      
+      
+      <Form.Item
+        name="password"
+        rules={[{ required: true, message: 'Нууц үгээ оруулна уу!' }]}
+      >
+        <Input
+        style={{color: "#6366F1", height: "60px", fontSize: "18px", borderRadius: "0.5rem"}}
+          prefix={<LockOutlined style={{fontSize: "24px"}} className="site-form-item-icon" />}
+          type="password"
+          placeholder="Нууц үг"
+        />
+      </Form.Item>
+      
+   
+
+      <Form.Item >
+        <div>
+          <div style={{ textAlign: "center"}}>
+        <Button style={{width: "15rem", height: "3rem", backgroundColor:"#A855F7", fontSize: "16px", borderRadius: "15px", border: "none"}} type="primary"  htmlType="submit" className="login-form-button">
+          Нэвтрэх
+        </Button>
+      </div>
+       <div style={{marginTop: "0.5rem"}}>
+         <a href="">Нууц үг мартсан</a>
+         </div>
+         </div>
+      </Form.Item>
+    </Form>
+      </Modal>
+      <ContextProvider sessionId={setSessionId} >
       <Seo title='Home' />
       {/* Modals */}
       <ModalWithTabs content={content['authentication']} reverse />
       <ModalWithTabs content={content['contact']} />
       <ModalSimple content={content['advertisement']} />
       {/* Blocks */}
-      <div style={{ width: "100%",background: "white", display: "flex", justifyContent: "space-around", alignItems: "center", position: "fixed", zIndex:"100", paddingTop: "1%"}}>
+      <div style={{ width: "100%",background: "white", display: "flex", justifyContent: "space-around", alignItems: "center", position: "fixed", zIndex:"100"}}>
       {/* <Header content={content['header-light']} menuJustify='space-between' /> */}
         <div style={{ display:"flex", alignItems: "center", justifyContent: "space-around", width: "50%"}} >
           <div>
-            <Image alt="logo" preview={false} src={logo} />
+            <Image style={{marginTop: "5px"}} alt="logo" preview={false}  src={logo} />
             
           </div>
-          <div ><a style={{textDecoration: "none", color: "black"}} href="#hero">Эхлэл</a></div>
-          <div ><a style={{textDecoration: "none", color: "black"}} href="#pricing">Үнийн санал</a></div>
-          <div ><a style={{textDecoration: "none", color: "black"}} href="#tab-feature-one">Үйлчилгээ</a></div>
+          <div ><a style={{textDecoration: "none", color: "black", fontSize: "1.2rem"}} href="#hero">ЭХЛЭЛ</a></div>
+          <div ><a style={{textDecoration: "none", color: "black", fontSize: "1.2rem"}} href="#pricing">ҮНИЙН САНАЛ</a></div>
+          <div ><a style={{textDecoration: "none", color: "black", fontSize: "1.2rem"}} href="#tab-feature-one">ҮЙЛЧИЛГЭЭ</a></div>
         </div>
-        <div>
-          <Button onClick={onRegister} style={{cursor: "pointer", background: "#A855F7", border: "none", color: "white", fontSize: "14px", width:"5rem", height: "2.5rem", borderRadius: "16px", marginRight: "1rem"}} type="primary" >Нэвтрэх</Button>
+        <div style={{display: "flex", width: "12rem", justifyContent: "space-between", alignItems: "center"}}>
+          { isLogin == false ?
+          <>
+          <Button onClick={onLogin} style={{cursor: "pointer", background: "#A855F7", border: "none", color: "white", fontSize: "14px", width:"5rem", height: "2.5rem", borderRadius: "16px"}} type="primary" >Нэвтрэх</Button>
           <Button onClick={() => onRegister()} style={{cursor: "pointer", background: "#A855F7", border: "none", color: "white", fontSize: "14px", width:"6rem", height: "2.5rem", borderRadius: "16px"}} type="primary" >Бүртгүүлэх</Button>
-        </div>
+          </> : 
+          <>
+            <div style={{fontSize: "16px", fontWeight: "bold"}}> <UserOutlined /> {userName}</div>
+            <div><Button onClick={() => onLogout()} style={{cursor: "pointer", background: "#A855F7", border: "none", color: "white", fontSize: "14px", width:"6rem", height: "2.5rem", borderRadius: "16px"}} type="primary" >Гарах</Button></div>
+            </>
+          }</div>
       </div>
       <Divider space='5' />
       <Container variant='full' sx={styles.heroContainer}>
-        <Hero content={content['hero']} reverse />
+        <Hero click={setLoginModal} content={content['hero']} reverse />
       </Container>
       <Divider space='5' />
       <Divider space='5' />
@@ -186,9 +466,15 @@ const HomePage = props => {
       {/* <Blog content={content['latest-blogs']} /> */}
       <Divider space='5' />
       <Footer content={content['footer']} />
+
+      
       </ContextProvider>
+
+    
     </Layout>
    
+   
+
   )
 }
 
@@ -206,4 +492,3 @@ export const query = graphql`
   
 `
 export default HomePage
-
