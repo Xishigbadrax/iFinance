@@ -135,7 +135,7 @@ const ContentButton = ({ content, level = 1 }) => {
   const className = `level-${level}`
 
   if (!collection && !buttons)
-    return <ButtonComponent content={content} className={className} />
+    return <ButtonComponent content={content}  className={className} />
 
   const ButtonGroup = ({ buttons }) =>
     buttons.map((content, index) => (
@@ -162,6 +162,7 @@ const ContentButton = ({ content, level = 1 }) => {
         {collection ? (
           collection.map(({ container, buttons }, index) => (
             <ContentContainer
+            
               key={`item-${index}`}
               content={container}
               sx={styles.subContainerCollection}
@@ -183,6 +184,7 @@ const ContentButtons = ({ content, variant, wrapperStyles }) =>
       <Box sx={{ ...styles[variant], ...wrapperStyles }}>
         {content?.map((content, index) => (
           <ContentButton
+
             key={`item-${index}`}
             index={index}
             content={content}

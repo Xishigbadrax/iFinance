@@ -37,15 +37,7 @@
         "bg": "omegaLighter",
         "color": "omegaDark"
       },
-      "buttons": [
-        {
-          "text": "Худалдан авах",
-          "type": "MODAL",
-          "link": "authentication",
-          "variant": "primary",
-          "width": "100%"
-        }
-      ],
+     
       "collection": [
         {
           "text": [
@@ -118,15 +110,7 @@
         "bg": "beta",
         "color": "white"
       },
-      "buttons": [
-        {
-          "text": "Худалдан авах",
-          "type": "MODAL",
-          "link": "authentication",
-          "variant": "secondary",
-          "width": "100%"
-        }
-      ],
+     
       "collection": [
         {
           "text": [
@@ -201,16 +185,7 @@
         "bg": "omegaLighter",
         "color": "omegaDark"
       },
-      "buttons": [
-        {
-          "text": "Худалдан авах",
-          "type": "MODAL",
-          "link": "authentication",
-          "variant": "primary",
-          "width": "100%",
-          "target": "disable"
-        }
-      ],
+     
       "collection": [
         {
           "text": [

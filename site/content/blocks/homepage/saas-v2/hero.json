@@ -24,13 +24,5 @@
       "shadow": "default",
       "effects": ["fadeInDown"]
     }
-  ],
-  "buttons": [
-    {
-      "text": "Үргэлжлүүлэх",
-      "type": "MODAL",
-      "link": "authentication",
-      "variant": "white"
-    }
   ]
 }

@@ -4,26 +4,44 @@ import Auth from '../utils/auth';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 const Context = createContext();
-export const ContextProvider = ({children}) => {
-
+export const ContextProvider = ({children, sessionId}) => {
+  
+  const [test, setTest] = useState("test");
 const setMenuAndPermissions = async () => { 
-    const res = await axios.post('https://test.ifinance.mn/web/session/authenticate',{
-        jsonrpc: 2.0,
-        params: {
-          db: "test_api",
-          login: "admin",
-          password: "8v46-t5bf-4k4w"
+ 
+    //  axios.post('http://192.168.1.15/web/session/authenticate',{
+    //     jsonrpc: 2.0,
+    //     params: {
+    //       db: "test_api",
+    //       login: "admin",
+    //       password: "a"
+    //     }
+    //   }).then(response => {
+      
+      // const requestOptions = {
+      //   method: 'POST',
+      //   body: JSON.stringify({ title: 'React POST Request Example' })
+      // };
+      // fetch('https://reqres.in/api/posts', requestOptions)
+      //     .then(response => response.json())
+      //     .then(data => this.setState({ postId: data.id }));
+          
+
+        axios.post('http://192.168.1.15/api/get/session',{
+          jsonrpc: 2.0,
+          params: {
+            db: "test",
+            login: "admin",
+            password: "a",
+            type: "api"
+          }
         }
-      });
-      
-      console.log(res,"ehnii resss");
-      
-      // console.log(accessToken, "tokkkeee");
-      // const accessToken = Cookies.get('session_id');
-      
-      // const user = jwtDecode(accessToken);
-      // console.log(accessToken, "aaaaa");
-    // console.log("testliii")
+        ).then(res => {
+          console.log("KXSDEOL", res)
+          sessionId(res.data.result)
+        })
+      // }
+      // );
 
   };
   useEffect(() => {
@@ -33,6 +51,8 @@ const setMenuAndPermissions = async () => {
     <Context.Provider
       value={{
         setMenuAndPermissions,
+        sessionId,
+        test,
       }}
     >
       {children}
