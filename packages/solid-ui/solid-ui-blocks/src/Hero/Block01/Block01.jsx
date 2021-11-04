@@ -7,8 +7,10 @@ import ContentImages from '@solid-ui-components/ContentImages'
 import QuickSignupForm from '@solid-ui-components/QuickSignupForm'
 import ContentButtons from '@solid-ui-components/ContentButtons'
 import WithDefaultContent from '@solid-ui-blocks/WithDefaultContent'
+import { Button } from "antd"
+import "./style.css"
 
-const HeroBlock01 = ({
+const HeroBlock01 = ({ click,
   content: { text = [], images, buttons, form },
   reverse
 }) => (
@@ -48,12 +50,14 @@ const HeroBlock01 = ({
         <Reveal effect='fadeInDown'>
           <ContentText content={text} />
         </Reveal>
-        {buttons && (
+        <Button className="button"  style={{background: "white", color: "#6366F1", border: "none", borderRadius: "16px", fontSize: "16px", width: "204px", height:"50px" , boxSizing: "border-box"}} type="primary" >Үргэлжлүүлэх</Button>
+        {/* {buttons && (
           <Reveal
             effect='fadeInRight'
             delay={1}
             css={css({ mb: [4, null, null, 0] })}
           >
+
             {buttons && (
               <>
                 <Divider space={3} />
@@ -61,7 +65,7 @@ const HeroBlock01 = ({
               </>
             )}
           </Reveal>
-        )}
+        )} */}
         {form && (
           <Reveal
             effect='fadeInRight'

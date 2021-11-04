@@ -5,3 +5,7 @@
     color: "#edf2f7" !important;
 
 }
+.log:hover {
+ 
+    transform: scale(1.1);
+  }

@@ -9,6 +9,7 @@ import Icon from '@solid-ui-components/ContentIcon'
 import ContentContainer from '@solid-ui-components/ContentContainer'
 import ContentButtons from '@solid-ui-components/ContentButtons'
 import WithDefaultContent from '@solid-ui-blocks/WithDefaultContent'
+import { Button } from "antd"
 
 const styles = {
   middleBox: {
@@ -128,12 +129,15 @@ const PricingBlock02 = ({ content: { text, collection, buttons } }) => {
                         ))}
                       </>
                     )}
-                    {buttons && (
+                    <div style={{textAlign: "center"}}>
+                    <Button style={{borderRadius: "16px", background: "#A855F7", border: "none" }} block type="primary" >Худалдан авах</Button>
+                    </div>
+                    {/* {buttons && (
                       <>
                         <Divider space={3} />
                         <ContentButtons content={buttons} />
                       </>
-                    )}
+                    )} */}
                   </ContentContainer>
                 </Reveal>
               </Box>

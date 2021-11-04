@@ -36,7 +36,16 @@
         "src": "../../../assets/flexiblocks/icons/bx-dice-1.svg",
         "bg": "omegaLighter",
         "color": "omegaDark"
-      },
+      },  
+      "buttons": [
+        {
+          "text": "Худалдан авах",
+          "type": "MODAL",
+          "link": "authentication",
+          "variant": "primary",
+          "width": "100%"
+        }
+      ],
      
       "collection": [
         {
@@ -110,6 +119,15 @@
         "bg": "beta",
         "color": "white"
       },
+      "buttons": [
+        {
+          "text": "Худалдан авах",
+          "type": "MODAL",
+          "link": "authentication",
+          "variant": "secondary",
+          "width": "100%"
+        }
+      ],
      
       "collection": [
         {
@@ -185,6 +203,15 @@
         "bg": "omegaLighter",
         "color": "omegaDark"
       },
+      "buttons": [
+        {
+          "text": "Худалдан авах",
+          "type": "MODAL",
+          "link": "authentication",
+          "variant": "primary",
+          "width": "100%"
+        }
+      ],
      
       "collection": [
         {

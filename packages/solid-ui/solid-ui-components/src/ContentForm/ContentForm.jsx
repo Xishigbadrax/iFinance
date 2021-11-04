@@ -88,7 +88,7 @@ const ContentForm = ({ id, form: { action, fields, buttons } = {} }) => {
       <input onChange={(e) => onChangeName(e.target.value)} placeholder="password" />
       <input onChange={(e) => onChangeName(e.target.value)} placeholder="password dawtah" /> */}
       <Input placeholder="odoo" />
-      <Button type="primary"  >alii</Button>
+   
     </div>
     // <form
     //   css={css(styles.form)}
