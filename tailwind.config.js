@@ -1,13 +1,21 @@
+
 module.exports = {
-  purge: [
-    './packages/themes/gatsby-theme-flexiblocks/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'
-  ],
+  // prefix: "tw-",
+  important: true,
+  mode: 'jit',
+  purge: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        navbarColor: '#0013D4',
+      },
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
-}
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
+};
