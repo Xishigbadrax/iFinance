@@ -327,7 +327,8 @@ a {
   font-weight: 600;
 }
 .module .ant-tabs-tab{
-  width: 370px !important;
+  width: 23.438rem !important;
+  height: 81px;
 }
 
 .module .ant-tabs-content-holder{
@@ -342,10 +343,12 @@ a {
 
 
  .module  .ant-tabs-tab-active{
-  background-color: green !important;
+  background: linear-gradient(to right, rgba(86, 80, 235,1), rgba(86, 80, 235,0.3));
   color: #fff !important;
 }
 
-.module .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+
+
+.mainTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color: white !important;
 }
