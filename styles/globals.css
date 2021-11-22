@@ -326,3 +326,26 @@ a {
   font-size: 24px;
   font-weight: 600;
 }
+.module .ant-tabs-tab{
+  width: 370px !important;
+}
+
+.module .ant-tabs-content-holder{
+  margin-left: 30px !important;
+}
+
+.module .ant-tabs-tab-btn{
+  color: #2F3747;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+
+ .module  .ant-tabs-tab-active{
+  background-color: green !important;
+  color: #fff !important;
+}
+
+.module .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color: white !important;
+}

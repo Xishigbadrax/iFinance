@@ -4,7 +4,7 @@ import { Image, Divider } from "antd";
 const Footer = () => {
   return (
     <div className="w-full bg-yellow-50 h-[21.188rem] mt-[11.813rem]">
-      <div className=" w-full h-[5.563rem] bg-[#2E28D4] flex justify-center items-center">
+      <div className=" w-full h-[5.563rem] bg-gradient-to-r from-[#473EDA] to-[#B33DFD] flex justify-center items-center">
         <div className=" flex  justify-around w-[70%]">
           <div className=" flex items-center">
             <div className="flex items-center mr-2">
@@ -31,7 +31,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className=" w-full h-[15.625rem] bg-[#011F70] flex flex-col justify-center items-center">
+      <div className=" w-full h-[15.625rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] flex flex-col justify-center items-center">
         <div className=" mb-3">
           <Image preview={false} src="/img/logo2.svg" />
         </div>
