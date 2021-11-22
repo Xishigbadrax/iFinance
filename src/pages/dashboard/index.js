@@ -6,11 +6,11 @@ import { Image, Collapse, Button } from "antd";
 import axios from "axios";
 import Context from "../../context/Context";
 import Footer from "../../components/Footer";
-import back from "../../../public/img/Slider.svg";
+import {useRouter} from 'next/router';
 
 const Dashboard = () => {
   const { Panel } = Collapse;
-
+  const router = useRouter();
   const [sid, setSid] = useState();
   const [list, setList] = useState([]);
   const [serverType, setServerType] = useState([]);
@@ -57,24 +57,14 @@ const Dashboard = () => {
     // console.log(res, "listtttt");
   }, []);
 
-  const onCategory = async (id) => {
-    const res = await axios.post(
-      "http://192.168.1.15/api/get/product_list_by_category",
-      {
-        jsonrpc: 2.0,
-        params: {
-          category_id: id,
+  const onCategory =  (id) => {
+    id &&
+      router.push({
+        pathname: `dashboard/${id}`,
+        query: {
+          id: id,
         },
-      },
-
-      {
-        headers: {
-          "Set-Cookie": "session_id=" + sid,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(res, "za harii");
+      });
   };
   console.log(list, "odooo");
 

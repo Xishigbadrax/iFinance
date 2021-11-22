@@ -12,7 +12,7 @@ export const ContextProvider = ({children}) => {
 const setMenuAndPermissions = async () => { 
  
 
-        axios.post('http://192.168.1.15/api/get/session',{
+        axios.post('http://192.168.1.12/api/get/session',{
           jsonrpc: 2.0,
           params: {
             db: "test_open_api_v10",

@@ -35,6 +35,7 @@ import auth_cookie from "../../utils/auth";
 import Countdown, { zeroPad } from "react-countdown";
 import Auth from "../../utils/auth";
 import Router from "next/router";
+import newhead from "../../../public/img/newhead.svg";
 
 const Navbar = (props) => {
   const [loginModal, setLoginModal] = useState(false);
@@ -68,7 +69,6 @@ const Navbar = (props) => {
 
   var db = "test_open_api_v10";
 
- 
   console.log(userSid, "sidddddd");
 
   // mobile bolhod ashiglagdaj bgaa state-uud
@@ -334,7 +334,10 @@ const Navbar = (props) => {
   );
 
   return (
-    <div className="w-full h-[100px]  flex justify-center">
+    <div className="w-full h-[100px] relative flex justify-center">
+      <div className=" w-full absolute z-[-1]">
+        <Image src="/img/back.png" className=" h-[100px]  w-full" />
+      </div>
       {shadowModal ? (
         <div onClick={onShadowBox} className="shadowBox"></div>
       ) : null}
@@ -1521,9 +1524,9 @@ const Navbar = (props) => {
         </div>
       </Modal>
 
-      <div className="  flex justify-around  w-[75rem] items-center ">
+      <div className=" flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
-          <Image preview={false} src="/img/logo.png" alt="logo" />
+          <Image preview={false} src="/img/logo2.svg" alt="logo" />
         </div>
         {sideBarActive ? (
           <div className=" lg:hidden">
@@ -1549,24 +1552,24 @@ const Navbar = (props) => {
           <div>
             <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
               <li className=" text-lg ">
-                <Link  href="/">
-                  <a  className=" pointer-events-none text-[#2F3747] font-semibold">Эхлэл</a>
+                <Link href="/">
+                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Эхлэл</a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" pointer-events-none  text-[#2F3747] font-semibold">Бүтээгдэхүүн</a>
+                  <a className=" opacity-50  pointer-events-none text-white font-semibold">Бүтээгдэхүүн</a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className=" pointer-events-none text-[#2F3747] font-semibold">Үнийн санал</a>
+                  <a className=" opacity-50  pointer-events-none text-white font-semibold">Үнийн санал</a>
                 </Link>
               </li>
 
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" pointer-events-none text-[#2F3747] font-semibold">Холбоо барих</a>
+                  <a className=" opacity-50  pointer-events-none text-white font-semibold">Холбоо барих</a>
                 </Link>
               </li>
             </ul>
@@ -1577,20 +1580,20 @@ const Navbar = (props) => {
               <div className="  lg:w-80 lg:flex lg:justify-between lg:mt-2">
                 <div className=" h-[48px]">
                   <Button
+                  disabled
                     onClick={Signup}
-                    className=" mr-5 h-[48px] w-[145px] rounded-[43px] bg-white text-[#AC27FD] text-[14px] font-bold border-[#AC27FD]"
+                    className=" mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px] font-bold border-white"
                     type="primary"
-                    disabled
                   >
                     Бүртгүүлэх
                   </Button>
                 </div>
                 <div>
                   <Button
-                    className=" h-[48px] w-[145px] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] border-none text-[white] text-[14px] font-bold"
+                  disabled
+                    className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
                     onClick={Login}
                     type="primary"
-                    disabled
                   >
                     Нэвтрэх
                   </Button>
