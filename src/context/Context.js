@@ -3,7 +3,11 @@ import axios from 'axios';
 const Context = createContext();
 export const ContextProvider = ({children}) => {
     const [sessionId, setSessionId] = useState();
+    const [sid, setSid] = useState();
   
+    const onSid = (value) => {
+        setSid(value);
+    }
 
 const setMenuAndPermissions = async () => { 
  
@@ -11,7 +15,7 @@ const setMenuAndPermissions = async () => {
         axios.post('http://192.168.1.15/api/get/session',{
           jsonrpc: 2.0,
           params: {
-            db: "test_fibo",
+            db: "test_open_api_v10",
             login: "",
             password: "",
             type: "api"
@@ -33,7 +37,8 @@ const setMenuAndPermissions = async () => {
       value={{
         setMenuAndPermissions,
         sessionId,
-     
+        onSid,
+        sid
       }}
     >
       {children}

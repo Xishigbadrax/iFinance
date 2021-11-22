@@ -17,7 +17,12 @@ import {
   UserOutlined,
   WarningOutlined,
   PhoneOutlined,
+  ShopOutlined,
+  ShoppingCartOutlined,
   MailOutlined,
+  EditOutlined,
+  SettingOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useState, useContext, useEffect } from "react";
@@ -29,12 +34,13 @@ import ReactCodeInput from "react-verification-code-input";
 import auth_cookie from "../../utils/auth";
 import Countdown, { zeroPad } from "react-countdown";
 import Auth from "../../utils/auth";
-import Cookies from "js-cookie";
+import Router from "next/router";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [loginModal, setLoginModal] = useState(false);
 
   const { sessionId } = useContext(Context);
+  const { onSid } = useContext(Context);
   const [addclass, setaddclass] = useState("");
   const [messageShow, setmessageShow] = useState(false);
   const [text, settext] = useState("");
@@ -55,10 +61,15 @@ const Navbar = () => {
   const [forgotPassConfirm, setForgotPassConfirm] = useState(false);
   const [forgotConfirmCode, setForgotConfirmCode] = useState("");
 
-  console.log(Auth.loggedIn(), "token status");
-  console.log(Auth.getToken(), "tokenii utga");
+  // console.log(Auth.loggedIn(), "token status");
+  // console.log(Auth.getToken(), "tokenii utga");
 
   // Auth.destroyToken();
+
+  var db = "test_open_api_v10";
+
+ 
+  console.log(userSid, "sidddddd");
 
   // mobile bolhod ashiglagdaj bgaa state-uud
   const [sideBarActive, setSideBarActive] = useState(false);
@@ -87,6 +98,7 @@ const Navbar = () => {
     setaddclass("");
     setLoginModal(true);
   };
+
   const onShadowBox = () => {
     setSideBarActive(false);
     setShadowModal(false);
@@ -130,11 +142,13 @@ const Navbar = () => {
         },
       }
     );
+
     if (res.data.error && res.data.error) {
       setIsLogin(false);
       message.success("Амжилттай систэмээс гарлаа");
       Auth.destroyToken();
-      window.location.reload(false);
+      // window.location.reload(false);
+      Router.push("/");
     }
 
     console.log(res, "logout res");
@@ -150,7 +164,7 @@ const Navbar = () => {
         jsonrpc: 2.0,
         params: {
           code: confirmCode,
-          db: "test_fibo",
+          db: db,
           login: email,
           password: password,
           device: {
@@ -170,6 +184,7 @@ const Navbar = () => {
       setUserName(res.data.result.erp_info);
       setUserSid(res.data.result.sid);
       setIsLogin(true);
+      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info);
       console.log(res, "last res");
       setConfirmModal(false);
       message.success("Амжилттай нэвтэрлээ");
@@ -191,7 +206,7 @@ const Navbar = () => {
       jsonrpc: 2.0,
 
       params: {
-        db: "test_fibo",
+        db: db,
         name: values.name,
         login: values.email,
         password: values.password,
@@ -211,6 +226,7 @@ const Navbar = () => {
     console.log(res, "sign up res");
     if (res.data.result && res.data.result.msg) {
       setConfirmMessage(res.data.result.msg);
+      setaddclass("right-panel-active");
       setConfirmModal(true);
       setMobileSignUp(false);
       setLoginModal(false);
@@ -234,7 +250,7 @@ const Navbar = () => {
       {
         jsonrpc: 2.0,
         params: {
-          db: "test_fibo",
+          db: db,
           login: values.name,
           password: values.password,
           device: {
@@ -252,15 +268,19 @@ const Navbar = () => {
     );
     if (res.data.result && res.data.result) {
       setUserName(res.data.result.erp_info);
-      auth_cookie.setToken(res.data.result.sid);
+      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info);
+
       message.success("Амжилттай нэвтэрлээ");
       setUserSid(res.data.result.sid);
+      // props.sido(res.data.result.sid);
+
       setIsLogin(true);
       setLoginModal(false);
       setMobileLogin(false);
     } else {
       settitle("Алдлаа");
       setConfirmMessage("Нэвтрэхэд алдаа гарлаа");
+      settext(res.data.error.data.message);
       setstatus("error");
       setmessageShow(true);
     }
@@ -278,16 +298,37 @@ const Navbar = () => {
 
   const menu = (
     <Menu className="profileDropdownPopup">
-      <Menu.Item key="0">
-        <a href="/dashboard">Худалдан авах хэсэг</a>
+      <Menu.Item className="order" key="0">
+        <ShopOutlined className="text-[20px]" />
+        <a className="pl-1" href="/dashboard">
+          Миний захиалга
+        </a>
+      </Menu.Item>
+
+      <Menu.Item className="order2" key="1">
+        <ShoppingCartOutlined className="text-[20px]" />
+        <a className="pl-1" href="/">
+          Миний сагс
+        </a>
+      </Menu.Item>
+      <Menu.Item className="order2" key="2">
+        <EditOutlined className="text-[20px]" />
+        <a className="pl-1" href="/">
+          Миний мэдээлэл
+        </a>
+      </Menu.Item>
+      <Menu.Item className="order2" key="3">
+        <SettingOutlined className="text-[20px]" />
+        <a className="pl-1" href="/">
+          Тохиргоо
+        </a>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="1">
-        <a href="/information">Хувийн мэдээлэл</a>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="2">
-        <a onClick={Logout}>Гарах</a>
+      <Menu.Item className="order3" key="4">
+        <LogoutOutlined className="text-[20px]" />
+        <a className="pl-1" onClick={Logout}>
+          Гарах
+        </a>
       </Menu.Item>
     </Menu>
   );
@@ -1295,6 +1336,191 @@ const Navbar = () => {
         </div>
       </Modal>
 
+      {/* signup comfirm email modal */}
+
+      <Modal
+        centered={true}
+        width={"60.25rem"}
+        className="login2"
+        footer={[]}
+        visible={confirmModal}
+        onCancel={handleCancel}
+      >
+        <div className={`container ${addclass}`} id="container">
+          <div className="form-container sign-up-container">
+            <Image
+              className="pt-[3rem] pl-[3rem] "
+              preview={false}
+              src="/img/logo.png"
+            />
+
+            <Form
+              name="normal_login3"
+              className="form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onConfirmEmail}
+            >
+              <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-10">
+                Баталгаажуулах
+              </p>
+              <p className="text-[#2E28D4]">
+                Таны и-мэйл хаяганд ирсэн дөрвөн оронтой кодыг оруулна уу!
+              </p>
+
+              <Form.Item
+                name="confirmCode"
+                rules={[
+                  {
+                    required: true,
+                    message: "Баталгаажуулах кодоо оруулна уу!",
+                  },
+                ]}
+              >
+                <Space>
+                  <ReactCodeInput
+                    onChange={(e) => setConfirmCode(e)}
+                    className="confirmInput"
+                    fields={4}
+                  />
+                </Space>
+              </Form.Item>
+              <div className=" w-full flex justify-center">
+                <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
+                  <div className="text-[#F01A63]">
+                    <Countdown renderer={renderer} date={Date.now() + 180000} />
+                  </div>
+                </div>
+              </div>
+              <div className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-pointer">
+                Дахин илгээх
+              </div>
+              <Form.Item>
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Илгээх
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+
+          {/* Login form */}
+
+          <div className="form-container sign-in-container">
+            <Image
+              className="pt-[3rem] pl-[3rem]"
+              preview={false}
+              src="/img/logo.png"
+            />
+
+            <Form
+              name="normal_login4"
+              className="form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinishLogin}
+            >
+              <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-20">
+                Нэвтрэх
+              </p>
+              <Form.Item
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Хэрэглэгчийн нэрээ оруулна уу!",
+                  },
+                ]}
+              >
+                <Input
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  placeholder="Нэвтрэх нэр*"
+                />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Нууц үгээ оруулна уу!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  type="password"
+                  placeholder="Нууц үг*"
+                />
+              </Form.Item>
+              <Form.Item>
+                <div className=" flex justify-between w-full pl-[2rem] pr-[2rem] ">
+                  <div>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                      <Checkbox>Намайг сана</Checkbox>
+                    </Form.Item>
+                  </div>
+                  <div
+                    onClick={onForgotPass}
+                    className=" text-[#2E28D4] cursor-pointer"
+                  >
+                    Нууц үгээ мартсан?
+                  </div>
+                </div>
+              </Form.Item>
+
+              <Form.Item>
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px]"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Нэвтрэх
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+          <div className="overlay-container">
+            <div className="overlay">
+              <div className="overlay-panel overlay-left">
+                <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
+                <p className=" text-[1.125rem]">
+                  Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
+                </p>
+                <Image preview={false} src="/img/login.png" />
+
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-transparent border-[#fff] bg-opacity-50 rounded-[43px] mt-[2rem]"
+                  onClick={() => setaddclass("")}
+                  type="primary"
+                >
+                  Нэвтрэх
+                </Button>
+              </div>
+              <div className="overlay-panel overlay-right">
+                <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
+                <p className=" text-[1.125rem]">
+                  Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
+                </p>
+                <Image preview={false} src="/img/login.png" />
+
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-transparent border-[#fff] bg-opacity-50 rounded-[43px] mt-[2rem]"
+                  onClick={() => setaddclass("right-panel-active")}
+                  type="primary"
+                >
+                  Баталгаажуулах
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
       <div className="  flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
           <Image preview={false} src="/img/logo.png" alt="logo" />
@@ -1323,77 +1549,74 @@ const Navbar = () => {
           <div>
             <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
               <li className=" text-lg ">
-                <Link href="/">
-                  <a className=" text-[#2F3747] font-semibold">Эхлэл</a>
+                <Link  href="/">
+                  <a  className=" pointer-events-none text-[#2F3747] font-semibold">Эхлэл</a>
                 </Link>
               </li>
               <li className=" text-lg">
-                <Link href="/">
-                  <a className=" text-[#2F3747] font-semibold">Үнийн санал</a>
+                <Link href="/dashboard">
+                  <a className=" pointer-events-none  text-[#2F3747] font-semibold">Бүтээгдэхүүн</a>
                 </Link>
               </li>
               <li className=" text-lg">
-                <Link href="/">
-                  <a className=" text-[#2F3747] font-semibold">Үйлчилгээ</a>
+                <Link href="/pricing">
+                  <a className=" pointer-events-none text-[#2F3747] font-semibold">Үнийн санал</a>
                 </Link>
               </li>
+
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" text-[#2F3747] font-semibold">Холбоо барих</a>
+                  <a className=" pointer-events-none text-[#2F3747] font-semibold">Холбоо барих</a>
                 </Link>
               </li>
             </ul>
           </div>
-          
-          {
-          
-          
-          (Auth.getToken() == null || Auth.getToken() == undefined) ? (
+
+          {Auth.getToken() == null || Auth.getToken() == undefined ? (
             <>
-            <div className="  lg:w-80 lg:flex lg:justify-between lg:mt-2">
-              <div className=" h-[48px]">
-                <Button
-                  onClick={Signup}
-                  className=" mr-5 h-[48px] w-[145px] rounded-[43px] bg-white text-[#AC27FD] text-[14px] font-bold border-[#AC27FD]"
-                  type="primary"
-                >
-                  Бүртгүүлэх
-                </Button>
+              <div className="  lg:w-80 lg:flex lg:justify-between lg:mt-2">
+                <div className=" h-[48px]">
+                  <Button
+                    onClick={Signup}
+                    className=" mr-5 h-[48px] w-[145px] rounded-[43px] bg-white text-[#AC27FD] text-[14px] font-bold border-[#AC27FD]"
+                    type="primary"
+                    disabled
+                  >
+                    Бүртгүүлэх
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    className=" h-[48px] w-[145px] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] border-none text-[white] text-[14px] font-bold"
+                    onClick={Login}
+                    type="primary"
+                    disabled
+                  >
+                    Нэвтрэх
+                  </Button>
+                </div>
               </div>
-              <div>
-                <Button
-                  className=" h-[48px] w-[145px] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] border-none text-[white] text-[14px] font-bold"
-                  onClick={Login}
-                  type="primary"
-                >
-                  Нэвтрэх
-                </Button>
-              </div>
-            </div>
             </>
           ) : (
             <>
-            <div className=" cursor-pointer  ">
-              <Dropdown
-                placement="bottomRight"
-                overlay={menu}
-                trigger={["click"]}
-              >
-                {/* bg-gradient-to-r from-[#AC27FD] to-[#2E28D4]   
-                style={{ display: "flex", alignItems: "center", width: "12.5rem", height: "3.75rem", justifyContent: "center", borderRadius: "60px", backgroundColor: "red"}} 
-                className=" flex items-center w-[12.5rem] h-[3.75rem]   justify-center rounded-[60px]"
-                */}
-                <div className="flex bg-gradient-to-r from-[#AC27FD] to-[#2E28D4]">
+              <div className=" cursor-pointer box-border">
+                <Dropdown
+                  placement="bottomRight"
+                  overlay={menu}
+                  trigger={["click"]}
+                >
                   <div>
-                    <UserOutlined className="text-[20px] text-black" />
+                    <div className=" flex cursor-pointer box-border items-center w-[12.5rem] h-[3.75rem]   justify-center rounded-[60px] bg-gradient-to-r from-[#AC27FD] to-[#2E28D4]">
+                      <div>
+                        <UserOutlined className="text-[20px] text-white" />
+                      </div>
+                      <div className="text-[14px] text-white font-semibold ml-1 pt-1 font-sans">
+                        {Auth.getName()}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-[14px] text-black font-semibold ml-1 pt-1 font-sans">
-                    {/* {userName} */}
-                    Khishigbadrakh
-                  </div>
-                </div>
-              </Dropdown>
-            </div>
+                </Dropdown>
+              </div>
             </>
           )}
         </div>
@@ -1406,7 +1629,7 @@ const Navbar = () => {
       >
         <Alert message={title} description={text} type={status} />
       </Modal>
-      <Modal
+      {/* <Modal
         visible={confirmModal}
         title="Мэдээлэл"
         onCancel={handleCancel}
@@ -1445,7 +1668,7 @@ const Navbar = () => {
             Баталгаажуулах
           </Button>
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };
