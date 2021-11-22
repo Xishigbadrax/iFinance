@@ -335,8 +335,8 @@ const Navbar = (props) => {
 
   return (
     <div className="w-full h-[100px] relative flex justify-center">
-      <div className=" w-full absolute z-[-1]">
-        <Image src="/img/back.png" className=" h-[100px]  w-full" />
+      <div className=" w-[100vw] absolute z-[-1]">
+        <Image src="/img/back.png" className=" h-[100px] w-[100vw]" />
       </div>
       {shadowModal ? (
         <div onClick={onShadowBox} className="shadowBox"></div>
@@ -1524,7 +1524,7 @@ const Navbar = (props) => {
         </div>
       </Modal>
 
-      <div className=" flex justify-around  w-[75rem] items-center ">
+      <div className="  flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
           <Image preview={false} src="/img/logo2.svg" alt="logo" />
         </div>
@@ -1553,23 +1553,23 @@ const Navbar = (props) => {
             <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
               <li className=" text-lg ">
                 <Link href="/">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Эхлэл</a>
+                  <a className=" text-white font-semibold">Эхлэл</a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" opacity-50  pointer-events-none text-white font-semibold">Бүтээгдэхүүн</a>
+                  <a className=" text-white font-semibold">Бүтээгдэхүүн</a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className=" opacity-50  pointer-events-none text-white font-semibold">Үнийн санал</a>
+                  <a className=" text-white font-semibold">Үнийн санал</a>
                 </Link>
               </li>
 
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" opacity-50  pointer-events-none text-white font-semibold">Холбоо барих</a>
+                  <a className=" text-white font-semibold">Холбоо барих</a>
                 </Link>
               </li>
             </ul>
@@ -1580,7 +1580,6 @@ const Navbar = (props) => {
               <div className="  lg:w-80 lg:flex lg:justify-between lg:mt-2">
                 <div className=" h-[48px]">
                   <Button
-                  disabled
                     onClick={Signup}
                     className=" mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px] font-bold border-white"
                     type="primary"
@@ -1590,7 +1589,6 @@ const Navbar = (props) => {
                 </div>
                 <div>
                   <Button
-                  disabled
                     className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
                     onClick={Login}
                     type="primary"

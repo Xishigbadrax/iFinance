@@ -23,7 +23,7 @@ const Dashboard = () => {
     //   : null;
 
     const res = await axios.post(
-      "http://192.168.1.15/api/get/category_list",
+      "http://192.168.1.12/api/get/category_list",
       {
         jsonrpc: 2.0,
         params: {},

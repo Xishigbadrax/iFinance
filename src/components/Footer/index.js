@@ -3,18 +3,18 @@ import { Image, Divider } from "antd";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-yellow-50 h-[21.188rem] mt-[11.813rem]">
+    <div className="w-full   h-[21.188rem] mt-[11.813rem] mb-0">
       <div className=" w-full h-[5.563rem] bg-gradient-to-r from-[#473EDA] to-[#B33DFD] flex justify-center items-center">
         <div className=" flex  justify-around w-[70%]">
           <div className=" flex items-center">
             <div className="flex items-center mr-2">
-              <Image src="/img/call.png" />
+              <Image preview={false} src="/img/call.png" />
             </div>
             <div className=" text-white text-[16px]">Утас: 976 89977771</div>
           </div>
           <div className=" flex items-center mr-2">
             <div className="flex items-center mr-2">
-              <Image src="/img/mail.png" />
+              <Image preview={false} src="/img/mail.png" />
             </div>
             <div className=" text-white  w-[110px]">
               Имэйл хаяг: info@ifinance.mn
@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
           <div className=" flex items-center mr-2">
             <div className="flex items-center mr-2">
-              <Image src="/img/address.png" />
+              <Image preview={false} src="/img/address.png" />
             </div>
             <div className=" text-white w-[250px]">
               Хаяг: Реженси Ресидэнс, 16 Олимпын гудамж, 14220, Улаанбаатар хот,
@@ -32,7 +32,7 @@ const Footer = () => {
         </div>
       </div>
       <div className=" w-full h-[15.625rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] flex flex-col justify-center items-center">
-        <div className=" mb-3">
+        <div className="">
           <Image preview={false} src="/img/logo2.svg" />
         </div>
         <div className="  w-[600px]">

@@ -6,7 +6,7 @@ import axios from "axios";
 import Context from "../../context/Context";
 import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer";
-import { Tabs } from "antd";
+import { Tabs, Image } from "antd";
 
 const CategoryId = () => {
   const router = useRouter();
@@ -47,10 +47,12 @@ const CategoryId = () => {
       <Navbar />
       <div className=" pl-[375px]">
         <Tabs defaultActiveKey="1">
-          <TabPane tab="Үндсэн модуль" key="1">
-            <div className=" ">
-              <div className="bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] w-[370px] h-[48px] flex items-center  rounded-t-lg">
-                <p className=" pl-[24px] text-[18px] pt-[12px] text-white ">Ангилал</p>
+          <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
+            <div className=" mt-[80px]">
+              <div className="bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] w-[375px] h-[48px] flex items-center  rounded-t-lg ">
+                <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
+                  Ангилал
+                </p>
               </div>
               <Tabs className="module" tabPosition="left">
                 {mainProduct &&
@@ -61,7 +63,10 @@ const CategoryId = () => {
                         tab={item.product_name}
                         key={index}
                       >
-                        <div className="">{item.product_description}</div>
+                        <div className="">
+                          <p> {item.product_description} </p>
+                          <div></div>
+                        </div>
                       </TabPane>
                     );
                   })}
