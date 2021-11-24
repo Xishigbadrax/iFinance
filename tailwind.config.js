@@ -10,6 +10,12 @@ module.exports = {
       colors: {
         navbarColor: '#0013D4',
       },
+      fontFamily: {
+        "poppins-semibold": ['Poppins Semibold', 'sans-serif']
+      },
+      boxShadow: {
+        'custom': '0px 10px 40px rgba(46, 40, 212, 0.1)'
+      }
     },
   },
   variants: {

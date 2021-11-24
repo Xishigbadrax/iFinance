@@ -23,7 +23,7 @@ const Pricing = () => {
     //   : null;
 
     const res = await axios.post(
-      "http://192.168.1.15/api/get/product_list_by_category",
+      "https://test.ifinance.mn/api/get/product_list_by_category",
       {
         jsonrpc: 2.0,
         params: {

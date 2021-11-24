@@ -13,15 +13,19 @@ const CategoryId = () => {
   const { id } = router.query;
   const { sessionId } = useContext(Context);
   const { TabPane } = Tabs;
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+    const baseDB = process.env.NEXT_PUBLIC_DB;
 
   const [mainProduct, setMainProduct] = useState();
+  const [images, setImages] = useState();
 
   const fetchData = async () => {
     const res = await axios.post(
-      "http://192.168.1.15/api/get/product_list_by_category",
+      baseUrl + "get/product_list_by_category",
       {
         jsonrpc: 2.0,
         params: {
+          db: baseDB,
           category_id: id,
         },
       },
@@ -33,8 +37,11 @@ const CategoryId = () => {
         },
       }
     );
-    // res.data && setMainProduct(res.data.result.main_products);
+    
+    res.data && setMainProduct(res.data.result.main_products);
     console.log(res, sessionId, "medeenuud");
+    
+
   };
   // fetchData();
 
@@ -45,7 +52,7 @@ const CategoryId = () => {
   return (
     <div>
       <Navbar />
-      <div className=" pl-[375px]">
+      <div className=" pl-[375px] z-10">
         <Tabs defaultActiveKey="1">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" mt-[80px]">
@@ -59,13 +66,20 @@ const CategoryId = () => {
                   mainProduct.map((item, index) => {
                     return (
                       <TabPane
-                        // className="test"
-                        tab={item.product_name}
+                        className="test"
+                        tab={  <div className="flex items-center ">
+                            {<Image className="" preview={false} src={"data:image/png;base64," + item.product_icon}/>}
+                          <div className="ml-[22px]">{item.product_name}</div>
+                        </div>  }
                         key={index}
                       >
-                        <div className="">
+                        <div className="w-[770px] shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
+                        <div><Image preview={false} src={"data:image/png;base64," + item.product_images[2]}/></div>
                           <p> {item.product_description} </p>
-                          <div></div>
+                          <div className="flex">
+                         <div><Image  preview={false} src={"data:image/png;base64," + item.product_images[0]}/></div>
+                          <div><Image preview={false} src={"data:image/png;base64," + item.product_images[1]}/></div>
+                          </div>
                         </div>
                       </TabPane>
                     );

@@ -332,7 +332,7 @@ a {
 }
 
 .module .ant-tabs-content-holder{
-  margin-left: 30px !important;
+  margin-left: 0px !important;
 }
 
 .module .ant-tabs-tab-btn{
@@ -351,4 +351,13 @@ a {
 
 .mainTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color: white !important;
+}
+
+.module .ant-tabs-nav-list{
+  /* background-color: red !important; */
+  box-shadow: 0px 10px 40px rgba(46, 40, 212, 0.1) !important;
+  border-radius: 4px !important;
+  margin-bottom: 40px !important;
+  border-left: 5px solid rgba(46, 40, 212, 0.04);
+
 }
