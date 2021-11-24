@@ -14,8 +14,10 @@ const Dashboard = () => {
   const [sid, setSid] = useState();
   const [list, setList] = useState([]);
   const [serverType, setServerType] = useState([]);
-
+  const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
+  console.log(baseUrl + "get/category_list", "baseurl");
   useEffect(async () => {
+    
     // console.log(Auth.getToken(), "siddd");
     setSid(Auth.getToken());
     // Auth.getToken() == null || Auth.getToken() == undefined
@@ -23,7 +25,7 @@ const Dashboard = () => {
     //   : null;
 
     const res = await axios.post(
-      "http://192.168.1.12/api/get/category_list",
+      baseUrl + "get/category_list",
       {
         jsonrpc: 2.0,
         params: {},
@@ -37,9 +39,10 @@ const Dashboard = () => {
       }
     );
     setList(res.data.result);
+    console.log(res, "ehnii");
 
     const res2 = await axios.post(
-      "http://192.168.1.15/api/get/server_types",
+      baseUrl + "get/server_types",
       {
         jsonrpc: 2.0,
         params: {},
