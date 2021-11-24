@@ -1527,7 +1527,7 @@ const Navbar = (props) => {
       <div className="  flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
           {/* <Image preview={false} src="/img/logo2.svg" alt="logo" /> */}
-          <Image src="/img/Logo2.svg" />
+          <Image preview={false} src="/img/Logo2.svg" />
         </div>
         {sideBarActive ? (
           <div className=" lg:hidden">
