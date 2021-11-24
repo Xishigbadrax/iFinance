@@ -33,7 +33,7 @@ const Footer = () => {
       </div>
       <div className=" w-full h-[15.625rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] flex flex-col justify-center items-center">
         <div className="">
-          <Image preview={false} src="/img/logo2.svg" />
+          <Image preview={false} src="/img/Logo2.svg" />
         </div>
         <div className="  w-[600px]">
           <ul className=" flex justify-between">

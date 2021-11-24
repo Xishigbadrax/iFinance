@@ -5,10 +5,12 @@ const Context = createContext();
 export const ContextProvider = ({children}) => {
     const [sessionId, setSessionId] = useState();
     const [sid, setSid] = useState();
-    const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
+    const baseUrl = process.env.NEXT_PUBLIC_URL;
+    const baseDB = process.env.NEXT_PUBLIC_DB;
     const onSid = (value) => {
         setSid(value);
     }
+    console.log(baseUrl, baseDB, "odoooo")
 
 const setMenuAndPermissions = async () => { 
  
@@ -16,7 +18,7 @@ const setMenuAndPermissions = async () => {
         axios.post(baseUrl + 'get/session',{
           jsonrpc: 2.0,
           params: {
-            db: "master_test",
+            db: baseDB,
             login: "",
             password: "",
             type: "api"

@@ -37,9 +37,11 @@ import Auth from "../../utils/auth";
 import Router from "next/router";
 import newhead from "../../../public/img/newhead.svg";
 
-const Navbar = (props) => {
+const NavbarTrans = (props) => {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
+  const baseDB = process.env.NEXT_PUBLIC_DB
+  
 
   const [loginModal, setLoginModal] = useState(false);
 
@@ -167,7 +169,7 @@ const Navbar = (props) => {
         jsonrpc: 2.0,
         params: {
           code: confirmCode,
-          db: db,
+          db: baseDB,
           login: email,
           password: password,
          
@@ -206,7 +208,7 @@ const Navbar = (props) => {
       jsonrpc: 2.0,
 
       params: {
-        db: db,
+        db: baseDB,
         name: values.name,
         login: values.email,
         password: values.password,
@@ -250,7 +252,7 @@ const Navbar = (props) => {
       {
         jsonrpc: 2.0,
         params: {
-          db: db,
+          db: baseDB,
           login: values.name,
           password: values.password,
           // device: {
@@ -288,6 +290,7 @@ const Navbar = (props) => {
   };
 
   useEffect(() => {
+   
     console.log(sessionId, "id shuu");
     // fetch(
     //   "https://geolocation-db.com/json/297364b0-2bc6-11ec-a8a6-1fc54772a803"
@@ -334,10 +337,10 @@ const Navbar = (props) => {
   );
 
   return (
-    <div className="w-full h-[100px] relative flex justify-center">
-      <div className=" w-[100vw] absolute z-[-1]">
+    <div className="w-full h-[100px] bg-transparent relative flex justify-center">
+      {/* <div className=" w-[100vw] absolute z-[-1]">
         <Image src="/img/back.png" className=" h-[100px] w-[100vw]" />
-      </div>
+      </div> */}
       {shadowModal ? (
         <div onClick={onShadowBox} className="shadowBox"></div>
       ) : null}
@@ -1024,7 +1027,7 @@ const Navbar = (props) => {
               </Radio.Group>
               <div className=" flex justify-center mt-[1.875rem] ">
                 <div className="flex w-[27.5rem] items-center h-[4.625rem] justify-center bg-[#F09A1A] bg-opacity-30 rounded-[4px]">
-                  <div>ret
+                  <div>
                     <WarningOutlined className="text-[20px]" />
                   </div>
                   <div className=" text-[14px] pl-2 text-[#F09A1A]">
@@ -1526,8 +1529,7 @@ const Navbar = (props) => {
 
       <div className="  flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
-          {/* <Image preview={false} src="/img/logo2.svg" alt="logo" /> */}
-          <Image src="/img/Logo2.svg" />
+          <Image preview={false} src="img/Logo2.svg" alt="logo" />
         </div>
         {sideBarActive ? (
           <div className=" lg:hidden">
@@ -1554,23 +1556,23 @@ const Navbar = (props) => {
             <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
               <li className=" text-lg ">
                 <Link href="/">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Эхлэл</a>
+                  <a className=" text-white font-semibold">Эхлэл</a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Бүтээгдэхүүн</a>
+                  <a className=" text-white font-semibold">Бүтээгдэхүүн</a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Үнийн санал</a>
+                  <a className=" text-white font-semibold">Үнийн санал</a>
                 </Link>
               </li>
 
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Холбоо барих</a>
+                  <a className=" text-white font-semibold">Холбоо барих</a>
                 </Link>
               </li>
             </ul>
@@ -1584,14 +1586,12 @@ const Navbar = (props) => {
                     onClick={Signup}
                     className=" mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px] font-bold border-white"
                     type="primary"
-                    disabled
                   >
                     Бүртгүүлэх
                   </Button>
                 </div>
                 <div>
                   <Button
-                  disabled
                     className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
                     onClick={Login}
                     type="primary"
@@ -1677,4 +1677,4 @@ const Navbar = (props) => {
   );
 };
 
-export default Navbar;
+export default NavbarTrans;

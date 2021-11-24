@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import Navbar from "../../components/Navbar/navbar";
+import NavbarTrans from "../../components/NavbarTrans";
 import Router from "next/router";
 import Auth from "../../utils/auth";
 import { Image, Collapse, Button } from "antd";
@@ -14,8 +14,9 @@ const Dashboard = () => {
   const [sid, setSid] = useState();
   const [list, setList] = useState([]);
   const [serverType, setServerType] = useState([]);
-  const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
-  console.log(baseUrl + "get/category_list", "baseurl");
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+    const baseDB = process.env.NEXT_PUBLIC_DB;
+  // console.log(baseUrl + "get/category_list", "baseurl");
   useEffect(async () => {
     
     // console.log(Auth.getToken(), "siddd");
@@ -28,7 +29,9 @@ const Dashboard = () => {
       baseUrl + "get/category_list",
       {
         jsonrpc: 2.0,
-        params: {},
+        params: {
+          db: baseDB
+        },
       },
 
       {
@@ -45,7 +48,9 @@ const Dashboard = () => {
       baseUrl + "get/server_types",
       {
         jsonrpc: 2.0,
-        params: {},
+        params: {
+          db: baseDB
+        },
       },
 
       {
@@ -69,17 +74,29 @@ const Dashboard = () => {
         },
       });
   };
-  console.log(list, "odooo");
+  // console.log(list, "odooo");
 
   return (
     <div>
       {/* <div className=" relative w-full">
         <img className=" absolute w-full h-auto z-[-1]" src="/img/Slider.svg" /> */}
+        {/* </div> */}
 
-        <Navbar />
-      {/* </div> */}
+        <div className="relative w-[vw]">
+          <div className="absolute z-20 flex flex-col w-full h-full">
+            <div className="w-full flex justify-center h-1/3">
+              <NavbarTrans />
+            </div>
+            <div className="my-auto font-poppins-semibold uppercase flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+            Манай бүтээгдэхүүн
+            </div>
+          </div>
+          <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+        </div>
+        
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">
+
         <div className=" grid grid-cols-4 gap-4 ">
           {list &&
             list.map((item, index) => {
@@ -92,8 +109,7 @@ const Dashboard = () => {
                   <div className=" absolute bottom-[0rem] right-[1rem] text-[#AC27FD]  text-[120px] text-opacity-5">
                     {item.category_id + "."}
                   </div>
-                  <Image
-                    preview={false}
+                  <Image preview={false}
                     className="z-10"
                     src={"data:image/png;base64," + item.category_image}
                   />
