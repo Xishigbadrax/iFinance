@@ -38,6 +38,9 @@ import Router from "next/router";
 import newhead from "../../../public/img/newhead.svg";
 
 const Navbar = (props) => {
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
+
   const [loginModal, setLoginModal] = useState(false);
 
   const { sessionId } = useContext(Context);
@@ -67,9 +70,9 @@ const Navbar = (props) => {
 
   // Auth.destroyToken();
 
-  var db = "test_open_api_v10";
+  const db = "master_test";
 
-  console.log(userSid, "sidddddd");
+  // console.log(userSid, "sidddddd");
 
   // mobile bolhod ashiglagdaj bgaa state-uud
   const [sideBarActive, setSideBarActive] = useState(false);
@@ -119,7 +122,7 @@ const Navbar = (props) => {
     console.log("radio checked", e.target.value);
     setForgotType(e.target.value);
   };
-
+  // Auth.destroyToken();
   const onForgotModal = () => {
     setForgotPassConfirm(true);
   };
@@ -130,7 +133,7 @@ const Navbar = (props) => {
   };
   const Logout = async () => {
     const res = await axios.post(
-      "http://192.168.1.15/api/logout",
+      baseUrl + "logout",
       {
         jsonrpc: 2.0,
         params: {},
@@ -159,7 +162,7 @@ const Navbar = (props) => {
   };
   const onConfirmEmail = async () => {
     const res = await axios.post(
-      "http://192.168.1.15/api/signup/confirm",
+      baseUrl + "signup/confirm",
       {
         jsonrpc: 2.0,
         params: {
@@ -167,10 +170,7 @@ const Navbar = (props) => {
           db: db,
           login: email,
           password: password,
-          device: {
-            device_name: "Computer",
-            mac_address: [deviceInfo.IPv4, deviceInfo.country_name],
-          },
+         
         },
       },
       {
@@ -216,7 +216,7 @@ const Navbar = (props) => {
       },
     };
 
-    const res = await axios.post("http://192.168.1.15/api/signup", data, {
+    const res = await axios.post(baseUrl + "signup", data, {
       headers: {
         "Set-Cookie": "session_id=" + sessionId,
         "Content-Type": "application/json",
@@ -246,17 +246,17 @@ const Navbar = (props) => {
   const onFinishLogin = async (values) => {
     console.log("Received values of form: ", values);
     const res = await axios.post(
-      "http://192.168.1.15/api/login",
+      baseUrl + "login",
       {
         jsonrpc: 2.0,
         params: {
           db: db,
           login: values.name,
           password: values.password,
-          device: {
-            device_name: "Computer",
-            mac_address: [deviceInfo.IPv4, deviceInfo.country_name],
-          },
+          // device: {
+          //   device_name: "Computer",
+          //   mac_address: [deviceInfo.IPv4, deviceInfo.country_name],
+          // },
         },
       },
       {
@@ -289,11 +289,11 @@ const Navbar = (props) => {
 
   useEffect(() => {
     console.log(sessionId, "id shuu");
-    fetch(
-      "https://geolocation-db.com/json/297364b0-2bc6-11ec-a8a6-1fc54772a803"
-    )
-      .then((response) => response.json())
-      .then((data) => setDeviceInfo(data));
+    // fetch(
+    //   "https://geolocation-db.com/json/297364b0-2bc6-11ec-a8a6-1fc54772a803"
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => setDeviceInfo(data));
   }, [sessionId]);
 
   const menu = (
