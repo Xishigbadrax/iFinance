@@ -10,7 +10,7 @@ export const ContextProvider = ({children}) => {
     const onSid = (value) => {
         setSid(value);
     }
-    console.log(baseUrl, baseDB, "odoooo")
+    // console.log(baseUrl, baseDB, "odoooo")
 
 const setMenuAndPermissions = async () => { 
  

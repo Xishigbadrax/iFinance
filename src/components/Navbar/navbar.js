@@ -38,7 +38,6 @@ import Router from "next/router";
 import newhead from "../../../public/img/newhead.svg";
 
 const Navbar = (props) => {
-
   const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
 
   const [loginModal, setLoginModal] = useState(false);
@@ -170,7 +169,6 @@ const Navbar = (props) => {
           db: db,
           login: email,
           password: password,
-         
         },
       },
       {
@@ -1024,7 +1022,8 @@ const Navbar = (props) => {
               </Radio.Group>
               <div className=" flex justify-center mt-[1.875rem] ">
                 <div className="flex w-[27.5rem] items-center h-[4.625rem] justify-center bg-[#F09A1A] bg-opacity-30 rounded-[4px]">
-                  <div>ret
+                  <div>
+                    ret
                     <WarningOutlined className="text-[20px]" />
                   </div>
                   <div className=" text-[14px] pl-2 text-[#F09A1A]">
@@ -1554,23 +1553,31 @@ const Navbar = (props) => {
             <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
               <li className=" text-lg ">
                 <Link href="/">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Эхлэл</a>
+                  <a className=" opacity-50  text-white font-semibold">
+                    Эхлэл
+                  </a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Бүтээгдэхүүн</a>
+                  <a className=" opacity-50  text-white font-semibold">
+                    Бүтээгдэхүүн
+                  </a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Үнийн санал</a>
+                  <a className=" opacity-50  text-white font-semibold">
+                    Үнийн санал
+                  </a>
                 </Link>
               </li>
 
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Холбоо барих</a>
+                  <a className=" opacity-50  text-white font-semibold">
+                    Холбоо барих
+                  </a>
                 </Link>
               </li>
             </ul>
@@ -1584,14 +1591,14 @@ const Navbar = (props) => {
                     onClick={Signup}
                     className=" mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px] font-bold border-white"
                     type="primary"
-                    disabled
+                    // disabled
                   >
                     Бүртгүүлэх
                   </Button>
                 </div>
                 <div>
                   <Button
-                  disabled
+                    // disabled
                     className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
                     onClick={Login}
                     type="primary"
