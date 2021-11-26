@@ -1,6 +1,7 @@
 import {useState, createContext, useEffect} from 'react';
 import axios from 'axios';
 import {callPost} from '../api/api';
+import Auth from '../utils/auth';
 const Context = createContext();
 export const ContextProvider = ({children}) => {
     const [sessionId, setSessionId] = useState();
@@ -11,7 +12,7 @@ export const ContextProvider = ({children}) => {
         setSid(value);
     }
     // console.log(baseUrl, baseDB, "odoooo")
-
+// Auth.destroyToken();
 const setMenuAndPermissions = async () => { 
  
 

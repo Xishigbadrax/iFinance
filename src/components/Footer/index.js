@@ -6,14 +6,14 @@ const Footer = () => {
   return (
     <div className=" w-full   h-[21.188rem] mt-[11.813rem]">
       <div className="  h-auto flex justify-center  bg-gradient-to-r from-[#473EDA] to-[#B33DFD]  items-center">
-        <div className=" flex flex-col pt-4 pb-4    md:flex-row lg:flex-row lg:pt-0 lg:pb-0">
+        <div className=" flex flex-col pt-4 pb-4   md:flex-row lg:flex-row lg:pt-0 lg:pb-0">
           <div className=" flex items-center">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/call.png" />
             </div>
             <div className=" text-white text-[16px]">Утас: 976 89977771</div>
           </div>
-          <div className=" flex items-center my-2 lg:mx-4">
+          <div className=" flex items-center my-2 lg:mx-[95pxm]">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/mail.png" />
             </div>
@@ -68,6 +68,15 @@ const Footer = () => {
           <Image preview={false} src="/img/youtube.svg" />
           <Image preview={false} src="/img/twit.svg" />
           <Image preview={false} src="/img/link.svg" />
+        </div>
+      </div>
+      <div className=" flex justify-around">
+        <div className=" text-[#011F70] text-[14px] font-normal">Бүх эрх хуулиар хамгаалагдсан © 2022. Интеллижент Финанс ХХК</div>
+        <div className=" flex items-center">
+         
+            <div className=" "><a href="#head" className="text-[#011F70] text-[14px] font-normal"> Дээш буцах </a></div>
+            <div className=" pt-2 ml-1"><a href="#head" ><Image preview={false} src="/img/up.svg" /></a></div>
+          
         </div>
       </div>
     </div>

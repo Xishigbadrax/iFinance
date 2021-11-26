@@ -1,21 +1,10 @@
-import React from 'react'
-import styles from '../../styles/Home.module.css'
-import NavbarTrans from '../components/NavbarTrans'
-import Auth from '../utils/auth'
-import Footer from '../components/Footer'
+import React from "react";
+import NavbarTrans from "../../components/NavbarTrans";
+import Footer from "../../components/Footer";
 import { Button, Image, Divider } from "antd";
 
-export default function Home() {
-  
+const Home = () => {
   return (
-    // <div >
-    //     <Navbar />
-    //     <div className=" w-full flex justify-center mt-[100px]  items-center h-[35vh]">
-    //     <Image preview={false} src="/img/soon.svg" />
-    //     </div>
-    //     <Footer />
-    // </div>
-    
     <div>
       <div className="relative w-[vw]">
         <div id="head" className="absolute z-20 flex flex-col w-full h-full">
@@ -436,5 +425,7 @@ export default function Home() {
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
+
+export default Home;
