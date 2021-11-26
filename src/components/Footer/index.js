@@ -2,21 +2,22 @@ import React from "react";
 import { Image, Divider } from "antd";
 
 const Footer = () => {
+  
   return (
-    <div className="w-full   h-[21.188rem] mt-[11.813rem] mb-0">
-      <div className=" w-full h-[5.563rem] bg-gradient-to-r from-[#473EDA] to-[#B33DFD] flex justify-center items-center">
-        <div className=" flex  justify-around w-[70%]">
+    <div className=" w-full   h-[21.188rem] mt-[11.813rem]">
+      <div className="  h-auto flex justify-center  bg-gradient-to-r from-[#473EDA] to-[#B33DFD]  items-center">
+        <div className=" flex flex-col pt-4 pb-4    md:flex-row lg:flex-row lg:pt-0 lg:pb-0">
           <div className=" flex items-center">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/call.png" />
             </div>
             <div className=" text-white text-[16px]">Утас: 976 89977771</div>
           </div>
-          <div className=" flex items-center mr-2">
+          <div className=" flex items-center my-2 lg:mx-4">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/mail.png" />
             </div>
-            <div className=" text-white  w-[110px]">
+            <div className=" text-white  w-[110px] ">
               Имэйл хаяг: info@ifinance.mn
             </div>
           </div>
@@ -31,23 +32,23 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className=" w-full h-[15.625rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] flex flex-col justify-center items-center">
-        <div className="">
+      <div className=" w-full  min-h-[15.625rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] flex flex-col justify-center items-center">
+        <div className=" mt-4 md:mt-0">
           <Image preview={false} src="/img/Logo2.svg" />
         </div>
-        <div className="  w-[600px]">
-          <ul className=" flex justify-between">
+        <div className=" max-w-[600px] flex justify-center">
+          <ul className=" flex flex-col md:w-[600px] lg:w-[600px] justify-between md:flex-row">
             <li>
               <a className=" text-white">Эхлэл</a>
             </li>
             <li>
-              <a className=" text-white">Үнийн санал</a>
+              <a className=" text-white ">Үнийн санал</a>
             </li>
             <li>
               <a className=" text-white">Үйлчилгээ</a>
             </li>
             <li>
-              <a className=" text-white">Мэдээ</a>
+              <a className=" text-white ">Мэдээ</a>
             </li>
             <li>
               <a className=" text-white">Холбоо барих</a>

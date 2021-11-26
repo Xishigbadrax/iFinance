@@ -8,8 +8,6 @@ import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer";
 import { Tabs, Image, Button } from "antd";
 
-
-
 const CategoryId = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -17,7 +15,6 @@ const CategoryId = () => {
   const { TabPane } = Tabs;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const baseDB = process.env.NEXT_PUBLIC_DB;
-
 
   const [mainProduct, setMainProduct] = useState();
   const [images, setImages] = useState();
@@ -47,14 +44,14 @@ const CategoryId = () => {
   // fetchData();
 
   const onDetails = (id) => {
-      id && 
+    id &&
       router.push({
         pathname: `/pricing/${id}`,
         query: {
           id: id,
         },
       });
-  }
+  };
 
   useEffect(() => {
     fetchData();
@@ -63,7 +60,7 @@ const CategoryId = () => {
   return (
     <div>
       <Navbar />
-      <div className=" pl-[375px] z-10">
+      <div className=" pl-[375px] z-10  mb-[11.813rem]">
         <Tabs defaultActiveKey="1">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" mt-[80px]">
@@ -96,6 +93,7 @@ const CategoryId = () => {
                       >
                         <div className="w-[770px] shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
                           <div>
+                            { item.product_images &&
                             <Image
                               preview={false}
                               src={
@@ -103,6 +101,7 @@ const CategoryId = () => {
                                 item.product_images[2]
                               }
                             />
+                              }
                           </div>
                           <p> {item.product_description} </p>
                           <div className="flex">
@@ -125,7 +124,15 @@ const CategoryId = () => {
                               />
                             </div>
                           </div>
-                          <div className=" mt-2 flex justify-center"><Button onClick={() => onDetails(id)} type="primary" className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold">Үйлчилгээтэй танилцах</Button></div>
+                          <div className=" mt-2 flex justify-center">
+                            <Button
+                              onClick={() => onDetails(id)}
+                              type="primary"
+                              className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                            >
+                              Үйлчилгээтэй танилцах
+                            </Button>
+                          </div>
                         </div>
                       </TabPane>
                     );
@@ -138,6 +145,7 @@ const CategoryId = () => {
           </TabPane>
         </Tabs>
       </div>
+
       <Footer />
     </div>
   );
