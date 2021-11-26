@@ -37,7 +37,7 @@ import Auth from "../../utils/auth";
 import Router from "next/router";
 import newhead from "../../../public/img/newhead.svg";
 
-const NavbarTrans = (props) => {
+const NavbarTrans = () => {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
   const baseDB = process.env.NEXT_PUBLIC_DB
@@ -246,6 +246,7 @@ const NavbarTrans = (props) => {
   };
 
   const onFinishLogin = async (values) => {
+   
     console.log("Received values of form: ", values);
     const res = await axios.post(
       baseUrl + "login",
@@ -1529,7 +1530,7 @@ const NavbarTrans = (props) => {
 
       <div className="  flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
-          <Image preview={false} src="img/Logo2.svg" alt="logo" />
+          <Image preview={false} src="/img/Logo2.svg" alt="logo" />
         </div>
         {sideBarActive ? (
           <div className=" lg:hidden">

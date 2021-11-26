@@ -37,9 +37,9 @@ import Auth from "../../utils/auth";
 import Router from "next/router";
 import newhead from "../../../public/img/newhead.svg";
 
-const Navbar = (props) => {
-
-  const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
+const Navbar = ({}) => {
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const baseDB = process.env.NEXT_PUBLIC_DB;
 
   const [loginModal, setLoginModal] = useState(false);
 
@@ -70,7 +70,7 @@ const Navbar = (props) => {
 
   // Auth.destroyToken();
 
-  const db = "master_test";
+  // const db = "master_test";
 
   // console.log(userSid, "sidddddd");
 
@@ -167,10 +167,9 @@ const Navbar = (props) => {
         jsonrpc: 2.0,
         params: {
           code: confirmCode,
-          db: db,
+          db: baseDB,
           login: email,
           password: password,
-         
         },
       },
       {
@@ -206,7 +205,7 @@ const Navbar = (props) => {
       jsonrpc: 2.0,
 
       params: {
-        db: db,
+        db: baseDB,
         name: values.name,
         login: values.email,
         password: values.password,
@@ -244,13 +243,14 @@ const Navbar = (props) => {
   };
 
   const onFinishLogin = async (values) => {
+   
     console.log("Received values of form: ", values);
     const res = await axios.post(
       baseUrl + "login",
       {
         jsonrpc: 2.0,
         params: {
-          db: db,
+          db: baseDB,
           login: values.name,
           password: values.password,
           // device: {
@@ -267,8 +267,10 @@ const Navbar = (props) => {
       }
     );
     if (res.data.result && res.data.result) {
+      console.log(res, "login res");
       setUserName(res.data.result.erp_info);
-      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info);
+      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info, res.data.result.uid);
+      
 
       message.success("Амжилттай нэвтэрлээ");
       setUserSid(res.data.result.sid);
@@ -1024,7 +1026,8 @@ const Navbar = (props) => {
               </Radio.Group>
               <div className=" flex justify-center mt-[1.875rem] ">
                 <div className="flex w-[27.5rem] items-center h-[4.625rem] justify-center bg-[#F09A1A] bg-opacity-30 rounded-[4px]">
-                  <div>ret
+                  <div>
+                    ret
                     <WarningOutlined className="text-[20px]" />
                   </div>
                   <div className=" text-[14px] pl-2 text-[#F09A1A]">
@@ -1542,11 +1545,11 @@ const Navbar = (props) => {
         ) : (
           <div
             onClick={onSideBarActive}
-            className="flex flex-col justify-between h-5 lg:hidden"
+            className=" pointer-events-none flex flex-col justify-between h-5 lg:hidden"
           >
-            <div className=" h-1  bg-gray-900 w-6"></div>
-            <div className=" h-1  bg-gray-900 w-6"></div>
-            <div className=" h-1  bg-gray-900 w-6"></div>
+            <div className=" h-1  bg-white w-6"></div>
+            <div className=" h-1  bg-white w-6"></div>
+            <div className=" h-1  bg-white w-6"></div>
           </div>
         )}
         <div className="  hidden lg:flex  lg:w-[900px] lg:justify-between items-center">
@@ -1554,23 +1557,31 @@ const Navbar = (props) => {
             <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
               <li className=" text-lg ">
                 <Link href="/">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Эхлэл</a>
+                  <a className=" pointer-events-none opacity-50  text-white font-semibold">
+                    Эхлэл
+                  </a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Бүтээгдэхүүн</a>
+                  <a className=" pointer-events-none opacity-50  text-white font-semibold">
+                    Бүтээгдэхүүн
+                  </a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Үнийн санал</a>
+                  <a className=" pointer-events-none opacity-50  text-white font-semibold">
+                    Үнийн санал
+                  </a>
                 </Link>
               </li>
 
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" opacity-50 pointer-events-none text-white font-semibold">Холбоо барих</a>
+                  <a className=" pointer-events-none opacity-50  text-white font-semibold">
+                    Холбоо барих
+                  </a>
                 </Link>
               </li>
             </ul>
@@ -1591,7 +1602,7 @@ const Navbar = (props) => {
                 </div>
                 <div>
                   <Button
-                  disabled
+                    disabled
                     className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
                     onClick={Login}
                     type="primary"

@@ -6,7 +6,7 @@ import { Image, Collapse, Button } from "antd";
 import axios from "axios";
 import Context from "../../context/Context";
 import Footer from "../../components/Footer";
-import {useRouter} from 'next/router';
+import { useRouter } from "next/router";
 
 const Dashboard = () => {
   const { Panel } = Collapse;
@@ -15,10 +15,9 @@ const Dashboard = () => {
   const [list, setList] = useState([]);
   const [serverType, setServerType] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
-    const baseDB = process.env.NEXT_PUBLIC_DB;
+  const baseDB = process.env.NEXT_PUBLIC_DB;
   // console.log(baseUrl + "get/category_list", "baseurl");
   useEffect(async () => {
-    
     // console.log(Auth.getToken(), "siddd");
     setSid(Auth.getToken());
     // Auth.getToken() == null || Auth.getToken() == undefined
@@ -30,7 +29,7 @@ const Dashboard = () => {
       {
         jsonrpc: 2.0,
         params: {
-          db: baseDB
+          db: baseDB,
         },
       },
 
@@ -49,7 +48,7 @@ const Dashboard = () => {
       {
         jsonrpc: 2.0,
         params: {
-          db: baseDB
+          db: baseDB,
         },
       },
 
@@ -65,7 +64,7 @@ const Dashboard = () => {
     // console.log(res, "listtttt");
   }, []);
 
-  const onCategory =  (id) => {
+  const onCategory = (id) => {
     id &&
       router.push({
         pathname: `dashboard/${id}`,
@@ -77,43 +76,45 @@ const Dashboard = () => {
   // console.log(list, "odooo");
 
   return (
-    <div>
+    <div className="mb-[11.813rem]">
       {/* <div className=" relative w-full">
         <img className=" absolute w-full h-auto z-[-1]" src="/img/Slider.svg" /> */}
-        {/* </div> */}
+      {/* </div> */}
 
-        <div className="relative w-[vw]">
-          <div className="absolute z-20 flex flex-col w-full h-full">
-            <div className="w-full flex justify-center h-1/3">
-              <NavbarTrans />
-            </div>
-            <div className="my-auto font-poppins-semibold uppercase flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
-            Манай бүтээгдэхүүн
-            </div>
+      <div className="relative w-[vw]">
+        <div className="absolute z-20 flex flex-col w-full h-full">
+          <div className="w-full flex justify-center h-1/3">
+            <NavbarTrans />
           </div>
-          <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+          <div className=" hidden  my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+            Манай бүтээгдэхүүн
+          </div>
         </div>
-        
+        <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+      </div>
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">
-
-        <div className=" grid grid-cols-4 gap-4 ">
+        <div className=" grid grid-cols-1 gap-4  lg:grid-cols-4 lg:gap-4 ">
           {list &&
             list.map((item, index) => {
+              var a = 0;
               return (
                 <div
                   key={index}
                   onClick={() => onCategory(item.category_id)}
-                  className=" relative flex flex-col justify-center items-center w-[16.875rem] h-[16rem] border-[1px] hover:bg-gradient-to-r from-[#011F70] to-[#AC27FD]  text-[24px] hover:text-white font-semibold rounded-[4px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
+                  className=" relative flex flex-col justify-center items-center w-[16.875rem] h-[16rem] border-[1px] hover:bg-gradient-to-tr from-[#011F70] to-[#AC27FD]  text-[24px] hover:text-white font-semibold rounded-[4px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
                 >
-                  <div className=" absolute bottom-[0rem] right-[1rem] text-[#AC27FD]  text-[120px] text-opacity-5">
-                    {item.category_id + "."}
+                  <div className=" absolute z-60 bottom-[0rem] right-[1rem] text-[#AC27FD]  text-[120px] text-opacity-5">
+                    {Number(index) + 1}
                   </div>
-                  <Image preview={false}
+                  <Image
+                    preview={false}
                     className="z-10"
                     src={"data:image/png;base64," + item.category_image}
                   />
-                  <p className="z-10"> {item.category_name} </p>
+                  <div className=" w-full flex justify-center items-center ">
+                    <div className=" flex justify-center items-center  ">{item.category_name}</div>
+                  </div>
                 </div>
               );
             })}
