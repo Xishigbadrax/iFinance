@@ -176,14 +176,18 @@ const Pricing = ({ id }) => {
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
-          <div className="my-auto font-poppins-semibold uppercase flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+          <div className="hidden my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Үнийн санал
           </div>
         </div>
+       
         <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
       </div>
-      <div className=" mt-[80px] flex ml-[375px]">
-        <div className=" flex justify-center ">
+      <div className=" lg:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
+            Үнийн санал
+          </div>
+      <div className=" lg:mt-[80px] flex flex-col  lg:ml-[375px]">
+        <div className=" flex  justify-center ">
           <div className=" w-full ">
             <div>
               <p className=" border-l-2 border-[#2E28D4] text-[#2E28D4] pl-2 text-[24px] font-semibold mt-4 ">
@@ -214,11 +218,11 @@ const Pricing = ({ id }) => {
               </div>
             </div> */}
 
-            <div className=" mt-[1.875rem] shadow-custom">
-              <div className=" pl-2 flex text-[1.5rem] text-white items-center w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+            <div className=" mt-[1.875rem] px-2 shadow-custom">
+              <div className="  flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 1. ББСБ Зээлийн модуль
               </div>
-              <div className="grid grid-cols-2 gap-4 w-[48.125rem] pl-6 pb-[30px]">
+              <div className="  grid grid-cols-1 lg:grid-cols-2 gap-4 lg:w-[48.125rem] pl-6 pb-[30px]">
                 {mainData &&
                   mainData.map((item, index) => {
                     return (
@@ -227,8 +231,8 @@ const Pricing = ({ id }) => {
                         onClick={() => isChecked(item)}
                         className={
                           state.includes(item)
-                            ? "mt-[24px] w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4]"
-                            : "mt-[24px] w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0]"
+                            ? "mt-[24px] lg:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4] "
+                            : "mt-[24px] lg:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0] "
                         }
                       >
                         <div className=" p-[20px]  flex justify-between">
@@ -299,10 +303,10 @@ const Pricing = ({ id }) => {
             </div>
 
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex text-[1.5rem] text-white items-center w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              <div className=" pl-2 flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid grid-cols-2 gap-4 w-auto pl-6 pb-[30px]">
+              <div className="grid lg:grid-cols-2 gap-4 w-auto pl-6 pb-[30px]">
                 {additionalData?.map((item, index) => {
                   return (
                     <div
@@ -310,8 +314,8 @@ const Pricing = ({ id }) => {
                       onClick={() => isChecked(item)}
                       className={
                         state.includes(item)
-                          ? "mt-[24px] w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4]"
-                          : "mt-[24px] w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0]"
+                          ? "mt-[24px] lg:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4]"
+                          : "mt-[24px] lg:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0]"
                       }
                     >
                       <div className=" p-[20px]  flex justify-between">
@@ -381,10 +385,10 @@ const Pricing = ({ id }) => {
               </div>
             </div>
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex text-[1.5rem] text-white items-center w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Сервер байршуулах:
               </div>
-              <div className="grid grid-cols-3 gap-4 w-auto pl-6 pb-[30px]">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 w-auto pl-6 pb-[30px]">
                 <div>
                 <p>Физик сервер</p>
                 <Select
@@ -431,7 +435,7 @@ const Pricing = ({ id }) => {
             </div>
           </div>
         </div>
-        <div className=" ml-[30px] w-[370px] h-[595px] shadow-custom rounded-[8px] ">
+        <div className=" ml-[10px] w-[370px]  shadow-custom rounded-[8px] ">
           <Tabs className="payment" defaultActiveKey="1">
             <TabPane tab="ЖИЛД" key="1">
               <div className=" flex flex-col justify-center items-center">
@@ -502,6 +506,7 @@ const Pricing = ({ id }) => {
                     className=" text-[14px] font-bold w-[200px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                     type="primary"
                     onClick={onPurchase}
+                    disabled
                   >
                     Захиалга хийх
                   </Button>

@@ -113,7 +113,9 @@ const Dashboard = () => {
                     src={"data:image/png;base64," + item.category_image}
                   />
                   <div className=" w-full flex justify-center items-center ">
-                    <div className=" flex justify-center items-center  ">{item.category_name}</div>
+                    <div className=" flex justify-center items-center  ">
+                      {item.category_name}
+                    </div>
                   </div>
                 </div>
               );
@@ -126,32 +128,67 @@ const Dashboard = () => {
         </p>
       </div>
 
-      <div className=" w-full flex flex-col justify-center">
-        {serverType &&
-          serverType.map((item, index) => {
-            return (
+      <div className=" w-full flex flex-col justify-center px-4">
+        <div className=" flex justify-center">
+          <Collapse
+            accordion
+            expandIconPosition="right"
+            className=" w-[73.125rem] bg-white  border-[#2E28D4]  mb-2"
+          >
+            <Panel header="АйТүүлс ХХК" key="1">
+              <p className=" text-[14px] text-[#9CA6C0]">
+                Сервер байршуулах үйлчилгээ нь дата төвийн үндсэн үйлчилгээнии
+                нэг бөгөөд хэрэглэгчийн бодит сервер төхөөрөмжийг олон улсын
+                стандартад нийцсэн байр талбай, орчин, сүлжээ, цахилгаан тэжээл,
+                тэдгээрийн нөөц холболт, тасралтгүй ажиллагаагаар хангах
+                үйлчилгээ юм. Хэрэв та онлайн системд шаардлагатай сервер, тоног
+                төхөөрөмжөө аль хэдийнээ худалдан авсан, дэлхийн стандартад
+                нийцсэн орчин, хязгааргүй хурдны интернет холболт бүхий хямд
+                төлбөртэй дата төв хайж байгаа бол энэхүү үйлчилгээ танд
+                тохирно.
+              </p>
               <div className=" flex justify-center">
-                <Collapse
-                  accordion
-                  expandIconPosition="right"
-                  className=" w-[73.125rem] bg-white  border-[#2E28D4]  mb-2"
+                <Button
+                  className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
+                  type="primary f"
                 >
-                  <Panel header={item.name} key="1">
-                    <p className=" font-semibold text-[16px]">{item.head}</p>
-                    <p className=" text-[14px] text-[#9CA6C0]">{item.body}</p>
-                    <div className=" flex justify-center">
-                      <Button
-                        className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
-                        type="primary f"
-                      >
-                        Үйлчилгээтэй танилцах
-                      </Button>
-                    </div>
-                  </Panel>
-                </Collapse>
+                  Үйлчилгээтэй танилцах
+                </Button>
               </div>
-            );
-          })}
+            </Panel>
+          </Collapse>
+        </div>
+        <div className=" flex justify-center">
+          <Collapse
+            accordion
+            expandIconPosition="right"
+            className=" w-[73.125rem] bg-white  border-[#2E28D4]  mb-2"
+          >
+            <Panel header="АйКлауд.мн" key="1">
+              <p className=" font-semibold text-[16px]">SAAS гэж юу вэ ?</p>
+              <p className=" text-[14px] text-[#9CA6C0]">
+                Software as a Service (SaaS) нь Клауд дэд бүтэц дээр ажиллаж буй
+                бэлэн лицензтэй систем/програм бөгөөд хэрэглэгчид сар болон
+                жилээр subscription хэлбэрээр төлбөр төлөн хэрэглэх боломжтой.
+                Хэрэглэгчид програм хангамжийн архитектур, програм хангамжийн
+                засвар үйлчилгээ, суурь дэд бүтцийг хянах, удирдах шаардлагагүй
+                бөгөөд зөвхөн вэбсайтаар хандан клауд дэд бүтэцтэй бэлэн
+                програмыг хэрэглэнэ гэсэн үг. Жишээлбэл, таны SaaS аппликейшний
+                Ази, Европ дахь хэрэглэгчдийн тоо огцом өсч байгаа тохиолдолд
+                эрэлтдээ тохируулан нөөц, хүчин чадлаа бүрэн нэмэх боломжтой.
+              </p>
+              <div className=" flex justify-center">
+                <Button
+                  className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
+                  type="primary f"
+                >
+                  Үйлчилгээтэй танилцах
+                </Button>
+              </div>
+            </Panel>
+          </Collapse>
+        </div>
+        
       </div>
       <Footer />
     </div>

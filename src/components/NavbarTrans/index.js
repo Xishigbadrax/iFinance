@@ -338,7 +338,7 @@ const NavbarTrans = () => {
   );
 
   return (
-    <div className="w-full h-[100px] bg-transparent relative flex justify-center">
+    <div id="head" className="w-full h-[100px] bg-transparent relative flex justify-center">
       {/* <div className=" w-[100vw] absolute z-[-1]">
         <Image src="/img/back.png" className=" h-[100px] w-[100vw]" />
       </div> */}
@@ -1530,7 +1530,9 @@ const NavbarTrans = () => {
 
       <div className="  flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
+          <a href="/" >
           <Image preview={false} src="/img/Logo2.svg" alt="logo" />
+          </a>
         </div>
         {sideBarActive ? (
           <div className=" lg:hidden">
@@ -1547,9 +1549,9 @@ const NavbarTrans = () => {
             onClick={onSideBarActive}
             className="flex flex-col justify-between h-5 lg:hidden"
           >
-            <div className=" h-1  bg-gray-900 w-6"></div>
-            <div className=" h-1  bg-gray-900 w-6"></div>
-            <div className=" h-1  bg-gray-900 w-6"></div>
+            <div className=" h-1  bg-white w-6"></div>
+            <div className=" h-1  bg-white w-6"></div>
+            <div className=" h-1  bg-white w-6"></div>
           </div>
         )}
         <div className="  hidden lg:flex  lg:w-[900px] lg:justify-between items-center">
@@ -1573,7 +1575,7 @@ const NavbarTrans = () => {
 
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" text-white font-semibold">Холбоо барих</a>
+                  <a className=" text-white font-semibold">Үйлчилгээ</a>
                 </Link>
               </li>
             </ul>

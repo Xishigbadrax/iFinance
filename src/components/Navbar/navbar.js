@@ -1557,21 +1557,21 @@ const Navbar = ({}) => {
             <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
               <li className=" text-lg ">
                 <Link href="/">
-                  <a className=" pointer-events-none opacity-50  text-white font-semibold">
+                  <a className="   text-white font-semibold">
                     Эхлэл
                   </a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" pointer-events-none opacity-50  text-white font-semibold">
+                  <a className="   text-white font-semibold">
                     Бүтээгдэхүүн
                   </a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className=" pointer-events-none opacity-50  text-white font-semibold">
+                  <a className=" text-white font-semibold">
                     Үнийн санал
                   </a>
                 </Link>
@@ -1579,7 +1579,7 @@ const Navbar = ({}) => {
 
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" pointer-events-none opacity-50  text-white font-semibold">
+                  <a className="   text-white font-semibold">
                     Холбоо барих
                   </a>
                 </Link>
@@ -1595,14 +1595,14 @@ const Navbar = ({}) => {
                     onClick={Signup}
                     className=" mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px] font-bold border-white"
                     type="primary"
-                    disabled
+                    // disabled
                   >
                     Бүртгүүлэх
                   </Button>
                 </div>
                 <div>
                   <Button
-                    disabled
+                    // disabled
                     className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
                     onClick={Login}
                     type="primary"
