@@ -18,6 +18,7 @@ const CategoryId = () => {
 
   const [mainProduct, setMainProduct] = useState();
   const [images, setImages] = useState();
+  const [angilal, setAngilal] = useState(false);
 
   const fetchData = async () => {
     const res = await axios.post(
@@ -60,15 +61,25 @@ const CategoryId = () => {
   return (
     <div>
       <Navbar />
-      <div className=" pl-[375px] z-10  mb-[11.813rem]">
-        <Tabs defaultActiveKey="1">
+      <div className="  relative w-[vw]">
+        <div className="lg:absolute z-20 flex flex-col w-full h-full justify-center text-center">
+          
+          <div className="  lg:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase lg:flex  items-center lg:text-white h-2/3 text-[36px] font-semibold">
+          ББСБ Зээлийн модуль 
+          </div>
+        </div>
+        <Image className=" hidden lg:flex w-[100vw]" preview={false} src="/img/dashboard.svg" />
+      </div>
+      <div className=" lg:pl-[375px] z-10  mb-[11.813rem]">
+        <Tabs defaultActiveKey="1" className="">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" mt-[80px]">
-              <div className="bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] w-[375px] h-[48px] flex items-center  rounded-t-lg ">
+              <div className="hidden bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] w-[375px] h-[48px] lg:flex items-center  rounded-t-lg ">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
                   Ангилал
                 </p>
               </div>
+            <div className="hidden lg:flex">
               <Tabs className="module" tabPosition="left">
                 {mainProduct &&
                   mainProduct.map((item, index) => {
@@ -76,7 +87,7 @@ const CategoryId = () => {
                       <TabPane
                         className="test"
                         tab={
-                          <div className="flex items-center ">
+                          <div className="flex items-center  ">
                             {
                               <Image
                                 className=""
@@ -89,9 +100,10 @@ const CategoryId = () => {
                             <div className="ml-[22px]">{item.product_name}</div>
                           </div>
                         }
+                        
                         key={index}
                       >
-                        <div className="w-[770px] shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
+                        <div className="lg:w-[770px] mr-6 lg:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
                           <div>
                             { item.product_images &&
                             <Image
@@ -138,6 +150,79 @@ const CategoryId = () => {
                     );
                   })}
               </Tabs>
+              </div>
+              <div className=" lg:hidden">
+              <Tabs className="module" tabPosition="top">
+                {mainProduct &&
+                  mainProduct.map((item, index) => {
+                    return (
+                      <TabPane
+                        className="test"
+                        tab={
+                          <div className="flex items-center  ">
+                            {
+                              <Image
+                                className=""
+                                preview={false}
+                                src={
+                                  "data:image/png;base64," + item.product_icon
+                                }
+                              />
+                            }
+                            <div className="ml-[22px]">{item.product_name}</div>
+                          </div>
+                        }
+                        
+                        key={index}
+                      >
+                        <div className=" text-justify lg:w-[770px] mr-6 lg:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
+                          <div>
+                            { item.product_images &&
+                            <Image
+                              preview={false}
+                              src={
+                                "data:image/png;base64," +
+                                item.product_images[2]
+                              }
+                            />
+                              }
+                          </div>
+                          <p> {item.product_description} </p>
+                          <div className="flex">
+                            <div>
+                              <Image
+                                preview={false}
+                                src={
+                                  "data:image/png;base64," +
+                                  item.product_images[0]
+                                }
+                              />
+                            </div>
+                            <div>
+                              <Image
+                                preview={false}
+                                src={
+                                  "data:image/png;base64," +
+                                  item.product_images[1]
+                                }
+                              />
+                            </div>
+                          </div>
+                          <div className=" mt-2 flex justify-center">
+                            <Button
+                              onClick={() => onDetails(id)}
+                              type="primary"
+                              className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                            >
+                              Үйлчилгээтэй танилцах
+                            </Button>
+                          </div>
+                        </div>
+                      </TabPane>
+                    );
+                  })}
+              </Tabs>
+              </div>
             </div>
           </TabPane>
           <TabPane tab="Нэмэлт модуль" key="2">
