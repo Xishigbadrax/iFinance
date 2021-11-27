@@ -186,7 +186,7 @@ const Pricing = ({ id }) => {
       <div className=" lg:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
             Үнийн санал
           </div>
-      <div className=" lg:mt-[80px] flex flex-col  lg:ml-[375px]">
+      <div className=" lg:mt-[80px] flex flex-col lg:flex-row  lg:ml-[375px]">
         <div className=" flex  justify-center ">
           <div className=" w-full ">
             <div>
@@ -306,7 +306,7 @@ const Pricing = ({ id }) => {
               <div className=" pl-2 flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid lg:grid-cols-2 gap-4 w-auto pl-6 pb-[30px]">
+              <div className="grid lg:grid-cols-2 gap-4 w-auto pl-6 pb-[30px] lg:w-[48.125rem]  ">
                 {additionalData?.map((item, index) => {
                   return (
                     <div
@@ -435,7 +435,7 @@ const Pricing = ({ id }) => {
             </div>
           </div>
         </div>
-        <div className=" ml-[10px] w-[370px]  shadow-custom rounded-[8px] ">
+        <div className=" ml-[10px] w-[370px]  lg:h-[625px] shadow-custom rounded-[8px] ">
           <Tabs className="payment" defaultActiveKey="1">
             <TabPane tab="ЖИЛД" key="1">
               <div className=" flex flex-col justify-center items-center">

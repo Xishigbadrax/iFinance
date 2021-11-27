@@ -70,9 +70,9 @@ const Footer = () => {
           <Image preview={false} src="/img/link.svg" />
         </div>
       </div>
-      <div className=" flex justify-around">
-        <div className=" text-[#011F70] text-[14px] font-normal">Бүх эрх хуулиар хамгаалагдсан © 2022. Интеллижент Финанс ХХК</div>
-        <div className=" flex items-center">
+      <div className=" flex flex-col lg:flex-row px-10 justify-around">
+        <div className=" text-[#011F70] text-[14px] font-normal text-center">Бүх эрх хуулиар хамгаалагдсан © 2022. Интеллижент Финанс ХХК</div>
+        <div className=" flex items-center justify-center">
          
             <div className=" "><a href="#head" className="text-[#011F70] text-[14px] font-normal"> Дээш буцах </a></div>
             <div className=" pt-2 ml-1"><a href="#head" ><Image preview={false} src="/img/up.svg" /></a></div>

@@ -49,6 +49,9 @@ export default function Home() {
         </div>
         <Image className=" w-[100vw]" preview={false} src="/img/homeBack.svg" />
       </div>
+    <div className="lg:hidden mt-[-10vh] flex justify-center">
+    <Image className="h-40 w-40" preview={false} src="/img/homeImg.svg" />
+    </div>
       <div className=" lg:hidden">
         <div className="flex justify-center">
           <div className=" text-center w-[300px] text-[16px] text-[#2E28D4] lg:text-[36px] lg:text-white font-semibold lg:w-[571px]">
@@ -115,7 +118,7 @@ export default function Home() {
         </div>
         <div className="w-full flex justify-center mt-[40px]">
           <div className=" flex flex-col lg:flex-row text-center  w-[65vw] justify-between">
-            <div className=" w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u1.svg" />
               </div>
@@ -123,7 +126,7 @@ export default function Home() {
                 ERP хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 lg:my-0 w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" my-4 lg:my-0 lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u2.svg" />
               </div>
@@ -131,7 +134,7 @@ export default function Home() {
                 Вебсайт хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 lg:my-0 w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" my-4 lg:my-0 lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u3.svg" />
               </div>
@@ -139,7 +142,7 @@ export default function Home() {
                 Мобайл апп хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 lg:my-0 w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" my-4 lg:my-0 lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u4.svg" />
               </div>
@@ -147,7 +150,7 @@ export default function Home() {
                 Систем интеграцчилал
               </div>
             </div>
-            <div className=" my-4 lg:my-0 w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" my-4 lg:my-0 lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u5.svg" />
               </div>
@@ -155,7 +158,7 @@ export default function Home() {
                 Тусламж, дэмжлэг
               </div>
             </div>
-            <div className=" w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u6.svg" />
               </div>
@@ -255,8 +258,8 @@ export default function Home() {
                 <div>
                   <Image preview={false} src="/img/d1.svg" />
                 </div>
-                <div className=" text-[#2F3747] text-[18px] w-[300px] lg:w-[470px] font-bold">
-                  <span className=" text-[#F01A63]">
+                <div className=" text-[#2F3747] text-center text-[18px] w-[300px] lg:w-[470px] font-bold">
+                  <span className=" text-[#F01A63] ">
                     Та худалдан авалт хийсэн цагаас эхлэн
                   </span>{" "}
                   бидний нэг хэсэг болж нэгдсэнээр БИД болно.{" "}
