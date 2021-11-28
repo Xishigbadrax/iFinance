@@ -35,7 +35,7 @@ const Pricing = ({ id }) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const baseDB = process.env.NEXT_PUBLIC_DB;
   const [state, setState] = useState([]);
-  const [userID, setuserID] = useState();
+  const [userID, setuserID] = useState(null);
 
   const [numberOfProgram, setNumberOfProgram] = useState(0);
   const [programPrice, setProgramPrice] = useState(0);
@@ -68,17 +68,16 @@ const Pricing = ({ id }) => {
     setcServerPrice(Number(value[2]));
   };
   const onChangerServerPrice1 = () => {
-      setServerPrice(pServerPrice);
-      setServerState1((prev) => !prev);
-  }
+    setServerPrice(pServerPrice);
+    setServerState1((prev) => !prev);
+  };
   const onChangerServerPrice2 = () => {
     setServerPrice(cServerPrice);
     setServerState2((prev) => !prev);
-}
-const onChangerServerPrice3 = () => {
-
-  setServerState3((prev) => !prev);
-}
+  };
+  const onChangerServerPrice3 = () => {
+    setServerState3((prev) => !prev);
+  };
   useEffect(async () => {
     setuserID(Auth.getUserId());
     setSid(Auth.getToken());
@@ -128,22 +127,22 @@ const onChangerServerPrice3 = () => {
     var data = {
       jsonrpc: 2.0,
       params: {
-          db: baseDB,
-          uid: userID,
-          server_id: serverId,
-          payment_type: "qpay",
-          product_ids:productIds
-      }
-  }
+        db: baseDB,
+        uid: userID,
+        server_id: serverId,
+        payment_type: "qpay",
+        product_ids: productIds,
+      },
+    };
     console.log(data, "dataaa");
-    // const res = await axios.post(baseUrl + "create/invoice", data, {
-    //   headers: {
-    //     "Set-Cookie": "session_id=" + sid,
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    const res = await axios.post(baseUrl + "create/invoice", data, {
+      headers: {
+        "Set-Cookie": "session_id=" + sid,
+        "Content-Type": "application/json",
+      },
+    });
 
-    // console.log(res, "purchase res");
+    console.log(res, "purchase res");
   };
 
   const isChecked = (item) => {
@@ -193,7 +192,7 @@ const onChangerServerPrice3 = () => {
   }, [serverState3]);
   useEffect(() => {
     serverState1 && setServerPrice(pServerPrice);
-    console.log(pServerPrice,serverPrice, "ppppp")
+    console.log(pServerPrice, serverPrice, "ppppp");
   }, [pServerPrice]);
   useEffect(() => {
     serverState2 && setServerPrice(cServerPrice);
@@ -248,11 +247,11 @@ const onChangerServerPrice3 = () => {
               </div>
             </div> */}
 
-            <div className=" mt-[1.875rem] px-2 shadow-custom">
-              <div className="  flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 1. ББСБ Зээлийн модуль
               </div>
-              <div className="  grid grid-cols-1 lg:grid-cols-2 gap-4 lg:w-[48.125rem] pl-6 pb-[30px]">
+              <div className="  grid grid-cols-1 lg:grid-cols-2 gap-4 lg:w-[48.125rem] lg:pl-6 pb-[30px]">
                 {mainData &&
                   mainData.map((item, index) => {
                     return (
@@ -336,7 +335,7 @@ const onChangerServerPrice3 = () => {
               <div className=" pl-2 flex text-[1.5rem] text-white items-center lg:w-[49.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid lg:grid-cols-2 gap-4 w-auto pl-6 pb-[30px] lg:w-[48.125rem]  ">
+              <div className="grid lg:grid-cols-2 gap-4  lg:pl-6 pb-[30px] lg:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
                   return (
                     <div
@@ -434,23 +433,19 @@ const onChangerServerPrice3 = () => {
                         </div>
                         <div>
                           {/* className={serverState2 || serverState3 ? " cursor-not-allowed" : null} */}
-                         
+
                           <Checkbox
-                              disabled={
-                                serverState2 || serverState3 ? true : false 
-                              }
-                              onClick={() =>
-                                onChangerServerPrice1()
-                              }
-                            />
+                            disabled={
+                              serverState2 || serverState3 ? true : false
+                            }
+                            onClick={() => onChangerServerPrice1()}
+                          />
                         </div>
                       </div>
                     </div>
                     <div className=" mt-[16px]">
                       <Select
-                        disabled={
-                          serverState2 || serverState3 ? true : false 
-                        }
+                        disabled={serverState2 || serverState3 ? true : false}
                         defaultValue="Сонгох"
                         // style={{ width: 300 }}
                         className=" w-[300px] lg:w-[556px]"
@@ -507,20 +502,16 @@ const onChangerServerPrice3 = () => {
                         <div>
                           <Checkbox
                             disabled={
-                              serverState1 || serverState3 ? true : false 
+                              serverState1 || serverState3 ? true : false
                             }
-                            onClick={() =>
-                              onChangerServerPrice2()
-                            }
+                            onClick={() => onChangerServerPrice2()}
                           />
                         </div>
                       </div>
                     </div>
                     <div className=" mt-[16px]">
                       <Select
-                      disabled={
-                        serverState1 || serverState3 ? true : false 
-                      }
+                        disabled={serverState1 || serverState3 ? true : false}
                         defaultValue="Сонгох"
                         // style={{ width: 300 }}
                         className=" w-[300px] lg:w-[556px]"
@@ -529,7 +520,6 @@ const onChangerServerPrice3 = () => {
                         {cloudServer?.map((item, index) => {
                           return (
                             <Option
-                            
                               key={index}
                               value={[
                                 <div
@@ -570,12 +560,8 @@ const onChangerServerPrice3 = () => {
                       </div>
                       <div className="">
                         <Checkbox
-                          disabled={
-                            serverState1 || serverState2 ? true : false 
-                          }
-                          onClick={() =>
-                            onChangerServerPrice3()
-                          }
+                          disabled={serverState1 || serverState2 ? true : false}
+                          onClick={() => onChangerServerPrice3()}
                         />
                       </div>
                     </div>
@@ -652,14 +638,24 @@ const onChangerServerPrice3 = () => {
                   </div>
                 </div>
                 <div className=" flex justify-center mt-[30px]">
-                  <Button
-                    className=" text-[14px] font-bold w-[200px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
-                    type="primary"
-                    onClick={onPurchase}
-                    // disabled
-                  >
-                    Захиалга хийх
-                  </Button>
+                  {sid ? (
+                    <Button
+                      className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                      type="primary"
+                      onClick={onPurchase}
+                    >
+                      Захиалга хийх
+                    </Button>
+                  ) : (
+                    <Button
+                      className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-[#9CA6C0] border-none"
+                      type="primary"
+                      onClick={onPurchase}
+                      disabled
+                    >
+                      Захиалга хийх
+                    </Button>
+                  )}
                 </div>
                 <div className=" mx-[24px] my-[30px]">
                   <p className="text-[14px] text-[#9CA6C0] font-normal">
