@@ -24,7 +24,7 @@ export default function Home() {
           <div className=" hidden  lg:flex w-full justify-center  items-center mt-[100px]">
             <div>
               <div className=" text-[16px]  lg:text-[36px] lg:text-white font-semibold lg:w-[571px]">
-                Бид бол санхүүгийн байгууллагын өсөлтийн хурдасгуур
+                Бид танай байгууллагын цахим өвийг бүтээнэ!
               </div>
               <div className=" lg:text-white text-[16px] font-normal mb-[24px]">
                 Монголын хамгийн анхны SAAS ERP бүтээгдэхүүн
@@ -55,7 +55,7 @@ export default function Home() {
       <div className=" lg:hidden">
         <div className="flex justify-center">
           <div className=" text-center w-[300px] text-[16px] text-[#2E28D4] lg:text-[36px] lg:text-white font-semibold lg:w-[571px]">
-            Бид бол санхүүгийн байгууллагын өсөлтийн хурдасгуур
+          Бид танай байгууллагын цахим өвийг бүтээнэ!
           </div>
         </div>
         <div className=" flex justify-center ">
@@ -266,16 +266,16 @@ export default function Home() {
                 </div>
               </div>
               <div className=" mt-10 lg:mt-0">
-                <div className="flex">
+                <div className="flex ">
                   <div className="flex flex-col items-center w-[48px]">
                     <div className="h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
                       1
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className=" lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747] ">
+                  <div className=" mb-2 lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747] ">
                     Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
-                    шийдлийг гаргаж чаддаг.{" "}
+                    шийдлийг гаргаж чаддаг.
                   </div>
                 </div>
                 <div className="flex">
@@ -285,7 +285,7 @@ export default function Home() {
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className="g:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className="mb-2 lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
                     шийдлийг гаргаж чаддаг.{" "}
                   </div>
@@ -297,7 +297,7 @@ export default function Home() {
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className="g:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className="mb-2 lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
                     шийдлийг гаргаж чаддаг.{" "}
                   </div>
@@ -308,7 +308,7 @@ export default function Home() {
                       4
                     </div>
                   </div>
-                  <div className="g:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className=" lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
                     шийдлийг гаргаж чаддаг.{" "}
                   </div>
@@ -447,28 +447,28 @@ export default function Home() {
         </div>
       </div>
       <div className=" w-full flex justify-center mt-[100px]">
-        <div className=" flex flex-col lg:flex-row w-[65vw] lg:h-[228px] bg-[#2E28D4] bg-opacity-5 items-center justify-around">
+        <div className=" flex flex-col lg:flex-row w-[65vw] lg:h-[228px] bg-[#2E28D4] bg-opacity-5 lg:items-center pl-[12vw] items-start justify-around">
           <div>
             <div className=" text-[48px] text-[#2E28D4] font-bold">99225+</div>
-            <div className=" text-[16px] text-[#9CA6C0] w-[140px]">
+            <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
               Улиралд хандсан хүний тоо
             </div>
           </div>
           <div>
             <div className=" text-[48px] text-[#F01A63] font-bold">1047+</div>
-            <div className=" text-[16px] text-[#9CA6C0] w-[140px]">
+            <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
               Жилд хандсан хүний тоо
             </div>
           </div>
           <div>
             <div className=" text-[48px] text-[#AC27FD] font-bold">877+</div>
-            <div className=" text-[16px] text-[#9CA6C0] w-[140px]">
+            <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
               Сард хандсан хүний тоо
             </div>
           </div>
           <div>
             <div className=" text-[48px] text-[#011F70] font-bold">283+</div>
-            <div className=" text-[16px] text-[#9CA6C0] w-[140px]">
+            <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
               Өдөрт хандсан хүний тоо
             </div>
           </div>

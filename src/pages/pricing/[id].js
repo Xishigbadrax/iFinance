@@ -35,31 +35,49 @@ const Pricing = ({ id }) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const baseDB = process.env.NEXT_PUBLIC_DB;
   const [state, setState] = useState([]);
-  const [userID, setuserID] = useState();
- 
+  const [userID, setuserID] = useState(null);
 
   const [numberOfProgram, setNumberOfProgram] = useState(0);
   const [programPrice, setProgramPrice] = useState(0);
   const [serverPrice, setServerPrice] = useState(0);
+  const [pServerPrice, setpServerPrice] = useState(0);
+  const [cServerPrice, setcServerPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [tax, setTax] = useState(0);
   const [taxPrice, setTaxPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [serverId, setServerId] = useState(0);
-  
 
   const [physicalServer, setPhysicalServer] = useState();
   const [cloudServer, setCloudServer] = useState();
 
+  const [serverState1, setServerState1] = useState(false);
+  const [serverState2, setServerState2] = useState(false);
+  const [serverState3, setServerState3] = useState(false);
 
   // const [isChecked, setIsChecked] = useState([]);
 
   const handleChange = (value) => {
     console.log(value, "serveree");
     setServerId(value[1]);
-    setServerPrice(Number(value[0]));
-  }
-
+    setpServerPrice(Number(value[2]));
+  };
+  const handleChange2 = (value) => {
+    console.log(value, "serveree2");
+    setServerId(value[1]);
+    setcServerPrice(Number(value[2]));
+  };
+  const onChangerServerPrice1 = () => {
+    setServerPrice(pServerPrice);
+    setServerState1((prev) => !prev);
+  };
+  const onChangerServerPrice2 = () => {
+    setServerPrice(cServerPrice);
+    setServerState2((prev) => !prev);
+  };
+  const onChangerServerPrice3 = () => {
+    setServerState3((prev) => !prev);
+  };
   useEffect(async () => {
     setuserID(Auth.getUserId());
     setSid(Auth.getToken());
@@ -85,7 +103,7 @@ const Pricing = ({ id }) => {
       .then((response) => {
         console.log(response, "ggg");
         setMainData(response.data.result?.main_products),
-        setAdditionalData(response.data.result?.additional_products);
+          setAdditionalData(response.data.result?.additional_products);
         setPhysicalServer(response.data.result?.physical);
         setCloudServer(response.data.result?.cloud);
         setTax(response.data.result?.tax_amount);
@@ -104,19 +122,19 @@ const Pricing = ({ id }) => {
       productIds.push(item.product_id);
     });
 
-    console.log(serverId ,productIds, "odoooldoo")
+    console.log(serverId, productIds, "odoooldoo");
 
     var data = {
       jsonrpc: 2.0,
-
       params: {
         db: baseDB,
-        product_ids: productIds,
+        uid: userID,
         server_id: serverId,
-        uid: userID
+        payment_type: "qpay",
+        product_ids: productIds,
       },
     };
-
+    console.log(data, "dataaa");
     const res = await axios.post(baseUrl + "create/invoice", data, {
       headers: {
         "Set-Cookie": "session_id=" + sid,
@@ -125,7 +143,7 @@ const Pricing = ({ id }) => {
     });
 
     console.log(res, "purchase res");
-  }
+  };
 
   const isChecked = (item) => {
     if (state.includes(item)) {
@@ -148,26 +166,37 @@ const Pricing = ({ id }) => {
       a += item.product_price;
       sale +=
         Number(item.product_price) * (Number(item.product_discount) / 100);
-       
     });
     setProgramPrice(a);
     setDiscount(sale);
 
     console.log(serverId, "server Idii");
-    
   }, [state]);
-
 
   useEffect(() => {
     setTotalPrice(programPrice + serverPrice - discount);
     setTaxPrice((programPrice + serverPrice) / Number(tax));
-    console.log(tax,taxPrice ,"zaa");
+    console.log(tax, taxPrice, "zaa");
   }, [programPrice]);
   useEffect(() => {
-    
     setTaxPrice((Number(programPrice) + Number(serverPrice)) / Number(tax));
-    
   }, [tax]);
+  useEffect(() => {
+    console.log(serverState1, "serverstateee1");
+  }, [serverState1]);
+  useEffect(() => {
+    console.log(serverState2, "serverstateee2");
+  }, [serverState2]);
+  useEffect(() => {
+    console.log(serverState3, "serverstateee3");
+  }, [serverState3]);
+  useEffect(() => {
+    serverState1 && setServerPrice(pServerPrice);
+    console.log(pServerPrice, serverPrice, "ppppp");
+  }, [pServerPrice]);
+  useEffect(() => {
+    serverState2 && setServerPrice(cServerPrice);
+  }, [cServerPrice]);
 
   return (
     <div>
@@ -180,12 +209,12 @@ const Pricing = ({ id }) => {
             Үнийн санал
           </div>
         </div>
-       
+
         <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
       </div>
       <div className=" lg:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
-            Үнийн санал
-          </div>
+        Үнийн санал
+      </div>
       <div className=" lg:mt-[80px] flex flex-col lg:flex-row  lg:ml-[375px]">
         <div className=" flex  justify-center ">
           <div className=" w-full ">
@@ -218,11 +247,11 @@ const Pricing = ({ id }) => {
               </div>
             </div> */}
 
-            <div className=" mt-[1.875rem] px-2 shadow-custom">
-              <div className="  flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 1. ББСБ Зээлийн модуль
               </div>
-              <div className="  grid grid-cols-1 lg:grid-cols-2 gap-4 lg:w-[48.125rem] pl-6 pb-[30px]">
+              <div className="  grid grid-cols-1 lg:grid-cols-2 gap-4 lg:w-[48.125rem] lg:pl-6 pb-[30px]">
                 {mainData &&
                   mainData.map((item, index) => {
                     return (
@@ -303,10 +332,10 @@ const Pricing = ({ id }) => {
             </div>
 
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              <div className=" pl-2 flex text-[1.5rem] text-white items-center lg:w-[49.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid lg:grid-cols-2 gap-4 w-auto pl-6 pb-[30px] lg:w-[48.125rem]  ">
+              <div className="grid lg:grid-cols-2 gap-4  lg:pl-6 pb-[30px] lg:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
                   return (
                     <div
@@ -385,51 +414,158 @@ const Pricing = ({ id }) => {
               </div>
             </div>
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[49.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Сервер байршуулах:
               </div>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 w-auto pl-6 pb-[30px]">
-                <div>
-                <p>Физик сервер</p>
-                <Select
-                  defaultValue="Сонгох"
-                  style={{ width: 120 }}
-                  onChange={handleChange}
-                >
-                  {physicalServer && 
-                    physicalServer.map((item, index) => {
-                      
-                      return <Option key={index} value={[item.server_price, item.server_id]}>{item.server_name}</Option>
-                    })
-                    }
-                  
-                  
-                </Select>
+              <div>
+                <div className=" mx-[24px]  p-[24px lg:w-[722px] lg:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+                  <div className=" p-[20px]">
+                    <div className=" flex w-full  justify-between">
+                      <div className="text-[#2F3747] text-[16px] font-semibold">
+                        1. Itools.mn Физик серверт байршуулах
+                      </div>
+                      <div className="flex flex-col lg:flex-row w-[10vw] justify-around items-center">
+                        <div className=" text-[#2F3747] text-[16px] font-semibold">
+                          {pServerPrice}₮
+                        </div>
+                        <div className=" text-[#9CA6C0] text-[10px] lg:text-[12px] font-semibold ">
+                          1 жилд
+                        </div>
+                        <div>
+                          {/* className={serverState2 || serverState3 ? " cursor-not-allowed" : null} */}
+
+                          <Checkbox
+                            disabled={
+                              serverState2 || serverState3 ? true : false
+                            }
+                            onClick={() => onChangerServerPrice1()}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className=" mt-[16px]">
+                      <Select
+                        disabled={serverState2 || serverState3 ? true : false}
+                        defaultValue="Сонгох"
+                        // style={{ width: 300 }}
+                        className=" w-[300px] lg:w-[556px]"
+                        onChange={handleChange}
+                      >
+                        {physicalServer?.map((item, index) => {
+                          return (
+                            <Option
+                              key={index}
+                              value={[
+                                <div
+                                  key={index}
+                                  className=" flex justify-between"
+                                >
+                                  <div>{item.server_name}</div>
+                                  <div>CPU Cores: {item.server_cpu}</div>
+                                  <div>Ram: {item.server_ram}</div>
+                                  <div>Hard: {item.server_hard}</div>
+                                  <div>{item.server_price} ₮</div>
+                                </div>,
+                                item.server_id,
+                                item.server_price,
+                              ]}
+                            >
+                              <div className=" flex justify-between">
+                                <div>{item.server_name}</div>
+                                <div>CPU Cores: {item.server_cpu}</div>
+                                <div>Ram: {item.server_ram}</div>
+                                <div>Hard: {item.server_hard}</div>
+                                <div>{item.server_price} ₮</div>
+                              </div>
+                            </Option>
+                          );
+                        })}
+                      </Select>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                <p>Клауд сервер</p>
-                <Select
-                  defaultValue="Сонгох"
-                  style={{ width: 120 }}
-                  onChange={handleChange}
-                >
-                  {cloudServer && 
-                    cloudServer.map((item, index) => {
-                      
-                      return <Option key={index} value={item.server_price}>{item.server_name}</Option>
-                    })
-                    }
-                </Select>
+              </div>
+              <div className=" w-full">
+                <div className=" mx-[24px]  lg:w-[722px] lg:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+                  <div className=" p-[20px]">
+                    <div className=" flex w-full  justify-between">
+                      <div className="text-[#2F3747] text-[16px] font-semibold">
+                        2. Cloud.mn Клауд Платформ
+                      </div>
+                      <div className="flex flex-col lg:flex-row w-[10vw] justify-around items-center">
+                        <div className=" text-[#2F3747] text-[16px] font-semibold">
+                          {cServerPrice}₮
+                        </div>
+                        <div className=" text-[#9CA6C0] text-[10px] lg:text-[12px] font-semibold ">
+                          1 жилд
+                        </div>
+                        <div>
+                          <Checkbox
+                            disabled={
+                              serverState1 || serverState3 ? true : false
+                            }
+                            onClick={() => onChangerServerPrice2()}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className=" mt-[16px]">
+                      <Select
+                        disabled={serverState1 || serverState3 ? true : false}
+                        defaultValue="Сонгох"
+                        // style={{ width: 300 }}
+                        className=" w-[300px] lg:w-[556px]"
+                        onChange={handleChange2}
+                      >
+                        {cloudServer?.map((item, index) => {
+                          return (
+                            <Option
+                              key={index}
+                              value={[
+                                <div
+                                  key={index}
+                                  className=" flex justify-between"
+                                >
+                                  <div>{item.server_name}</div>
+                                  <div>CPU Cores: {item.server_cpu}</div>
+                                  <div>Ram: {item.server_ram}</div>
+                                  <div>Hard: {item.server_hard}</div>
+                                  <div>{item.server_price} ₮</div>
+                                </div>,
+                                item.server_id,
+                                item.server_price,
+                              ]}
+                            >
+                              <div className=" flex justify-between">
+                                <div>{item.server_name}</div>
+                                <div>CPU Cores: {item.server_cpu}</div>
+                                <div>Ram: {item.server_ram}</div>
+                                <div>Hard: {item.server_hard}</div>
+                                <div>{item.server_price} ₮</div>
+                              </div>
+                            </Option>
+                          );
+                        })}
+                      </Select>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p>Өөрийн сервер</p>
-                <Select
-                  defaultValue="Сонгох"
-                  style={{ width: 120 }}
-                  onChange={handleChange}
-                >
-                  
-                </Select>
+              </div>
+              <div className=" w-full pb-[17px]">
+                <div className="   lg:w-[722px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
+                  <div className=" p-[20px]">
+                    <div className=" flex w-full  justify-between">
+                      <div className="text-[#2F3747] text-[16px] font-semibold">
+                        3. Өөрсдийн сервер дээр байршуулах
+                      </div>
+                      <div className="">
+                        <Checkbox
+                          disabled={serverState1 || serverState2 ? true : false}
+                          onClick={() => onChangerServerPrice3()}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -448,7 +584,7 @@ const Pricing = ({ id }) => {
                   </div>
                 </div>
                 <Divider className="bill" />
-                
+
                 <div className=" flex justify-between w-[322px]">
                   <div className=" text-[#2F3747] text-[16px] font-medium">
                     Сервер
@@ -502,14 +638,24 @@ const Pricing = ({ id }) => {
                   </div>
                 </div>
                 <div className=" flex justify-center mt-[30px]">
-                  <Button
-                    className=" text-[14px] font-bold w-[200px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
-                    type="primary"
-                    onClick={onPurchase}
-                    disabled
-                  >
-                    Захиалга хийх
-                  </Button>
+                  {sid ? (
+                    <Button
+                      className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                      type="primary"
+                      onClick={onPurchase}
+                    >
+                      Захиалга хийх
+                    </Button>
+                  ) : (
+                    <Button
+                      className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-[#9CA6C0] border-none"
+                      type="primary"
+                      onClick={onPurchase}
+                      disabled
+                    >
+                      Захиалга хийх
+                    </Button>
+                  )}
                 </div>
                 <div className=" mx-[24px] my-[30px]">
                   <p className="text-[14px] text-[#9CA6C0] font-normal">

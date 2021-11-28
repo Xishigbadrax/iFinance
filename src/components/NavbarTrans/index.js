@@ -39,7 +39,7 @@ import newhead from "../../../public/img/newhead.svg";
 
 const NavbarTrans = () => {
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASEURL;
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
   const baseDB = process.env.NEXT_PUBLIC_DB
   
 
@@ -271,8 +271,8 @@ const NavbarTrans = () => {
     );
     if (res.data.result && res.data.result) {
       setUserName(res.data.result.erp_info);
-      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info);
-
+      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info,res.data.result.uid);
+      window.location.reload(false);
       message.success("Амжилттай нэвтэрлээ");
       setUserSid(res.data.result.sid);
       // props.sido(res.data.result.sid);

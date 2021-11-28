@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className=" w-full   h-[21.188rem] mt-[11.813rem]">
       <div className="  h-auto flex justify-center  bg-gradient-to-r from-[#473EDA] to-[#B33DFD]  items-center">
-        <div className=" flex flex-col pt-4 pb-4   md:flex-row lg:flex-row lg:pt-0 lg:pb-0">
+        <div className=" flex flex-col pt-4 pb-4  lg:justify-between lg:w-[60vw]  md:flex-row lg:flex-row lg:pt-0 lg:pb-0">
           <div className=" flex items-center">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/call.png" />
@@ -17,7 +17,7 @@ const Footer = () => {
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/mail.png" />
             </div>
-            <div className=" text-white  w-[110px] ">
+            <div className=" text-white text-[16px]  w-[110px] ">
               Имэйл хаяг: info@ifinance.mn
             </div>
           </div>
@@ -25,7 +25,7 @@ const Footer = () => {
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/address.png" />
             </div>
-            <div className=" text-white w-[250px]">
+            <div className=" text-white text-[16px] w-[250px]">
               Хаяг: Реженси Ресидэнс, 16 Олимпын гудамж, 14220, Улаанбаатар хот,
               Монгол улс
             </div>
