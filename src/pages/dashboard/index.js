@@ -86,7 +86,7 @@ const Dashboard = () => {
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
-          <div className=" hidden  my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+          <div className=" hidden  my-auto font-poppins-semibold uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Манай бүтээгдэхүүн
           </div>
         </div>
@@ -94,7 +94,7 @@ const Dashboard = () => {
       </div>
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">
-        <div className=" grid grid-cols-1 gap-4  lg:grid-cols-4 lg:gap-4 ">
+        <div className=" grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:gap-4 ">
           {list &&
             list.map((item, index) => {
               var a = 0;
@@ -113,7 +113,7 @@ const Dashboard = () => {
                     src={"data:image/png;base64," + item.category_image}
                   />
                   <div className=" w-full flex justify-center items-center ">
-                    <div className=" flex justify-center items-center  ">
+                    <div className=" flex justify-center items-center text-center  ">
                       {item.category_name}
                     </div>
                   </div>

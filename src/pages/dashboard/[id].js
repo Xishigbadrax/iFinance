@@ -62,24 +62,24 @@ const CategoryId = () => {
     <div>
       <Navbar />
       <div className="  relative w-[vw]">
-        <div className="lg:absolute z-20 flex flex-col w-full h-full justify-center text-center">
+        <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center text-center">
           
-          <div className="  lg:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase lg:flex  items-center lg:text-white h-2/3 text-[36px] font-semibold">
+          <div className="  xl:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
           ББСБ Зээлийн модуль 
           </div>
         </div>
-        <Image className=" hidden lg:flex w-[100vw]" preview={false} src="/img/dashboard.svg" />
+        <Image className=" hidden xl:flex w-[100vw]" preview={false} src="/img/dashboard.svg" />
       </div>
-      <div className=" lg:pl-[375px] z-10  mb-[11.813rem]">
+      <div className=" xl:pl-[375px] z-10  mb-[11.813rem]">
         <Tabs defaultActiveKey="1" className="">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" mt-[80px]">
-              <div className="hidden bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] w-[375px] h-[48px] lg:flex items-center  rounded-t-lg ">
+              <div className="hidden bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center  rounded-t-xl ">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
                   Ангилал
                 </p>
               </div>
-            <div className="hidden lg:flex">
+            <div className="hidden xl:flex">
               <Tabs className="module" tabPosition="left">
                 {mainProduct &&
                   mainProduct.map((item, index) => {
@@ -103,7 +103,7 @@ const CategoryId = () => {
                         
                         key={index}
                       >
-                        <div className="lg:w-[770px] mr-6 lg:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
+                        <div className="xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
                           <div>
                             { item.product_images &&
                             <Image
@@ -151,7 +151,7 @@ const CategoryId = () => {
                   })}
               </Tabs>
               </div>
-              <div className=" lg:hidden">
+              <div className=" xl:hidden">
               <Tabs className="module" tabPosition="top">
                 {mainProduct &&
                   mainProduct.map((item, index) => {
@@ -175,7 +175,7 @@ const CategoryId = () => {
                         
                         key={index}
                       >
-                        <div className=" text-justify lg:w-[770px] mr-6 lg:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
+                        <div className=" text-justify xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
                           <div>
                             { item.product_images &&
                             <Image
