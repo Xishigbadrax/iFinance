@@ -21,13 +21,13 @@ export default function Home() {
           <div className="w-full flex justify-center">
             <NavbarTrans />
           </div>
-          <div className=" hidden  lg:flex w-full justify-center  items-center mt-[100px]">
+          <div className=" hidden  xl:flex w-full justify-center  items-center mt-[100px]">
             <div>
-              <div className=" text-[16px]  lg:text-[36px] lg:text-white font-semibold lg:w-[571px]">
-                Бид бол санхүүгийн байгууллагын өсөлтийн хурдасгуур 
+              <div className=" text-[16px]  xl:text-[36px] xl:text-white font-semibold xl:w-[571px]">
+              Бид танай байгууллагын цахим өвийг бүтээнэ!
               </div>
               <br/>
-              <div className=" lg:text-white text-[16px] font-normal mb-[24px]">
+              <div className=" xl:text-white text-[16px] font-normal mb-[24px]">
                 Монголын хамгийн анхны SAAS ERP бүтээгдэхүүн
               </div>
               <div className=" flex mt-[40px]">
@@ -43,35 +43,35 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
               <Image preview={false} src="/img/homeImg.svg" />
             </div>
           </div>
         </div>
         <Image className=" w-[100vw]" preview={false} src="/img/homeBack.svg" />
       </div>
-    <div className="lg:hidden mt-[-10vh] flex justify-center">
-    <Image className="h-40 w-40" preview={false} src="/img/homeImg.svg" />
+    <div className="xl:hidden mt-[-10vh] md:mt-[-15vh] flex justify-center">
+    <Image className="h-40 w-40 md:w-[300px] md:h-[300px]  " preview={false} src="/img/homeImg.svg" />
     </div>
-      <div className=" lg:hidden">
+      <div className=" xl:hidden">
         <div className="flex justify-center">
-          <div className=" text-center w-[300px] text-[16px] text-[#2E28D4] lg:text-[36px] lg:text-white font-semibold lg:w-[571px]">
+          <div className=" text-center w-[300px] text-[16px] md:text-[36px] md:w-[500px] text-[#2E28D4] xl:text-[36px] xl:text-white font-semibold xl:w-[571px]">
           Бид танай байгууллагын цахим өвийг бүтээнэ!
           </div>
         </div>
         <div className=" flex justify-center ">
-          <div className=" w-[300px] lg:text-white text-center mt-4 text-[16px] font-normal mb-[24px]">
+          <div className=" w-[300px] xl:text-white text-center mt-4 text-[16px] md:text-[20px] font-normal mb-[24px]">
             Монголын хамгийн анхны SAAS ERP бүтээгдэхүүн
           </div>
           </div>
-        <div className=" flex justify-around lg:mt-[40px]">
+        <div className=" flex justify-around xl:mt-[40px]">
           <div>
-            <Button className=" w-[166px] h-[48px] rounded-[43px] bg-[#2E28D4] text-white lg:bg-white lg:text-[#2E28D4] text-[14px] font-bold border-none mr-[24px]">
+            <Button className=" w-[166px] h-[48px] rounded-[43px] bg-[#2E28D4] text-white xl:bg-white xl:text-[#2E28D4] text-[14px] font-bold border-none mr-[24px]">
               Демо
             </Button>
           </div>
           <div>
-            <Button className=" w-[166px] h-[48px] rounded-[43px] bg-transparent text-[#2E28D4]  lg:text-white font-bold border-[1px] border-[#2E28D4] lg:border-white">
+            <Button className=" w-[166px] h-[48px] rounded-[43px] bg-transparent text-[#2E28D4]  xl:text-white font-bold border-[1px] border-[#2E28D4] xl:border-white">
               Холбоо барих
             </Button>
           </div>
@@ -90,17 +90,17 @@ export default function Home() {
           Хамтран ажиллагч байгууллагууд
         </div>
         <div className=" w-full flex justify-center mt-[40px]">
-          <div className=" flex flex-col lg:flex-row  w-[60vw] justify-between ">
+          <div className=" flex flex-col md:flex-row xl:flex-row  xl:w-[60vw] justify-between ">
             <div>
               <Image preview={false} src="/img/ict.svg" />
             </div>
-            <div className="my-4 lg:my-0">
+            <div className="my-4 md:my-0 md:mx-6 xl:my-0">
               <Image preview={false} src="/img/itools.svg" />
             </div>
             <div>
               <Image preview={false} src="/img/fibo.svg" />
             </div>
-            <div className="mt-4 lg:mt-0">
+            <div className="mt-4 md:mt-0 md:ml-6 xl:mt-0">
               <Image preview={false} src="/img/cloud.svg" />
             </div>
           </div>
@@ -118,8 +118,8 @@ export default function Home() {
           Үйлчилгээний төрөл
         </div>
         <div className="w-full flex justify-center mt-[40px]">
-          <div className=" flex flex-col lg:flex-row text-center  w-[65vw] justify-between">
-            <div className=" lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+          <div className=" flex flex-col xl:flex-row text-center  w-[65vw] justify-between">
+            <div className=" xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u1.svg" />
               </div>
@@ -127,7 +127,7 @@ export default function Home() {
                 ERP хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 lg:my-0 lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" my-4 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u2.svg" />
               </div>
@@ -135,7 +135,7 @@ export default function Home() {
                 Вебсайт хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 lg:my-0 lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" my-4 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u3.svg" />
               </div>
@@ -143,7 +143,7 @@ export default function Home() {
                 Мобайл апп хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 lg:my-0 lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" my-4 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u4.svg" />
               </div>
@@ -151,7 +151,7 @@ export default function Home() {
                 Систем интеграцчилал
               </div>
             </div>
-            <div className=" my-4 lg:my-0 lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" my-4 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u5.svg" />
               </div>
@@ -159,7 +159,7 @@ export default function Home() {
                 Тусламж, дэмжлэг
               </div>
             </div>
-            <div className=" lg:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u6.svg" />
               </div>
@@ -183,7 +183,7 @@ export default function Home() {
             Бүтээгдэхүүний онцлог
           </div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" flex flex-col lg:flex-row w-[65vw] justify-between pb-[100px]">
+            <div className=" flex flex-col md:flex-col xl:flex-row xl:w-[65vw] justify-between pb-[100px]">
               <div>
                 <div>
                   <Image preview={false} src="/img/b1.svg" />
@@ -209,7 +209,7 @@ export default function Home() {
                   мессэж болон имэйл мэдэгдэл илгээх боломжтой
                 </div>
               </div>
-              <div className=" mt-[50px] lg:mt-0">
+              <div className=" mt-[50px] xl:mt-0">
                 <div>
                   <Image preview={false} src="/img/b3.svg" />
                 </div>
@@ -247,26 +247,26 @@ export default function Home() {
           </div>
           <div className=" bg-[#2E28D4] h-[1px] w-[48px]"></div>
         </div>
-        <div className=" flex justify-center lg">
-          <div className=" w-[250px] lg:w-auto text-center text-[#2F3747] text-[24px] font-bold flex justify-center">
+        <div className=" flex justify-center xl">
+          <div className=" w-[250px] xl:w-auto text-center text-[#2F3747] text-[24px] font-bold flex justify-center">
             Бусдаас ялгарах манай давуу тал
           </div>
         </div>
         <div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" flex flex-col lg:flex-row w-[65%]  justify-between">
+            <div className=" flex flex-col xl:flex-row w-[65%]  justify-between">
               <div>
                 <div>
                   <Image preview={false} src="/img/d1.svg" />
                 </div>
-                <div className=" text-[#2F3747] text-center text-[18px] w-[300px] lg:w-[470px] font-bold">
+                <div className=" text-[#2F3747] text-center text-[18px] w-[300px] xl:w-[470px] font-bold">
                   <span className=" text-[#F01A63] ">
                     Та худалдан авалт хийсэн цагаас эхлэн
                   </span>{" "}
                   бидний нэг хэсэг болж нэгдсэнээр БИД болно.{" "}
                 </div>
               </div>
-              <div className=" mt-10 lg:mt-0">
+              <div className=" mt-10 xl:mt-0">
                 <div className="flex ">
                   <div className="flex flex-col items-center w-[48px]">
                     <div className="h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
@@ -274,7 +274,7 @@ export default function Home() {
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className=" mb-2 lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747] ">
+                  <div className=" mb-2 xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747] ">
                     Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
                     шийдлийг гаргаж чаддаг.
                   </div>
@@ -286,7 +286,7 @@ export default function Home() {
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className="mb-2 lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className="mb-2 xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид хамгийн сүүлийн үеийн програм хангамж дээр хөгжүүлэлт
                     хийж, түүнийгээ ашиглаж чаддаг.{" "}
                   </div>
@@ -298,7 +298,7 @@ export default function Home() {
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className="mb-2 lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className="mb-2 xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид дотоодын болон гадны системтэй интеграц буюу холболт 
                     хийж чаддаг.{" "}
                   </div>
@@ -309,7 +309,7 @@ export default function Home() {
                       4
                     </div>
                   </div>
-                  <div className=" lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className=" xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид нэгнээ үргэлж дэмждэг. Бид нэгэндээ үргэлж нээлттэй
                     байж, өөриймсөг хандлагаар тусалж чаддаг.{" "}
                   </div>
@@ -328,12 +328,12 @@ export default function Home() {
           <div className=" bg-[#2E28D4] h-[1px] w-[48px]"></div>
         </div>
         <div className="flex justify-center">
-          <div className=" w-[300px] text-center lg:w-auto text-[#2F3747] text-[24px] font-bold flex justify-center">
+          <div className=" w-[300px] md:w-[600px] text-center xl:w-auto text-[#2F3747] text-[24px] font-bold flex justify-center">
             Манай бүтээгдэхүүнийг сонгох шалтгаан
           </div>
         </div>
-        <div className=" w-full flex justify-center mt-[20px] lg:mt-[40px]">
-          <div className="flex flex-col lg:flex-row lg:w-[60vw]  justify-between">
+        <div className=" w-full flex justify-center mt-[20px] xl:mt-[40px]">
+          <div className="flex flex-col xl:flex-row xl:w-[60vw]  justify-between">
             <div className="">
               <div className=" flex justify-center text-center">
                 <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
@@ -341,7 +341,7 @@ export default function Home() {
                 </p>
               </div>
               <div className=" flex justify-center">
-                <p className=" text-[#2F3747] text-[16px] text-opacity-60 lg:w-[470px] w-[300px] text-justify ">
+                <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify ">
                   Технологийн дэвшилтэт эрин зуунд танай байгууллагын дотоод
                   системийг хийж гүйцэтгэхээс гадна Финтек шилжилтрүү хөтлөн авч
                   орох болно. Сүүлийн үеийн тренд болсо н lend.mn, storepay.mn,
@@ -373,20 +373,20 @@ export default function Home() {
           <div className=" bg-[#2E28D4] h-[1px] w-[48px]"></div>
         </div>
         <div className=" flex justify-center">
-          <div className=" w-[300px] lg:w-auto text-[#2F3747] text-[24px] font-bold flex justify-center">
+          <div className=" w-[300px] md:w-auto xl:w-auto text-[#2F3747] text-[24px] font-bold flex justify-center">
             Бүх платформуудад ашиглагдах боломжтой
           </div>
         </div>
         <div className=" w-full flex justify-center mt-[40px]">
-          <div className=" flex flex-col lg:flex-row w-[65vw] justify-between">
+          <div className=" flex flex-col xl:flex-row xl:w-[65vw] justify-between">
             <div>
               <div>
                 <Image preview={false} src="/img/app.svg" />
               </div>
               <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px]">
-                Андройд гар утасны апп{" "}
+                Андройд гар утасны апп
               </p>
-              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 lg:w-[370px] ">
+              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Suscipit magnis massa purus donec eleifend phasellus eu
                 parturient cursus. Consequat, varius aenean diam est sed ut
@@ -402,14 +402,14 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className=" my-10 lg:mt-0">
+            <div className=" my-10 xl:mt-0">
               <div>
                 <Image preview={false} src="/img/ifin.svg" />
               </div>
               <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px]">
                 Клауд суурьтай програм хангамж{" "}
               </p>
-              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 lg:w-[370px] ">
+              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Suscipit magnis massa purus donec eleifend phasellus eu
                 parturient cursus. Consequat, varius aenean diam est sed ut
@@ -429,7 +429,7 @@ export default function Home() {
               <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px]">
                 IOS гар утасны апп
               </p>
-              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 lg:w-[370px] ">
+              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Suscipit magnis massa purus donec eleifend phasellus eu
                 parturient cursus. Consequat, varius aenean diam est sed ut
@@ -448,7 +448,7 @@ export default function Home() {
         </div>
       </div>
       <div className=" w-full flex justify-center mt-[100px]">
-        <div className=" flex flex-col lg:flex-row w-[65vw] lg:h-[228px] bg-[#2E28D4] bg-opacity-5 lg:items-center pl-[12vw] items-start justify-around">
+        <div className=" flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] xl:h-[228px] bg-[#2E28D4] bg-opacity-5 xl:items-center items-start justify-around">
           <div>
             <div className=" text-[48px] text-[#2E28D4] font-bold">99225+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
@@ -461,9 +461,9 @@ export default function Home() {
               Жилд хандсан хүний тоо
             </div>
           </div>
-          <div>
+          <div className="">
             <div className=" text-[48px] text-[#AC27FD] font-bold">877+</div>
-            <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
+            <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center ">
               Сард хандсан хүний тоо
             </div>
           </div>

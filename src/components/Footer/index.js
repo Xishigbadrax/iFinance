@@ -7,15 +7,15 @@ const Footer = () => {
   
   return (
     <div className=" w-full   h-[21.188rem] mt-[11.813rem]">
-      <div className="  h-auto flex justify-center  bg-gradient-to-r from-[#473EDA] to-[#B33DFD]  items-center h-[89px]">
-        <div className=" flex flex-col pt-4 pb-4  lg:justify-between lg:w-[60vw]  md:flex-row lg:flex-row lg:pt-0 lg:pb-0">
+      <div className="   flex justify-center  bg-gradient-to-r from-[#473EDA] to-[#B33DFD]  items-center h-[89px]">
+        <div className=" flex flex-col pt-4 pb-4   xl:justify-between xl:w-[60vw] md:w-[80vw] md:justify-between  md:flex-row xl:flex-row xl:pt-0 xl:pb-0">
           <div className=" flex items-center">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/call.svg" style={{ paddingRight: "16px" }}/>
             </div>
             <div className=" text-white text-[16px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}><strong>Утас:</strong><br/> 976 89977771</div>
           </div>
-          <div className=" flex items-center my-2 lg:mx-[95pxm]">
+          <div className=" flex items-center my-2 xl:mx-[95pxm]">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/mail.svg" style={{ paddingRight: "16px" }}/>
             </div>
@@ -27,7 +27,7 @@ const Footer = () => {
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/address.svg" style={{ paddingRight: "16px" }}/>
             </div>
-            <div className=" text-white text-[16px] w-[350px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}>
+            <div className=" text-white text-[16px] xl:w-[350px] md:w-[300px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}>
               <strong>Хаяг:</strong> Реженси Ресидэнс, 16 Олимпын гудамж, 14220, Улаанбаатар хот,<br/>
               Монгол улс
             </div>
@@ -40,7 +40,7 @@ const Footer = () => {
         </div>
         <br/>
         <div className=" max-w-[600px] flex justify-center">
-          <ul className=" flex flex-col md:w-[600px] lg:w-[600px] justify-between md:flex-row" style={{ fontFamily: Poppins, fontWeight: 600, fontStyle: "SemiBold", fontSize: "11px", lineHeight: "16.5px", opacity: 0.7 }}>
+          <ul className=" flex flex-col md:w-[600px] xl:w-[600px] justify-between md:flex-row" style={{ fontFamily: Poppins, fontWeight: 600, fontStyle: "SemiBold", fontSize: "11px", lineHeight: "16.5px", opacity: 0.7 }}>
             <li>
               <a className=" text-white">Эхлэл</a>
             </li>
@@ -76,7 +76,7 @@ const Footer = () => {
           <Image preview={false} src="/img/link.svg" />
         </div>
       </div>
-      <div className=" flex flex-col lg:flex-row px-10 justify-around" style={{ paddingTop: "22px", paddingBottom: "17px" }}>
+      <div className=" flex flex-col md:flex-row xl:flex-row px-10 justify-around" style={{ paddingTop: "22px", paddingBottom: "17px" }}>
         <div className=" text-[#011F70] text-[14px] font-normal text-center" style={{ fontFamily: Poppins }}>Бүх эрх хуулиар хамгаалагдсан © 2022. Интеллижент Финанс ХХК</div>
         <div className=" flex items-center justify-center">
          

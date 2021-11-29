@@ -10,6 +10,7 @@ import {
   Image,
   Button,
   Select,
+  message,
 } from "antd";
 
 import Auth from "../../utils/auth";
@@ -39,13 +40,23 @@ const Pricing = ({ id }) => {
 
   const [numberOfProgram, setNumberOfProgram] = useState(0);
   const [programPrice, setProgramPrice] = useState(0);
+  const [programPriceSeason, setProgramPriceSeason] = useState(0);
+  const [programPriceYear, setProgramPriceYear] = useState(0);
   const [serverPrice, setServerPrice] = useState(0);
+  const [serverPriceSeason, setServerPriceSeason] = useState(0);
+  const [serverPriceYear, setServerPriceYear] = useState(0);
   const [pServerPrice, setpServerPrice] = useState(0);
   const [cServerPrice, setcServerPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
+  const [discountSeason, setDiscountSeason] = useState(0);
+  const [discountYear, setDiscountYear] = useState(0);
   const [tax, setTax] = useState(0);
   const [taxPrice, setTaxPrice] = useState(0);
+  const [taxPriceSeason, setTaxPriceSeason] = useState(0);
+  const [taxPriceYear, setTaxPriceYear] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPriceSeason, setTotalPriceSeason] = useState(0);
+  const [totalPriceYear, setTotalPriceYear] = useState(0);
   const [serverId, setServerId] = useState(0);
 
   const [physicalServer, setPhysicalServer] = useState();
@@ -55,6 +66,8 @@ const Pricing = ({ id }) => {
   const [serverState2, setServerState2] = useState(false);
   const [serverState3, setServerState3] = useState(false);
 
+  
+
   // const [isChecked, setIsChecked] = useState([]);
 
   const handleChange = (value) => {
@@ -62,6 +75,7 @@ const Pricing = ({ id }) => {
     setServerId(value[1]);
     setpServerPrice(Number(value[2]));
   };
+  
   const handleChange2 = (value) => {
     console.log(value, "serveree2");
     setServerId(value[1]);
@@ -141,7 +155,13 @@ const Pricing = ({ id }) => {
         "Content-Type": "application/json",
       },
     });
-
+    if(res.data.result && res.data.result){
+      message.success("Хүсэлт амжилттай биеллээ.");
+    } else if(res.data.error){
+      message.warning(res.data.error.data.message);
+    } else {
+      message.warning("Хүсэлт амжилтгүй");
+    }
     console.log(res, "purchase res");
   };
 
@@ -176,11 +196,24 @@ const Pricing = ({ id }) => {
   useEffect(() => {
     setTotalPrice(programPrice + serverPrice - discount);
     setTaxPrice((programPrice + serverPrice) / Number(tax));
+    setTaxPriceSeason(((programPrice + serverPrice) * 3) / Number(tax));
+    setTaxPriceYear(((programPrice + serverPrice) * 12) / Number(tax));
+    setProgramPriceSeason(Number(programPrice) * 3);
+    setProgramPriceYear(Number(programPrice) * 12);
     console.log(tax, taxPrice, "zaa");
   }, [programPrice]);
   useEffect(() => {
-    setTaxPrice((Number(programPrice) + Number(serverPrice)) / Number(tax));
-  }, [tax]);
+    setTotalPriceSeason((Number(totalPrice) * 3) + serverPrice - discountSeason);
+    setTotalPriceYear((Number(totalPrice) * 12) + serverPrice - discountYear);
+  }, [totalPrice]);
+  useEffect(() => {
+    setDiscountSeason(Number(discount) * 3);
+    setDiscountYear(Number(discount) * 12);
+  }, [discount]);
+  useEffect(() => {
+    setServerPriceSeason(Number(serverPrice) * 3);
+    setServerPriceYear(Number(serverPrice) * 12);
+  }, [serverPrice]);
   useEffect(() => {
     console.log(serverState1, "serverstateee1");
   }, [serverState1]);
@@ -205,17 +238,17 @@ const Pricing = ({ id }) => {
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
-          <div className="hidden my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+          <div className="hidden my-auto font-poppins-semibold uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Үнийн санал
           </div>
         </div>
 
         <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
       </div>
-      <div className=" lg:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
+      <div className=" xl:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
         Үнийн санал
       </div>
-      <div className=" lg:mt-[80px] flex flex-col lg:flex-row  lg:ml-[375px]">
+      <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row  xl:ml-[375px]">
         <div className=" flex  justify-center ">
           <div className=" w-full ">
             <div>
@@ -248,10 +281,10 @@ const Pricing = ({ id }) => {
             </div> */}
 
             <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center lg:w-[48.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 1. ББСБ Зээлийн модуль
               </div>
-              <div className="  grid grid-cols-1 lg:grid-cols-2 gap-4 lg:w-[48.125rem] lg:pl-6 pb-[30px]">
+              <div className="  grid grid-cols-1 xl:grid-cols-2 gap-4 xl:w-[48.125rem] xl:pl-6 pb-[30px] px-2">
                 {mainData &&
                   mainData.map((item, index) => {
                     return (
@@ -260,8 +293,8 @@ const Pricing = ({ id }) => {
                         onClick={() => isChecked(item)}
                         className={
                           state.includes(item)
-                            ? "mt-[24px] lg:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4] "
-                            : "mt-[24px] lg:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0] "
+                            ? "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4] "
+                            : "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0] "
                         }
                       >
                         <div className=" p-[20px]  flex justify-between">
@@ -332,10 +365,10 @@ const Pricing = ({ id }) => {
             </div>
 
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex text-[1.5rem] text-white items-center lg:w-[49.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid lg:grid-cols-2 gap-4  lg:pl-6 pb-[30px] lg:w-[48.125rem] px-2 ">
+              <div className="grid xl:grid-cols-2 gap-4  xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
                   return (
                     <div
@@ -343,8 +376,8 @@ const Pricing = ({ id }) => {
                       onClick={() => isChecked(item)}
                       className={
                         state.includes(item)
-                          ? "mt-[24px] lg:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4]"
-                          : "mt-[24px] lg:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0]"
+                          ? "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4]"
+                          : "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0]"
                       }
                     >
                       <div className=" p-[20px]  flex justify-between">
@@ -414,21 +447,21 @@ const Pricing = ({ id }) => {
               </div>
             </div>
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[49.125rem] h-[3.875rem] rounded-t-lg bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              <div className=" pl-2 flex  text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Сервер байршуулах:
               </div>
               <div>
-                <div className=" mx-[24px]  p-[24px lg:w-[722px] lg:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+                <div className=" mx-[24px]  p-[24px xl:w-[722px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                   <div className=" p-[20px]">
                     <div className=" flex w-full  justify-between">
                       <div className="text-[#2F3747] text-[16px] font-semibold">
                         1. Itools.mn Физик серверт байршуулах
                       </div>
-                      <div className="flex flex-col lg:flex-row w-[10vw] justify-around items-center">
+                      <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
                         <div className=" text-[#2F3747] text-[16px] font-semibold">
                           {pServerPrice}₮
                         </div>
-                        <div className=" text-[#9CA6C0] text-[10px] lg:text-[12px] font-semibold ">
+                        <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
                           1 жилд
                         </div>
                         <div>
@@ -448,7 +481,7 @@ const Pricing = ({ id }) => {
                         disabled={serverState2 || serverState3 ? true : false}
                         defaultValue="Сонгох"
                         // style={{ width: 300 }}
-                        className=" w-[300px] lg:w-[556px]"
+                        className=" w-[300px] xl:w-[556px]"
                         onChange={handleChange}
                       >
                         {physicalServer?.map((item, index) => {
@@ -486,17 +519,17 @@ const Pricing = ({ id }) => {
                 </div>
               </div>
               <div className=" w-full">
-                <div className=" mx-[24px]  lg:w-[722px] lg:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+                <div className=" mx-[24px]  xl:w-[722px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                   <div className=" p-[20px]">
                     <div className=" flex w-full  justify-between">
                       <div className="text-[#2F3747] text-[16px] font-semibold">
                         2. Cloud.mn Клауд Платформ
                       </div>
-                      <div className="flex flex-col lg:flex-row w-[10vw] justify-around items-center">
+                      <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
                         <div className=" text-[#2F3747] text-[16px] font-semibold">
                           {cServerPrice}₮
                         </div>
-                        <div className=" text-[#9CA6C0] text-[10px] lg:text-[12px] font-semibold ">
+                        <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
                           1 жилд
                         </div>
                         <div>
@@ -514,7 +547,7 @@ const Pricing = ({ id }) => {
                         disabled={serverState1 || serverState3 ? true : false}
                         defaultValue="Сонгох"
                         // style={{ width: 300 }}
-                        className=" w-[300px] lg:w-[556px]"
+                        className=" w-[300px] xl:w-[556px]"
                         onChange={handleChange2}
                       >
                         {cloudServer?.map((item, index) => {
@@ -552,7 +585,7 @@ const Pricing = ({ id }) => {
                 </div>
               </div>
               <div className=" w-full pb-[17px]">
-                <div className="   lg:w-[722px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
+                <div className="   xl:w-[722px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
                   <div className=" p-[20px]">
                     <div className=" flex w-full  justify-between">
                       <div className="text-[#2F3747] text-[16px] font-semibold">
@@ -571,9 +604,9 @@ const Pricing = ({ id }) => {
             </div>
           </div>
         </div>
-        <div className=" ml-[10px] w-[370px]  lg:h-[625px] shadow-custom rounded-[8px] ">
+        <div className=" ml-[10px] w-[370px]  xl:h-[625px] shadow-custom rounded-[8px] ">
           <Tabs className="payment" defaultActiveKey="1">
-            <TabPane tab="ЖИЛД" key="1">
+            <TabPane tab="САР" key="1">
               <div className=" flex flex-col justify-center items-center">
                 <div className=" flex justify-between  w-[322px]">
                   <div className=" text-[#2F3747] text-[16px] font-medium">
@@ -666,10 +699,188 @@ const Pricing = ({ id }) => {
               </div>
             </TabPane>
             <TabPane tab="УЛИРАЛ" key="2">
-              Улирал
+            <div className=" flex flex-col justify-center items-center">
+                <div className=" flex justify-between  w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    {numberOfProgram} програм
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {programPriceSeason}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Сервер
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {serverPriceSeason}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    НӨАТ
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {taxPriceSeason}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px] ">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Хөнгөлөлт
+                  </div>
+                  <div className="text-[#30D82E] text-[16px] font-semibold">
+                    -{discountSeason}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-semibold">
+                    Нийт төлбөр
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {totalPriceSeason}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+
+                <div className=" w-full  flex flex-col justify-center items-center">
+                  <div className="text-[13px] text-[#9CA6C0] font-normal">
+                    (2) Billed annually: $216.00 USD
+                  </div>
+                  <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" pt-[16px] pl-[17px] pr-[17px]">
+                      <Image src="/img/warning.png" />
+                    </div>
+                    <p className=" pt-[16px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
+                      Those apps are free as long as you don't need more apps or
+                      hosting options.
+                    </p>
+                  </div>
+                </div>
+                <div className=" flex justify-center mt-[30px]">
+                  {sid ? (
+                    <Button
+                      className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                      type="primary"
+                      onClick={onPurchase}
+                    >
+                      Захиалга хийх
+                    </Button>
+                  ) : (
+                    <Button
+                      className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-[#9CA6C0] border-none"
+                      type="primary"
+                      onClick={onPurchase}
+                      disabled
+                    >
+                      Захиалга хийх
+                    </Button>
+                  )}
+                </div>
+                <div className=" mx-[24px] my-[30px]">
+                  <p className="text-[14px] text-[#9CA6C0] font-normal">
+                    (1) New customers get a discount on the initial number of
+                    users purchased. ($6.00 USD instead of $8.00 USD).
+                  </p>
+                </div>
+              </div>
             </TabPane>
-            <TabPane tab="САРД" key="3">
-              Сард
+            <TabPane tab="ЖИЛ" key="3">
+            <div className=" flex flex-col justify-center items-center">
+                <div className=" flex justify-between  w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    {numberOfProgram} програм
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {programPriceYear}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Сервер
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {serverPriceYear}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    НӨАТ
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {taxPriceYear}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px] ">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Хөнгөлөлт
+                  </div>
+                  <div className="text-[#30D82E] text-[16px] font-semibold">
+                    -{discountYear}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-semibold">
+                    Нийт төлбөр
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {totalPriceYear}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+
+                <div className=" w-full  flex flex-col justify-center items-center">
+                  <div className="text-[13px] text-[#9CA6C0] font-normal">
+                    (2) Billed annually: $216.00 USD
+                  </div>
+                  <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" pt-[16px] pl-[17px] pr-[17px]">
+                      <Image src="/img/warning.png" />
+                    </div>
+                    <p className=" pt-[16px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
+                      Those apps are free as long as you don't need more apps or
+                      hosting options.
+                    </p>
+                  </div>
+                </div>
+                <div className=" flex justify-center mt-[30px]">
+                  {sid ? (
+                    <Button
+                      className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                      type="primary"
+                      onClick={onPurchase}
+                    >
+                      Захиалга хийх
+                    </Button>
+                  ) : (
+                    <Button
+                      className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-[#9CA6C0] border-none"
+                      type="primary"
+                      onClick={onPurchase}
+                      disabled
+                    >
+                      Захиалга хийх
+                    </Button>
+                  )}
+                </div>
+                <div className=" mx-[24px] my-[30px]">
+                  <p className="text-[14px] text-[#9CA6C0] font-normal">
+                    (1) New customers get a discount on the initial number of
+                    users purchased. ($6.00 USD instead of $8.00 USD).
+                  </p>
+                </div>
+              </div>
             </TabPane>
           </Tabs>
         </div>

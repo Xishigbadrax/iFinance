@@ -186,7 +186,7 @@ const NavbarTrans = () => {
       setUserName(res.data.result.erp_info);
       setUserSid(res.data.result.sid);
       setIsLogin(true);
-      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info);
+      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info,res.data.result.uid);
       console.log(res, "last res");
       setConfirmModal(false);
       message.success("Амжилттай нэвтэрлээ");
