@@ -24,8 +24,9 @@ export default function Home() {
           <div className=" hidden  lg:flex w-full justify-center  items-center mt-[100px]">
             <div>
               <div className=" text-[16px]  lg:text-[36px] lg:text-white font-semibold lg:w-[571px]">
-                Бид танай байгууллагын цахим өвийг бүтээнэ!
+                Бид бол санхүүгийн байгууллагын өсөлтийн хурдасгуур 
               </div>
+              <br/>
               <div className=" lg:text-white text-[16px] font-normal mb-[24px]">
                 Монголын хамгийн анхны SAAS ERP бүтээгдэхүүн
               </div>
@@ -109,7 +110,7 @@ export default function Home() {
         <div className=" flex items-center justify-center">
           <div className=" bg-[#2E28D4] h-[1px] w-[48px] "></div>
           <div className="text-[#2E28D4] text-[11px] font-semibold mx-[16px]">
-            02 үйлчилгээ
+            02 Үйлчилгээ
           </div>
           <div className=" bg-[#2E28D4] h-[1px] w-[48px]"></div>
         </div>
@@ -286,8 +287,8 @@ export default function Home() {
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
                   <div className="mb-2 lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
-                    Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
-                    шийдлийг гаргаж чаддаг.{" "}
+                    Бид хамгийн сүүлийн үеийн програм хангамж дээр хөгжүүлэлт
+                    хийж, түүнийгээ ашиглаж чаддаг.{" "}
                   </div>
                 </div>
                 <div className="flex">
@@ -298,8 +299,8 @@ export default function Home() {
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
                   <div className="mb-2 lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
-                    Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
-                    шийдлийг гаргаж чаддаг.{" "}
+                    Бид дотоодын болон гадны системтэй интеграц буюу холболт 
+                    хийж чаддаг.{" "}
                   </div>
                 </div>
                 <div className="flex">
@@ -309,8 +310,8 @@ export default function Home() {
                     </div>
                   </div>
                   <div className=" lg:w-[606px] ml-2 lg:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
-                    Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
-                    шийдлийг гаргаж чаддаг.{" "}
+                    Бид нэгнээ үргэлж дэмждэг. Бид нэгэндээ үргэлж нээлттэй
+                    байж, өөриймсөг хандлагаар тусалж чаддаг.{" "}
                   </div>
                 </div>
               </div>
