@@ -6,28 +6,28 @@ import Poppins from 'typeface-poppins'
 const Footer = () => {
   
   return (
-    <div className=" w-full   h-[21.188rem] mt-[11.813rem]">
-      <div className="   flex justify-center  bg-gradient-to-r from-[#473EDA] to-[#B33DFD]  items-center h-[89px]">
+    <div className=" w-full   lg:h-[21.188rem]">
+      <div className=" flex justify-center  bg-gradient-to-r from-[#473EDA] to-[#B33DFD]  items-center lg:h-[89px]">
         <div className=" flex flex-col pt-4 pb-4   xl:justify-between xl:w-[60vw] md:w-[80vw] md:justify-between  md:flex-row xl:flex-row xl:pt-0 xl:pb-0">
           <div className=" flex items-center">
             <div className="flex items-center mr-2">
-              <Image preview={false} src="/img/call.svg" style={{ paddingRight: "16px" }}/>
+              <Image preview={false} src="/img/call.svg" />
             </div>
             <div className=" text-white text-[16px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}><strong>Утас:</strong><br/> 976 89977771</div>
           </div>
-          <div className=" flex items-center my-2 xl:mx-[95pxm]">
+          <div className=" flex items-center my-2 xl:mx-[95px] ">
             <div className="flex items-center mr-2">
-              <Image preview={false} src="/img/mail.svg" style={{ paddingRight: "16px" }}/>
+              <Image preview={false} src="/img/mail.svg" />
             </div>
             <div className=" text-white text-[16px]  w-[110px] " style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}>
               <strong>Имэйл хаяг:</strong> info@ifinance.mn
             </div>
           </div>
-          <div className=" flex items-center mr-2">
+          <div className=" flex items-center mr-2 w-[300px] ">
             <div className="flex items-center mr-2">
-              <Image preview={false} src="/img/address.svg" style={{ paddingRight: "16px" }}/>
+              <Image  preview={false} src="/img/address.svg"/>
             </div>
-            <div className=" text-white text-[16px] xl:w-[350px] md:w-[300px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}>
+            <div className=" text-white text-[16px] w-auto xl:w-[350px] md:w-[300px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}>
               <strong>Хаяг:</strong> Реженси Ресидэнс, 16 Олимпын гудамж, 14220, Улаанбаатар хот,<br/>
               Монгол улс
             </div>

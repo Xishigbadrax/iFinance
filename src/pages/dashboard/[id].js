@@ -7,11 +7,11 @@ import Context from "../../context/Context";
 import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer";
 import { Tabs, Image, Button } from "antd";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 const CategoryId = () => {
   const router = useRouter();
-  
+
   const { id } = router.query;
   const { sessionId } = useContext(Context);
   const { TabPane } = Tabs;
@@ -79,7 +79,7 @@ const CategoryId = () => {
         <Tabs defaultActiveKey="1" className="">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" mt-[80px]">
-              <div className="hidden bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center  rounded-t-xl ">
+              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center  rounded-t-xl ">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
                   Ангилал
                 </p>
@@ -88,6 +88,11 @@ const CategoryId = () => {
                 <Tabs className="module" tabPosition="left">
                   {mainProduct &&
                     mainProduct.map((item, index) => {
+                      // var content = "dsadas";
+                      // var urlRegex =/(g;
+                      var content = item.product_description.replace( "/web", 'https://test.ifinance.mn/web');
+                    
+                      // console.log(content, "contentteee");
                       return (
                         <TabPane
                           className="test"
@@ -121,7 +126,9 @@ const CategoryId = () => {
                                 />
                               )}
                             </div> */}
-                            <p>{parse(item.product_description)} </p>
+                          <img src="https://test.ifinance.mn/web/image/605/260420641_4476133815838329_6902069086329202614_n.jpeg" />
+                            <p>{parse(content)} </p>
+                            {/* <Image alt="tst" src="https://test.ifinance.mn/web/image/605/.jpg" /> */}
                             <div className="flex">
                               {/* {item.product_images[0] ? (
                                 <div>

@@ -13,6 +13,7 @@ const Dashboard = () => {
   const router = useRouter();
   const [sid, setSid] = useState();
   const [list, setList] = useState([]);
+  const [bgHover, setBgHover] = useState(false);
   const [serverType, setServerType] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const baseDB = process.env.NEXT_PUBLIC_DB;
@@ -85,16 +86,19 @@ const Dashboard = () => {
                 <div
                   key={index}
                   onClick={() => onCategory(item.category_id)}
-                  className=" relative flex flex-col justify-center items-center w-[16.875rem] h-[16rem] border-[1px] hover:bg-gradient-to-tr from-[#011F70] to-[#AC27FD]  text-[24px] hover:text-white font-semibold rounded-[4px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
+                  
+                  className=" relative flex flex-col justify-center items-center w-[16.875rem] h-[16rem] border-[1px] hover:bg-gradient-to-tr hover: from-[#011F70] to-[#AC27FD]  text-[24px] hover:text-white font-semibold rounded-[4px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
                 >
                   <div className=" absolute z-60 bottom-[0rem] right-[1rem] text-[#AC27FD]  text-[120px] text-opacity-5">
                     {Number(index) + 1}
                   </div>
+                  <div className=" bg-white h-[100px] w-[100px] flex justify-center items-center rounded-[50px]">
                   <Image
                     preview={false}
-                    className="z-10"
+                    className=" "
                     src={"data:image/png;base64," + item.category_image}
                   />
+                  </div>
                   <div className=" w-full flex justify-center items-center ">
                     <div className=" flex justify-center items-center text-center  ">
                       {item.category_name}

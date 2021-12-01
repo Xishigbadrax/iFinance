@@ -5,6 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 import Auth from "../../utils/auth";
 
 const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
+  console.log(userName, "namee");
   return (
     <div className="w-full">
       <div className="sidebar">
@@ -15,8 +16,8 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
               <UserOutlined className="text-[20px] text-white" />
             </div>
             <div className="text-[14px] text-white font-semibold ml-1 pt-1 font-sans">
-              {/* {userName} */}
-              Khishigbadrakh
+              {Auth.getName()}
+      
             </div>
           </div>
         )}
@@ -45,7 +46,7 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
           </ul>
         </div>
 
-        {!isLogin && (
+        {!Auth.getToken() ? (
           <div className="">
             <div className=" h-[48px]">
               <Button
@@ -66,7 +67,15 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
               </Button>
             </div>
           </div>
-        )}
+        ) :    <div className="mt-2">
+        <Button
+          className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
+          onClick={() => Logout(2)}
+          type="primary"
+        >
+          Гарах
+        </Button>
+      </div>}
       </div>
     </div>
   );
