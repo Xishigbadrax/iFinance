@@ -338,10 +338,7 @@ const Home = () => {
                 Андройд гар утасны апп{" "}
               </p>
               <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 w-[370px] ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suscipit magnis massa purus donec eleifend phasellus eu
-                parturient cursus. Consequat, varius aenean diam est sed ut
-                fames nulla sed.
+                Андройд үйлдлийн системд ажиллах гар утасны аппликейшин татах.
               </p>
               <div className=" mt-[40px]">
                 <a
@@ -358,13 +355,10 @@ const Home = () => {
                 <Image preview={false} src="/img/ifin.svg" />
               </div>
               <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px]">
-                Клауд суурьтай програм хангамж{" "}
+                SaaS болон Cloud суурьтай програм хангамж{" "}
               </p>
               <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 w-[370px] ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suscipit magnis massa purus donec eleifend phasellus eu
-                parturient cursus. Consequat, varius aenean diam est sed ut
-                fames nulla sed.
+                SaaS болон Cloud програм хангамжийн танилцуулга харах.
               </p>
               <div className=" mt-[40px]">
                 {" "}
@@ -381,10 +375,7 @@ const Home = () => {
                 IOS гар утасны апп
               </p>
               <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 w-[370px] ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suscipit magnis massa purus donec eleifend phasellus eu
-                parturient cursus. Consequat, varius aenean diam est sed ut
-                fames nulla sed.
+                IOS үйлдлийн системд ажиллах гар утасны аппликейшин татах.
               </p>
               <div className=" mt-[40px]">
                 <a target="_blank" href="https://apps.odoo.com/apps">

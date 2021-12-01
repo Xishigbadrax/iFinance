@@ -186,7 +186,7 @@ a {
   width: 50%;
   height: 100%;
   overflow: hidden;
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.9s ease-in-out;
   z-index: 9;
 }
 
@@ -207,7 +207,7 @@ a {
   height: 100%;
   width: 200%;
   transform: translateX(0);
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.1s ease-in-out;
 }
 
 .container.right-panel-active .overlay {
@@ -226,7 +226,7 @@ a {
   height: 100%;
   width: 50%;
   transform: translateX(0);
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .overlay-left {
@@ -407,6 +407,21 @@ a {
 .payment .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color: white !important;
 }
-.ant-checkbox-input{
+.itools:hover{
+  fill: blue !important;
+}
+.c:hover{
+color: red !important;
+}
 
+.tursh{
+  line-height: 0 !important;
+}
+.slick-next:before {
+  color: #2E28D4 !important;
+  
+}
+.slick-prev:before{
+  /* background-color: red !important; */
+  color: #2E28D4 !important;
 }

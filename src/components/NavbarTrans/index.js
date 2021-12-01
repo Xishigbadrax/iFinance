@@ -38,13 +38,10 @@ import Router from "next/router";
 import newhead from "../../../public/img/newhead.svg";
 
 const NavbarTrans = () => {
-
   const baseUrl = process.env.NEXT_PUBLIC_URL;
-  const baseDB = process.env.NEXT_PUBLIC_DB
-  
+  const baseDB = process.env.NEXT_PUBLIC_DB;
 
   const [loginModal, setLoginModal] = useState(false);
-
   const { sessionId } = useContext(Context);
   const { onSid } = useContext(Context);
   const [addclass, setaddclass] = useState("");
@@ -172,7 +169,6 @@ const NavbarTrans = () => {
           db: baseDB,
           login: email,
           password: password,
-         
         },
       },
       {
@@ -186,7 +182,11 @@ const NavbarTrans = () => {
       setUserName(res.data.result.erp_info);
       setUserSid(res.data.result.sid);
       setIsLogin(true);
-      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info,res.data.result.uid);
+      auth_cookie.setToken(
+        res.data.result.sid,
+        res.data.result.erp_info,
+        res.data.result.uid
+      );
       console.log(res, "last res");
       setConfirmModal(false);
       message.success("Амжилттай нэвтэрлээ");
@@ -246,7 +246,6 @@ const NavbarTrans = () => {
   };
 
   const onFinishLogin = async (values) => {
-   
     console.log("Received values of form: ", values);
     const res = await axios.post(
       baseUrl + "login",
@@ -271,7 +270,11 @@ const NavbarTrans = () => {
     );
     if (res.data.result && res.data.result) {
       setUserName(res.data.result.erp_info);
-      auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info,res.data.result.uid);
+      auth_cookie.setToken(
+        res.data.result.sid,
+        res.data.result.erp_info,
+        res.data.result.uid
+      );
       window.location.reload(false);
       message.success("Амжилттай нэвтэрлээ");
       setUserSid(res.data.result.sid);
@@ -291,7 +294,6 @@ const NavbarTrans = () => {
   };
 
   useEffect(() => {
-   
     console.log(sessionId, "id shuu");
     // fetch(
     //   "https://geolocation-db.com/json/297364b0-2bc6-11ec-a8a6-1fc54772a803"
@@ -338,7 +340,10 @@ const NavbarTrans = () => {
   );
 
   return (
-    <div id="head" className="w-full h-[100px] bg-transparent relative flex justify-center">
+    <div
+      id="head"
+      className="w-full h-[100px] bg-transparent relative flex justify-center"
+    >
       {/* <div className=" w-[100vw] absolute z-[-1]">
         <Image src="/img/back.png" className=" h-[100px] w-[100vw]" />
       </div> */}
@@ -914,7 +919,7 @@ const NavbarTrans = () => {
 
               <Form.Item>
                 <Button
-                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px]"
+                  className=" mt-[76px]  border-none w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px]"
                   type="primary"
                   htmlType="submit"
                 >
@@ -933,7 +938,7 @@ const NavbarTrans = () => {
                 <Image preview={false} src="/img/login.png" />
 
                 <Button
-                  className=" w-[12.5rem] h-[3rem] bg-transparent border-[#fff] bg-opacity-50 rounded-[43px] mt-[2rem]"
+                  className=" w-[12.5rem] h-[3rem] bg-transparent border-[#fff] bg-opacity-50 rounded-[43px] mt-[155px]"
                   onClick={() => setaddclass("")}
                   type="primary"
                 >
@@ -1530,8 +1535,8 @@ const NavbarTrans = () => {
 
       <div className="  flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
-          <a href="/" >
-          <Image preview={false} src="/img/Logo2.svg" alt="logo" />
+          <a href="/">
+            <Image preview={false} src="/img/Logo2.svg" alt="logo" />
           </a>
         </div>
         {sideBarActive ? (
@@ -1559,23 +1564,25 @@ const NavbarTrans = () => {
             <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
               <li className=" text-lg ">
                 <Link href="/">
-                  <a className=" text-white font-semibold">Эхлэл</a>
+                  <a className=" text-white font-poppins-semibold">Эхлэл</a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" text-white font-semibold">Бүтээгдэхүүн</a>
+                  <a className=" text-white font-poppins-semibold">Бүтээгдэхүүн</a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className=" text-white font-semibold">Үнийн санал</a>
+                  <a className="  text-white font-poppins-semibold">Үнийн санал</a>
                 </Link>
               </li>
 
               <li className=" text-lg">
                 <Link href="/">
-                  <a className=" text-white font-semibold">Үйлчилгээ</a>
+                  <a className=" text-[18px] font-poppins-semibold  text-white ">
+                    Үйлчилгээ
+                  </a>
                 </Link>
               </li>
             </ul>
@@ -1583,11 +1590,11 @@ const NavbarTrans = () => {
 
           {Auth.getToken() == null || Auth.getToken() == undefined ? (
             <>
-              <div className="  lg:w-80 lg:flex lg:justify-between lg:mt-2">
+              <div className=" font-poppins-semibold lg:w-80 lg:flex lg:justify-between ">
                 <div className=" h-[48px]">
                   <Button
                     onClick={Signup}
-                    className=" mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px] font-bold border-white"
+                    className=" font-poppins-semibold mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px]  border-white"
                     type="primary"
                   >
                     Бүртгүүлэх
@@ -1595,7 +1602,7 @@ const NavbarTrans = () => {
                 </div>
                 <div>
                   <Button
-                    className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
+                    className="  h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-poppins-semibold"
                     onClick={Login}
                     type="primary"
                   >

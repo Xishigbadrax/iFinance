@@ -205,3 +205,23 @@
 .container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
+.slides {
+  position: relative,
+ 
+  
+}
+
+/* .slides .slick-prev .slick-next {
+  position: absolute;
+  top: 50%;
+}
+.slides .slick-prev {
+  left: 5%;
+}
+.slides .slick-next {
+  right: 5%;
+} */
+.slick-next:before {
+  background-color: red !important;
+  content: '→';
+}

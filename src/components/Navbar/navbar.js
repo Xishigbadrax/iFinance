@@ -270,8 +270,7 @@ const Navbar = ({}) => {
       console.log(res, "login res");
       setUserName(res.data.result.erp_info);
       auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info, res.data.result.uid);
-      
-
+      window.location.reload(false);
       message.success("Амжилттай нэвтэрлээ");
       setUserSid(res.data.result.sid);
       // props.sido(res.data.result.sid);
@@ -1614,7 +1613,7 @@ const Navbar = ({}) => {
             </>
           ) : (
             <>
-              <div className=" cursor-pointer box-border">
+            <div className=" cursor-pointer box-border">
                 <Dropdown
                   placement="bottomRight"
                   overlay={menu}

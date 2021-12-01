@@ -1,11 +1,112 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/Home.module.css";
 import NavbarTrans from "../components/NavbarTrans";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
-import { Button, Image, Divider } from "antd";
+import { Button, Image, Carousel } from "antd";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+// import Loader from "react-loader-spinner";
 
 export default function Home() {
+  const [onhover, setOnHover] = useState(false);
+  const contentStyle = {
+    height: "350px",
+
+    color: "#fff",
+    width: "370px",
+    lineHeight: "1.5rem",
+    textAlign: "start",
+    // background: "red"
+  };
+  const settings = {
+    arrows: true,
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+  const settings2 = {
+    arrows: true,
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     // <div >
     //     <Navbar />
@@ -15,29 +116,29 @@ export default function Home() {
     //     <Footer />
     // </div>
 
-    <div className=" ">
-      <div className="relative w-[vw]">
+    <div className=" overflow-x-hidden">
+      <div className="relative w-[100vw]">
         <div id="head" className=" absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center">
             <NavbarTrans />
           </div>
           <div className=" hidden  xl:flex w-full justify-center  items-center mt-[100px]">
             <div>
-              <div className=" text-[16px]  xl:text-[36px] xl:text-white font-semibold xl:w-[571px]">
-              Бид танай байгууллагын цахим өвийг бүтээнэ!
+              <div className=" text-[16px]  xl:text-[36px] xl:text-white font-poppins-semibold xl:w-[600px]">
+                Бид танай байгууллагын цахим өвийг бүтээнэ!
               </div>
-              <br/>
+              <br />
               <div className=" xl:text-white text-[16px] font-normal mb-[24px]">
                 Монголын хамгийн анхны SAAS ERP бүтээгдэхүүн
               </div>
               <div className=" flex mt-[40px]">
                 <div>
-                  <Button className=" w-[166px] h-[48px] rounded-[43px] bg-white text-[#2E28D4] text-[14px] font-bold border-none mr-[24px]">
+                  <Button className=" w-[166px] h-[48px] rounded-[43px] bg-white text-[#2E28D4] text-[14px] font-poppins-semibold border-none mr-[24px]">
                     Демо
                   </Button>
                 </div>
                 <div>
-                  <Button className=" w-[166px] h-[48px] rounded-[43px] bg-transparent  text-white font-bold border-[1px] border-white">
+                  <Button className=" font-poppins-semibold w-[166px] h-[48px] rounded-[43px] bg-transparent  text-white border-[1px] border-white">
                     Холбоо барих
                   </Button>
                 </div>
@@ -50,20 +151,25 @@ export default function Home() {
         </div>
         <Image className=" w-[100vw]" preview={false} src="/img/homeBack.svg" />
       </div>
-    <div className="xl:hidden mt-[-10vh] md:mt-[-15vh] flex justify-center">
-    <Image className="h-40 w-40 md:w-[300px] md:h-[300px]  " preview={false} src="/img/homeImg.svg" />
-    </div>
+      <div className="xl:hidden mt-[-10vh] md:mt-[-15vh] flex justify-center">
+        <Image
+          className="h-40 w-40 md:w-[300px] md:h-[300px]  "
+          preview={false}
+          src="/img/homeImg.svg"
+        />
+      </div>
       <div className=" xl:hidden">
         <div className="flex justify-center">
           <div className=" text-center w-[300px] text-[16px] md:text-[36px] md:w-[500px] text-[#2E28D4] xl:text-[36px] xl:text-white font-semibold xl:w-[571px]">
-          Бид танай байгууллагын цахим өвийг бүтээнэ!
+            Бид танай байгууллагын цахим өвийг бүтээнэ!
           </div>
         </div>
         <div className=" flex justify-center ">
           <div className=" w-[300px] xl:text-white text-center mt-4 text-[16px] md:text-[20px] font-normal mb-[24px]">
             Монголын хамгийн анхны SAAS ERP бүтээгдэхүүн
           </div>
-          </div>
+        </div>
+
         <div className=" flex justify-around xl:mt-[40px]">
           <div>
             <Button className=" w-[166px] h-[48px] rounded-[43px] bg-[#2E28D4] text-white xl:bg-white xl:text-[#2E28D4] text-[14px] font-bold border-none mr-[24px]">
@@ -89,18 +195,26 @@ export default function Home() {
         <div className=" text-[#2F3747] text-[24px] font-bold flex justify-center text-center">
           Хамтран ажиллагч байгууллагууд
         </div>
-        <div className=" w-full flex justify-center mt-[40px]">
-          <div className=" flex flex-col md:flex-row xl:flex-row  xl:w-[60vw] justify-between ">
-            <div>
-              <Image preview={false} src="/img/ict.svg" />
+        <div className=" w-full flex justify-center mt-[40px] ">
+          <div className="  max-w-[1920px] flex flex-col items-start space-y-10 md:space-y-0 md:grid md:grid-cols-4 xl:flex-row  xl:w-[60vw] justify-between">
+            <div
+              className="flex justify-center"
+              onMouseEnter={() => setOnHover(true)}
+              onMouseLeave={() => setOnHover(false)}
+            >
+              {onhover ? (
+                <Image className="" preview={false} src="/img/itools.svg" />
+              ) : (
+                <Image preview={false} src="/img/ict.svg" />
+              )}
             </div>
-            <div className="my-4 md:my-0 md:mx-6 xl:my-0">
-              <Image preview={false} src="/img/itools.svg" />
+            <div className=" flex justify-center my-4 md:my-0 md:px-6 xl:my-0 hover:fill-[black]">
+              <Image className="" preview={false} src="/img/itools.svg" />
             </div>
-            <div>
+            <div className="icon-asset  flex justify-center">
               <Image preview={false} src="/img/fibo.svg" />
             </div>
-            <div className="mt-4 md:mt-0 md:ml-6 xl:mt-0">
+            <div className="mt-4 md:mt-0 xl:mt-0  flex justify-center">
               <Image preview={false} src="/img/cloud.svg" />
             </div>
           </div>
@@ -117,8 +231,85 @@ export default function Home() {
         <div className=" text-[#2F3747] text-[24px] font-bold flex justify-center">
           Үйлчилгээний төрөл
         </div>
-        <div className="w-full flex justify-center mt-[40px]">
-          <div className=" flex flex-col xl:flex-row text-center  w-[65vw] justify-between">
+        <div className=" w-full ">
+          <div className=" flex justify-center ">
+            <div className=" w-[250px]  lg:w-[65vw] max-w-[1400px]">
+              <Slider className=" " {...settings}>
+                <div className=" p-5">
+                  <div className="  xl:w-[170px] h-[184px] bg-white shadow-lg   flex flex-col justify-center items-center">
+                    <div>
+                      <Image preview={false} src="/img/u1.svg" />
+                    </div>
+                    <div className="  text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                      ERP хөгжүүлэлт
+                    </div>
+                  </div>
+                </div>
+                <div className=" p-5">
+                  <div className=" mt-4 lg:mt-0 xl:w-[170px] h-[184px] bg-white shadow-lg  flex flex-col justify-center items-center">
+                    <div>
+                      <Image preview={false} src="/img/u2.svg" />
+                    </div>
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px] ">
+                      Вебсайт хөгжүүлэлт
+                    </div>
+                  </div>
+                </div>
+                <div className=" p-5">
+                  <div className=" mt-4 md:mt-0 xl:w-[170px] h-[184px] bg-white shadow-lg  flex flex-col justify-center items-center">
+                    <div>
+                      <Image preview={false} src="/img/u3.svg" />
+                    </div>
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                      Мобайл апп хөгжүүлэлт
+                    </div>
+                  </div>
+                </div>
+                <div className=" p-5">
+                  <div className=" mt-4 md:mt-0 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-lg  flex flex-col justify-center items-center">
+                    <div>
+                      <Image preview={false} src="/img/u4.svg" />
+                    </div>
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                      Систем интеграцчилал
+                    </div>
+                  </div>
+                </div>
+                <div className=" p-5">
+                  <div className="  mt-4 lg:mt-0 xl:w-[170px] h-[184px] bg-white shadow-lg  flex flex-col justify-center items-center">
+                    <div>
+                      <Image preview={false} src="/img/u5.svg" />
+                    </div>
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                      Тусламж, дэмжлэг
+                    </div>
+                  </div>
+                </div>
+                <div className=" p-5">
+                  <div className=" mt-4 lg:mt-0 xl:w-[170px] h-[184px] bg-white shadow-lg  flex flex-col justify-center items-center">
+                    <div>
+                      <Image preview={false} src="/img/u6.svg" />
+                    </div>
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                      Сервер арчилгаа
+                    </div>
+                  </div>
+                </div>
+                <div className=" p-5">
+                  <div className=" mt-4 md:mt-0 xl:w-[170px] h-[184px] bg-white shadow-lg  flex flex-col justify-center items-center">
+                    <div>
+                      <Image preview={false} src="/img/u3.svg" />
+                    </div>
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                      Мобайл апп хөгжүүлэлт
+                    </div>
+                  </div>
+                </div>
+              </Slider>
+            </div>
+          </div>
+        </div>
+        {/* <div className=" max-w-[1920px] flex flex-col xl:flex-row text-center  md:h-auto w-[65vw] justify-between ">
             <div className=" xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u1.svg" />
@@ -127,7 +318,7 @@ export default function Home() {
                 ERP хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" mt-4 lg:mt-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u2.svg" />
               </div>
@@ -135,7 +326,7 @@ export default function Home() {
                 Вебсайт хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" mt-4 md:mt-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u3.svg" />
               </div>
@@ -143,7 +334,7 @@ export default function Home() {
                 Мобайл апп хөгжүүлэлт
               </div>
             </div>
-            <div className=" my-4 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" mt-4 md:mt-0 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u4.svg" />
               </div>
@@ -151,7 +342,7 @@ export default function Home() {
                 Систем интеграцчилал
               </div>
             </div>
-            <div className=" my-4 xl:my-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className="  mt-4 lg:mt-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u5.svg" />
               </div>
@@ -159,7 +350,7 @@ export default function Home() {
                 Тусламж, дэмжлэг
               </div>
             </div>
-            <div className=" xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
+            <div className=" mt-4 lg:mt-0 xl:w-[170px] h-[184px] bg-white shadow-custom flex flex-col justify-center items-center">
               <div>
                 <Image preview={false} src="/img/u6.svg" />
               </div>
@@ -167,8 +358,7 @@ export default function Home() {
                 Сервер арчилгаа
               </div>
             </div>
-          </div>
-        </div>
+          </div> */}
       </div>
       <div className="">
         <div className=" w-full bg-[#9CA6C0] bg-opacity-10 mt-[100px]">
@@ -183,15 +373,15 @@ export default function Home() {
             Бүтээгдэхүүний онцлог
           </div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" flex flex-col md:flex-col xl:flex-row xl:w-[65vw] justify-between pb-[100px]">
+            <div className=" max-w-[1920px] flex flex-col md:flex-col xl:flex-row xl:w-[65vw] justify-between pb-[100px]">
               <div>
                 <div>
                   <Image preview={false} src="/img/b1.svg" />
                 </div>
-                <div className=" text-[#2F3747] text-[18px] w-[270px] font-bold">
+                <div className=" text-[#2F3747] hover:text-[#2E28D4] text-[18px] w-[270px] font-bold">
                   Ахисан түвшний санхүүгийн бүртгэл
                 </div>
-                <div className=" w-[270px] text-[#2F3747] text-[16px] font-normal text-opacity-60">
+                <div className=" w-[270px] text-[#2F3747] text-[16px] font-normal text-justify text-opacity-60">
                   Монгол улсын стандартад бүрэн нийцсэн санхүү нягтлан бодох
                   бүртгэлийн бүх төрлийн үйл ажиллагаа, мөнгөн гүйлгээнүүдийг
                   нарийвчилсан шинжилгээ хийх боломжтой
@@ -201,10 +391,10 @@ export default function Home() {
                 <div>
                   <Image preview={false} src="/img/b2.svg" />
                 </div>
-                <div className=" text-[#2E28D4] text-[18px] w-[270px] font-bold">
+                <div className=" hover:text-[#2E28D4] text-[#2F3747] text-[18px] w-[270px] font-bold">
                   Олон хэлбэрт харилцаа холбооны хэрэгсэл
                 </div>
-                <div className=" w-[270px] text-[#2F3747] text-[16px] font-normal text-opacity-60">
+                <div className=" w-[270px] text-[#2F3747] text-[16px] text-justify font-normal text-opacity-60">
                   Онлайн хурал хийх, олон орны хэл дээр ажиллах, бүрэн автомат
                   мессэж болон имэйл мэдэгдэл илгээх боломжтой
                 </div>
@@ -213,10 +403,10 @@ export default function Home() {
                 <div>
                   <Image preview={false} src="/img/b3.svg" />
                 </div>
-                <div className=" text-[#2F3747] text-[18px] w-[270px] font-bold">
+                <div className=" hover:text-[#2E28D4] text-[#2F3747] text-[18px] w-[270px] font-bold">
                   Байршил хамаарахгүй цаг хугацаа хэмнэсэн
                 </div>
-                <div className=" w-[270px] text-[#2F3747] text-[16px] font-normal text-opacity-60">
+                <div className=" w-[270px] text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60">
                   Интернэттэй л бол дэлхийн хаанаас ч өөрийн цагийн бүсээс
                   тухайн цагт шууд ашиглах боломжтой
                 </div>
@@ -225,10 +415,10 @@ export default function Home() {
                 <div>
                   <Image preview={false} src="/img/b4.svg" />
                 </div>
-                <div className=" text-[#2F3747] text-[18px] w-[270px] font-bold">
+                <div className=" hover:text-[#2E28D4]  text-[#2F3747] text-[18px] w-[270px] font-bold">
                   Хамгийн сүүлийн үеийн технологи
                 </div>
-                <div className=" w-[270px] text-[#2F3747] text-[16px] font-normal text-opacity-60">
+                <div className=" w-[270px] text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60">
                   iFinance бүтээгдэхүүн нь дэлхийн ERP цогц систем болох
                   Odoo.com -н 15.0 буюу сүүлийн үеийн хувилбарт суурилсан
                   технологитой холбогдож, бүхий л мэдээлэл солилцох бүрэн
@@ -254,12 +444,12 @@ export default function Home() {
         </div>
         <div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" flex flex-col xl:flex-row w-[65%]  justify-between">
+            <div className=" max-w-[1920px] flex flex-col xl:flex-row w-[65%]   justify-between">
               <div>
-                <div>
+                <div className=" ">
                   <Image preview={false} src="/img/d1.svg" />
                 </div>
-                <div className=" text-[#2F3747] text-center text-[18px] w-[300px] xl:w-[470px] font-bold">
+                <div className=" text-[#2F3747] text-center text-[18px] lg:w-[300px] xl:w-[470px] font-bold">
                   <span className=" text-[#F01A63] ">
                     Та худалдан авалт хийсэн цагаас эхлэн
                   </span>{" "}
@@ -299,7 +489,7 @@ export default function Home() {
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
                   <div className="mb-2 xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
-                    Бид дотоодын болон гадны системтэй интеграц буюу холболт 
+                    Бид дотоодын болон гадны системтэй интеграц буюу холболт
                     хийж чаддаг.{" "}
                   </div>
                 </div>
@@ -333,32 +523,69 @@ export default function Home() {
           </div>
         </div>
         <div className=" w-full flex justify-center mt-[20px] xl:mt-[40px]">
-          <div className="flex flex-col xl:flex-row xl:w-[60vw]  justify-between">
-            <div className="">
-              <div className=" flex justify-center text-center">
-                <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
-                  Технологийн дэвшлийг таньд мэдрүүлнэ
-                </p>
-              </div>
-              <div className=" flex justify-center">
-                <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify ">
-                  Технологийн дэвшилтэт эрин зуунд танай байгууллагын дотоод
-                  системийг хийж гүйцэтгэхээс гадна Финтек шилжилтрүү хөтлөн авч
-                  орох болно. Сүүлийн үеийн тренд болсо н lend.mn, storepay.mn,
-                  pocket.mn гэх мэт санхүүгийн үйл ажиллагааг технологийн
-                  тусламжтайгаар өдөр тутмын үйл ажиллагаандаа хэрэгжүүлэх
-                  боломжийг таньд олгоно. Та санаагаа захиал. Бид гүйцэлдүүлэе.
-                </p>
-              </div>
-              {/* <div>
-                <div>
-                    enee hesegt slider n bairlana
-                </div>
-            </div> */}
-            </div>
-            <div>
-              <div>
-                <Image preview={false} src="/img/robot.svg" />
+          <div className=" w-full ">
+            <div className=" flex justify-center ">
+              <div className=" w-[250px]  lg:w-[65vw] max-w-[1400px]">
+                <Slider className=" " {...settings2}>
+                  <div className=" p-5">
+                    <div className=" max-w-[1920px] flex flex-col xl:flex-row xl:w-[60vw]  justify-between">
+                      <div className="">
+                        <div className=" flex justify-center text-center">
+                          <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
+                            Технологийн дэвшлийг таньд мэдрүүлнэ
+                          </p>
+                        </div>
+                        <div className=" flex justify-center">
+                          <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify ">
+                            Технологийн дэвшилтэт эрин зуунд танай байгууллагын
+                            дотоод системийг хийж гүйцэтгэхээс гадна Финтек
+                            шилжилтрүү хөтлөн авч орох болно. Сүүлийн үеийн
+                            тренд болсо н lend.mn, storepay.mn, pocket.mn гэх
+                            мэт санхүүгийн үйл ажиллагааг технологийн
+                            тусламжтайгаар өдөр тутмын үйл ажиллагаандаа
+                            хэрэгжүүлэх боломжийг таньд олгоно. Та санаагаа
+                            захиал. Бид гүйцэлдүүлэе.
+                          </p>
+                        </div>
+                      </div>
+                      <div>
+                        <div>
+                          <Image preview={false} src="/img/robot.svg" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className=" p-5">
+                    <div className=" max-w-[1920px] flex flex-col xl:flex-row xl:w-[60vw]  justify-between">
+                      <div className="">
+                        <div className=" flex justify-center text-center">
+                          <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
+                            Технологийн дэвшлийг таньд мэдрүүлнэ
+                          </p>
+                        </div>
+                        <div className=" flex justify-center">
+                          <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify ">
+                            Технологийн дэвшилтэт эрин зуунд танай байгууллагын
+                            дотоод системийг хийж гүйцэтгэхээс гадна Финтек
+                            шилжилтрүү хөтлөн авч орох болно. Сүүлийн үеийн
+                            тренд болсо н lend.mn, storepay.mn, pocket.mn гэх
+                            мэт санхүүгийн үйл ажиллагааг технологийн
+                            тусламжтайгаар өдөр тутмын үйл ажиллагаандаа
+                            хэрэгжүүлэх боломжийг таньд олгоно. Та санаагаа
+                            захиал. Бид гүйцэлдүүлэе.
+                          </p>
+                        </div>
+                      </div>
+                      <div>
+                        <div>
+                          <Image preview={false} src="/img/robot.svg" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                
+                </Slider>
               </div>
             </div>
           </div>
@@ -378,21 +605,18 @@ export default function Home() {
           </div>
         </div>
         <div className=" w-full flex justify-center mt-[40px]">
-          <div className=" flex flex-col xl:flex-row xl:w-[65vw] justify-between">
-            <div>
-              <div>
+          <div className=" max-w-[1920px] w-[300px] flex flex-col xl:flex-row xl:w-[65vw] justify-between">
+            <div className="  ">
+              <div className="flex justify-center">
                 <Image preview={false} src="/img/app.svg" />
               </div>
-              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px]">
+              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center">
                 Андройд гар утасны апп
               </p>
-              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suscipit magnis massa purus donec eleifend phasellus eu
-                parturient cursus. Consequat, varius aenean diam est sed ut
-                fames nulla sed.
+              <p className=" text-[#2F3747] text-justify text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
+                Андройд үйлдлийн системд ажиллах гар утасны аппликейшин татах.
               </p>
-              <div className=" mt-[40px]">
+              <div className=" flex justify-center mt-[40px]">
                 <a
                   target="_blank"
                   href="https://play.google.com/store/apps/details?id=com.odoo.mobile&hl=en&gl=US"
@@ -403,39 +627,32 @@ export default function Home() {
               </div>
             </div>
             <div className=" my-10 xl:mt-0">
-              <div>
+              <div className="flex justify-center">
                 <Image preview={false} src="/img/ifin.svg" />
               </div>
-              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px]">
-                Клауд суурьтай програм хангамж{" "}
+              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center">
+                SaaS болон Cloud суурьтай програм хангамж
               </p>
-              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suscipit magnis massa purus donec eleifend phasellus eu
-                parturient cursus. Consequat, varius aenean diam est sed ut
-                fames nulla sed.
+              <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
+                SaaS болон Cloud програм хангамжийн танилцуулга харах.
               </p>
-              <div className=" mt-[40px]">
-                {" "}
+              <div className=" flex justify-center mt-[40px]">
                 <a target="_blank" href="https://ifinance.mn">
                   <Image preview={false} src="/img/ifin1.svg" />
                 </a>
               </div>
             </div>
             <div>
-              <div>
+              <div className="flex justify-center">
                 <Image preview={false} src="/img/play.svg" />
               </div>
-              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px]">
+              <p className=" flex justify-center text-[#2F3747] text-[18px] font-bold mt-[24px]">
                 IOS гар утасны апп
               </p>
-              <p className=" text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suscipit magnis massa purus donec eleifend phasellus eu
-                parturient cursus. Consequat, varius aenean diam est sed ut
-                fames nulla sed.
+              <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
+                IOS үйлдлийн системд ажиллах гар утасны аппликейшин татах.
               </p>
-              <div className=" mt-[40px]">
+              <div className=" flex justify-center mt-[40px]">
                 <a
                   target="_blank"
                   href="https://apps.apple.com/us/app/odoo/id1272543640"
@@ -448,7 +665,7 @@ export default function Home() {
         </div>
       </div>
       <div className=" w-full flex justify-center mt-[100px]">
-        <div className=" flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] xl:h-[228px] bg-[#2E28D4] bg-opacity-5 xl:items-center items-start justify-around">
+        <div className=" max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] xl:h-[228px] bg-[#2E28D4] bg-opacity-5 xl:items-center items-start justify-around">
           <div>
             <div className=" text-[48px] text-[#2E28D4] font-bold">99225+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
@@ -471,6 +688,89 @@ export default function Home() {
             <div className=" text-[48px] text-[#011F70] font-bold">283+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
               Өдөрт хандсан хүний тоо
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className=" w-full">
+        <div className="tursh mt-[100px] w-full  ">
+          <div className="flex flex-col justify-center  md:flex-row">
+            <div className="relative">
+              <div className="h-full w-full absolute z-10 flex flex-col  items-center justify-center left-100px ">
+                <div className=" ">
+                  <Carousel autoplay className=" w-[370px]">
+                    <div className=" w-[370px] ">
+                      <h3 style={contentStyle} className=" flex flex-col ">
+                        <div>Quotes</div>
+                        <div className=" flex justify-start mt-[30px]">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Bibendum eget vitae elementum condimentum est
+                          non faucibus. Duis neque viverra montes, cras enim
+                          purus donec mattis. Sit sit enim, amet orci proin. Nam
+                          gravida ut tortor pulvinar orci quam leo vestibulum.
+                        </div>
+                        <div className=" flex justify-start mt-[40px]">
+                          <div>
+                            <Image src="/img/q1.png" />
+                          </div>
+                          <div className=" flex flex-col">
+                            <div>Cameron Williamson</div>
+                            <div>Designer</div>
+                          </div>
+                        </div>
+                      </h3>
+                    </div>
+                    <div className=" w-[370px] ">
+                      <h3 style={contentStyle} className=" flex flex-col ">
+                        <div>Quotes2</div>
+                        <div className=" flex justify-start mt-[30px]">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Bibendum eget vitae elementum condimentum est
+                          non faucibus. Duis neque viverra montes, cras enim
+                          purus donec mattis. Sit sit enim, amet orci proin. Nam
+                          gravida ut tortor pulvinar orci quam leo vestibulum.
+                        </div>
+                        <div className=" flex justify-start mt-[40px]">
+                          <div>
+                            <Image src="/img/q1.png" />
+                          </div>
+                          <div className=" flex flex-col">
+                            <div>Cameron Williamson</div>
+                            <div>Designer</div>
+                          </div>
+                        </div>
+                      </h3>
+                    </div>
+                    <div className=" w-[370px] ">
+                      <h3 style={contentStyle} className=" flex flex-col ">
+                        <div>Quotes3</div>
+                        <div className=" flex justify-start mt-[30px]">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Bibendum eget vitae elementum condimentum est
+                          non faucibus. Duis neque viverra montes, cras enim
+                          purus donec mattis. Sit sit enim, amet orci proin. Nam
+                          gravida ut tortor pulvinar orci quam leo vestibulum.
+                        </div>
+                        <div className=" flex justify-start mt-[40px]">
+                          <div>
+                            <Image src="/img/q1.png" />
+                          </div>
+                          <div className=" flex flex-col">
+                            <div>Cameron Williamson</div>
+                            <div>Designer</div>
+                          </div>
+                        </div>
+                      </h3>
+                    </div>
+                  </Carousel>
+                </div>
+              </div>
+              <Image preview={false} src="/img/f1.svg" />
+            </div>
+            <div>
+              <div className="">
+                <Image preview={false} src="/img/f2.svg" />
+              </div>
             </div>
           </div>
         </div>
