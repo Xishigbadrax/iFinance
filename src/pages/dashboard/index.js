@@ -43,24 +43,7 @@ const Dashboard = () => {
     setList(res.data.result);
     console.log(res, "ehnii");
 
-    const res2 = await axios.post(
-      baseUrl + "get/server_types",
-      {
-        jsonrpc: 2.0,
-        params: {
-          db: baseDB,
-        },
-      },
-
-      {
-        headers: {
-          "Set-Cookie": "session_id=" + sid,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    setServerType(res2.data.result);
-    console.log(res2, "Res2222");
+    
     // console.log(res, "listtttt");
   }, []);
 
