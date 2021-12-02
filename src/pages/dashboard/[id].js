@@ -90,7 +90,7 @@ const CategoryId = () => {
                     mainProduct.map((item, index) => {
                       // var content = "dsadas";
                       // var urlRegex =/(g;
-                      var content = item.product_description.replace( "/web", 'https://test.ifinance.mn/web');
+                      var content = item.product_description.toString().replace( "/web", 'https://test.ifinance.mn/web');
                     
                       // console.log(content, "contentteee");
                       return (

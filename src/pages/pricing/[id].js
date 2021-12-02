@@ -11,6 +11,7 @@ import {
   Button,
   Select,
   message,
+  Modal,
 } from "antd";
 
 import Auth from "../../utils/auth";
@@ -24,7 +25,7 @@ const Pricing = ({ id }) => {
   // const router = useRouter();
   // const { id } = router.query;
   // console.log(id, 'this is id')
-
+  const { TabPane } = Tabs;
   const { Option } = Select;
   const { Meta } = Card;
   const { TabPane } = Tabs;
@@ -66,6 +67,8 @@ const Pricing = ({ id }) => {
   const [serverState2, setServerState2] = useState(false);
   const [serverState3, setServerState3] = useState(false);
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   // const [isChecked, setIsChecked] = useState([]);
 
   const handleChange = (value) => {
@@ -73,6 +76,9 @@ const Pricing = ({ id }) => {
     value && setServerId(value[1]);
     value && setpServerPrice(Number(value[2]));
     setServerState1((prev) => !prev);
+  };
+  const handleCancel = (value) => {
+    setIsModalVisible(false);
   };
 
   const handleChange2 = (value) => {
@@ -138,31 +144,33 @@ const Pricing = ({ id }) => {
 
     console.log(serverId, productIds, "odoooldoo");
 
-    var data = {
-      jsonrpc: 2.0,
-      params: {
-        db: baseDB,
-        uid: userID,
-        server_id: serverId,
-        payment_type: "qpay",
-        product_ids: productIds,
-      },
-    };
-    console.log(data, "dataaa");
-    const res = await axios.post(baseUrl + "create/invoice", data, {
-      headers: {
-        "Set-Cookie": "session_id=" + sid,
-        "Content-Type": "application/json",
-      },
-    });
-    if (res.data.result && res.data.result) {
-      message.success("Хүсэлт амжилттай биеллээ.");
-    } else if (res.data.error) {
-      message.warning(res.data.error.data.message);
-    } else {
-      message.warning("Хүсэлт амжилтгүй");
-    }
-    console.log(res, "purchase res");
+    setIsModalVisible(true);
+
+    // var data = {
+    //   jsonrpc: 2.0,
+    //   params: {
+    //     db: baseDB,
+    //     uid: userID,
+    //     server_id: serverId,
+    //     payment_type: "qpay",
+    //     product_ids: productIds,
+    //   },
+    // };
+    // console.log(data, "dataaa");
+    // const res = await axios.post(baseUrl + "create/invoice", data, {
+    //   headers: {
+    //     "Set-Cookie": "session_id=" + sid,
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // if (res.data.result && res.data.result) {
+    //   message.success("Хүсэлт амжилттай биеллээ.");
+    // } else if (res.data.error) {
+    //   message.warning(res.data.error.data.message);
+    // } else {
+    //   message.warning("Хүсэлт амжилтгүй");
+    // }
+    // console.log(res, "purchase res");
   };
 
   const isChecked = (item) => {
@@ -248,7 +256,7 @@ const Pricing = ({ id }) => {
       <div className=" xl:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
         Үнийн санал
       </div>
-      <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row  flex justify-center">
+      <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row   justify-center">
         <div className=" flex  justify-center ">
           <div className=" w-full ">
             <div>
@@ -297,10 +305,9 @@ const Pricing = ({ id }) => {
                             : "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0] "
                         }
                       >
-                        <div className=" p-[20px]  flex justify-between">
+                        <div className=" p-[20px]  pointer-events-none  flex justify-between">
                           <div
                             // onClick={() => isChecked(item)}
-
                             className="flex flex-col"
                           >
                             <div className="text-[#2F3747] font-semibold text-[16px]">
@@ -312,15 +319,6 @@ const Pricing = ({ id }) => {
                                   <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
                                     {item.product_price}₮
                                   </div>
-                                  {item.product_price_type == "year" ? (
-                                    <div className=" text-[#9CA6C0] text-[12px]  mt-6 ml-2 ">
-                                      1 жилд
-                                    </div>
-                                  ) : item.product_price_type == "month" ? (
-                                    <div className=" text-[#9CA6C0] text-[12px] mt-5 ml-2 ">
-                                      1 сард
-                                    </div>
-                                  ) : null}
                                 </div>
                               ) : (
                                 <div className="flex  justify-between">
@@ -334,15 +332,6 @@ const Pricing = ({ id }) => {
                                     <div className="text-[#2F3747] ml-3 line-through text-[12px] font-semibold mt-5  text-opacity-50">
                                       {item.product_price}₮
                                     </div>
-                                    {item.product_price_type == "year" ? (
-                                      <div className=" text-[#9CA6C0] text-[12px]  mt-5 ml-2 ">
-                                        1 жилд
-                                      </div>
-                                    ) : item.product_price_type == "month" ? (
-                                      <div className=" text-[#9CA6C0] text-[12px]  mt-5 ml-2 ">
-                                        1 сард
-                                      </div>
-                                    ) : null}
                                   </div>
                                   <div className=" flex justify-center w-[71px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[32px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
                                     -{item.product_discount}% off
@@ -359,7 +348,6 @@ const Pricing = ({ id }) => {
                                 <Checkbox checked={state.includes(item)} />
                               )}
                             </div>
-                            <div></div>
                           </div>
                         </div>
                       </div>
@@ -440,11 +428,11 @@ const Pricing = ({ id }) => {
                         </div>
                         <div>
                           <div>
-                          {item.is_required ? (
-                                <Checkbox checked disabled />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
+                            {item.is_required ? (
+                              <Checkbox checked disabled />
+                            ) : (
+                              <Checkbox checked={state.includes(item)} />
+                            )}
                           </div>
                           <div></div>
                         </div>
@@ -652,7 +640,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                       {discount != 0 ? -discount : 0}₮
+                      {discount != 0 ? -discount : 0}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -744,7 +732,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                    {discount != 0 ? -discount : 0}₮
+                      {discount != 0 ? -discount : 0}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -836,7 +824,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                    {discount != 0 ? -discount : 0}₮
+                      {discount != 0 ? -discount : 0}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -898,6 +886,82 @@ const Pricing = ({ id }) => {
         </div>
       </div>
       <Footer />
+      <Modal
+        title="Төлбөр төлөх"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={[]}
+        className="buy"
+      >
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="QPay үйлчилгээ" key="1">
+            <div></div>
+            <div className=" flex w-[510px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] h-[74px]">
+              <div className="flex ">
+                <div className=" mr-[17px]">
+                  <Image className="" preview={false} src="/img/warning.png" />
+                </div>
+                <div className=" w-[446px]">
+                  Та энэ QRCode -ийг доорх банкуудын гар утасны аппликейшнийг
+                  ашиглан уншуулж орлого хийнэ үү.
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex justify-between">
+              <div>Төлөх дүн</div>
+              <div>1,000,000.00₮</div>
+            </div>
+            <Divider />
+            <div className=" w-[510px] h-[176px] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
+              <div className=" flex">
+                <div>
+                  {" "}
+                  <Image
+                    className=""
+                    preview={false}
+                    src="/img/warningred.svg"
+                  />
+                </div>
+                <div className=" w-[446px]">
+                  Зөвхөн IFinance-д бүртгэлтэй дансаар орлого шилжүүлэхийг
+                  анхаарна уу.
+                </div>
+              </div>
+              <div className=" flex">
+                <div>
+                  {" "}
+                  <Image
+                    className=""
+                    preview={false}
+                    src="/img/warningred.svg"
+                  />
+                </div>
+                <div className=" w-[446px]">
+                  Орлогын гүйлгээний утга дээр зөвхөн бүртгэлтэй имэйл хаягаа
+                  бичихийг анхаарна уу.
+                </div>
+              </div>
+              <div className=" flex w-full   ">
+                <div className="">
+                  {" "}
+                  <Image
+                    className=""
+                    preview={false}
+                    src="/img/warningred.svg"
+                  />
+                </div>
+                <div className=" w-[446px]">
+                  Хэрэв өөр дансаар болон имэйл хаягийг буруу бичиж шилжүүлсэн
+                  тохиолдолд таны худалдан авалт амжилтгүй болно.
+                </div>
+              </div>
+            </div>
+          </TabPane>
+          <TabPane tab="Банкны дансаар" key="2">
+            Банкны дансаар
+          </TabPane>
+        </Tabs>
+      </Modal>
     </div>
   );
 };

@@ -116,8 +116,8 @@ export default function Home() {
     //     <Footer />
     // </div>
 
-    <div className=" overflow-x-hidden">
-      <div className="relative w-[100vw]">
+    <div className=" ">
+      <div className="relative ">
         <div id="head" className=" absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center">
             <NavbarTrans />
