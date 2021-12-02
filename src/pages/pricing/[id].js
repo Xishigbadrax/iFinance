@@ -284,7 +284,7 @@ const Pricing = ({ id }) => {
               <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 1. ББСБ Зээлийн модуль
               </div>
-              <div className="  grid grid-cols-1 xl:grid-cols-2 gap-4 xl:w-[48.125rem] xl:pl-6 pb-[30px] px-2">
+              <div className="  grid grid-cols-1 xl:grid-cols-2 gap-0  lg:gap-4xl:w-[48.125rem] xl:pl-6 pb-[30px] px-2">
                 {mainData &&
                   mainData.map((item, index) => {
                     return (
@@ -372,7 +372,7 @@ const Pricing = ({ id }) => {
               <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid xl:grid-cols-2 gap-4  xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+              <div className="grid xl:grid-cols-2 lg:gap-4 gap-0  xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
                   return (
                     <div

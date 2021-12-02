@@ -116,8 +116,8 @@ export default function Home() {
     //     <Footer />
     // </div>
 
-    <div className=" overflow-x-hidden">
-      <div className="relative w-[100vw]">
+    <div className=" ">
+      <div className="relative  w-full">
         <div id="head" className=" absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center">
             <NavbarTrans />
@@ -583,8 +583,6 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  
-                
                 </Slider>
               </div>
             </div>
@@ -665,17 +663,23 @@ export default function Home() {
         </div>
       </div>
       <div className=" w-full flex justify-center mt-[100px]">
-        <div className=" max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] xl:h-[228px] bg-[#2E28D4] bg-opacity-5 xl:items-center items-start justify-around">
-          <div>
-            <div className=" text-[48px] text-[#2E28D4] font-bold">99225+</div>
-            <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
-              Улиралд хандсан хүний тоо
+        <div className=" h-[600px] max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] xl:h-[228px] bg-[#2E28D4] bg-opacity-5 xl:items-center items-start justify-around">
+          <div className=" flex justify-center">
+            <div>
+              <div className=" text-[48px] text-[#2E28D4] font-bold">
+                99225+
+              </div>
+              <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
+                Улиралд хандсан хүний тоо
+              </div>
             </div>
           </div>
-          <div>
+          <div className=" flex justify-center">
+            <div>
             <div className=" text-[48px] text-[#F01A63] font-bold">1047+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
               Жилд хандсан хүний тоо
+            </div>
             </div>
           </div>
           <div className="">
@@ -697,8 +701,8 @@ export default function Home() {
           <div className="flex flex-col justify-center  md:flex-row">
             <div className="relative">
               <div className="h-full w-full absolute z-10 flex flex-col  items-center justify-center left-100px ">
-                <div className=" ">
-                  <Carousel autoplay className=" w-[370px]">
+                {/* <div className=" ">
+                  <Carousel autoplay className=" w-[280p]">
                     <div className=" w-[370px] ">
                       <h3 style={contentStyle} className=" flex flex-col ">
                         <div>Quotes</div>
@@ -763,7 +767,7 @@ export default function Home() {
                       </h3>
                     </div>
                   </Carousel>
-                </div>
+                </div> */}
               </div>
               <Image preview={false} src="/img/f1.svg" />
             </div>

@@ -60,21 +60,22 @@ const Dashboard = () => {
   // console.log(list, "odooo");
 
   return (
-    <div className="mb-[11.813rem]">
+    <div className="">
       {/* <div className=" relative w-full">
         <img className=" absolute w-full h-auto z-[-1]" src="/img/Slider.svg" /> */}
       {/* </div> */}
 
-      <div className="relative w-[vw]">
+      <div className="relative w-full ">
         <div className="absolute z-20 flex flex-col w-full h-full">
-          <div className="w-full flex justify-center h-1/3">
-            <NavbarTrans />
+          <div className="w-full flex justify-center mb-2 ">
+            <NavbarTrans  />
           </div>
+          
           <div className=" hidden  my-auto font-poppins-semibold uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Манай бүтээгдэхүүн
           </div>
         </div>
-        <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+        <Image className=" w-full  h-auto " preview={false} src="/img/Slider.svg" />
       </div>
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">
