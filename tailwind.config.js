@@ -13,6 +13,7 @@ module.exports = {
       fontFamily: {
         "poppins-semibold": ['Poppins Semibold', 'sans-serif']
       },
+      
       boxShadow: {
         'custom': '0px 10px 40px rgba(46, 40, 212, 0.1)'
       }

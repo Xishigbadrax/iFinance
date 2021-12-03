@@ -20,12 +20,13 @@ import axios from "axios";
 import Context from "../../context/Context";
 import Footer from "../../components/Footer";
 import { set } from "js-cookie";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Pricing = ({ id }) => {
   // const router = useRouter();
   // const { id } = router.query;
   // console.log(id, 'this is id')
-  const { TabPane } = Tabs;
+
   const { Option } = Select;
   const { Meta } = Card;
   const { TabPane } = Tabs;
@@ -68,6 +69,9 @@ const Pricing = ({ id }) => {
   const [serverState3, setServerState3] = useState(false);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [bank, setBank] = useState();
+  const [invoice, setInvoice] = useState();
+  const [copy, setCopy] = useState(false);
 
   // const [isChecked, setIsChecked] = useState([]);
 
@@ -144,44 +148,47 @@ const Pricing = ({ id }) => {
 
     console.log(serverId, productIds, "odoooldoo");
 
-    setIsModalVisible(true);
+    var data = {
+      jsonrpc: 2.0,
+      params: {
+        db: baseDB,
+        uid: userID,
+        server_id: serverId,
 
-    // var data = {
-    //   jsonrpc: 2.0,
-    //   params: {
-    //     db: baseDB,
-    //     uid: userID,
-    //     server_id: serverId,
-    //     payment_type: "qpay",
-    //     product_ids: productIds,
-    //   },
-    // };
-    // console.log(data, "dataaa");
-    // const res = await axios.post(baseUrl + "create/invoice", data, {
-    //   headers: {
-    //     "Set-Cookie": "session_id=" + sid,
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // if (res.data.result && res.data.result) {
-    //   message.success("Хүсэлт амжилттай биеллээ.");
-    // } else if (res.data.error) {
-    //   message.warning(res.data.error.data.message);
-    // } else {
-    //   message.warning("Хүсэлт амжилтгүй");
-    // }
-    // console.log(res, "purchase res");
+        product_ids: productIds,
+      },
+    };
+    console.log(data, "dataaa");
+    const res = await axios.post(baseUrl + "create/invoice", data, {
+      headers: {
+        "Set-Cookie": "session_id=" + sid,
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.data.result && res.data.result) {
+      // message.success("Хүсэлт амжилттай биеллээ.");
+      setBank(res.data.result.bank);
+      setInvoice(res.data.result.invoice);
+      setIsModalVisible(true);
+    } else if (res.data.error) {
+      message.warning(res.data.error.data.message);
+    } else {
+      message.warning("Хүсэлт амжилтгүй");
+    }
+    console.log(res, "purchase res");
   };
 
-  const isChecked = (item) => {
-    if (state.includes(item)) {
-      let filtered = state.filter(function (el) {
-        return el != item;
-      });
-      setState(filtered);
-      // console.log(filtered, 'ggggg')
-    } else {
-      setState([...state, item]);
+  const isChecked = (item, isRequired) => {
+    if (!isRequired) {
+      if (state.includes(item)) {
+        let filtered = state.filter(function (el) {
+          return el != item;
+        });
+        setState(filtered);
+        // console.log(filtered, 'ggggg')
+      } else {
+        setState([...state, item]);
+      }
     }
   };
 
@@ -209,7 +216,7 @@ const Pricing = ({ id }) => {
     setProgramPriceSeason(Number(programPrice) * 3);
     setProgramPriceYear(Number(programPrice) * 12);
     console.log(tax, taxPrice, "zaa");
-  }, [programPrice]);
+  }, [programPrice, serverPrice]);
   useEffect(() => {
     setTotalPriceSeason(Number(totalPrice) * 3 + serverPrice - discountSeason);
     setTotalPriceYear(Number(totalPrice) * 12 + serverPrice - discountYear);
@@ -235,9 +242,47 @@ const Pricing = ({ id }) => {
     serverState1 && setServerPrice(pServerPrice);
     console.log(pServerPrice, serverPrice, "ppppp");
   }, [pServerPrice]);
+
   useEffect(() => {
     serverState2 && setServerPrice(cServerPrice);
   }, [cServerPrice]);
+
+  useEffect(async () => {
+    if (mainData) {
+      var lglglg = [];
+      var ggArray = await Promise.all(
+        mainData.map((item) => {
+          if (item.is_required === true) {
+            return item;
+          }
+        })
+      );
+
+      for (let i = 0; i < ggArray.length; i++) {
+        if (ggArray[i]) {
+          lglglg.push(ggArray[i]);
+        }
+      }
+
+      console.log(lglglg, "ggwgwgwgwgw");
+
+      setState(lglglg);
+    }
+  }, [mainData]);
+
+  useEffect(() => {
+    console.log(state, "lalrin state");
+  }, [state]);
+
+  useEffect(() => {
+    if (additionalData) {
+      additionalData.map((item) => {
+        if (item.is_required) {
+          setState([...state, item]);
+        }
+      });
+    }
+  }, [additionalData]);
 
   return (
     <div>
@@ -298,12 +343,15 @@ const Pricing = ({ id }) => {
                     return (
                       <div
                         key={index}
-                        onClick={() => isChecked(item)}
-                        className={
-                          state.includes(item)
-                            ? "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4] "
-                            : "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0] "
-                        }
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                          ${item.is_required && "cursor-not-allowed"}
+                          mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px]  ${
+                            state.includes(item)
+                              ? "border-[#2E28D4]"
+                              : "border-[#9CA6C0]"
+                          }
+                        `}
                       >
                         <div className=" p-[20px]  pointer-events-none  flex justify-between">
                           <div
@@ -893,72 +941,239 @@ const Pricing = ({ id }) => {
         footer={[]}
         className="buy"
       >
-        <Tabs defaultActiveKey="1">
+        <Tabs className="buyTab" defaultActiveKey="1">
           <TabPane tab="QPay үйлчилгээ" key="1">
-            <div></div>
-            <div className=" flex w-[510px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] h-[74px]">
+            <div>
+              {invoice?.map((item, index) => {
+                return (
+                  <div className="flex justify-center">
+                    <Image
+                      className=""
+                      preview={false}
+                      src={"data:image/png;base64," + item.invoice_qr}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <div className=" flex items-center md:w-[510px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] h-[74px]">
               <div className="flex ">
-                <div className=" mr-[17px]">
+                <div className=" mr-[17px] pl-[17px]">
                   <Image className="" preview={false} src="/img/warning.png" />
                 </div>
-                <div className=" w-[446px]">
+                <div className="  md:w-[400px] text-[14px] text-[#F09A1A]  ">
                   Та энэ QRCode -ийг доорх банкуудын гар утасны аппликейшнийг
                   ашиглан уншуулж орлого хийнэ үү.
                 </div>
               </div>
             </div>
-            <div className="w-full flex justify-between">
-              <div>Төлөх дүн</div>
-              <div>1,000,000.00₮</div>
+            <div className="w-full flex justify-between mt-[16px]">
+              <div className="  font-semibold text-[16px] text-[#2F3747]">
+                Төлөх дүн
+              </div>
+              <div className=" font-semibold text-[16px] text-[#2F3747]">
+                {invoice?.map((item) => {
+                  return item.invoice_amount + "₮";
+                })}
+              </div>
             </div>
             <Divider />
-            <div className=" w-[510px] h-[176px] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
-              <div className=" flex">
-                <div>
-                  {" "}
-                  <Image
-                    className=""
-                    preview={false}
-                    src="/img/warningred.svg"
-                  />
+            <div className=" w-[300px] md:w-[510px] h-[250px] md:h-[176px] bg-[#F01A63] bg-opacity-10 rounded-[4px] flex items-center ">
+              <div className=" flex flex-col  h-[240px] md:h-[144px] justify-between">
+                <div className=" flex">
+                  <div className=" mx-[17px]">
+                    {" "}
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/warningred.svg"
+                    />
+                  </div>
+                  <div className=" w-[240px] md:w-[446px] text-[#F01A63] text-[13px] font-semibold">
+                    Зөвхөн IFinance-д бүртгэлтэй дансаар орлого шилжүүлэхийг
+                    анхаарна уу.
+                  </div>
                 </div>
-                <div className=" w-[446px]">
-                  Зөвхөн IFinance-д бүртгэлтэй дансаар орлого шилжүүлэхийг
-                  анхаарна уу.
+                <div className=" flex">
+                  <div className=" mx-[17px]">
+                    {" "}
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/warningred.svg"
+                    />
+                  </div>
+                  <div className=" w-[240px] md:w-[446px] text-[#F01A63] text-[13px] font-semibold">
+                    Орлогын гүйлгээний утга дээр зөвхөн бүртгэлтэй имэйл хаягаа
+                    бичихийг анхаарна уу.
+                  </div>
                 </div>
-              </div>
-              <div className=" flex">
-                <div>
-                  {" "}
-                  <Image
-                    className=""
-                    preview={false}
-                    src="/img/warningred.svg"
-                  />
-                </div>
-                <div className=" w-[446px]">
-                  Орлогын гүйлгээний утга дээр зөвхөн бүртгэлтэй имэйл хаягаа
-                  бичихийг анхаарна уу.
-                </div>
-              </div>
-              <div className=" flex w-full   ">
-                <div className="">
-                  {" "}
-                  <Image
-                    className=""
-                    preview={false}
-                    src="/img/warningred.svg"
-                  />
-                </div>
-                <div className=" w-[446px]">
-                  Хэрэв өөр дансаар болон имэйл хаягийг буруу бичиж шилжүүлсэн
-                  тохиолдолд таны худалдан авалт амжилтгүй болно.
+                <div className=" flex w-full   ">
+                  <div className=" mx-[17px]">
+                    {" "}
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/warningred.svg"
+                    />
+                  </div>
+                  <div className=" w-[240px] md:w-[446px] text-[#F01A63] text-[13px] font-semibold">
+                    Хэрэв өөр дансаар болон имэйл хаягийг буруу бичиж шилжүүлсэн
+                    тохиолдолд таны худалдан авалт амжилтгүй болно.
+                  </div>
                 </div>
               </div>
             </div>
           </TabPane>
           <TabPane tab="Банкны дансаар" key="2">
-            Банкны дансаар
+            <div>
+              <div className=" flex items-center mt-[20px]">
+                <div>
+                  {bank?.map((item) => {
+                    return (
+                      <Image
+                        preview={false}
+                        src={"data:image/png;base64," + item.invoice_bank_logo}
+                      />
+                    );
+                  })}
+                </div>
+                <div className=" ml-[16px] text-[24px] text-[#2F3747] font-bold">
+                  {bank?.map((item) => {
+                    return item.invoice_bank;
+                  })}
+                </div>
+              </div>
+              <div className=" w-full flex justify-between mt-[20px]">
+                <div>
+                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                    Дансны дугаар
+                  </div>
+                  <div className="text-[18px] text-[#2F3747] font-bold">
+                    {bank?.map((item) => {
+                      return item.invoice_bank_number;
+                    })}
+                  </div>
+                </div>
+                <div className=" flex items-center">
+                  <CopyToClipboard
+                    text={bank?.map((item) => {
+                      return item.invoice_bank_number;
+                    })}
+                  >
+                    <div
+                      onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer"
+                    >
+                      <Image preview={false} src="/img/copy.svg" />
+                    </div>
+                  </CopyToClipboard>
+                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                    Хуулах
+                  </div>
+                </div>
+              </div>
+              <div className=" w-full flex justify-between mt-[20px]">
+                <div>
+                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                    Дансны нэр
+                  </div>
+                  <div className="text-[18px] text-[#2F3747] font-bold">
+                    {bank?.map((item) => {
+                      return item.invoice_bank_account_name;
+                    })}
+                  </div>
+                </div>
+                <div className=" flex items-center">
+                  <CopyToClipboard
+                    text={bank?.map((item) => {
+                      return item.invoice_bank_account_name;
+                    })}
+                  >
+                    <div
+                      onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer"
+                    >
+                      <Image preview={false} src="/img/copy.svg" />
+                    </div>
+                  </CopyToClipboard>
+                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                    Хуулах
+                  </div>
+                </div>
+              </div>
+              <div className=" w-full flex justify-between mt-[20px]">
+                <div>
+                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                    Гүйлгээний утга
+                  </div>
+                  <div className="text-[18px] text-[#2F3747] font-bold">
+                    {invoice?.map((item) => {
+                      return item.invoice_name;
+                    })}
+                  </div>
+                </div>
+                <div className=" flex items-center">
+                  <CopyToClipboard
+                    text={invoice?.map((item) => {
+                      return item.invoice_name;
+                    })}
+                  >
+                    <div
+                      onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer"
+                    >
+                      <Image preview={false} src="/img/copy.svg" />
+                    </div>
+                  </CopyToClipboard>
+                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                    Хуулах
+                  </div>
+                </div>
+              </div>
+              <div className=" w-full flex justify-between mt-[20px]">
+                <div>
+                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                    Төлөх дүн
+                  </div>
+                  <div className="text-[18px] text-[#2F3747] font-bold">
+                    {invoice?.map((item) => {
+                      return item.invoice_amount + "₮";
+                    })}
+                  </div>
+                </div>
+                <div className=" flex items-center">
+                <CopyToClipboard
+                    text={invoice?.map((item) => {
+                      return item.invoice_amount;
+                    })}
+                  >
+                  <div   onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer">
+                    <Image preview={false} src="/img/copy.svg" />
+                  </div>
+                  </CopyToClipboard>
+                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                    Хуулах
+                  </div>
+                </div>
+              </div>
+              <div className=" flex items-center w-[510px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] h-[74px] mt-[24px]">
+                <div className="flex ">
+                  <div className=" mr-[17px] pl-[17px]">
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/warning.png"
+                    />
+                  </div>
+                  <div className=" w-[400px] text-[14px] text-[#F09A1A]  ">
+                    Таны төлбөр төлөлт амжилттай хийгдсэний дараа 5 минутын
+                    дотор худалдан авалт хийгдэнэ.
+                  </div>
+                </div>
+              </div>
+            </div>
           </TabPane>
         </Tabs>
       </Modal>

@@ -362,13 +362,7 @@ a {
 
 }
 @media only screen and (max-width: 600px) {
-  /* .module .ant-tabs-nav-list {
-    display: none !important;
-  }
-   .ant-tabs > .ant-tabs-nav, .ant-tabs > div > .ant-tabs-nav{
-    display: none !important;
-  } */
-   
+ 
 }
 
 .ant-tabs-content-holder{
@@ -428,4 +422,70 @@ color: red !important;
 .buy{
   width: 570px !important;
   height: 760px !important;
+  border-radius: 30px !important;
+}
+.buy .ant-modal-footer{
+  display: none !important;
+}
+
+.buy .ant-modal-title{
+  color: #2E28D4 !important  ;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+}
+.buyTab .ant-tabs-nav-list{
+  /* background-color: gray !important; */
+   width:  510px !important;
+   display: flex !important;
+   font-size: 16px !important;
+   font-weight: 600 !important;
+   /* justify-content: space-between; */
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.buyTab  .ant-tabs-tab{ 
+  background-color: rgba(156 , 166, 192, 0.2)  !important;
+  color: #2E28D4 !important;
+  width: 255px !important;
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+.buyTab  .ant-tabs-tab-active{ 
+  background: linear-gradient(45deg, #2E28D4  , #AC27FD);
+  width: 50% !important;
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  color: white !important;
+}
+.buyTab .ant-tabs-tab .ant-tabs-tab-active{
+  color: white !important;
+}
+.buyTab .ant-tabs-ink-bar {
+  display: none !important;
+}
+.buyTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important; 
+  font-weight: 600;
+}
+@media only screen and (max-width: 600px) {
+  .buyTab .ant-tabs-nav-list{
+    
+     width:  300px !important;
+     display: flex !important;
+     font-size: 16px !important;
+     font-weight: 600 !important;
+     
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+  .buyTab  .ant-tabs-tab{ 
+    background-color: rgba(156 , 166, 192, 0.2)  !important;
+    color: #2E28D4 !important;
+    width: 150px !important;
+    text-align: center !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
 }
