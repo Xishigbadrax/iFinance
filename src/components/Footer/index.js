@@ -15,7 +15,7 @@ const Footer = () => {
             </div>
             <div className=" text-white text-[16px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}><strong>Утас:</strong><br/> 976 89977771</div>
           </div>
-          <div className=" flex items-center my-2 xl:mx-[95px] ">
+          <div className=" flex items-center my-3 xl:mx-[95px] ">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/mail.svg" />
             </div>
@@ -23,11 +23,11 @@ const Footer = () => {
               <strong>Имэйл хаяг:</strong> info@ifinance.mn
             </div>
           </div>
-          <div className=" flex items-center mr-2 w-[300px] ">
+          <div className=" flex items-center ">
             <div className="flex items-center mr-2">
               <Image  preview={false} src="/img/address.svg"/>
             </div>
-            <div className=" text-white text-[16px] w-auto xl:w-[350px] md:w-[300px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}>
+            <div className=" text-white text-[16px] w-[200px] xl:w-[350px] md:w-[300px]" style={{fontFamily: Inter, fontStyle: "normal", fontWeight: 400, lineHeight: "19px", opacity: 0.7}}>
               <strong>Хаяг:</strong> Реженси Ресидэнс, 16 Олимпын гудамж, 14220, Улаанбаатар хот,<br/>
               Монгол улс
             </div>

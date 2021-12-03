@@ -342,7 +342,7 @@ const NavbarTrans = () => {
   return (
     <div
       id="head"
-      className="w-full h-[100px] bg-transparent relative flex justify-center"
+      className="w-full   h-[100px] bg-transparent relative flex justify-center"
     >
       {/* <div className=" w-[100vw] absolute z-[-1]">
         <Image src="/img/back.png" className=" h-[100px] w-[100vw]" />
