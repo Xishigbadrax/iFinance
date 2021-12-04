@@ -342,7 +342,7 @@ const NavbarTrans = () => {
   return (
     <div
       id="head"
-      className="w-full   h-[100px] bg-transparent relative flex justify-center"
+      className="w-full h-[100px] bg-transparent relative flex justify-center"
     >
       {/* <div className=" w-[100vw] absolute z-[-1]">
         <Image src="/img/back.png" className=" h-[100px] w-[100vw]" />
@@ -1533,8 +1533,8 @@ const NavbarTrans = () => {
         </div>
       </Modal>
 
-      <div className="  flex justify-around  w-[75rem] items-center ">
-        <div className=" z-1">
+      <div className="flex justify-around w-[75rem] h-full m-auto items-center">
+        <div className="z-10">
           <a href="/">
             <Image preview={false} src="/img/Logo2.svg" alt="logo" />
           </a>

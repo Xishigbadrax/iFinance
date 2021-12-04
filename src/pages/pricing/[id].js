@@ -216,6 +216,7 @@ const Pricing = ({ id }) => {
     setProgramPriceSeason(Number(programPrice) * 3);
     setProgramPriceYear(Number(programPrice) * 12);
     console.log(tax, taxPrice, "zaa");
+    console.log(numberOfProgram, state, "number prog")
   }, [programPrice, serverPrice]);
   useEffect(() => {
     setTotalPriceSeason(Number(totalPrice) * 3 + serverPrice - discountSeason);
@@ -271,7 +272,7 @@ const Pricing = ({ id }) => {
   }, [mainData]);
 
   useEffect(() => {
-    console.log(state, "lalrin state");
+    // console.log(state, "lalrin state");
   }, [state]);
 
   useEffect(() => {
@@ -286,17 +287,17 @@ const Pricing = ({ id }) => {
 
   return (
     <div>
-      <div className="relative w-[vw]">
+      <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
         <div className="absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
-          <div className="hidden my-auto font-poppins-semibold uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+          <div className="hidden my-auto uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-poppins-semibold">
             Үнийн санал
           </div>
         </div>
 
-        <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+        <Image className=" w-[100vw] h-[100px] md:h-auto scale-150 md:scale-100" preview={false} src="/img/Slider.svg" />
       </div>
       <div className=" xl:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
         Үнийн санал
