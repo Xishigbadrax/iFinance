@@ -333,11 +333,11 @@ const Pricing = ({ id }) => {
       <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row   justify-center">
         <div className=" flex  justify-center ">
           <div className=" w-full ">
-            <div>
+            {/* <div>
               <p className=" border-l-2 border-[#2E28D4] text-[#2E28D4] pl-2 text-[24px] font-semibold mt-4 ">
                 Хэрэглэгчийн тоо
               </p>
-            </div>
+            </div> */}
 
             {/* Niit hereglegch boddog heseg */}
 
