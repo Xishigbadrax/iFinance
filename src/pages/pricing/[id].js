@@ -442,12 +442,15 @@ const Pricing = ({ id }) => {
                   return (
                     <div
                       key={index}
-                      onClick={() => isChecked(item)}
-                      className={
+                      onClick={() => isChecked(item, item.is_required)}
+                      className={`
+                      ${item.is_required && "cursor-not-allowed"}
+                      mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px]  ${
                         state.includes(item)
-                          ? "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#2E28D4]"
-                          : "mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px] border-[#9CA6C0]"
+                          ? "border-[#2E28D4]"
+                          : "border-[#9CA6C0]"
                       }
+                    `}
                     >
                       <div className=" p-[20px]  flex justify-between">
                         <div
