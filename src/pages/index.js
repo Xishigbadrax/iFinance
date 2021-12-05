@@ -169,8 +169,8 @@ export default function Home() {
           Хамтран ажиллагч байгууллагууд
         </div>
         <div className=" w-full flex justify-center mt-[40px]">
-          <div className=" flex justify-center">
-            <div className="  max-w-[1920px] flex flex-col items-start space-y-10 md:space-y-0 md:grid md:grid-cols-4 xl:flex-row  xl:w-[60vw]">
+          <div className=" flex ">
+            <div className="  max-w-[1200px]  flex  flex-col items-start space-y-10 md:space-y-0 md:grid md:grid-cols-3 xl:flex-row   xl:w-[50vw]">
               <div
                 className="flex pl-12 md:pl-0"
                 onMouseEnter={() => setOnHover(true)}
@@ -206,7 +206,7 @@ export default function Home() {
                   <Image preview={false} src="/img/fibo.svg" />
                 )}
               </div>
-              <div
+              {/* <div
                 className="flex justify-center"
                 onMouseEnter={() => setOnHover4(true)}
                 onMouseLeave={() => setOnHover4(false)}
@@ -216,7 +216,7 @@ export default function Home() {
                 ) : (
                   <Image preview={false} src="/img/cloud.svg" />
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

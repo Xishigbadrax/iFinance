@@ -420,7 +420,7 @@ const Pricing = ({ id }) => {
                           <div>
                             <div>
                               {item.is_required ? (
-                                <Checkbox checked disabled />
+                                <Checkbox checked  />
                               ) : (
                                 <Checkbox checked={state.includes(item)} />
                               )}
@@ -506,7 +506,7 @@ const Pricing = ({ id }) => {
                         <div>
                           <div>
                             {item.is_required ? (
-                              <Checkbox checked disabled />
+                              <Checkbox checked />
                             ) : (
                               <Checkbox checked={state.includes(item)} />
                             )}

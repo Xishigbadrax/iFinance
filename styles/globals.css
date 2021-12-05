@@ -250,7 +250,8 @@ a {
 
 .ant-checkbox-checked .ant-checkbox-inner {
   background:  linear-gradient(to right, #2e28d4, #ac27fd) !important;
-  border-color:#ac27fd !important;
+  
+  color: #eee !important;
 }
 .ant-radio-checked .ant-radio-inner{
 

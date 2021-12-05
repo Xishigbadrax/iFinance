@@ -7,7 +7,7 @@ import axios from "axios";
 import Context from "../../context/Context";
 import Footer from "../../components/Footer";
 import { useRouter } from "next/router";
-import Head from 'next/head';
+import Head from "next/head";
 
 const Dashboard = () => {
   const { Panel } = Collapse;
@@ -45,7 +45,6 @@ const Dashboard = () => {
     setList(res.data.result);
     console.log(res, "ehnii");
 
-    
     // console.log(res, "listtttt");
   }, []);
 
@@ -73,14 +72,18 @@ const Dashboard = () => {
       <div className="relative h-[100px] flex bg-red-500 overflow-hidden">
         <div className="absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
-            <NavbarTrans  />
+            <NavbarTrans />
           </div>
-          
+
           <div className=" hidden  my-auto font-poppins-semibold uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Манай бүтээгдэхүүн
           </div>
         </div>
-        <Image className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto" preview={false} src="/img/Slider.svg" />
+        <Image
+          className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto"
+          preview={false}
+          src="/img/Slider.svg"
+        />
       </div>
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">
@@ -92,18 +95,17 @@ const Dashboard = () => {
                 <div
                   key={index}
                   onClick={() => onCategory(item.category_id)}
-                  
                   className=" relative flex flex-col justify-center items-center w-[16.875rem] h-[16rem] border-[1px] hover:bg-gradient-to-tr hover: from-[#011F70] to-[#AC27FD]  text-[24px] hover:text-white font-semibold rounded-[4px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
                 >
                   <div className=" absolute z-60 bottom-[0rem] right-[1rem] text-[#AC27FD]  text-[120px] text-opacity-5">
                     {Number(index) + 1}
                   </div>
                   <div className=" bg-white h-[100px] w-[100px] flex justify-center items-center rounded-[50px]">
-                  <Image
-                    preview={false}
-                    className=" "
-                    src={"data:image/png;base64," + item.category_image}
-                  />
+                    <Image
+                      preview={false}
+                      className=" "
+                      src={"data:image/png;base64," + item.category_image}
+                    />
                   </div>
                   <div className=" w-full flex justify-center items-center ">
                     <div className=" flex justify-center items-center text-center  ">
@@ -181,9 +183,10 @@ const Dashboard = () => {
             </Panel>
           </Collapse>
         </div>
-        
       </div>
+      <div>
       <Footer />
+      </div>
     </div>
   );
 };

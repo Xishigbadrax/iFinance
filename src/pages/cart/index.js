@@ -46,13 +46,14 @@ const Cart = () => {
   const handleCancel = (value) => {
     setIsModalVisible(false);
   };
-  const onDelete = async (value) => {
+  const onDelete = async (id, type) => {
     var data = {
         jsonrpc: 2.0,
         params: {
           db: baseDB,
           uid: Auth.getUserId(),
-          product_id: value,
+          product_id: id,
+          type: type
         },
       };
       console.log(data, "dataaa");
@@ -63,6 +64,10 @@ const Cart = () => {
         },
       });
       console.log(res, "delete ress")
+      if(res.data.id == null){
+        //   message.success("Амжилттай устлаа");
+          window.location.reload(false);
+      }
   };
 
 
@@ -86,7 +91,7 @@ const Cart = () => {
         db: baseDB,
         uid: Auth.getUserId(),
         server_id: serverID,
-
+        
         product_ids: productIds,
       },
     };
@@ -153,7 +158,7 @@ const Cart = () => {
           </div>,
         count: "1",
         price: item.product_price + "₮",
-        action: <Image onClick={() => onDelete(item.product_id)} preview={false} src="/img/delete.svg" />,
+        action: <Image className=" cursor-pointer" onClick={() => onDelete(item.product_id, 1)} preview={false} src="/img/delete.svg" />,
       });
     });
    
@@ -167,7 +172,7 @@ const Cart = () => {
         name:  item.server_name,
         count: "1",
         price: item.server_price + "₮",
-        action: <Image preview={false} src="/img/delete.svg" />,
+        action: <Image className=" cursor-pointer" onClick={() => onDelete(item.server_id, 2)} preview={false} src="/img/delete.svg" />,
       });
     });
     setData(arr);
