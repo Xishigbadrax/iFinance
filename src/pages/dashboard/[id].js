@@ -244,8 +244,9 @@ const CategoryId = () => {
           </TabPane>
         </Tabs>
       </div>
-
+      <div className="">
       <Footer />
+      </div>
     </div>
   );
 };
