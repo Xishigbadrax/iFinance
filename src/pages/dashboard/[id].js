@@ -8,6 +8,7 @@ import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer";
 import { Tabs, Image, Button } from "antd";
 import parse from "html-react-parser";
+import Head from 'next/head';
 
 const CategoryId = () => {
   const router = useRouter();
@@ -43,6 +44,24 @@ const CategoryId = () => {
 
     res.data.result && setMainProduct(res.data.result.main_products);
     console.log(res, sessionId, "medeenuud");
+
+    // const res2 = await axios.get(
+    //    "http://192.168.0.143/web/image/576/accounting 1.png",
+    //   {
+    //     jsonrpc: 2.0,
+    //     // params: {
+    //     //   db: baseDB,
+    //     // },
+    //   },
+
+    //   {
+    //     headers: {
+    //       "Set-Cookie": "session_id=" + sessionId,
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    // console.log(res2, "zurag")
   };
   // fetchData();
 
@@ -62,6 +81,10 @@ const CategoryId = () => {
 
   return (
     <div>
+        <Head>
+        <title>iFinance | Танилцуулга</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Navbar />
       <div className="  relative w-[vw]">
         <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center text-center">
@@ -194,37 +217,10 @@ const CategoryId = () => {
                           key={index}
                         >
                           <div className=" text-justify xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
-                            <div>
-                              {item.product_images ? (
-                                <Image
-                                  preview={false}
-                                  src={
-                                    "data:image/png;base64," +
-                                    item.product_images[4]
-                                  }
-                                />
-                              ) : null}
-                            </div>
+                        
                             <p> {item.product_description} </p>
                             <div className="flex">
-                              <div>
-                                <Image
-                                  preview={false}
-                                  src={
-                                    "data:image/png;base64," +
-                                    item.product_images[0]
-                                  }
-                                />
-                              </div>
-                              <div>
-                                <Image
-                                  preview={false}
-                                  src={
-                                    "data:image/png;base64," +
-                                    item.product_images[1]
-                                  }
-                                />
-                              </div>
+                           
                             </div>
                             <div className=" mt-2 flex justify-center">
                               <Button

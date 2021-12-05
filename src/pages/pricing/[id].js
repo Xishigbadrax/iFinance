@@ -21,6 +21,7 @@ import Context from "../../context/Context";
 import Footer from "../../components/Footer";
 import { set } from "js-cookie";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import Head from 'next/head';
 
 const Pricing = ({ id }) => {
   // const router = useRouter();
@@ -216,7 +217,6 @@ const Pricing = ({ id }) => {
     setProgramPriceSeason(Number(programPrice) * 3);
     setProgramPriceYear(Number(programPrice) * 12);
     console.log(tax, taxPrice, "zaa");
-    console.log(numberOfProgram, state, "number prog")
   }, [programPrice, serverPrice]);
   useEffect(() => {
     setTotalPriceSeason(Number(totalPrice) * 3 + serverPrice - discountSeason);
@@ -249,8 +249,27 @@ const Pricing = ({ id }) => {
   }, [cServerPrice]);
 
   useEffect(async () => {
+    var lglglg = [];
+
+    if (additionalData) {
+      var gArr = await Promise.all(
+        additionalData.map((item) => {
+          if (item.is_required === true) {
+            return item;
+          } else null;
+        })
+      );
+
+      for (let i = 0; i < gArr.length; i++) {
+        if (gArr[i]) {
+          lglglg.push(gArr[i]);
+        }
+      }
+
+      console.log(gArr, "nemelt");
+    }
+
     if (mainData) {
-      var lglglg = [];
       var ggArray = await Promise.all(
         mainData.map((item) => {
           if (item.is_required === true) {
@@ -266,27 +285,32 @@ const Pricing = ({ id }) => {
       }
 
       console.log(lglglg, "ggwgwgwgwgw");
-
-      setState(lglglg);
     }
+
+    setState(lglglg);
+    console.log(lglglg, "lgggg");
   }, [mainData]);
 
   useEffect(() => {
     // console.log(state, "lalrin state");
   }, [state]);
 
-  useEffect(() => {
-    if (additionalData) {
-      additionalData.map((item) => {
-        if (item.is_required) {
-          setState([...state, item]);
-        }
-      });
-    }
-  }, [additionalData]);
+  // useEffect(() => {
+  //   if (additionalData) {
+  //     additionalData.map((item) => {
+  //       if (item.is_required) {
+  //         setState([...state, item]);
+  //       }
+  //     });
+  //   }
+  // }, [additionalData]);
 
   return (
     <div>
+       <Head>
+        <title>iFinance | Худалдан авах</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
         <div className="absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center h-1/3">
@@ -297,7 +321,11 @@ const Pricing = ({ id }) => {
           </div>
         </div>
 
-        <Image className=" w-[100vw] h-[100px] md:h-auto scale-150 md:scale-100" preview={false} src="/img/Slider.svg" />
+        <Image
+          className=" w-[100vw] h-[100px] md:h-auto scale-150 md:scale-100"
+          preview={false}
+          src="/img/Slider.svg"
+        />
       </div>
       <div className=" xl:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
         Үнийн санал
@@ -1144,15 +1172,17 @@ const Pricing = ({ id }) => {
                   </div>
                 </div>
                 <div className=" flex items-center">
-                <CopyToClipboard
+                  <CopyToClipboard
                     text={invoice?.map((item) => {
                       return item.invoice_amount;
                     })}
                   >
-                  <div   onClick={() => message.success("Амжилттай хуулагдлаа")}
-                      className="cursor-pointer">
-                    <Image preview={false} src="/img/copy.svg" />
-                  </div>
+                    <div
+                      onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer"
+                    >
+                      <Image preview={false} src="/img/copy.svg" />
+                    </div>
                   </CopyToClipboard>
                   <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
                     Хуулах

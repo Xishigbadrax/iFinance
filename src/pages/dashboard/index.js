@@ -7,6 +7,7 @@ import axios from "axios";
 import Context from "../../context/Context";
 import Footer from "../../components/Footer";
 import { useRouter } from "next/router";
+import Head from 'next/head';
 
 const Dashboard = () => {
   const { Panel } = Collapse;
@@ -61,6 +62,10 @@ const Dashboard = () => {
 
   return (
     <div className="">
+      <Head>
+        <title>iFinance | Бүтээгдэхүүн</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       {/* <div className=" relative w-full">
         <img className=" absolute w-full h-auto z-[-1]" src="/img/Slider.svg" /> */}
       {/* </div> */}

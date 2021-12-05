@@ -313,7 +313,7 @@ const NavbarTrans = () => {
 
       <Menu.Item className="order2" key="1">
         <ShoppingCartOutlined className="text-[20px]" />
-        <a className="pl-1" href="/">
+        <a className="pl-1" href="/cart">
           Миний сагс
         </a>
       </Menu.Item>
