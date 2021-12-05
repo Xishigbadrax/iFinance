@@ -203,8 +203,8 @@ const Cart = () => {
           src="/img/Slider.svg"
         />
       </div>
-      <div className=" flex justify-center mt-10">
-        <div className=" mr-[30px]">
+      <div className=" flex flex-col md:flex-row justify-center mt-10">
+        <div className=" mr-[30px] px-4 md:px-4">
           <Table
             className="tcell"
             className=" w-[770px]"
@@ -212,7 +212,7 @@ const Cart = () => {
             dataSource={data}
           />
         </div>
-        <div className=" w-[370px] h-[315px] shadow-xl rounded-[4px] mb-[100px]">
+        <div className=" w-[370px] h-[315px] shadow-xl rounded-[4px] mb-[100px] px-4 md:px-0">
           <div className=" w-full flex items-center h-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] text-white font-bold text-[18px] rounded-t-[4px] pl-[24px]">
             Төлөх дүн
           </div>

@@ -9,6 +9,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import Loader from "react-loader-spinner";
 import Head from "next/head";
+import Facebook from "../components/Facebook";
+
+
 
 export default function Home() {
   const [onhover, setOnHover] = useState(false);
@@ -75,6 +78,8 @@ export default function Home() {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  
+
 
   return (
     // <div >
@@ -664,7 +669,7 @@ export default function Home() {
         </div>
       </div>
       <div className=" w-full flex justify-center mt-[100px]">
-        <div className=" h-[600px] max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] xl:h-[228px] bg-[#2E28D4] bg-opacity-5 xl:items-center items-start justify-around">
+        <div className=" h-[600px] md:h-auto max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] xl:h-[228px] bg-[#2E28D4] bg-opacity-5 xl:items-center items-start justify-around">
           <div className=" flex justify-center">
             <div>
               <div className=" text-[48px] text-[#2E28D4] font-bold">
@@ -780,6 +785,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/* <Facebook /> */}
       <Footer />
     </div>
   );

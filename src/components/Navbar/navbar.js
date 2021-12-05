@@ -434,16 +434,7 @@ const Navbar = ({}) => {
                   required: true,
                   message: "Нууц үгээ оруулна уу!",
                 },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error("Нууц үг таарахгүй байна!")
-                    );
-                  },
-                }),
+                
               ]}
             >
               <Input.Password
@@ -1528,8 +1519,9 @@ const Navbar = ({}) => {
 
       <div className="  flex justify-around  w-[75rem] items-center ">
         <div className=" z-1">
-          {/* <Image preview={false} src="/img/logo2.svg" alt="logo" /> */}
+          <a href="/" >
           <Image preview={false} src="/img/Logo2.svg" />
+          </a>
         </div>
         {sideBarActive ? (
           <div className=" lg:hidden">
@@ -1577,9 +1569,9 @@ const Navbar = ({}) => {
               </li>
 
               <li className=" text-lg">
-                <Link href="/">
+                <Link href="/service">
                   <a className="   text-white font-semibold">
-                    Холбоо барих
+                    Үйлчилгээ
                   </a>
                 </Link>
               </li>

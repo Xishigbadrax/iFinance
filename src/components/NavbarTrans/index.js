@@ -442,16 +442,7 @@ const NavbarTrans = () => {
                   required: true,
                   message: "Нууц үгээ оруулна уу!",
                 },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error("Нууц үг таарахгүй байна!")
-                    );
-                  },
-                }),
+                
               ]}
             >
               <Input.Password
@@ -1579,7 +1570,7 @@ const NavbarTrans = () => {
               </li>
 
               <li className=" text-lg">
-                <Link href="/">
+                <Link href="/service">
                   <a className=" text-[18px] font-poppins-semibold  text-white ">
                     Үйлчилгээ
                   </a>

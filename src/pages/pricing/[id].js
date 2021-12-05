@@ -689,10 +689,10 @@ const Pricing = ({ id }) => {
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
-                      {numberOfProgram} програм
+                      {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPrice}₮
+                      {programPrice.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -702,7 +702,7 @@ const Pricing = ({ id }) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPrice}₮
+                      {serverPrice.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -711,7 +711,7 @@ const Pricing = ({ id }) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPrice}₮
+                      {taxPrice.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -720,7 +720,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {discount != 0 ? -discount : 0}₮
+                      {(discount != 0 ? -discount : 0).toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -730,7 +730,7 @@ const Pricing = ({ id }) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPrice}₮
+                      {totalPrice.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -781,10 +781,10 @@ const Pricing = ({ id }) => {
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
-                      {numberOfProgram} програм
+                      {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPriceSeason}₮
+                      {programPriceSeason.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -794,7 +794,7 @@ const Pricing = ({ id }) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPriceSeason}₮
+                      {serverPriceSeason.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -803,7 +803,7 @@ const Pricing = ({ id }) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPriceSeason}₮
+                      {taxPriceSeason.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -812,7 +812,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {discount != 0 ? -discount : 0}₮
+                      {(discount != 0 ? -discount : 0).toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -822,7 +822,7 @@ const Pricing = ({ id }) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPriceSeason}₮
+                      {totalPriceSeason.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -873,10 +873,10 @@ const Pricing = ({ id }) => {
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
-                      {numberOfProgram} програм
+                      {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPriceYear}₮
+                      {programPriceYear.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -886,7 +886,7 @@ const Pricing = ({ id }) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPriceYear}₮
+                      {serverPriceYear.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -895,7 +895,7 @@ const Pricing = ({ id }) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPriceYear}₮
+                      {taxPriceYear.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -904,7 +904,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {discount != 0 ? -discount : 0}₮
+                      {(discount != 0 ? -discount : 0).toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -914,7 +914,7 @@ const Pricing = ({ id }) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPriceYear}₮
+                      {totalPriceYear.toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
