@@ -708,7 +708,7 @@ export default function Home() {
             <div className="relative">
               <div className="h-full w-full absolute z-10 flex flex-col  items-center justify-center left-100px ">
                 <div className=" z-10">
-                  <Carousel autoplay className=" w-[350px] md:w-[400px]">
+                  {/* <Carousel autoplay className=" w-[350px] md:w-[400px]">
                     <div className=" w-[300px] md:w-[370px] ">
                       <h3 style={contentStyle} className=" flex flex-col ">
                         <div>Quotes</div>
@@ -772,7 +772,7 @@ export default function Home() {
                         </div>
                       </h3>
                     </div>
-                  </Carousel>
+                  </Carousel> */}
                 </div>
               </div>
               <Image preview={false} src="/img/f1.svg" />

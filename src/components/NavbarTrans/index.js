@@ -80,8 +80,12 @@ const NavbarTrans = () => {
   const [shadowModal, setShadowModal] = useState(false);
   const [mobileForgot, setMobileForgot] = useState(false);
   const [mobileForgotConfirm, setMobileForgotConfirm] = useState(false);
+  const [screen, setScreen] = useState(false);
+  const [mobileConfirm, setMobileConfirm] = useState(false);
+  
 
   const handleCancel = () => {
+    setMobileConfirm(false);
     setLoginModal(false);
     setConfirmModal(false);
     setMobileLogin(false);
@@ -189,6 +193,7 @@ const NavbarTrans = () => {
       );
       console.log(res, "last res");
       setConfirmModal(false);
+      setMobileConfirm(false);
       message.success("Амжилттай нэвтэрлээ");
     } else {
       settitle("Алдлаа");
@@ -201,6 +206,7 @@ const NavbarTrans = () => {
   };
 
   const onFinishRegister = async (values) => {
+    setScreen(true);
     console.log("Received values of form: ", values);
     setEmail(values.email);
     setPassword(values.password);
@@ -229,7 +235,7 @@ const NavbarTrans = () => {
     if (res.data.result && res.data.result.msg) {
       setConfirmMessage(res.data.result.msg);
       setaddclass("right-panel-active");
-      setConfirmModal(true);
+      screen ? setMobileConfirm(true) : setConfirmModal(true);
       setMobileSignUp(false);
       setLoginModal(false);
     } else if (res.data.error && res.data.error.data.message) {
@@ -421,6 +427,7 @@ const NavbarTrans = () => {
               />
             </Form.Item>
             <Form.Item
+            name="password"
               rules={[
                 {
                   required: true,
@@ -692,6 +699,64 @@ const NavbarTrans = () => {
           </Form>
         </div>
       </Modal>
+      {/* mobileConfirm modal */}
+
+      <Modal visible={mobileConfirm} footer={[]} onCancel={handleCancel}>
+        <div>
+          <Image
+            className="pt-[3rem] pl-[3rem] "
+            preview={false}
+            src="/img/logo.png"
+          />
+
+          <Form
+            name="normal_login3"
+            className="form"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onConfirmEmail}
+          >
+            <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-10">
+              Баталгаажуулах
+            </p>
+
+            <Form.Item
+              name="forgotValue"
+              rules={[
+                {
+                  required: true,
+                  message: "Хэрэглэгчийн нэрээ оруулна уу!",
+                },
+              ]}
+            >
+              <Space>
+                <Input onChange={(e) => setConfirmCode(e.target.value)} type="number" className=" w-[15rem]" />
+              </Space>
+            </Form.Item>
+            <div className=" w-full flex justify-center">
+              <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
+                <div className="text-[#F01A63]">
+                  <Countdown renderer={renderer} date={Date.now() + 180000} />
+                </div>
+              </div>
+            </div>
+            <div className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-pointer ">
+              Баталгаажуулах код авах
+            </div>
+            <Form.Item>
+              <Button
+                className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                type="primary"
+                htmlType="submit"
+              >
+                Илгээх
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </Modal>
+
 
       {/* Desktop login & signup modal */}
 
@@ -1349,8 +1414,8 @@ const NavbarTrans = () => {
         visible={confirmModal}
         onCancel={handleCancel}
       >
-        <div className={`container ${addclass}`} id="container">
-          <div className="form-container sign-up-container">
+        <div className={`container ${addclass} `} id="container  ">
+          <div className="form-container sign-up-container ">
             <Image
               className="pt-[3rem] pl-[3rem] "
               preview={false}
@@ -1413,7 +1478,7 @@ const NavbarTrans = () => {
 
           {/* Login form */}
 
-          <div className="form-container sign-in-container">
+          <div className="  form-container sign-in-container ">
             <Image
               className="pt-[3rem] pl-[3rem]"
               preview={false}
@@ -1487,7 +1552,7 @@ const NavbarTrans = () => {
               </Form.Item>
             </Form>
           </div>
-          <div className="overlay-container">
+          <div className="overlay-container ">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
