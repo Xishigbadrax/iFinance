@@ -11,7 +11,7 @@ module.exports = {
         navbarColor: '#0013D4',
       },
       fontFamily: {
-        "poppins-semibold": ['Poppins Semibold', 'sans-serif']
+        "poppins-semibold": "'Poppins, SemiBold', sans-serif"
       },
       
       boxShadow: {

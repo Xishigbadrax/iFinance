@@ -7,6 +7,7 @@ import axios from "axios";
 import Context from "../../context/Context";
 import Footer from "../../components/Footer";
 import { useRouter } from "next/router";
+import Head from 'next/head';
 
 const Dashboard = () => {
   const { Panel } = Collapse;
@@ -61,11 +62,15 @@ const Dashboard = () => {
 
   return (
     <div className="">
+      <Head>
+        <title>iFinance | Бүтээгдэхүүн</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       {/* <div className=" relative w-full">
         <img className=" absolute w-full h-auto z-[-1]" src="/img/Slider.svg" /> */}
       {/* </div> */}
 
-      <div className="relative w-full ">
+      <div className="relative h-[100px] flex bg-red-500 overflow-hidden">
         <div className="absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans  />
@@ -75,7 +80,7 @@ const Dashboard = () => {
             Манай бүтээгдэхүүн
           </div>
         </div>
-        <Image className=" w-full  h-auto " preview={false} src="/img/Slider.svg" />
+        <Image className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto" preview={false} src="/img/Slider.svg" />
       </div>
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">

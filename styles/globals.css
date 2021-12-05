@@ -488,4 +488,13 @@ color: red !important;
     display: flex !important;
     justify-content: center !important;
   }
+  
+}
+
+.mar {
+  margin: 12px 0px !important;
+}
+
+.ant-table-cell{
+    
 }

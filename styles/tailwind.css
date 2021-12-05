@@ -4,8 +4,14 @@
 
 @layer base {
     @font-face {
-        font-family: 'Poppins Semibold', sans-serif;
+        font-family: 'Poppins, SemiBold', sans-serif;
         font-weight: 600;
-        src: url('./fonts/poppin/Poppins-SemiBold.ttf') format('TrueType');
+        src: url('./fonts/poppin/Poppins-SemiBold.ttf') format('truetype');
     }
+
+    /* @font-face {
+        font-family: 'Poppins, Bold', sans-serif;
+        font-weight: 700;
+        src: url('./fonts/poppin/Poppins-Bold.ttf') format('TrueType');
+    } */
 }

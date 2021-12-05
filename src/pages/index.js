@@ -8,9 +8,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import Loader from "react-loader-spinner";
+import Head from "next/head";
 
 export default function Home() {
   const [onhover, setOnHover] = useState(false);
+  const [onhover2, setOnHover2] = useState(false);
+  const [onhover3, setOnHover3] = useState(false);
+  const [onhover4, setOnHover4] = useState(false);
   const contentStyle = {
     height: "350px",
 
@@ -70,41 +74,6 @@ export default function Home() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
   };
 
   return (
@@ -116,7 +85,11 @@ export default function Home() {
     //     <Footer />
     // </div>
 
-    <div className=" ">
+    <div className="">
+      <Head>
+        <title>iFinance | Интеллижент Финанс ХХК</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="relative  w-full">
         <div id="head" className=" absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center">
@@ -195,27 +168,55 @@ export default function Home() {
         <div className=" text-[#2F3747] text-[24px] font-bold flex justify-center text-center">
           Хамтран ажиллагч байгууллагууд
         </div>
-        <div className=" w-full flex justify-center mt-[40px] ">
-          <div className="  max-w-[1920px] flex flex-col items-start space-y-10 md:space-y-0 md:grid md:grid-cols-4 xl:flex-row  xl:w-[60vw] justify-between">
-            <div
-              className="flex justify-center"
-              onMouseEnter={() => setOnHover(true)}
-              onMouseLeave={() => setOnHover(false)}
-            >
-              {onhover ? (
-                <Image className="" preview={false} src="/img/itools.svg" />
-              ) : (
-                <Image preview={false} src="/img/ict.svg" />
-              )}
-            </div>
-            <div className=" flex justify-center my-4 md:my-0 md:px-6 xl:my-0 hover:fill-[black]">
-              <Image className="" preview={false} src="/img/itools.svg" />
-            </div>
-            <div className="icon-asset  flex justify-center">
-              <Image preview={false} src="/img/fibo.svg" />
-            </div>
-            <div className="mt-4 md:mt-0 xl:mt-0  flex justify-center">
-              <Image preview={false} src="/img/cloud.svg" />
+        <div className=" w-full flex justify-center mt-[40px]">
+          <div className=" flex justify-center">
+            <div className="  max-w-[1920px] flex flex-col items-start space-y-10 md:space-y-0 md:grid md:grid-cols-4 xl:flex-row  xl:w-[60vw]">
+              <div
+                className="flex pl-12 md:pl-0"
+                onMouseEnter={() => setOnHover(true)}
+                onMouseLeave={() => setOnHover(false)}
+              >
+                <div>
+                  {onhover ? (
+                    <Image className="" preview={false} src="/img/ict2.svg" />
+                  ) : (
+                    <Image preview={false} src="/img/ict.svg" />
+                  )}
+                </div>
+              </div>
+              <div
+                className="flex justify-center pl-12 md:pl-0"
+                onMouseEnter={() => setOnHover2(true)}
+                onMouseLeave={() => setOnHover2(false)}
+              >
+                {onhover2 ? (
+                  <Image className="" preview={false} src="/img/itools2.svg" />
+                ) : (
+                  <Image preview={false} src="/img/itools.svg" />
+                )}
+              </div>
+              <div
+                className="flex justify-center pl-12 md:pl-0"
+                onMouseEnter={() => setOnHover3(true)}
+                onMouseLeave={() => setOnHover3(false)}
+              >
+                {onhover3 ? (
+                  <Image className="" preview={false} src="/img/fibo2.svg" />
+                ) : (
+                  <Image preview={false} src="/img/fibo.svg" />
+                )}
+              </div>
+              <div
+                className="flex justify-center"
+                onMouseEnter={() => setOnHover4(true)}
+                onMouseLeave={() => setOnHover4(false)}
+              >
+                {onhover4 ? (
+                  <Image className="" preview={false} src="/img/cloud2.svg" />
+                ) : (
+                  <Image preview={false} src="/img/cloud.svg" />
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -444,7 +445,7 @@ export default function Home() {
         </div>
         <div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" max-w-[1920px] flex flex-col xl:flex-row w-[65%]   justify-between">
+            <div className=" max-w-[1420px] flex flex-col xl:flex-row w-[65%]   justify-between">
               <div>
                 <div className=" ">
                   <Image preview={false} src="/img/d1.svg" />
@@ -528,14 +529,14 @@ export default function Home() {
               <div className=" w-[250px]  lg:w-[65vw] max-w-[1400px]">
                 <Slider className=" " {...settings2}>
                   <div className=" p-5">
-                    <div className=" max-w-[1920px] flex flex-col xl:flex-row xl:w-[60vw]  justify-between">
-                      <div className="">
+                    <div className=" w-auto flex flex-col lg:flex-row  justify-between">
+                      <div className=" ">
                         <div className=" flex justify-center text-center">
                           <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
-                            Технологийн дэвшлийг таньд мэдрүүлнэ
+                            Технологийн дэвшлийг таньд мэдрүүлнэrr
                           </p>
                         </div>
-                        <div className=" flex justify-center">
+                        <div className=" flex justify-center ">
                           <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify ">
                             Технологийн дэвшилтэт эрин зуунд танай байгууллагын
                             дотоод системийг хийж гүйцэтгэхээс гадна Финтек
@@ -605,16 +606,16 @@ export default function Home() {
         <div className=" w-full flex justify-center mt-[40px]">
           <div className=" max-w-[1920px] w-[300px] flex flex-col xl:flex-row xl:w-[65vw] justify-between">
             <div className="  ">
-              <div className="flex justify-center">
+              <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/app.svg" />
               </div>
-              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center">
+              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center md:justify-start">
                 Андройд гар утасны апп
               </p>
               <p className=" text-[#2F3747] text-justify text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
                 Андройд үйлдлийн системд ажиллах гар утасны аппликейшин татах.
               </p>
-              <div className=" flex justify-center mt-[40px]">
+              <div className=" flex justify-center mt-[40px] md:justify-start">
                 <a
                   target="_blank"
                   href="https://play.google.com/store/apps/details?id=com.odoo.mobile&hl=en&gl=US"
@@ -625,7 +626,7 @@ export default function Home() {
               </div>
             </div>
             <div className=" my-10 xl:mt-0">
-              <div className="flex justify-center">
+              <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/ifin.svg" />
               </div>
               <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center">
@@ -634,23 +635,23 @@ export default function Home() {
               <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
                 SaaS болон Cloud програм хангамжийн танилцуулга харах.
               </p>
-              <div className=" flex justify-center mt-[40px]">
+              <div className=" flex justify-center mt-[40px] md:justify-start">
                 <a target="_blank" href="https://ifinance.mn">
                   <Image preview={false} src="/img/ifin1.svg" />
                 </a>
               </div>
             </div>
             <div>
-              <div className="flex justify-center">
+              <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/play.svg" />
               </div>
-              <p className=" flex justify-center text-[#2F3747] text-[18px] font-bold mt-[24px]">
+              <p className=" flex justify-center text-[#2F3747] text-[18px] font-bold mt-[24px] md:justify-start">
                 IOS гар утасны апп
               </p>
               <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
                 IOS үйлдлийн системд ажиллах гар утасны аппликейшин татах.
               </p>
-              <div className=" flex justify-center mt-[40px]">
+              <div className=" flex justify-center mt-[40px] md:justify-start">
                 <a
                   target="_blank"
                   href="https://apps.apple.com/us/app/odoo/id1272543640"
@@ -676,10 +677,10 @@ export default function Home() {
           </div>
           <div className=" flex justify-center">
             <div>
-            <div className=" text-[48px] text-[#F01A63] font-bold">1047+</div>
-            <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
-              Жилд хандсан хүний тоо
-            </div>
+              <div className=" text-[48px] text-[#F01A63] font-bold">1047+</div>
+              <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
+                Жилд хандсан хүний тоо
+              </div>
             </div>
           </div>
           <div className="">
@@ -701,9 +702,9 @@ export default function Home() {
           <div className="flex flex-col justify-center  md:flex-row">
             <div className="relative">
               <div className="h-full w-full absolute z-10 flex flex-col  items-center justify-center left-100px ">
-                {/* <div className=" ">
-                  <Carousel autoplay className=" w-[280p]">
-                    <div className=" w-[370px] ">
+                <div className=" z-10">
+                  <Carousel autoplay className=" w-[350px] md:w-[400px]">
+                    <div className=" w-[300px] md:w-[370px] ">
                       <h3 style={contentStyle} className=" flex flex-col ">
                         <div>Quotes</div>
                         <div className=" flex justify-start mt-[30px]">
@@ -713,11 +714,11 @@ export default function Home() {
                           purus donec mattis. Sit sit enim, amet orci proin. Nam
                           gravida ut tortor pulvinar orci quam leo vestibulum.
                         </div>
-                        <div className=" flex justify-start mt-[40px]">
+                        <div className=" flex justify-start mt-[40px] items-center">
                           <div>
                             <Image src="/img/q1.png" />
                           </div>
-                          <div className=" flex flex-col">
+                          <div className=" flex flex-col ml-2">
                             <div>Cameron Williamson</div>
                             <div>Designer</div>
                           </div>
@@ -734,11 +735,11 @@ export default function Home() {
                           purus donec mattis. Sit sit enim, amet orci proin. Nam
                           gravida ut tortor pulvinar orci quam leo vestibulum.
                         </div>
-                        <div className=" flex justify-start mt-[40px]">
+                        <div className=" flex justify-start mt-[40px] items-center">
                           <div>
                             <Image src="/img/q1.png" />
                           </div>
-                          <div className=" flex flex-col">
+                          <div className=" flex flex-col ml-2">
                             <div>Cameron Williamson</div>
                             <div>Designer</div>
                           </div>
@@ -755,11 +756,11 @@ export default function Home() {
                           purus donec mattis. Sit sit enim, amet orci proin. Nam
                           gravida ut tortor pulvinar orci quam leo vestibulum.
                         </div>
-                        <div className=" flex justify-start mt-[40px]">
+                        <div className=" flex justify-start mt-[40px] items-center">
                           <div>
                             <Image src="/img/q1.png" />
                           </div>
-                          <div className=" flex flex-col">
+                          <div className=" flex flex-col ml-2 ">
                             <div>Cameron Williamson</div>
                             <div>Designer</div>
                           </div>
@@ -767,7 +768,7 @@ export default function Home() {
                       </h3>
                     </div>
                   </Carousel>
-                </div> */}
+                </div>
               </div>
               <Image preview={false} src="/img/f1.svg" />
             </div>

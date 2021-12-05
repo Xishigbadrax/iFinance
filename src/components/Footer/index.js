@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className=" w-full   lg:h-[21.188rem]">
       <div className=" flex justify-center  bg-gradient-to-r from-[#473EDA] to-[#B33DFD]  items-center lg:h-[89px]">
-        <div className=" flex flex-col pt-4 pb-4   xl:justify-between xl:w-[60vw] md:w-[80vw] md:justify-between  md:flex-row xl:flex-row xl:pt-0 xl:pb-0">
+        <div className=" flex flex-col pt-4 pb-4 xl:justify-between xl:w-[60vw] md:w-[80vw] md:justify-between  md:flex-row xl:flex-row xl:pt-0 xl:pb-0 max-w-[1920px]">
           <div className=" flex items-center">
             <div className="flex items-center mr-2">
               <Image preview={false} src="/img/call.svg" />
