@@ -126,7 +126,7 @@ const CategoryId = () => {
         <Tabs defaultActiveKey="1" className="">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" mt-[80px]">
-              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center  rounded-t-xl ">
+              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center rounded-t-xl">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
                   Ангилал
                 </p>
@@ -272,7 +272,7 @@ const CategoryId = () => {
               </div>
             </div>
           </TabPane>
-          <TabPane  tab="Нэмэлт модуль" key="2">
+          <TabPane className="mainTab" tab="Нэмэлт модуль" key="2">
           <div className=" mt-[80px]">
               <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center  rounded-t-xl ">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
