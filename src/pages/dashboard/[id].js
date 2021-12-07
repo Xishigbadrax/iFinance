@@ -173,7 +173,7 @@ const CategoryId = () => {
                                 />
                               )}
                             </div> */}
-                          <img src="https://test.ifinance.mn/web/image/605/260420641_4476133815838329_6902069086329202614_n.jpeg" />
+                          {/* <img src="https://test.ifinance.mn/web/image/605/260420641_4476133815838329_6902069086329202614_n.jpeg" /> */}
                             <p>{parse(content)} </p>
                             {/* <Image alt="tst" src="https://test.ifinance.mn/web/image/605/.jpg" /> */}
                             <div className="flex">
@@ -310,7 +310,7 @@ const CategoryId = () => {
                         >
                           <div className="xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
                          
-                          <img src="https://test.ifinance.mn/web/image/605/260420641_4476133815838329_6902069086329202614_n.jpeg" />
+                          {/* <img src="https://test.ifinance.mn/web/image/605/260420641_4476133815838329_6902069086329202614_n.jpeg" /> */}
                             <p>{parse(content)} </p>
                             {/* <Image alt="tst" src="https://test.ifinance.mn/web/image/605/.jpg" /> */}
                             <div className="flex">
