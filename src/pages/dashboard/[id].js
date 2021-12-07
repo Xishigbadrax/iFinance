@@ -202,7 +202,7 @@ const CategoryId = () => {
                             </div>
                             <div className=" mt-2 flex justify-center">
                               <div className="  w-[500px] flex flex-col md:flex-row justify-between">
-                            <Button
+                              <Button
                                 onClick={() => onCart(item.product_id)}
                                 type="primary"
                                 className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
@@ -317,13 +317,30 @@ const CategoryId = () => {
                              
                             </div>
                             <div className=" mt-2 flex justify-center">
-                              <Button
+                              {/* <Button
                                 onClick={() => onDetails(id)}
                                 type="primary"
                                 className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                               >
                                 Үйлчилгээтэй танилцах
-                              </Button>
+                              </Button> */}
+                              
+                              <div className="  w-[500px] flex flex-col md:flex-row justify-between">
+                                <Button
+                                  onClick={() => onCart(item.product_id)}
+                                  type="primary"
+                                  className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                >
+                                  Сагсанд нэмэх
+                                </Button>
+                                <Button
+                                  onClick={() => onDetails(id)}
+                                  type="primary"
+                                  className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                >
+                                  Худалдан авах
+                                </Button>
+                             </div>
                             </div>
                           </div>
                         </TabPane>
