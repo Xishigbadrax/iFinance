@@ -21,6 +21,7 @@ const CategoryId = () => {
 
   const [mainProduct, setMainProduct] = useState();
   const [additionalProduct, setAdditionalProduct] = useState();
+  const [categoryName, setCategoryName] = useState();
   const [images, setImages] = useState();
   const [angilal, setAngilal] = useState(false);
 
@@ -63,11 +64,11 @@ const CategoryId = () => {
           "Content-Type": "application/json",
         },
       }
-    );
-
-    res.data.result && setMainProduct(res.data.result.main_products);
-    res.data.result && setAdditionalProduct(res.data.result.additional_products);
-    console.log(res, sessionId, "medeenuud");
+    )
+    res.data.result && setMainProduct(res.data.result.main_products),
+    res.data.result && setAdditionalProduct(res.data.result.additional_products),
+    res.data.result && setCategoryName(res.data.result.main_products[0].product_category),
+    console.log(res.data.result.main_products[0].product_category, sessionId, "medeenuud")
 
     // const res2 = await axios.get(
     //    "http://192.168.0.143/web/image/576/accounting 1.png",
@@ -113,7 +114,7 @@ const CategoryId = () => {
       <div className="  relative w-[vw]">
         <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center text-center">
           <div className="  xl:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
-            ББСБ Зээлийн модуль
+            { categoryName }
           </div>
         </div>
         <Image
@@ -149,6 +150,8 @@ const CategoryId = () => {
                                 <Image
                                   className=""
                                   preview={false}
+                                  width="48px"
+                                  height="48px"
                                   src={
                                     "data:image/png;base64," + item.product_icon
                                   }
@@ -237,6 +240,8 @@ const CategoryId = () => {
                                 <Image
                                   className=""
                                   preview={false}
+                                  width="48px"
+                                  height="48px"
                                   src={
                                     "data:image/png;base64," + item.product_icon
                                   }
@@ -296,6 +301,8 @@ const CategoryId = () => {
                                 <Image
                                   className=""
                                   preview={false}
+                                  width="48px"
+                                  height="48px"
                                   src={
                                     "data:image/png;base64," + item.product_icon
                                   }
@@ -361,6 +368,8 @@ const CategoryId = () => {
                                 <Image
                                   className=""
                                   preview={false}
+                                  width="48px"
+                                  height="48px"
                                   src={
                                     "data:image/png;base64," + item.product_icon
                                   }
