@@ -154,7 +154,7 @@ const CategoryId = () => {
                                   }
                                 />
                               }
-                              <div className="ml-[22px]">
+                              <div className="ml-[22px]" style={{ fontSize: "12px" }}>
                                 {item.product_name}
                               </div>
                             </div>
@@ -242,7 +242,7 @@ const CategoryId = () => {
                                   }
                                 />
                               }
-                              <div className="ml-[22px]">
+                              <div className="ml-[22px]" style={{ fontSize: "12px" }}>
                                 {item.product_name}
                               </div>
                             </div>
@@ -301,7 +301,7 @@ const CategoryId = () => {
                                   }
                                 />
                               }
-                              <div className="ml-[22px]">
+                              <div className="ml-[22px]" style={{ fontSize: "12px" }}>
                                 {item.product_name}
                               </div>
                             </div>
@@ -349,7 +349,7 @@ const CategoryId = () => {
                                   }
                                 />
                               }
-                              <div className="ml-[22px]">
+                              <div className="ml-[22px]" style={{ fontSize: "12px" }}>
                                 {item.product_name}
                               </div>
                             </div>
