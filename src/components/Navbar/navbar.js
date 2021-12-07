@@ -413,6 +413,8 @@ const Navbar = ({}) => {
               />
             </Form.Item>
             <Form.Item
+            name="password"
+            dependencies={["password"]}
               rules={[
                 {
                   required: true,

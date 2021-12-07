@@ -24,6 +24,28 @@ const CategoryId = () => {
   const [images, setImages] = useState();
   const [angilal, setAngilal] = useState(false);
 
+  const onCart = async (id) =>{
+    const res = await axios.post(
+      baseUrl + "add/cart_list",
+      {
+        jsonrpc: 2.0,
+        params: {
+          db: baseDB,
+          uid: Auth.getUserId(),
+          product_id: id,
+        },
+      },
+
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + sessionId,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res, "sagsand nemeh res");
+  }
+
   const fetchData = async () => {
     const res = await axios.post(
       baseUrl + "get/product_list_by_category",
@@ -179,13 +201,22 @@ const CategoryId = () => {
                               ) : null} */}
                             </div>
                             <div className=" mt-2 flex justify-center">
+                              <div className="  w-[500px] flex flex-col md:flex-row justify-between">
+                            <Button
+                                onClick={() => onCart(item.product_id)}
+                                type="primary"
+                                className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                              >
+                                Сагсанд нэмэх
+                              </Button>
                               <Button
                                 onClick={() => onDetails(id)}
                                 type="primary"
                                 className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                               >
-                                Үйлчилгээтэй танилцах
+                                Худалдан авах
                               </Button>
+                             </div>
                             </div>
                           </div>
                         </TabPane>
