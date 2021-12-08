@@ -219,6 +219,13 @@ const Pricing = ({ id }) => {
     console.log(tax, taxPrice, "zaa");
   }, [programPrice, serverPrice]);
   useEffect(() => {
+   
+    setTaxPrice(Number(totalPrice)  / 10 );
+    setTaxPriceSeason(((totalPrice) * 3) / 10);
+    setTaxPriceYear(((totalPrice) * 12) / 10 );
+   
+  }, [totalPrice]);
+  useEffect(() => {
     setTotalPriceSeason(Number(totalPrice) * 3 + serverPrice - discountSeason);
     setTotalPriceYear(Number(totalPrice) * 12 + serverPrice - discountYear);
   }, [totalPrice]);

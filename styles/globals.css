@@ -340,6 +340,9 @@ a {
   color: #2F3747;
   font-weight: 600;
   font-size: 16px;
+  padding-right: 10px !important;
+  width: 700px !important;
+ 
 }
 
 
@@ -363,6 +366,10 @@ a {
 
 }
 @media only screen and (max-width: 600px) {
+  .module .ant-tabs-tab{
+    width: 20.438rem !important;
+    height: 81px;
+  }
  
 }
 
@@ -465,6 +472,10 @@ color: red !important;
 }
 .buyTab .ant-tabs-ink-bar {
   display: none !important;
+  
+}
+.ant-tabs-ink-bar {
+  background-image: linear-gradient(45deg, #2E28D4, #AC27FD) !important;
 }
 .buyTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: white !important; 
@@ -494,8 +505,4 @@ color: red !important;
 
 .mar {
   margin: 12px 0px !important;
-}
-
-.ant-table-cell{
-    
 }

@@ -87,7 +87,7 @@ const Dashboard = () => {
       </div>
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">
-        <div className=" grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:gap-4 ">
+        <div className=" grid grid-cols-3 gap-3 md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:gap-4 mx-2 md:mx-0 ">
           {list &&
             list.map((item, index) => {
               var a = 0;
@@ -95,12 +95,12 @@ const Dashboard = () => {
                 <div
                   key={index}
                   onClick={() => onCategory(item.category_id)}
-                  className=" relative flex flex-col justify-center items-center w-[16.875rem] h-[16rem] border-[1px] hover:bg-gradient-to-tr hover: from-[#011F70] to-[#AC27FD]  text-[24px] hover:text-white font-semibold rounded-[4px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
+                  className=" relative flex flex-col justify-center items-center md:w-[16.875rem] md:h-[16rem] border-[1px] hover:bg-gradient-to-tr hover: from-[#011F70] to-[#AC27FD]  md:text-[24px] hover:text-white font-semibold rounded-[4px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
                 >
                   <div className=" absolute z-60 bottom-[0rem] right-[1rem] text-[#AC27FD]  text-[120px] text-opacity-5">
                     {Number(index) + 1}
                   </div>
-                  <div className=" bg-white h-[100px] w-[100px] flex justify-center items-center rounded-[50px]">
+                  <div className=" bg-white h-[100px] md:w-[100px] flex justify-center items-center rounded-[50px]">
                     <Image
                       preview={false}
                       className=" "
