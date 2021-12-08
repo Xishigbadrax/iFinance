@@ -8,7 +8,7 @@ import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer";
 import { Tabs, Image, Button } from "antd";
 import parse from "html-react-parser";
-import Head from 'next/head';
+import Head from "next/head";
 
 const CategoryId = () => {
   const router = useRouter();
@@ -25,7 +25,7 @@ const CategoryId = () => {
   const [images, setImages] = useState();
   const [angilal, setAngilal] = useState(false);
 
-  const onCart = async (id) =>{
+  const onCart = async (id, type) => {
     const res = await axios.post(
       baseUrl + "add/cart_list",
       {
@@ -34,6 +34,7 @@ const CategoryId = () => {
           db: baseDB,
           uid: Auth.getUserId(),
           product_id: id,
+          type: type,
         },
       },
 
@@ -45,7 +46,7 @@ const CategoryId = () => {
       }
     );
     console.log(res, "sagsand nemeh res");
-  }
+  };
 
   const fetchData = async () => {
     const res = await axios.post(
@@ -64,11 +65,13 @@ const CategoryId = () => {
           "Content-Type": "application/json",
         },
       }
-    )
+    );
     res.data.result && setMainProduct(res.data.result.main_products),
-    res.data.result && setAdditionalProduct(res.data.result.additional_products),
-    res.data.result && setCategoryName(res.data.result.main_products[0].product_category),
-    console.log(res.data.result.main_products[0].product_category, sessionId, "medeenuud")
+      res.data.result &&
+        setAdditionalProduct(res.data.result.additional_products),
+      res.data.result &&
+        setCategoryName(res.data.result.main_products[0].product_category),
+      console.log(res.data.result, sessionId, "medeenuud");
 
     // const res2 = await axios.get(
     //    "http://192.168.0.143/web/image/576/accounting 1.png",
@@ -106,15 +109,27 @@ const CategoryId = () => {
 
   return (
     <div>
-        <Head>
+      <Head>
         <title>iFinance | Танилцуулга</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
       <div className="  relative w-[vw]">
-        <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center text-center">
+        <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center ">
+          <div className=" mt-[20px] ml-[375px] flex justify-between w-[400px]">
+            <div>
+              <Image preview={false} src="/img/home.svg" />
+            </div>
+            <div className="text-white text-[14px] font-semibold"> <a href="/" className="text-white text-[14px] font-semibold">Нүүр хуудас </a></div>
+            <div>
+              <Image preview={false} src="/img/right.svg" />
+            </div>
+            <div className=""><a href="/dashboard" className="text-white text-[14px] font-semibold" >Бүтээгдэхүүн</a></div>
+            <div><Image preview={false} src="/img/right.svg" /></div>
+            <div className="text-white text-[14px] font-semibold">{categoryName}</div>
+          </div>
           <div className="  xl:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
-            { categoryName }
+            {categoryName}
           </div>
         </div>
         <Image
@@ -138,8 +153,9 @@ const CategoryId = () => {
                     mainProduct.map((item, index) => {
                       // var content = "dsadas";
                       // var urlRegex =/(g;
-                      var content = item.product_description.toString().replace( "/web", 'https://test.ifinance.mn/web');
-                    
+                      var content = item.product_description.toString();
+                      // .toString().replace( "/web", 'https://test.ifinance.mn/web');
+
                       // console.log(content, "contentteee");
                       return (
                         <TabPane
@@ -157,7 +173,10 @@ const CategoryId = () => {
                                   }
                                 />
                               }
-                              <div className="ml-[22px]" style={{ fontSize: "12px" }}>
+                              <div
+                                className="ml-[22px]"
+                                style={{ fontSize: "12px" }}
+                              >
                                 {item.product_name}
                               </div>
                             </div>
@@ -165,176 +184,13 @@ const CategoryId = () => {
                           key={index}
                         >
                           <div className="xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
-                            {/* <div>
-                              {item.product_images && (
-                                <Image
-                                  preview={false}
-                                  src={
-                                    "data:image/png;base64," +
-                                    item.product_images[2]
-                                  }
-                                />
-                              )}
-                            </div> */}
-                          {/* <img src="https://test.ifinance.mn/web/image/605/260420641_4476133815838329_6902069086329202614_n.jpeg" /> */}
                             <p>{parse(content)} </p>
-                            {/* <Image alt="tst" src="https://test.ifinance.mn/web/image/605/.jpg" /> */}
-                            <div className="flex">
-                              {/* {item.product_images[0] ? (
-                                <div>
-                                  <Image
-                                    preview={false}
-                                    src={
-                                      "data:image/png;base64," +
-                                      item.product_images[0]
-                                    }
-                                  />
-                                </div>
-                              ) : null} */}
-                              {/* {item.product_images[1] ? (
-                                <div>
-                                  <Image
-                                    preview={false}
-                                    src={
-                                      "data:image/png;base64," +
-                                      item.product_images[1]
-                                    }
-                                  />
-                                </div>
-                              ) : null} */}
-                            </div>
+
+                            <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">
-                              <div className="  w-[500px] flex flex-col md:flex-row justify-between">
-                              <Button
-                                onClick={() => onCart(item.product_id)}
-                                type="primary"
-                                className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                              >
-                                Сагсанд нэмэх
-                              </Button>
-                              <Button
-                                onClick={() => onDetails(id)}
-                                type="primary"
-                                className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                              >
-                                Худалдан авах
-                              </Button>
-                             </div>
-                            </div>
-                          </div>
-                        </TabPane>
-                      );
-                    })}
-                </Tabs>
-              </div>
-              <div className=" xl:hidden">
-                <Tabs className="module" tabPosition="top">
-                  {mainProduct &&
-                    mainProduct.map((item, index) => {
-                      return (
-                        <TabPane
-                          className="test"
-                          tab={
-                            <div className="flex items-center  ">
-                              {
-                                <Image
-                                  className=""
-                                  preview={false}
-                                  width="48px"
-                                  height="48px"
-                                  src={
-                                    "data:image/png;base64," + item.product_icon
-                                  }
-                                />
-                              }
-                              <div className="ml-[22px]" style={{ fontSize: "12px" }}>
-                                {item.product_name}
-                              </div>
-                            </div>
-                          }
-                          key={index}
-                        >
-                          <div className=" text-justify xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
-                        
-                            <p> {item.product_description} </p>
-                            <div className="flex">
-                           
-                            </div>
-                            <div className=" mt-2 flex justify-center">
-                              <Button
-                                onClick={() => onDetails(id)}
-                                type="primary"
-                                className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                              >
-                                Үйлчилгээтэй танилцах
-                              </Button>
-                            </div>
-                          </div>
-                        </TabPane>
-                      );
-                    })}
-                </Tabs>
-              </div>
-            </div>
-          </TabPane>
-          <TabPane className="mainTab" tab="Нэмэлт модуль" key="2">
-          <div className=" mt-[80px]">
-              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center  rounded-t-xl ">
-                <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
-                  Ангилал
-                </p>
-              </div>
-              <div className="hidden xl:flex">
-                <Tabs className="module" tabPosition="left">
-                  {additionalProduct &&
-                    additionalProduct.map((item, index) => {
-                    
-                      var content = item.product_description.toString().replace( "/web", 'https://test.ifinance.mn/web');
-                    
-                     
-                      return (
-                        <TabPane
-                          className="test"
-                          tab={
-                            <div className="flex items-center  ">
-                              {
-                                <Image
-                                  className=""
-                                  preview={false}
-                                  width="48px"
-                                  height="48px"
-                                  src={
-                                    "data:image/png;base64," + item.product_icon
-                                  }
-                                />
-                              }
-                              <div className="ml-[22px]" style={{ fontSize: "12px" }}>
-                                {item.product_name}
-                              </div>
-                            </div>
-                          }
-                          key={index}
-                        >
-                          <div className="xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
-                         
-                          {/* <img src="https://test.ifinance.mn/web/image/605/260420641_4476133815838329_6902069086329202614_n.jpeg" /> */}
-                            <p>{parse(content)} </p>
-                            {/* <Image alt="tst" src="https://test.ifinance.mn/web/image/605/.jpg" /> */}
-                            <div className="flex">
-                             
-                            </div>
-                            <div className=" mt-2 flex justify-center">
-                              {/* <Button
-                                onClick={() => onDetails(id)}
-                                type="primary"
-                                className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                              >
-                                Үйлчилгээтэй танилцах
-                              </Button> */}
-                              
                               <div className="  w-[500px] flex flex-col md:flex-row justify-between">
                                 <Button
-                                  onClick={() => onCart(item.product_id)}
+                                  onClick={() => onCart(item.product_id, 1)}
                                   type="primary"
                                   className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                                 >
@@ -347,7 +203,148 @@ const CategoryId = () => {
                                 >
                                   Худалдан авах
                                 </Button>
-                             </div>
+                              </div>
+                            </div>
+                          </div>
+                        </TabPane>
+                      );
+                    })}
+                </Tabs>
+              </div>
+              <div className=" xl:hidden">
+                <Tabs className="module" tabPosition="top">
+                  {mainProduct &&
+                    mainProduct.map((item, index) => {
+                      var content = item.product_description.toString();
+                      return (
+                        <TabPane
+                          className="test"
+                          tab={
+                            <div className="flex items-center  ">
+                              {
+                                <Image
+                                  className=""
+                                  preview={false}
+                                  width="48px"
+                                  height="48px"
+                                  src={
+                                    "data:image/png;base64," + item.product_icon
+                                  }
+                                />
+                              }
+                              <div
+                                className="ml-[22px]"
+                                style={{ fontSize: "12px" }}
+                              >
+                                {item.product_name}
+                              </div>
+                            </div>
+                          }
+                          key={index}
+                        >
+                          <div className="xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
+                            <p>{parse(content)} </p>
+
+                            <div className="flex"></div>
+                            <div className=" mt-2 flex  ">
+                              <div className="  w-[500px] flex flex-col md:flex-row ">
+                                <div className=" flex flex-col  items-center">
+                                  <Button
+                                    onClick={() => onCart(item.product_id, 1)}
+                                    type="primary"
+                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold mb-4"
+                                  >
+                                    Сагсанд нэмэх
+                                  </Button>
+                                  <Button
+                                    onClick={() => onDetails(id)}
+                                    type="primary"
+                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                  >
+                                    Худалдан авах
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </TabPane>
+                      );
+                    })}
+                </Tabs>
+              </div>
+            </div>
+          </TabPane>
+          <TabPane className="mainTab" tab="Нэмэлт модуль" key="2">
+            <div className=" mt-[80px]">
+              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center  rounded-t-xl ">
+                <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
+                  Ангилал
+                </p>
+              </div>
+              <div className="hidden xl:flex">
+                <Tabs className="module" tabPosition="left">
+                  {additionalProduct &&
+                    additionalProduct.map((item, index) => {
+                      var content = item.product_description
+                        .toString()
+                        .replace("/web", "https://test.ifinance.mn/web");
+
+                      return (
+                        <TabPane
+                          className="test"
+                          tab={
+                            <div className="flex items-center  ">
+                              {
+                                <Image
+                                  className=""
+                                  preview={false}
+                                  width="48px"
+                                  height="48px"
+                                  src={
+                                    "data:image/png;base64," + item.product_icon
+                                  }
+                                />
+                              }
+                              <div
+                                className="ml-[22px]"
+                                style={{ fontSize: "12px" }}
+                              >
+                                {item.product_name}
+                              </div>
+                            </div>
+                          }
+                          key={index}
+                        >
+                          <div className="xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
+                            {/* <img src="https://test.ifinance.mn/web/image/605/260420641_4476133815838329_6902069086329202614_n.jpeg" /> */}
+                            <p>{parse(content)} </p>
+                            {/* <Image alt="tst" src="https://test.ifinance.mn/web/image/605/.jpg" /> */}
+                            <div className="flex"></div>
+                            <div className=" mt-2 flex justify-center">
+                              {/* <Button
+                                onClick={() => onDetails(id)}
+                                type="primary"
+                                className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                              >
+                                Үйлчилгээтэй танилцах
+                              </Button> */}
+
+                              <div className="  w-[500px] flex flex-col md:flex-row justify-between">
+                                <Button
+                                  onClick={() => onCart(item.product_id, 1)}
+                                  type="primary"
+                                  className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                >
+                                  Сагсанд нэмэх
+                                </Button>
+                                <Button
+                                  onClick={() => onDetails(id)}
+                                  type="primary"
+                                  className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                >
+                                  Худалдан авах
+                                </Button>
+                              </div>
                             </div>
                           </div>
                         </TabPane>
@@ -375,7 +372,10 @@ const CategoryId = () => {
                                   }
                                 />
                               }
-                              <div className="ml-[22px]" style={{ fontSize: "12px" }}>
+                              <div
+                                className="ml-[22px]"
+                                style={{ fontSize: "12px" }}
+                              >
                                 {item.product_name}
                               </div>
                             </div>
@@ -383,11 +383,8 @@ const CategoryId = () => {
                           key={index}
                         >
                           <div className=" text-justify xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px] mt-[10px] p-[30px] ">
-                        
                             <p> {item.product_description} </p>
-                            <div className="flex">
-                           
-                            </div>
+                            <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">
                               <Button
                                 onClick={() => onDetails(id)}
@@ -408,7 +405,7 @@ const CategoryId = () => {
         </Tabs>
       </div>
       <div className="">
-      <Footer />
+        <Footer />
       </div>
     </div>
   );

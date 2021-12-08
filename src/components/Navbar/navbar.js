@@ -301,14 +301,14 @@ const Navbar = ({}) => {
     <Menu className="profileDropdownPopup">
       <Menu.Item className="order" key="0">
         <ShopOutlined className="text-[20px]" />
-        <a className="pl-1" href="/dashboard">
+        <a className="pl-1 pointer-events-none" href="/order">
           Миний захиалга
         </a>
       </Menu.Item>
 
       <Menu.Item className="order2" key="1">
         <ShoppingCartOutlined className="text-[20px]" />
-        <a className="pl-1" href="/">
+        <a className="pl-1" href="/cart">
           Миний сагс
         </a>
       </Menu.Item>
@@ -1538,7 +1538,7 @@ const Navbar = ({}) => {
         ) : (
           <div
             onClick={onSideBarActive}
-            className=" pointer-events-none flex flex-col justify-between h-5 lg:hidden"
+            className=" flex flex-col justify-between h-5 lg:hidden"
           >
             <div className=" h-1  bg-white w-6"></div>
             <div className=" h-1  bg-white w-6"></div>

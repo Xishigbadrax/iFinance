@@ -312,7 +312,7 @@ const NavbarTrans = () => {
     <Menu className="profileDropdownPopup">
       <Menu.Item className="order" key="0">
         <ShopOutlined className="text-[20px]" />
-        <a className="pl-1" href="/dashboard">
+        <a className="pl-1 pointer-events-none" href="/order">
           Миний захиалга
         </a>
       </Menu.Item>

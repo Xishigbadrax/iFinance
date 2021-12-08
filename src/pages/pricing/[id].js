@@ -138,7 +138,7 @@ const Pricing = ({ id }) => {
       });
   }, []);
 
-  const onPurchase = async () => {
+  const onPurchase = async (type) => {
     console.log(sid, "siddd");
     console.log(userID, "userIdddd");
     var productIds = [];
@@ -155,7 +155,7 @@ const Pricing = ({ id }) => {
         db: baseDB,
         uid: userID,
         server_id: serverId,
-
+        type: type,
         product_ids: productIds,
       },
     };
@@ -754,7 +754,7 @@ const Pricing = ({ id }) => {
                       <Button
                         className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                         type="primary"
-                        onClick={onPurchase}
+                        onClick={() => onPurchase("month")}
                       >
                         Захиалга хийх
                       </Button>
@@ -846,7 +846,7 @@ const Pricing = ({ id }) => {
                       <Button
                         className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                         type="primary"
-                        onClick={onPurchase}
+                        onClick={() => onPurchase("season")}
                       >
                         Захиалга хийх
                       </Button>
@@ -938,7 +938,7 @@ const Pricing = ({ id }) => {
                       <Button
                         className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                         type="primary"
-                        onClick={onPurchase}
+                        onClick={() => onPurchase("year")}
                       >
                         Захиалга хийх
                       </Button>

@@ -192,6 +192,17 @@ const Cart = () => {
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
+           <div className=" mt-[20px] ml-[375px] flex justify-between w-[230px]">
+            <div>
+              <Image preview={false} src="/img/home.svg" />
+            </div>
+            <div className="text-white text-[14px] font-semibold"><a href="/" className="text-white text-[14px] font-semibold">Нүүр хуудас</a></div>
+            <div>
+              <Image preview={false} src="/img/right.svg" />
+            </div>
+            <div className="text-white text-[14px] font-semibold"><a href="/cart" className="text-white text-[14px] font-semibold" >Миний сагс</a></div>
+       
+          </div>
           <div className="hidden my-auto uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-poppins-semibold">
             Миний сагс
           </div>
