@@ -21,7 +21,7 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
             </div>
           </div>
         )}
-        <div>
+        <div className=" mt-2">
           <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
             <li className=" text-lg ">
               <Link href="/">
@@ -34,13 +34,23 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
               </Link>
             </li>
             <li className=" text-lg">
-              <Link href="/">
-                <a className=" text-white font-semibold">Үнийн санал</a>
+              <Link href="/order">
+                <a className=" text-white font-semibold">Миний Захиалга</a>
+              </Link>
+            </li>
+            <li className=" text-lg">
+              <Link href="/cart">
+                <a className=" text-white font-semibold">Миний сагс</a>
               </Link>
             </li>
             <li className=" text-lg">
               <Link href="/">
-                <a className=" text-white font-semibold">Үйлчилгээ</a>
+                <a className=" text-white font-semibold">Миний мэдээлэл</a>
+              </Link>
+            </li>
+            <li className=" text-lg">
+              <Link href="/">
+                <a className=" text-white font-semibold">Тохиргоо</a>
               </Link>
             </li>
           </ul>

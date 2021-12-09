@@ -1,11 +1,119 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
 import { Image, Tabs, Divider } from "antd";
 import Auth from "../../utils/auth";
+import { Table, Badge, Menu, Dropdown, Space } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const Order = () => {
+  const menu = (
+    <Menu>
+      <Menu.Item>Action 1</Menu.Item>
+      <Menu.Item>Action 2</Menu.Item>
+    </Menu>
+  );
   const { TabPane } = Tabs;
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const baseDB = process.env.NEXT_PUBLIC_DB;
+  const [invoices, setInvoices] = useState();
+  const data2 = [];
+
+  const expandedRowRender = () => {
+    const columns = [
+      { title: "Бараа", dataIndex: "product", key: "product" },
+      { title: "Гүйлгээний утга", dataIndex: "value", key: "value" },
+      { title: "Тоо хэмжээ", dataIndex: "count", key: "count" },
+      { title: "Нэгж үнэ", dataIndex: "unitPrice", key: "unitPrice" },
+      { title: "Хөнгөлөлт", dataIndex: "dicount", key: "discount" },
+      { title: "Татвар", dataIndex: "tax", key: "tax" },
+      { title: "Дүн", dataIndex: "amount", key: "amount" },
+     
+    ];
+    // for (let i = 0; i < 3; ++i) {
+    //   data.push({
+    //     key: i,
+    //     date: "2014-12-24 23:12:00",
+    //     name: "This is production name",
+    //     upgradeNum: "Upgraded: 56",
+    //   });
+    // }
+
+    return <Table columns={columns} dataSource={data2} pagination={false} />;
+  };
+
+  const columns = [
+    { title: "Нэхэмжлэх дугаар", dataIndex: "dugaar", key: "dugaar" },
+    { title: "Нэхэмжилсэн дүн", dataIndex: "dun", key: "dun" },
+    { title: "Төлбөрийн систем", dataIndex: "system", key: "system" },
+    { title: "Захиалгын огноо", dataIndex: "sognoo", key: "ognoo" },
+    { title: "Дуусах огноо", dataIndex: "dognoo", key: "dognoo" },
+    { title: "Төлөв", dataIndex: "tuluv", key: "tuluv" },
+  ];
+
+  // const data = [];
+  // for (let i = 0; i < 3; ++i) {
+  //   data.push({
+  //     key: i,
+  //     dugaar: "Screem",
+  //     dun: "iOS",
+  //     system: "10.3.4.5654",
+  //     sognoo: 500,
+  //     dognoo: "Jack",
+  //     tuluv: "2014-12-24 23:12:00",
+  //   });
+  // }
+  const data = [];
+
+  invoices?.map((item, index) => {
+    data.push({
+      key: index,
+      dugaar: item.invoice_id,
+      dun: item.invoice_amount.toFixed(2),
+      system: item.invoice_type,
+      sognoo: item.invoice_start_date,
+      dognoo: item.invoice_end_date,
+      tuluv: item.invoice_state,
+    });
+    item.invoice_lines.map((line, index2) => {
+      data2.push({
+            key: line.product_name,
+            product: line.product_name,
+            value: "This is production name",
+            upgradeNum: "Upgraded: 56",
+          });
+    })
+  });
+
+  useEffect(async () => {
+    await axios
+      .post(
+        baseUrl + "get/invoices",
+        {
+          jsonrpc: 2.0,
+          params: {
+            uid: Auth.getUserId(),
+            db: baseDB,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response, "zahialga");
+        setInvoices(response.data.result.invoices);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div>
       <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
@@ -45,9 +153,9 @@ const Order = () => {
 
       <Tabs defaultActiveKey="1">
         <TabPane tab="Бүгд" key="1">
-          <div>
-            <div className=" flex justify-center md:mt-[80px]">
-              <div className=" bg-gray-100 w-[270px] h-[462px] md:mr-[30px]">
+          <div className=" overflow-x-scroll md:overflow-x-hidden">
+            <div className=" flex flex-col md:flex-row justify-center md:mt-[80px] mt-[40px]">
+              <div className=" shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
                 <div className=" flex items-center ml-[34px] mt-[34px]">
                   <div className=" mr-[20px]">
                     <Image src="/img/profile.svg" />
@@ -60,42 +168,85 @@ const Order = () => {
                   kenzi.lawson@example.com
                 </div>
                 <Divider />
-                <div className=" flex justify-center  bg-red-300 ">
-                  <div className=" bg-green-400 w-[160px] ">
-                    <div className=" flex justify-between ">
-                      <div>
-                        <Image src="/img/i1.svg" />
+                <div className=" flex justify-center   ">
+                  <div className=" ">
+                    <div className=" flex justify-start">
+                      <div className=" mr-[19px]">
+                        <Image
+                          preview={false}
+                          height={30}
+                          width={30}
+                          src="/img/i1.svg"
+                        />
                       </div>
-                      <div>Миний захиалга</div>
+                      <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                        Миний захиалга
+                      </div>
                     </div>
-                    <div className=" flex justify-between">
-                      <div>
-                        <Image src="/img/i1.svg" />
+                    <div className=" flex justify-start my-[20px]">
+                      <div className=" mr-[19px]">
+                        <Image
+                          preview={false}
+                          height={30}
+                          width={30}
+                          src="/img/i2.svg"
+                        />
                       </div>
-                      <div>Миний сагс</div>
+                      <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                        Миний сагс
+                      </div>
                     </div>
-                    <div className=" flex justify-between">
-                      <div>
-                        <Image src="/img/i1.svg" />
+                    <div className=" flex justify-start">
+                      <div className=" mr-[19px]">
+                        <Image
+                          preview={false}
+                          height={30}
+                          width={30}
+                          src="/img/i3.svg"
+                        />
                       </div>
-                      <div>Миний захиалга</div>
+                      <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                        Миний мэдээлэл
+                      </div>
                     </div>
-                    <div className=" flex justify-between">
-                      <div>
-                        <Image src="/img/i1.svg" />
+                    <div className=" flex justify-start mt-[20px]">
+                      <div className=" mr-[19px]">
+                        <Image
+                          preview={false}
+                          height={30}
+                          width={30}
+                          src="/img/i4.svg"
+                        />
                       </div>
-                      <div>Миний захиалга</div>
+                      <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold ">
+                        Тохиргоо
+                      </div>
                     </div>
-                    <div className=" flex justify-between">
-                      <div>
-                        <Image src="/img/i1.svg" />
+                    <div className=" flex justify-start mt-[40px]">
+                      <div className=" mr-[19px]">
+                        <Image
+                          preview={false}
+                          height={30}
+                          width={30}
+                          src="/img/i5.svg"
+                        />
                       </div>
-                      <div>Миний захиалга</div>
+                      <div className="text-[#F01A63] opacity-50 text-[18px] font-bold">
+                        Гарах
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className=" bg-blue-100 w-[870px] h-[652px]"></div>
+              <div className=" mt-10 md:mt-0 md:w-[870px]">
+              
+                <Table
+                  className="components-table-demo-nested"
+                  columns={columns}
+                  expandable={{ expandedRowRender }}
+                  dataSource={data}
+                />
+              </div>
             </div>
           </div>
         </TabPane>

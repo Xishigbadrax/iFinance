@@ -228,6 +228,7 @@ const Pricing = ({ id }) => {
   useEffect(() => {
     setTotalPriceSeason(Number(totalPrice) * 3 + serverPrice - discountSeason);
     setTotalPriceYear(Number(totalPrice) * 12 + serverPrice - discountYear);
+    console.log(totalPriceSeason, serverPrice, discountSeason, "uneee");
   }, [totalPrice]);
   useEffect(() => {
     setDiscountSeason(Number(discount) * 3);
@@ -819,7 +820,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discount != 0 ? -discount : 0).toFixed(2)}₮
+                      {(discountSeason != 0 ? -discountSeason : 0).toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -911,7 +912,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discount != 0 ? -discount : 0).toFixed(2)}₮
+                      {(discountYear != 0 ? -discountYear : 0).toFixed(2)}₮
                     </div>
                   </div>
                   <Divider className="bill" />

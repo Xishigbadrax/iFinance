@@ -65,7 +65,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className=" w-full  min-h-[15.625rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] flex flex-col justify-center items-center">
+      <div className=" hidden w-full  min-h-[15.625rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] md:flex flex-col justify-center items-center">
         <div className=" mt-4 md:mt-0">
           <Image preview={false} src="/img/Logo2.svg" />
         </div>
@@ -86,7 +86,7 @@ const Footer = () => {
               <a className=" text-white">Эхлэл</a>
             </li>
             <li>
-              <a className=" text-white ">Мэдээ</a>
+              <a className=" text-white ">Мэдээ</a>k
             </li>
             <li>
               <a className=" text-white ">Бүтээгдэхүүн</a>
