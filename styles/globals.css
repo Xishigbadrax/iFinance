@@ -355,6 +355,7 @@ a {
 
 .mainTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color: white !important;
+
 }
 
 .module .ant-tabs-nav-list{
@@ -365,10 +366,13 @@ a {
   border-left: 5px solid rgba(46, 40, 212, 0.04);
 
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 600px) {
   .module .ant-tabs-tab{
-    width: 20.438rem !important;
+    width: 375px !important;
     height: 81px;
+  }
+  .mainTab{
+    margin-left: 100px !important;
   }
  
 }
@@ -505,4 +509,7 @@ color: red !important;
 
 .mar {
   margin: 12px 0px !important;
+}
+.myOrder {
+  margin-left: 375px !important;
 }

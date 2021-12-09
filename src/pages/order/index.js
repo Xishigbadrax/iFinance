@@ -151,7 +151,7 @@ const Order = () => {
         />
       </div>
 
-      <Tabs defaultActiveKey="1">
+      <Tabs className="myOrder" defaultActiveKey="1">
         <TabPane tab="Бүгд" key="1">
           <div className=" overflow-x-scroll md:overflow-x-hidden">
             <div className=" flex flex-col md:flex-row justify-center md:mt-[80px] mt-[40px]">
