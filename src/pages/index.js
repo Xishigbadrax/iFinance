@@ -117,7 +117,7 @@ export default function Home() {
                 </div>
                 <div>
                   <Button className=" font-poppins-semibold w-[166px] h-[48px] rounded-[43px] bg-transparent  text-white border-[1px] border-white">
-                    Холбоо барих
+                   <a href="/contact">Холбоо барих</a>
                   </Button>
                 </div>
               </div>

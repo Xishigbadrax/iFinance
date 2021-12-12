@@ -382,6 +382,7 @@ a {
 
 }
 
+
  .bill{
   margin: 12px 0px !important;
 }
@@ -504,12 +505,85 @@ color: red !important;
     display: flex !important;
     justify-content: center !important;
   }
-  
+  .myOrder .ant-tabs-nav-wrap {
+    margin-left: 0px !important;
+  }
+  .infoTab .ant-tabs-nav-list{
+    /* background-color: gray !important; */
+     width:  300px !important;
+     display: flex !important;
+     font-size: 16px !important;
+     font-weight: 600 !important;
+     /* justify-content: space-between; */
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .buyTab .ant-tabs-nav-list{
+    
+     width:  300px !important;
+     display: flex !important;
+     font-size: 16px !important;
+     font-weight: 600 !important;
+     
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+  .buyTab  .ant-tabs-tab{ 
+    background-color: rgba(156 , 166, 192, 0.2)  !important;
+    color: #2E28D4 !important;
+    width: 150px !important;
+    text-align: center !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .myOrder .ant-tabs-nav-wrap {
+    margin-left: 375px !important;
+  }
+
 }
 
 .mar {
   margin: 12px 0px !important;
 }
-.myOrder {
-  margin-left: 375px !important;
+
+  /* information tab */
+.infoTab .ant-tabs-nav-list{
+  /* background-color: gray !important; */
+   width:  870px !important;
+   display: flex !important;
+   font-size: 16px !important;
+   font-weight: 600 !important;
+   /* justify-content: space-between; */
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.infoTab  .ant-tabs-tab{ 
+  background-color: rgba(156 , 166, 192, 0.2)  !important;
+  color: gray !important;
+  width: 255px !important;
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+.infoTab  .ant-tabs-tab-active{ 
+  background: linear-gradient(45deg, #2E28D4  , #AC27FD);
+ 
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  color: white !important;
+}
+.infoTab .ant-tabs-tab .ant-tabs-tab-active{
+  color: white !important;
+}
+.infoTab .ant-tabs-ink-bar {
+  display: none !important;
+  
+}
+
+.infoTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important; 
+  font-weight: 600;
 }

@@ -151,7 +151,7 @@ const Order = () => {
         />
       </div>
 
-      <Tabs className="myOrder" defaultActiveKey="1">
+      <Tabs className="myOrder mb-10" defaultActiveKey="1">
         <TabPane tab="Бүгд" key="1">
           <div className=" overflow-x-scroll md:overflow-x-hidden">
             <div className=" flex flex-col md:flex-row justify-center md:mt-[80px] mt-[40px]">
@@ -180,7 +180,7 @@ const Order = () => {
                         />
                       </div>
                       <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
-                        Миний захиалга
+                       <a  href="/order" className="text-[#2E28D4]"> Миний захиалга</a>
                       </div>
                     </div>
                     <div className=" flex justify-start my-[20px]">
@@ -193,7 +193,7 @@ const Order = () => {
                         />
                       </div>
                       <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
-                        Миний сагс
+                          <a  href="/cart" className="text-[#2E28D4]"> Миний сагс</a>
                       </div>
                     </div>
                     <div className=" flex justify-start">
@@ -206,7 +206,7 @@ const Order = () => {
                         />
                       </div>
                       <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
-                        Миний мэдээлэл
+                          <a  href="/info" className="text-[#2E28D4]">  Миний мэдээлэл </a>
                       </div>
                     </div>
                     <div className=" flex justify-start mt-[20px]">

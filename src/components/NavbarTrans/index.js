@@ -325,7 +325,7 @@ const NavbarTrans = () => {
       </Menu.Item>
       <Menu.Item className="order2" key="2">
         <EditOutlined className="text-[20px]" />
-        <a className="pl-1" href="/">
+        <a className="pl-1" href="/info">
           Миний мэдээлэл
         </a>
       </Menu.Item>

@@ -73,25 +73,9 @@ const CategoryId = () => {
         setCategoryName(res.data.result.main_products[0].product_category),
       console.log(res.data.result, sessionId, "medeenuud");
 
-    // const res2 = await axios.get(
-    //    "http://192.168.0.143/web/image/576/accounting 1.png",
-    //   {
-    //     jsonrpc: 2.0,
-    //     // params: {
-    //     //   db: baseDB,
-    //     // },
-    //   },
-
-    //   {
-    //     headers: {
-    //       "Set-Cookie": "session_id=" + sessionId,
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // );
-    // console.log(res2, "zurag")
+    
   };
-  // fetchData();
+ 
 
   const onDetails = (id) => {
     id &&

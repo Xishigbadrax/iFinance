@@ -75,7 +75,7 @@ const Dashboard = () => {
             <NavbarTrans />
           </div>
 
-          <div className=" hidden  my-auto font-poppins-semibold uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+          <div className=" hidden  bg-red-600  my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Манай бүтээгдэхүүн
           </div>
         </div>
