@@ -10,6 +10,10 @@ import {
   Input,
   Form,
   Select,
+  Radio,
+  DatePicker,
+  Modal,
+  message
 } from "antd";
 import Auth from "../../utils/auth";
 import TextField from "@mui/material/TextField";
@@ -20,31 +24,43 @@ const Info = () => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const { TabPane } = Tabs;
   const [form] = Form.useForm();
+  const [form2] = Form.useForm();
   const [mainData, setMainData] = useState(null);
   const { Option } = Select;
   const [district, setDistrict] = useState();
   const [sumkhoroo, setSumkhoroo] = useState();
   const [sumkhorooId, setSumkhorooId] = useState();
+  const [phone, setPhone] = useState();
+  const [mail, setMail] = useState();
+  const [isPhoneModal, setIsPhoneModal] = useState(false);
+  const [isMailModal, setIsMailModal] = useState(false);
+  const [confirmCode, setConfirmCode] = useState();
+  const [mailConfirmCode, setMailConfirmCode] = useState();
 
-  console.log(mainData, "maindataaa");
+  // console.log(mainData, "maindataaa");
 
   const layout = {
     wrapperCol: { span: 20 },
   };
 
+  const handleCancel = () => {
+    setIsMailModal(false);
+    setIsPhoneModal(false);
+  };
   const onFinish = (values) => {
     console.log("Success:", values);
   };
 
-  const onSave = async () => {
-    console.log(form.getFieldsValue());
+  
+  const onChangePhone = async (values) => {
+    console.log(phone, "utas");
     const res = await axios.post(
-      baseUrl + "update/user/info",
+      baseUrl + "user/change",
       {
         jsonrpc: 2.0,
         params: {
           uid: Auth.getUserId(),
-          info:form.getFieldsValue()
+          phone: phone,
         },
       },
       {
@@ -54,11 +70,123 @@ const Info = () => {
         },
       }
     );
-      console.log(res, "update res");
+    res.data.result.msg == "success" ? setIsPhoneModal(true) : null; 
+    console.log(res, "chnage phone res");
+  };
+  const onChangeConfrim = async (values) => {
+    console.log(confirmCode, "code");
+    const res = await axios.post(
+      baseUrl + "user/change_confirm",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+          code : confirmCode,
+          phone: phone
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    res?.data?.result == "Success" ? message.success("Амжилттай") & setIsPhoneModal(false) : message.error("Алдаа гарлаа");
+    console.log(res, "last phone res");
+  };
+  const onChangeConfrimEmail = async (values) => {
+    console.log(confirmCode, "code");
+    const res = await axios.post(
+      baseUrl + "user/change_confirm",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+          code : mailConfirmCode,
+          email: mail 
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    res?.data?.result == "Success" ? message.success("Амжилттай") & setIsMailModal(false) : message.error("Алдаа гарлаа");
+    console.log(res, "last phone res");
+  };
+
+  
+  
+  const onSave = async () => {
+    console.log(form.getFieldsValue());
+    const res = await axios.post(
+      baseUrl + "update/user/info",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+          info: form.getFieldsValue(),
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res, "update res");
   };
   const onSumChange = (value) => {
-    setSumkhorooId(value)
+    setSumkhorooId(value);
     console.log(value, "iddd");
+  };
+
+  const onChangeMail = async () => {
+    const res = await axios.post(
+      baseUrl + "user/change",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+          email: mail,
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    res.data.result.msg == "success" ? setIsMailModal(true) : null; 
+    console.log(res, "mail res");
+  };
+  
+  const onChangePass = async (value) => {
+    console.log(form2.getFieldsValue().old, "pass iin utga");
+    const res = await axios.post(
+      baseUrl + "user/change_password",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+          old: form2.getFieldsValue().old,
+          new: form2.getFieldsValue().new,
+          confirm: form2.getFieldsValue().confirm,
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res, "pass res");
   };
 
   useEffect(async () => {
@@ -82,6 +210,32 @@ const Info = () => {
     setSumkhoroo(res.data.result.sumkhoroo);
     console.log(res, "info res");
   }, []);
+
+  useEffect(() => {
+    setSumkhorooId(mainData?.district);
+    form.setFieldsValue({
+      apartment_name:
+        mainData?.apartment_name != false ? mainData?.apartment_name : "",
+      name: mainData?.name != false ? mainData?.name : "",
+      birthday: mainData?.birthday != false ? mainData?.birthday : "",
+      district: mainData?.district != false ? mainData?.district : "",
+      company_name:
+        mainData?.company_name != false ? mainData?.company_name : "",
+      company_type:
+        mainData?.company_type != false ? mainData?.company_type : "",
+      country_name:
+        mainData?.country_name != false ? mainData?.country_name : "",
+      door_number: mainData?.door_number != false ? mainData?.door_number : "",
+      is_taxpayer: mainData?.is_taxpayer != false ? mainData?.is_taxpayer : "",
+      sumkhoroo: mainData?.sumkhoroo != false ? mainData?.sumkhoroo : "",
+      register: mainData?.register != false ? mainData?.register : "",
+      residence_address:
+        mainData?.residence_address != false ? mainData?.residence_address : "",
+      street: mainData?.street != false ? mainData?.street : "",
+      surname: mainData?.surname != false ? mainData?.surname : "",
+      how_find: mainData?.how_find != false ? mainData?.how_find : "",
+    });
+  }, [mainData]);
 
   return (
     <div>
@@ -113,7 +267,7 @@ const Info = () => {
               </div>
             </div>
             <div className=" flex justify-center text-[#9CA6C0] text-[11px] font-semibold mt-[12px]">
-              kenzi.lawson@example.com
+              {mainData?.email}
             </div>
             <Divider />
             <div className=" flex justify-center ">
@@ -205,47 +359,45 @@ const Info = () => {
                     <div className=" text-[11px] font-semibold">
                       Хувийн мэдээлэл
                     </div>
-                    <div className=" text-[16px] font-normal">Эрдэнэбаяр</div>
+                    <div className=" text-[16px] font-normal">
+                      {Auth.getName()}
+                    </div>
                   </div>
                 </div>
               }
               key="1"
             >
               <div className=" px-10 md:px-0">
-                <div className=" md:w-[616px] flex flex-col md:flex-row justify-between">
-                  <div className="flex  items-center">
-                    <div className=" text-[18px] font-bold text-[#2F3747]">
-                      Хувь хүн
-                    </div>
-                    <div>
-                      <Checkbox className=" ml-[24px]" />
-                    </div>
+                <Form
+                  onFinish={onFinish}
+                  {...layout}
+                  form={form}
+                  name="control-hooks2"
+                >
+                  <div className=" md:w-[616px] flex flex-col md:flex-row  ">
+                    <Form.Item name="company_type" label="">
+                      <Radio.Group>
+                        <div className="flex">
+                          <div className="flex  w-[140px]">
+                            <Radio value="person">
+                              <p className="text-[18px] font-bold text-[#2F3747]">
+                                Хувь хүн
+                              </p>
+                            </Radio>
+                          </div>
+                          <div className=" w-[140px]">
+                            <Radio value="company">
+                              <p className="text-[18px] font-bold text-[#2F3747]">
+                                Байгууллага
+                              </p>
+                            </Radio>
+                          </div>
+                        </div>
+                      </Radio.Group>
+                    </Form.Item>
                   </div>
-                  <div className="flex items-center">
-                    <div className=" text-[18px] font-bold text-[#2F3747]">
-                      Байгууллага
-                    </div>
-                    <div>
-                      <Checkbox className="ml-[24px]" />
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <div className=" text-[16px]  text-[#2F3747]">
-                      Давхар харилцагч үүсгэх
-                    </div>
-                    <div>
-                      <Checkbox className=" ml-[24px]" />
-                    </div>
-                  </div>
-                </div>
-                <div className=" mt-[31px]">
-                  <Form
-                    onFinish={onFinish}
-                    {...layout}
-                    form={form}
-                    name="control-hooks"
-                  >
-                    <div className="grid grid-cols-3 gap-2">
+                  <div className=" mt-[31px]">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
                       <div>
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Овог
@@ -267,7 +419,7 @@ const Info = () => {
                         </div>
                         <Form.Item name="name">
                           <Input
-                            placeholder={mainData?.name}
+                            placeholder="Нэр"
                             bordered={false}
                             suffix={
                               <Image preview={false} src="/img/edit.svg" />
@@ -295,61 +447,22 @@ const Info = () => {
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Төрсөн огноо
                         </div>
-                        <Form.Item name="birthday" rules={[{ required: true }]}>
+                        <Form.Item name="birthday">
                           <Input
+                            type="date"
                             bordered={false}
-                            suffix={
-                              <Image preview={false} src="/img/edit.svg" />
-                            }
                             style={{ borderBottom: "1px solid black" }}
-                            placeholder="Төрсөн огноо"
                           />
                         </Form.Item>
                       </div>
-                      {/* <div>
-                        <div className="text-[#9CA6C0] text-[12px] font-normal">
-                          Хүйс
-                        </div>
-                        <Form.Item name="note" rules={[{ required: true }]}>
-                          <Input
-                            bordered={false}
-                            suffix={
-                              <Image preview={false} src="/img/edit.svg" />
-                            }
-                            style={{ borderBottom: "1px solid black" }}
-                            placeholder="Хүйс"
-                          />
-                        </Form.Item>
-                      </div> */}
-                      <div>
-                        <div className="text-[#9CA6C0] text-[12px] font-normal">
-                          И-мэйл хаяг
-                        </div>
-                        <Form.Item name="email" rules={[{ required: true }]}>
-                          <Input
-                            bordered={false}
-                            suffix={
-                              <Image preview={false} src="/img/edit.svg" />
-                            }
-                            style={{ borderBottom: "1px solid black" }}
-                            placeholder={
-                              mainData?.email != false
-                                ? mainData?.email
-                                : "И-мэйл хаяг"
-                            }
-                          />
-                        </Form.Item>
-                      </div>
+
                       <div>
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Улс
                         </div>
-                        <Form.Item
-                          name="country_name"
-                          rules={[{ required: true }]}
-                        >
+                        <Form.Item name="country_name">
                           <Input
-                            placeholder={mainData?.country_name}
+                            placeholder="Улс"
                             bordered={false}
                             suffix={
                               <Image preview={false} src="/img/edit.svg" />
@@ -362,12 +475,9 @@ const Info = () => {
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Аймаг /хот
                         </div>
-                        <Form.Item
-                          name="city_name"
-                          rules={[{ required: true }]}
-                        >
+                        <Form.Item name="district">
                           <Select
-                            placeholder="Select a option and change input text above"
+                            placeholder="Сонгох..."
                             onChange={(value) => onSumChange(value)}
                             bordered={false}
                             style={{ borderBottom: "1px solid black" }}
@@ -386,19 +496,23 @@ const Info = () => {
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Сум /хороо
                         </div>
-                        <Form.Item name="note" rules={[{ required: true }]}>
+                        <Form.Item
+                          name="sumkhoroo"
+                          rules={[{ required: true }]}
+                        >
                           <Select
-                            placeholder="Select a option and change input text above"
-                            // onChange={onGenderChange}
+                            placeholder="Сонгох..."
                             bordered={false}
                             style={{ borderBottom: "1px solid black" }}
                             allowClear
                           >
                             {sumkhoroo?.map((item, index) => {
                               if (item.district_id == sumkhorooId) {
-                               return  <Option key={item.id} value={item.id}>
-                                  {item.name}
-                                </Option>;
+                                return (
+                                  <Option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </Option>
+                                );
                               }
                             })}
                           </Select>
@@ -416,6 +530,24 @@ const Info = () => {
                             }
                             style={{ borderBottom: "1px solid black" }}
                             placeholder="Гудамж"
+                          />
+                        </Form.Item>
+                      </div>
+                      <div>
+                        <div className="text-[#9CA6C0] text-[12px] font-normal">
+                          Байр /хотхон
+                        </div>
+                        <Form.Item
+                          name="apartment_name"
+                          rules={[{ required: true }]}
+                        >
+                          <Input
+                            bordered={false}
+                            suffix={
+                              <Image preview={false} src="/img/edit.svg" />
+                            }
+                            style={{ borderBottom: "1px solid black" }}
+                            placeholder="Байр /хотхон"
                           />
                         </Form.Item>
                       </div>
@@ -473,59 +605,48 @@ const Info = () => {
                           />
                         </Form.Item>
                       </div>
-                      {/* <div>
+                      <div>
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
-                          Боловсролын зэрэг
+                          Хаанаас мэдээлэл авсан
                         </div>
-                        <Form.Item name="note" rules={[{ required: true }]}>
+                        <Form.Item name="how_find" rules={[{ required: true }]}>
                           <Input
                             bordered={false}
                             suffix={
                               <Image preview={false} src="/img/edit.svg" />
                             }
                             style={{ borderBottom: "1px solid black" }}
-                            placeholder="Боловсролын зэрэг"
+                            placeholder=""
                           />
                         </Form.Item>
-                      </div> */}
-                      {/* <div>
-                        <div className="text-[#9CA6C0] text-[12px] font-normal">
-                          Боловсрол
-                        </div>
-                        <Form.Item name="note" rules={[{ required: true }]}>
-                          <Input
-                            bordered={false}
-                            suffix={
-                              <Image preview={false} src="/img/edit.svg" />
-                            }
-                            style={{ borderBottom: "1px solid black" }}
-                            placeholder=" Боловсрол"
-                          />
-                        </Form.Item>
-                      </div> */}
-                    </div>
-                  </Form>
-                </div>
-                <div className="flex flex-col md:flex-row md:w-[765px] justify-between mt-[24px]">
-                  <div className="flex">
-                    <div>
-                      <Checkbox />
-                    </div>
-                    <div className=" text-[#9CA6C0] text-[13px] ml-[8px]">
-                      НӨАТ төлөгч эсэх
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex justify-center mt-[43px] pb-[30px]">
-                  <Button
-                    onClick={onSave}
-                    type="primary"
-                    htmlType="submit"
-                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                  >
-                    Мэдээлэл хадгалах
-                  </Button>
-                </div>
+                  <div className="flex flex-col md:flex-row md:w-[765px] justify-between mt-[24px]">
+                    <div className="flex">
+                      <Form.Item name="is_taxpayer" valuePropName="checked">
+                        <div>
+                          <Checkbox>
+                            {" "}
+                            <p className="text-[#9CA6C0] text-[13px] ml-[8px]  w-[120px]">
+                              НӨАТ төлөгч эсэх
+                            </p>
+                          </Checkbox>
+                        </div>
+                      </Form.Item>
+                    </div>
+                  </div>
+                  <div className="flex justify-center mt-[43px] pb-[30px]">
+                    <Button
+                      onClick={onSave}
+                      type="primary"
+                      htmlType="submit"
+                      className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                    >
+                      Мэдээлэл хадгалах
+                    </Button>
+                  </div>
+                </Form>
               </div>
             </TabPane>
             <TabPane
@@ -547,66 +668,62 @@ const Info = () => {
                   <div className=" w-[370px] h-[284px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] flex justify-center items-center">
                     <Image preview={false} src="/img/passGirl.svg" />
                   </div>
-                  <div>
-                    <div className=" mt-[30px] ml-[30px]">
-                      <TextField
-                        id="standard-basic"
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment>
-                              <IconButton>
-                                <Image preview={false} src="/img/edit.svg" />
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                        label="Хуучин нууц үг"
-                        defaultValue="Бат-Эрдэнэ"
-                        variant="standard"
-                      />
-                    </div>
-                    <div className=" mt-[24px] ml-[30px]">
-                      {" "}
-                      <TextField
-                        id="standard-basic"
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment>
-                              <IconButton>
-                                <Image preview={false} src="/img/edit.svg" />
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                        label="Шинэ нууц үг"
-                        defaultValue="Бат-Эрдэнэ"
-                        variant="standard"
-                      />
-                    </div>
-                    <div className=" mt-[24px] ml-[30px]">
-                      <TextField
-                        id="standard-basic"
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment>
-                              <IconButton>
-                                <Image preview={false} src="/img/edit.svg" />
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                        label="Шинэ нууц үг баталгаажуулах"
-                        defaultValue="Бат-Эрдэнэ"
-                        variant="standard"
-                      />
-                    </div>
-                    <Button
-                      onClick={() => onDetails(id)}
-                      type="primary"
-                      className=" mb-4 md:mb-0 mt-[30px] ml-[30px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                  <div className="">
+                    <Form
+                      onFinish={onFinish}
+                      {...layout}
+                      form={form2}
+                      name="control-hooks"
                     >
-                      Нууц үг солих
-                    </Button>
+                      <div className=" ml-[30px]">
+                        <div>
+                          <div className="text-[#9CA6C0] text-[12px] font-normal">
+                            Хуучин нууц үг
+                          </div>
+                          <Form.Item name="old" rules={[{ required: true }]}>
+                            <Input.Password
+                              bordered={false}
+                              style={{ borderBottom: "1px solid black" }}
+                              placeholder=""
+                            />
+                          </Form.Item>
+                        </div>
+                        <div>
+                          <div className="text-[#9CA6C0] text-[12px] font-normal">
+                            Шинэ нууц үг
+                          </div>
+                          <Form.Item name="new" rules={[{ required: true }]}>
+                            <Input.Password
+                              bordered={false}
+                              style={{ borderBottom: "1px solid black" }}
+                              placeholder=""
+                            />
+                          </Form.Item>
+                        </div>
+                        <div>
+                          <div className="text-[#9CA6C0] text-[12px] font-normal">
+                            Шинэ нууц үг баталгаажуулах
+                          </div>
+                          <Form.Item
+                            name="confirm"
+                            rules={[{ required: true }]}
+                          >
+                            <Input.Password
+                              bordered={false}
+                              style={{ borderBottom: "1px solid black" }}
+                              placeholder=""
+                            />
+                          </Form.Item>
+                        </div>
+                      </div>
+                      <Button
+                        onClick={onChangePass}
+                        type="primary"
+                        className=" mb-4 md:mb-0 mt-[30px] ml-[30px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                      >
+                        Нууц үг солих
+                      </Button>
+                    </Form>
                   </div>
                 </div>
               </div>
@@ -640,9 +757,16 @@ const Info = () => {
                       Хэрэв та энэ дугаарыг ашиглахаа больсон бол дугаар солих
                       товч дээр дарна уу
                     </div>
-
+                    <div className=" w-[370px] mt-[24px]">
+                      <Input
+                        onChange={(e) => setPhone(e.target.value)}
+                        bordered={false}
+                        style={{ borderBottom: "1px solid black" }}
+                        placeholder="Утасны дугаар"
+                      />
+                    </div>
                     <Button
-                      onClick={() => onDetails(id)}
+                      onClick={onChangePhone}
                       type="primary"
                       className=" mb-4 mt-[30px] ml-[30px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                     >
@@ -659,9 +783,7 @@ const Info = () => {
                     <Image preview={false} src="/img/m4.svg" />
                   </div>
                   <div className=" flex flex-col items-start ml-[10px]">
-                    <div className=" text-[11px] font-semibold">
-                      Цахим хаяг{" "}
-                    </div>
+                    <div className=" text-[11px] font-semibold">Цахим хаяг</div>
                     <div className=" text-[16px] font-normal">
                       Баталгаажаагүй
                     </div>
@@ -685,12 +807,14 @@ const Info = () => {
                     </div>
                     <div className=" w-[370px] mt-[24px]">
                       <Input
+                      onChange={(e) => setMail(e.target.value)}
                         bordered={false}
                         style={{ borderBottom: "1px solid black" }}
+                        placeholder="И-мэйл хаяг"
                       />
                     </div>
                     <Button
-                      onClick={() => onDetails(id)}
+                      onClick={onChangeMail}
                       type="primary"
                       className=" mb-4 mt-[30px] ml-[30px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                     >
@@ -704,6 +828,62 @@ const Info = () => {
         </div>
       </div>
       <Footer />
+      <Modal
+        title="Баталгаажуулах"
+        footer={[]}
+        visible={isPhoneModal}
+        onCancel={handleCancel}
+      >
+        <div className=" flex justify-center">
+          
+          <div className="  w-[310px]">
+            <p>Утсанд ирсэн дөрвөн оронтой тоог оруулна уу.</p>
+            <Input
+            onChange={(e) => setConfirmCode(e.target.value)}
+              className=" w-[300px]"
+              bordered={false}
+              style={{ borderBottom: "1px solid black" }}
+            />
+            <div className=" flex justify-center">
+            <Button
+            onClick={onChangeConfrim}
+              type="primary"
+              className="  mt-[20px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+            >
+              Илгээх
+            </Button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        title="Баталгаажуулах"
+        footer={[]}
+        visible={isMailModal}
+        onCancel={handleCancel}
+      >
+        <div className=" flex justify-center">
+          
+          <div className="  w-[310px]">
+            <p> Таны мэйлд ирсэн дөрвөн оронтой тоог оруулна уу.</p>
+            <Input
+            onChange={(e) => setMailConfirmCode(e.target.value)}
+              className=" w-[300px]"
+              bordered={false}
+              style={{ borderBottom: "1px solid black" }}
+            />
+            <div className=" flex justify-center">
+            <Button
+            onClick={onChangeConfrimEmail}
+              type="primary"
+              className="  mt-[20px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+            >
+              Илгээх
+            </Button>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

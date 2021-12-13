@@ -21,7 +21,7 @@ const Order = () => {
   const data2 = [];
 
   const expandedRowRender = (rowData) => {
-    console.log(rowData, 'ggg')
+    console.log(rowData, "ggg");
 
     const columns = [
       { title: "Бараа", dataIndex: "product_name", key: "product" },
@@ -31,11 +31,11 @@ const Order = () => {
       { title: "Хөнгөлөлт", dataIndex: "discount", key: "discount" },
       { title: "Татвар", dataIndex: "tax", key: "tax" },
       { title: "Дүн", dataIndex: "amount", key: "amount" },
-     
     ];
-   
 
-    return <Table columns={columns} dataSource={rowData.sub} pagination={false} />;
+    return (
+      <Table columns={columns} dataSource={rowData.sub} pagination={false} />
+    );
   };
 
   const columns = [
@@ -70,12 +70,12 @@ const Order = () => {
       sognoo: item.invoice_start_date,
       dognoo: item.invoice_end_date,
       tuluv: item.invoice_state,
-      sub: item.invoice_lines
+      sub: item.invoice_lines,
     });
 
     // item.invoice_lines.map((line, index2) => {
     //   if (line) {
-        
+
     //     data2.push({
     //           key: line.index2,
     //           product: line.product_name,
@@ -153,95 +153,105 @@ const Order = () => {
 
       <Tabs className="myOrder mb-10" defaultActiveKey="1">
         <TabPane tab="Бүгд" key="1">
-          <div className=" overflow-x-scroll md:overflow-x-hidden">
-            <div className=" flex flex-col md:flex-row justify-center md:mt-[80px] mt-[40px]">
-              <div className=" ">
-              <div className=" shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
-                <div className=" flex items-center ml-[34px] mt-[34px]">
-                  <div className=" mr-[20px]">
-                    <Image src="/img/profile.svg" />
-                  </div>
-                  <div className="text-[#2F3747] text-[18px]  font-bold">
-                    {Auth.getName()}
+          <div className=" ">
+            <div className=" overflow-x-scroll md:overflow-x-hidden">
+              <div className=" flex flex-col md:flex-row justify-center md:mt-[80px] mt-[40px]">
+                <div className=" relative">
+                  <div className="  shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
+                    <div className=" flex items-center ml-[34px] mt-[34px]">
+                      <div className=" mr-[20px]">
+                        <Image src="/img/profile.svg" />
+                      </div>
+                      <div className="text-[#2F3747] text-[18px]  font-bold">
+                        {Auth.getName()}
+                      </div>
+                    </div>
+                    <div className=" flex justify-center text-[#9CA6C0] text-[11px] font-semibold mt-[12px]">
+                      kenzi.lawson@example.com
+                    </div>
+                    <Divider />
+                    <div className=" flex justify-center   ">
+                      <div className=" ">
+                        <div className=" flex justify-start">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i1.svg"
+                            />
+                          </div>
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                            <a href="/order" className="text-[#2E28D4]">
+                              {" "}
+                              Миний захиалга
+                            </a>
+                          </div>
+                        </div>
+                        <div className=" flex justify-start my-[20px]">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i2.svg"
+                            />
+                          </div>
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                            <a href="/cart" className="text-[#2E28D4]">
+                              {" "}
+                              Миний сагс
+                            </a>
+                          </div>
+                        </div>
+                        <div className=" flex justify-start">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i3.svg"
+                            />
+                          </div>
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                            <a href="/info" className="text-[#2E28D4]">
+                              {" "}
+                              Миний мэдээлэл{" "}
+                            </a>
+                          </div>
+                        </div>
+                        <div className=" flex justify-start mt-[20px]">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i4.svg"
+                            />
+                          </div>
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold ">
+                            Тохиргоо
+                          </div>
+                        </div>
+                        <div className=" flex justify-start mt-[40px]">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i5.svg"
+                            />
+                          </div>
+                          <div className="text-[#F01A63] opacity-50 text-[18px] font-bold">
+                            Гарах
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className=" flex justify-center text-[#9CA6C0] text-[11px] font-semibold mt-[12px]">
-                  kenzi.lawson@example.com
-                </div>
-                <Divider />
-                <div className=" flex justify-center   ">
-                  <div className=" ">
-                    <div className=" flex justify-start">
-                      <div className=" mr-[19px]">
-                        <Image
-                          preview={false}
-                          height={30}
-                          width={30}
-                          src="/img/i1.svg"
-                        />
-                      </div>
-                      <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
-                       <a  href="/order" className="text-[#2E28D4]"> Миний захиалга</a>
-                      </div>
-                    </div>
-                    <div className=" flex justify-start my-[20px]">
-                      <div className=" mr-[19px]">
-                        <Image
-                          preview={false}
-                          height={30}
-                          width={30}
-                          src="/img/i2.svg"
-                        />
-                      </div>
-                      <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
-                          <a  href="/cart" className="text-[#2E28D4]"> Миний сагс</a>
-                      </div>
-                    </div>
-                    <div className=" flex justify-start">
-                      <div className=" mr-[19px]">
-                        <Image
-                          preview={false}
-                          height={30}
-                          width={30}
-                          src="/img/i3.svg"
-                        />
-                      </div>
-                      <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
-                          <a  href="/info" className="text-[#2E28D4]">  Миний мэдээлэл </a>
-                      </div>
-                    </div>
-                    <div className=" flex justify-start mt-[20px]">
-                      <div className=" mr-[19px]">
-                        <Image
-                          preview={false}
-                          height={30}
-                          width={30}
-                          src="/img/i4.svg"
-                        />
-                      </div>
-                      <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold ">
-                        Тохиргоо
-                      </div>
-                    </div>
-                    <div className=" flex justify-start mt-[40px]">
-                      <div className=" mr-[19px]">
-                        <Image
-                          preview={false}
-                          height={30}
-                          width={30}
-                          src="/img/i5.svg"
-                        />
-                      </div>
-                      <div className="text-[#F01A63] opacity-50 text-[18px] font-bold">
-                        Гарах
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
               </div>
               <div className=" mt-10 md:mt-0 md:w-[870px]">
-              
                 <Table
                   className="components-table-demo-nested"
                   columns={columns}
