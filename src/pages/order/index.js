@@ -20,27 +20,22 @@ const Order = () => {
   const [invoices, setInvoices] = useState();
   const data2 = [];
 
-  const expandedRowRender = () => {
+  const expandedRowRender = (rowData) => {
+    console.log(rowData, 'ggg')
+
     const columns = [
-      { title: "Бараа", dataIndex: "product", key: "product" },
-      { title: "Гүйлгээний утга", dataIndex: "value", key: "value" },
-      { title: "Тоо хэмжээ", dataIndex: "count", key: "count" },
-      { title: "Нэгж үнэ", dataIndex: "unitPrice", key: "unitPrice" },
-      { title: "Хөнгөлөлт", dataIndex: "dicount", key: "discount" },
+      { title: "Бараа", dataIndex: "product_name", key: "product" },
+      { title: "Гүйлгээний утга", dataIndex: "invoice_name", key: "value" },
+      { title: "Тоо хэмжээ", dataIndex: "quantity", key: "count" },
+      { title: "Нэгж үнэ", dataIndex: "unit_price", key: "unitPrice" },
+      { title: "Хөнгөлөлт", dataIndex: "discount", key: "discount" },
       { title: "Татвар", dataIndex: "tax", key: "tax" },
       { title: "Дүн", dataIndex: "amount", key: "amount" },
      
     ];
-    // for (let i = 0; i < 3; ++i) {
-    //   data.push({
-    //     key: i,
-    //     date: "2014-12-24 23:12:00",
-    //     name: "This is production name",
-    //     upgradeNum: "Upgraded: 56",
-    //   });
-    // }
+   
 
-    return <Table columns={columns} dataSource={data2} pagination={false} />;
+    return <Table columns={columns} dataSource={rowData.sub} pagination={false} />;
   };
 
   const columns = [
@@ -68,22 +63,27 @@ const Order = () => {
 
   invoices?.map((item, index) => {
     data.push({
-      key: index,
+      key: item.invoice_id,
       dugaar: item.invoice_id,
       dun: item.invoice_amount.toFixed(2),
       system: item.invoice_type,
       sognoo: item.invoice_start_date,
       dognoo: item.invoice_end_date,
       tuluv: item.invoice_state,
+      sub: item.invoice_lines
     });
-    item.invoice_lines.map((line, index2) => {
-      data2.push({
-            key: line.product_name,
-            product: line.product_name,
-            value: "This is production name",
-            upgradeNum: "Upgraded: 56",
-          });
-    })
+
+    // item.invoice_lines.map((line, index2) => {
+    //   if (line) {
+        
+    //     data2.push({
+    //           key: line.index2,
+    //           product: line.product_name,
+    //           value: "This is production name",
+    //           upgradeNum: "Upgraded: 56",
+    //         });
+    //   }
+    // })
   });
 
   useEffect(async () => {
@@ -155,6 +155,7 @@ const Order = () => {
         <TabPane tab="Бүгд" key="1">
           <div className=" overflow-x-scroll md:overflow-x-hidden">
             <div className=" flex flex-col md:flex-row justify-center md:mt-[80px] mt-[40px]">
+              <div className=" ">
               <div className=" shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
                 <div className=" flex items-center ml-[34px] mt-[34px]">
                   <div className=" mr-[20px]">
@@ -237,6 +238,7 @@ const Order = () => {
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
               <div className=" mt-10 md:mt-0 md:w-[870px]">
               
