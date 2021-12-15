@@ -154,10 +154,10 @@ const Order = () => {
       <Tabs className="myOrder mb-10" defaultActiveKey="1">
         <TabPane tab="Бүгд" key="1">
           <div className=" ">
-            <div className=" overflow-x-scroll md:overflow-x-hidden">
-              <div className=" flex flex-col md:flex-row justify-center md:mt-[80px] mt-[40px]">
-                <div className=" relative">
-                  <div className="  shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
+            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
+              <div className=" flex  justify-center  md:mb-[10px] ">
+                <div className=" relative ">
+                  <div className="  shadow-lg w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
                     <div className=" flex items-center ml-[34px] mt-[34px]">
                       <div className=" mr-[20px]">
                         <Image src="/img/profile.svg" />
@@ -251,7 +251,7 @@ const Order = () => {
                   </div>
                 </div>
               </div>
-              <div className=" mt-10 md:mt-0 md:w-[870px]">
+              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
                 <Table
                   className="components-table-demo-nested"
                   columns={columns}

@@ -6,7 +6,7 @@ import axios from "axios";
 import Context from "../../context/Context";
 import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer";
-import { Tabs, Image, Button } from "antd";
+import { Tabs, Image, Button, message } from "antd";
 import parse from "html-react-parser";
 import Head from "next/head";
 
@@ -46,6 +46,7 @@ const CategoryId = () => {
       }
     );
     console.log(res, "sagsand nemeh res");
+    res?.data?.id == null ? message.success("Амжилттай сагсанд нэмэгдлээ") : message.error("Амжилтгүй");
   };
 
   const fetchData = async () => {
@@ -223,7 +224,7 @@ const CategoryId = () => {
                               <div className="flex items-center">
                                 {
                                   <Image
-                                    className=""
+                                    className="medee"
                                     preview={false}
                                     width="48px"
                                     height="48px"
@@ -241,10 +242,10 @@ const CategoryId = () => {
                           }
                           key={index}
                         >
-                          <div className="xl:w-[770px] lg:mr-6 flex flex-col justify-center xl:mr-0 shadow-custom rounded  mt-[10px] px-[30px]  lg:p-[30px] ">
+                          <div className="  xl:w-[770px] lg:mr-6 flex flex-col justify-center xl:mr-0 shadow-custom rounded  px-[30px]  lg:p-[30px] ">
                             <p>{parse(content)} </p>
 
-                            <div className=" mt-2 flex  ">
+                            <div className=" mt-2 flex">
                               <div className="  w-[500px] flex flex-col md:flex-row ">
                                 <div className=" flex flex-col  items-center">
                                   <Button

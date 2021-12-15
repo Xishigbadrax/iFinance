@@ -16,9 +16,8 @@ import {
   message
 } from "antd";
 import Auth from "../../utils/auth";
-import TextField from "@mui/material/TextField";
-import { IconButton, InputAdornment } from "@mui/material";
 import axios from "axios";
+import Head from "next/head";
 
 const Info = () => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
@@ -238,7 +237,12 @@ const Info = () => {
   }, [mainData]);
 
   return (
+    
     <div>
+       <Head>
+        <title>iFinance | Миний мэдээлэл</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
         <div className="absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center h-1/3">
@@ -255,9 +259,9 @@ const Info = () => {
           src="/img/Slider.svg"
         />
       </div>
-      <div className="flex flex-col lg:flex-row md:mt-[100px] justify-center">
+      <div className="flex flex-col lg:flex-row md:mt-[100px] justify-center ">
         <div>
-          <div className=" shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
+          <div className=" shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]  md:mb-[100px]">
             <div className=" flex items-center ml-[34px] mt-[34px]">
               <div className=" mr-[20px]">
                 <Image src="/img/profile.svg" />
@@ -347,7 +351,7 @@ const Info = () => {
             </div>
           </div>
         </div>
-        <div className=" mt-[50px] md:mt-0">
+        <div className=" mt-[50px] md:mt-0  shadow-lg mb-[100px]  pl-[30px]">
           <Tabs className="infoTab" defaultActiveKey="1">
             <TabPane
               tab={
@@ -622,12 +626,12 @@ const Info = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col md:flex-row md:w-[765px] justify-between mt-[24px]">
+                  <div className="flex flex-col md:flex-row md:w-[765px] justify-between mt-[24px] " >
                     <div className="flex">
                       <Form.Item name="is_taxpayer" valuePropName="checked">
                         <div>
                           <Checkbox>
-                            {" "}
+                            
                             <p className="text-[#9CA6C0] text-[13px] ml-[8px]  w-[120px]">
                               НӨАТ төлөгч эсэх
                             </p>

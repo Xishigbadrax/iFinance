@@ -27,21 +27,7 @@ const Cart = () => {
     { title: "Үнэ", dataIndex: "price", key: "price" },
     { title: "Хасах", dataIndex: "action", key: "action" },
   ];
-  //   const data = [
 
-  //      product?.map((item, index) => {
-  //         return(
-  //         {
-  //           key: "5",
-  //           name: "10",
-  //           count: "11",
-  //           price: "₮",
-  //           action: "Delete",
-  //         }
-  //         )
-  //       }),
-
-  //   ];
 
   const handleCancel = (value) => {
     setIsModalVisible(false);

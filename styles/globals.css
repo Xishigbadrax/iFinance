@@ -587,3 +587,13 @@ color: red !important;
   color: white !important; 
   font-weight: 600;
 }
+.saas_ifinancesaas_ifinance{
+   margin-top: -50px !important;
+}
+ .ant-tabs-tabpane .ant-tabs-tabpane-active{
+  box-shadow: 5px 10px !important;
+}
+.tcell {
+  background-color: blue !important;
+  color: red !important;
+}
