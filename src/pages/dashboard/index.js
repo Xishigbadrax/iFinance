@@ -101,11 +101,19 @@ const Dashboard = () => {
                     {Number(index) + 1}
                   </div>
                   <div className=" bg-white h-[100px] md:w-[100px] flex justify-center items-center rounded-[50px]">
+                    { item.category_image ?
                     <Image
                       preview={false}
                       className=" "
                       src={"data:image/png;base64," + item.category_image}
                     />
+                    : 
+                    <Image
+                      preview={false}
+                      className=" "
+                      src="/img/default.png"
+                    />
+            }
                   </div>
                   <div className=" w-full flex justify-center items-center ">
                     <div className=" flex justify-center items-center text-center  ">

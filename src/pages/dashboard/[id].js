@@ -46,7 +46,9 @@ const CategoryId = () => {
       }
     );
     console.log(res, "sagsand nemeh res");
-    res?.data?.id == null ? message.success("Амжилттай сагсанд нэмэгдлээ") : message.error("Амжилтгүй");
+    res?.data?.id == null
+      ? message.success("Амжилттай сагсанд нэмэгдлээ")
+      : message.error("Амжилтгүй");
   };
 
   const fetchData = async () => {
@@ -71,10 +73,9 @@ const CategoryId = () => {
       res.data.result &&
         setAdditionalProduct(res.data.result.additional_products),
       res.data.result &&
-        setCategoryName(res.data.result.main_products[0].product_category)
-      // console.log(res.data.result, sessionId, "medeenuud");
+        setCategoryName(res.data.result.main_products[0].product_category);
+    // console.log(res.data.result, sessionId, "medeenuud");
   };
- 
 
   const onDetails = (id) => {
     id &&
@@ -104,7 +105,6 @@ const CategoryId = () => {
               <Image preview={false} src="/img/home.svg" />
             </div>
             <div className="text-white text-[14px] font-semibold">
-              
               <a href="/" className="text-white text-[14px] font-semibold">
                 Нүүр хуудас
               </a>
@@ -161,7 +161,7 @@ const CategoryId = () => {
                           className="test"
                           tab={
                             <div className="flex items-center  ">
-                              {
+                              {  item.product_icon ?
                                 <Image
                                   className=""
                                   preview={false}
@@ -171,12 +171,17 @@ const CategoryId = () => {
                                     "data:image/png;base64," + item.product_icon
                                   }
                                 />
+                                :
+                                <Image
+                                  className=""
+                                  preview={false}
+                                  width="48px"
+                                  height="48px"
+                                  src="/img/default.png"
+                                />
                               }
-                              <div
-                                className="ml-[5px]"
-                                
-                              >
-                               <p className=""> {item.product_name} </p>
+                              <div className="ml-[5px]">
+                                <p className=""> {item.product_name} </p>
                               </div>
                             </div>
                           }
@@ -188,13 +193,24 @@ const CategoryId = () => {
                             <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">
                               <div className="  w-[500px] flex flex-col md:flex-row justify-between">
-                                <Button
-                                  onClick={() => onCart(item.product_id, 1)}
-                                  type="primary"
-                                  className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                                >
-                                  Сагсанд нэмэх
-                                </Button>
+                                {Auth.getToken() ? (
+                                  <Button
+                                    onClick={() => onCart(item.product_id, 1)}
+                                    type="primary"
+                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                  >
+                                    Сагсанд нэмэх
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    onClick={() => onCart(item.product_id, 1)}
+                                    disabled
+                                    type="primary"
+                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                  >
+                                    Сагсанд нэмэх
+                                  </Button>
+                                )}
                                 <Button
                                   onClick={() => onDetails(id)}
                                   type="primary"
@@ -220,7 +236,7 @@ const CategoryId = () => {
                           tab={
                             <div className="">
                               <div className="flex items-center">
-                                {
+                                { item.product_icon ?
                                   <Image
                                     className="medee"
                                     preview={false}
@@ -231,6 +247,14 @@ const CategoryId = () => {
                                       item.product_icon
                                     }
                                   />
+                                  :
+                                  <Image
+                                  className="medee"
+                                  preview={false}
+                                  width="48px"
+                                  height="48px"
+                                  src="/img/default.png"
+                                />
                                 }
                                 <div className="" style={{ fontSize: "12px" }}>
                                   {item.product_name}
@@ -289,7 +313,7 @@ const CategoryId = () => {
                           className="test"
                           tab={
                             <div className="flex items-center  ">
-                              {
+                              {item.product_icon ?
                                 <Image
                                   className=""
                                   preview={false}
@@ -299,6 +323,14 @@ const CategoryId = () => {
                                     "data:image/png;base64," + item.product_icon
                                   }
                                 />
+                                :
+                                <Image
+                                className=""
+                                preview={false}
+                                width="48px"
+                                height="48px"
+                                src="/img/default.png"
+                              />
                               }
                               <div
                                 className="ml-[22px]"

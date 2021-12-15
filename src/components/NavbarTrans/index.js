@@ -300,7 +300,7 @@ const NavbarTrans = () => {
   };
 
   useEffect(() => {
-    console.log(sessionId, "id shuu");
+    // console.log(sessionId, "id shuu");
     // fetch(
     //   "https://geolocation-db.com/json/297364b0-2bc6-11ec-a8a6-1fc54772a803"
     // )

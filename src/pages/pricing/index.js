@@ -23,7 +23,7 @@ import { set } from "js-cookie";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Head from "next/head";
 
-const Pricing = ({ id }) => {
+const Pricing = ({  }) => {
   // const router = useRouter();
   // const { id } = router.query;
   // console.log(id, 'this is id')
@@ -113,8 +113,6 @@ const Pricing = ({ id }) => {
         {
           jsonrpc: 2.0,
           params: {
-            category_id: id,
-            db: baseDB,
           },
         },
 
@@ -126,7 +124,7 @@ const Pricing = ({ id }) => {
         }
       )
       .then((response) => {
-        console.log(response, "ggg");
+        console.log(response, "all module");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -325,7 +323,7 @@ const Pricing = ({ id }) => {
   return (
     <div>
       <Head>
-        <title>iFinance | Худалдан авах</title>
+        <title>iFinance | Үнийн санал</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
@@ -345,7 +343,7 @@ const Pricing = ({ id }) => {
         />
       </div>
       <div className=" xl:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
-        Худалдан авах
+        Үнийн санал
       </div>
       <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row   justify-center">
         <div className=" flex  justify-center ">
@@ -381,7 +379,7 @@ const Pricing = ({ id }) => {
 
             <div className=" mt-[1.875rem]  shadow-custom">
               <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                {mainData[0]?.product_category}
+                1. ББСБ Зээлийн модуль
               </div>
               <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {mainData?.map((item, index) => {
@@ -1205,10 +1203,4 @@ const Pricing = ({ id }) => {
 
 export default Pricing;
 
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      id: context.query.id,
-    }, // will be passed to the page component as props
-  };
-}
+

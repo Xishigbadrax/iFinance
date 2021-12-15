@@ -26,7 +26,7 @@ const setMenuAndPermissions = async () => {
           }
         }
         ).then(res => {
-          console.log("KXSDEOL", res);
+          // console.log("KXSDEOL", res);
           setSessionId(res.data.result);
         
         })

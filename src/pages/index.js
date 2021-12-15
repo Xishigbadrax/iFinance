@@ -552,7 +552,7 @@ export default function Home() {
         <div className=" w-full flex justify-center mt-[20px] xl:mt-[40px]">
           <div className=" w-full ">
             <div className=" flex justify-center ">
-              <div className=" w-[250px] md:w-[65vw] max-w-[1400px] bg-red-200">
+              <div className=" w-[250px] md:w-[65vw] max-w-[1400px]">
                 <Slider className=" " {...settings2}>
                   <div className=" p-5">
                     <div className=" w-auto flex flex-col lg:flex-row  justify-between">

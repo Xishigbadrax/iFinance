@@ -54,6 +54,31 @@ const Cart = () => {
       window.location.reload(false);
     }
   };
+  const onLogout = async () => {
+    const res = await axios.post(
+      baseUrl + "logout",
+      {
+        jsonrpc: 2.0,
+        params: {},
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (res.data.error && res.data.error) {
+      setIsLogin(false);
+      message.success("Амжилттай систэмээс гарлаа");
+      Auth.destroyToken();
+      // window.location.reload(false);
+      Router.push("/");
+    }
+
+    // console.log(res, "logout res");
+  };
 
   const onPurchase = async () => {
     var productIds = [];
@@ -220,6 +245,102 @@ const Cart = () => {
         />
       </div>
       <div className=" flex flex-col md:flex-row justify-center mt-10">
+      <div className=" flex  justify-center  md:mb-[10px] ">
+                <div className=" relative ">
+                  <div className="  shadow-lg w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
+                    <div className=" flex items-center ml-[34px] mt-[34px]">
+                      <div className=" mr-[20px]">
+                        <Image src="/img/profile.svg" />
+                      </div>
+                      <div className="text-[#2F3747] text-[18px]  font-bold">
+                        {Auth.getName()}
+                      </div>
+                    </div>
+                    <div className=" flex justify-center text-[#9CA6C0] text-[11px] font-semibold mt-[12px]">
+                      kenzi.lawson@example.com
+                    </div>
+                    <Divider />
+                    <div className=" flex justify-center   ">
+                      <div className=" ">
+                        <div className=" flex justify-start">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i1.svg"
+                            />
+                          </div>
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                            <a href="/order" className="text-[#2E28D4]">
+                              {" "}
+                              Миний захиалга
+                            </a>
+                          </div>
+                        </div>
+                        <div className=" flex justify-start my-[20px]">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i2.svg"
+                            />
+                          </div>
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                            <a href="/cart" className="text-[#2E28D4]">
+                              {" "}
+                              Миний сагс
+                            </a>
+                          </div>
+                        </div>
+                        <div className=" flex justify-start">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i3.svg"
+                            />
+                          </div>
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                            <a href="/info" className="text-[#2E28D4]">
+                              {" "}
+                              Миний мэдээлэл{" "}
+                            </a>
+                          </div>
+                        </div>
+                        <div className=" flex justify-start mt-[20px]">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i4.svg"
+                            />
+                          </div>
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold ">
+                            Тохиргоо
+                          </div>
+                        </div>
+                        <div className=" flex justify-start mt-[40px]">
+                          <div className=" mr-[19px]">
+                            <Image
+                              preview={false}
+                              height={30}
+                              width={30}
+                              src="/img/i5.svg"
+                            />
+                          </div>
+                          <div onClick={onLogout} className="text-[#F01A63] cursor-pointer opacity-50 text-[18px] font-bold">
+                            Гарах
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
         <div className=" mr-[30px] px-4 md:px-4">
          
           <Table
