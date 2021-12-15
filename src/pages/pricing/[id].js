@@ -21,7 +21,7 @@ import Context from "../../context/Context";
 import Footer from "../../components/Footer";
 import { set } from "js-cookie";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import Head from 'next/head';
+import Head from "next/head";
 
 const Pricing = ({ id }) => {
   // const router = useRouter();
@@ -77,7 +77,7 @@ const Pricing = ({ id }) => {
   // const [isChecked, setIsChecked] = useState([]);
 
   const handleChange = (value) => {
-    console.log(value, "serveree");
+    // console.log(value, "serveree");
     value && setServerId(value[1]);
     value && setpServerPrice(Number(value[2]));
     setServerState1((prev) => !prev);
@@ -87,7 +87,7 @@ const Pricing = ({ id }) => {
   };
 
   const handleChange2 = (value) => {
-    console.log(value, "serveree2");
+    // console.log(value, "serveree2");
     value && setServerId(value[1]);
     value && setcServerPrice(Number(value[2]));
     setServerState2((prev) => !prev);
@@ -126,28 +126,28 @@ const Pricing = ({ id }) => {
         }
       )
       .then((response) => {
-        console.log(response, "ggg");
+        // console.log(response, "ggg");
+        setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
-          setAdditionalData(response.data.result?.additional_products);
-        setPhysicalServer(response.data.result?.physical);
+          setPhysicalServer(response.data.result?.physical);
         setCloudServer(response.data.result?.cloud);
         setTax(response.data.result?.tax_amount);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   }, []);
 
   const onPurchase = async (type) => {
-    console.log(sid, "siddd");
-    console.log(userID, "userIdddd");
+    // console.log(sid, "siddd");
+    // console.log(userID, "userIdddd");
     var productIds = [];
 
     state.map((item) => {
       productIds.push(item.product_id);
     });
 
-    console.log(serverId, productIds, "odoooldoo");
+    // console.log(serverId, productIds, "odoooldoo");
 
     var data = {
       jsonrpc: 2.0,
@@ -159,7 +159,7 @@ const Pricing = ({ id }) => {
         product_ids: productIds,
       },
     };
-    console.log(data, "dataaa");
+    // console.log(data, "dataaa");
     const res = await axios.post(baseUrl + "create/invoice", data, {
       headers: {
         "Set-Cookie": "session_id=" + sid,
@@ -176,7 +176,7 @@ const Pricing = ({ id }) => {
     } else {
       message.warning("Хүсэлт амжилтгүй");
     }
-    console.log(res, "purchase res");
+    // console.log(res, "purchase res");
   };
 
   const isChecked = (item, isRequired) => {
@@ -194,7 +194,6 @@ const Pricing = ({ id }) => {
   };
 
   useEffect(() => {
-    console.log(state, "product idiii");
     setNumberOfProgram(state.length);
     var a = 0;
     var sale = 0;
@@ -205,8 +204,9 @@ const Pricing = ({ id }) => {
     });
     setProgramPrice(a);
     setDiscount(sale);
+    2;
 
-    console.log(serverId, "server Idii");
+    // console.log(serverId, "server Idii");
   }, [state]);
 
   useEffect(() => {
@@ -216,19 +216,28 @@ const Pricing = ({ id }) => {
     setTaxPriceYear(((programPrice + serverPrice) * 12) / Number(tax));
     setProgramPriceSeason(Number(programPrice) * 3);
     setProgramPriceYear(Number(programPrice) * 12);
-    console.log(tax, taxPrice, "zaa");
+    // console.log(tax, taxPrice, "zaa");
   }, [programPrice, serverPrice]);
   useEffect(() => {
-   
-    setTaxPrice(Number(totalPrice)  / 10 );
-    setTaxPriceSeason(((totalPrice) * 3) / 10);
-    setTaxPriceYear(((totalPrice) * 12) / 10 );
-   
+    // console.log(totalPrice * 3 + serverPrice * 3, "testtt");
+    setTaxPrice(Number(totalPrice) / 10);
+    setTaxPriceSeason((totalPrice * 3) / 10);
+    setTaxPriceYear((totalPrice * 12) / 10);
+    // console.log(
+    //   serverPriceSeason,
+    //   "<=>",
+    //   programPriceSeason,
+    //   "<=>",
+    //   discountSeason,
+    //   "<=>",
+    //   totalPriceSeason,
+    //   "uliral"
+    // );
   }, [totalPrice]);
   useEffect(() => {
-    setTotalPriceSeason(Number(totalPrice) * 3 + serverPrice - discountSeason);
-    setTotalPriceYear(Number(totalPrice) * 12 + serverPrice - discountYear);
-    console.log(totalPriceSeason, serverPrice, discountSeason, "uneee");
+    setTotalPriceSeason(totalPrice * 3);
+    setTotalPriceYear(totalPrice * 12);
+    // console.log(totalPriceSeason, serverPrice, discountSeason, "uneee");
   }, [totalPrice]);
   useEffect(() => {
     setDiscountSeason(Number(discount) * 3);
@@ -239,17 +248,17 @@ const Pricing = ({ id }) => {
     setServerPriceYear(Number(serverPrice) * 12);
   }, [serverPrice]);
   useEffect(() => {
-    console.log(serverState1, "serverstateee1");
+    // console.log(serverState1, "serverstateee1");
   }, [serverState1]);
   useEffect(() => {
-    console.log(serverState2, "serverstateee2");
+    // console.log(serverState2, "serverstateee2");
   }, [serverState2]);
   useEffect(() => {
-    console.log(serverState3, "serverstateee3");
+    // console.log(serverState3, "serverstateee3");
   }, [serverState3]);
   useEffect(() => {
     serverState1 && setServerPrice(pServerPrice);
-    console.log(pServerPrice, serverPrice, "ppppp");
+    // console.log(pServerPrice, serverPrice, "ppppp");
   }, [pServerPrice]);
 
   useEffect(() => {
@@ -274,7 +283,7 @@ const Pricing = ({ id }) => {
         }
       }
 
-      console.log(gArr, "nemelt");
+      // console.log(gArr, "nemelt");
     }
 
     if (mainData) {
@@ -292,16 +301,16 @@ const Pricing = ({ id }) => {
         }
       }
 
-      console.log(lglglg, "ggwgwgwgwgw");
+      // console.log(lglglg, "ggwgwgwgwgw");
     }
 
     setState(lglglg);
-    console.log(lglglg, "lgggg");
+    // console.log(lglglg, "lgggg");
   }, [mainData]);
 
   useEffect(() => {
-    // console.log(state, "lalrin state");
-  }, [state]);
+    // console.log(totalPriceSeason, "season price");
+  }, [totalPriceSeason]);
 
   // useEffect(() => {
   //   if (additionalData) {
@@ -315,7 +324,7 @@ const Pricing = ({ id }) => {
 
   return (
     <div>
-       <Head>
+      <Head>
         <title>iFinance | Худалдан авах</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
@@ -374,141 +383,47 @@ const Pricing = ({ id }) => {
               <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 1. ББСБ Зээлийн модуль
               </div>
-              <div className="  grid grid-cols-1 xl:grid-cols-2 gap-0  lg:gap-4xl:w-[48.125rem] xl:pl-6 pb-[30px] px-2">
-                {mainData &&
-                  mainData.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                          ${item.is_required && "cursor-not-allowed"}
-                          mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px]  ${
-                            state.includes(item)
-                              ? "border-[#2E28D4]"
-                              : "border-[#9CA6C0]"
-                          }
-                        `}
-                      >
-                        <div className=" p-[20px]  pointer-events-none  flex justify-between">
-                          <div
-                            // onClick={() => isChecked(item)}
-                            className="flex flex-col"
-                          >
-                            <div className="text-[#2F3747] font-semibold text-[16px]">
-                              {item.product_name}
-                            </div>
-                            <div className=" flex">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-between">
-                                  <div className="flex">
-                                    <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                    <div className="text-[#2F3747] ml-3 line-through text-[12px] font-semibold mt-5  text-opacity-50">
-                                      {item.product_price}₮
-                                    </div>
-                                  </div>
-                                  <div className=" flex justify-center w-[71px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[32px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                    -{item.product_discount}% off
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked  />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-
-            <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                Нэмэлт Модулиуд:
-              </div>
-              <div className="grid xl:grid-cols-2 lg:gap-4 gap-0  xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {additionalData?.map((item, index) => {
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {mainData?.map((item, index) => {
                   return (
                     <div
                       key={index}
                       onClick={() => isChecked(item, item.is_required)}
                       className={`
                       ${item.is_required && "cursor-not-allowed"}
-                      mt-[24px] xl:w-[349px] h-auto  rounded-[8px] border-[1px]  ${
+                      mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
                         state.includes(item)
                           ? "border-[#2E28D4]"
                           : "border-[#9CA6C0]"
                       }
                     `}
                     >
-                      <div className=" p-[20px]  flex justify-between">
-                        <div
-                          // onClick={() => isChecked(item)}
-
-                          className="flex flex-col"
-                        >
-                          <div className="text-[#2F3747] font-semibold text-[16px]">
+                       <div className=" p-[10px]  flex justify-between  ">
+                        <div className="">
+                          <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
                             {item.product_name}
                           </div>
-                          <div className=" flex">
+                            <Divider className="price bg-black " />
+                          <div className=" ">
                             {item.product_discount == 0 ? (
-                              <div className=" flex">
+                              <div className=" flex w-[100px] justify-end">
                                 <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
                                   {item.product_price}₮
                                 </div>
-                                {item.product_price_type == "year" ? (
-                                  <div className=" text-[#9CA6C0] text-[12px]  mt-6 ml-2 ">
-                                    1 жилд
-                                  </div>
-                                ) : item.product_price_type == "month" ? (
-                                  <div className=" text-[#9CA6C0] text-[12px] mt-5 ml-2 ">
-                                    1 сард
-                                  </div>
-                                ) : null}
                               </div>
                             ) : (
-                              <div className="flex  justify-between">
-                                <div className="flex">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                              <div className="flex  justify-end">
+                                <div className="flex w-[100px] items-center">
+                                  <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                    -{item.product_discount}% off
+                                  </div>
+
+                                  <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
                                     {Number(item.product_price) -
                                       Number(item.product_price) *
                                         (Number(item.product_discount) / 100)}
                                     ₮
                                   </div>
-                                  <div className="text-[#2F3747] ml-3 line-through text-[12px] font-semibold mt-5  text-opacity-50">
-                                    {item.product_price}₮
-                                  </div>
-                                  {item.product_price_type == "year" ? (
-                                    <div className=" text-[#9CA6C0] text-[12px]  mt-5 ml-2 ">
-                                      1 жилд
-                                    </div>
-                                  ) : item.product_price_type == "month" ? (
-                                    <div className=" text-[#9CA6C0] text-[12px]  mt-5 ml-2 ">
-                                      1 сард
-                                    </div>
-                                  ) : null}
-                                </div>
-                                <div className=" flex justify-center w-[71px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[32px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                  -{item.product_discount}% off
                                 </div>
                               </div>
                             )}
@@ -522,7 +437,72 @@ const Pricing = ({ id }) => {
                               <Checkbox checked={state.includes(item)} />
                             )}
                           </div>
-                          <div></div>
+                        </div>
+                      </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+
+            <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
+              <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+                Нэмэлт Модулиуд:
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4 gap-0  xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {additionalData?.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => isChecked(item, item.is_required)}
+                      className={`
+                      ${item.is_required && "cursor-not-allowed"}
+                      mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                        state.includes(item)
+                          ? "border-[#2E28D4]"
+                          : "border-[#9CA6C0]"
+                      }
+                    `}
+                    >
+                      <div className=" p-[10px]  flex justify-between  ">
+                        <div className="">
+                          <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                            {item.product_name}
+                          </div>
+                            <Divider className="price bg-black " />
+                          <div className=" ">
+                            {item.product_discount == 0 ? (
+                              <div className=" flex w-[100px] justify-end">
+                                <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                  {item.product_price}₮
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="flex  justify-end">
+                                <div className="flex w-[100px] items-center">
+                                  <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                    -{item.product_discount}% off
+                                  </div>
+
+                                  <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                    {Number(item.product_price) -
+                                      Number(item.product_price) *
+                                        (Number(item.product_discount) / 100)}
+                                    ₮
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            {item.is_required ? (
+                              <Checkbox checked />
+                            ) : (
+                              <Checkbox checked={state.includes(item)} />
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>

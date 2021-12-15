@@ -71,10 +71,8 @@ const CategoryId = () => {
       res.data.result &&
         setAdditionalProduct(res.data.result.additional_products),
       res.data.result &&
-        setCategoryName(res.data.result.main_products[0].product_category),
-      console.log(res.data.result, sessionId, "medeenuud");
-
-    
+        setCategoryName(res.data.result.main_products[0].product_category)
+      // console.log(res.data.result, sessionId, "medeenuud");
   };
  
 

@@ -36,10 +36,19 @@ export default function Home() {
     slidesToScroll: 1,
     responsive: [
       {
+        breakpoint: 1900,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 4,
+          slidesToScroll: 1,
           infinite: true,
           dots: false,
         },
@@ -48,7 +57,7 @@ export default function Home() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: false,
         },
@@ -56,9 +65,9 @@ export default function Home() {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
         },
       },
       {
@@ -77,6 +86,18 @@ export default function Home() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1900,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+
+    ],
   };
   
 
@@ -531,14 +552,14 @@ export default function Home() {
         <div className=" w-full flex justify-center mt-[20px] xl:mt-[40px]">
           <div className=" w-full ">
             <div className=" flex justify-center ">
-              <div className=" w-[250px]  lg:w-[65vw] max-w-[1400px]">
+              <div className=" w-[250px] md:w-[65vw] max-w-[1400px] bg-red-200">
                 <Slider className=" " {...settings2}>
                   <div className=" p-5">
                     <div className=" w-auto flex flex-col lg:flex-row  justify-between">
                       <div className=" ">
                         <div className=" flex justify-center text-center">
                           <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
-                            Технологийн дэвшлийг таньд мэдрүүлнэrr
+                            Технологийн дэвшлийг таньд мэдрүүлнэ
                           </p>
                         </div>
                         <div className=" flex justify-center ">

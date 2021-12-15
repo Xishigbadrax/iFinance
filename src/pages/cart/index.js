@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
-import { Image, Table, Divider,  message, Button, Modal, Tabs } from "antd";
+import { Image, Table, Divider, message, Button, Modal, Tabs } from "antd";
 import axios from "axios";
 import Auth from "../../utils/auth";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Cart = () => {
-    const { TabPane } = Tabs;
+  const { TabPane } = Tabs;
   const [product, setProduct] = useState();
   const [server, setServer] = useState();
   const [data, setData] = useState([]);
@@ -28,34 +28,32 @@ const Cart = () => {
     { title: "Хасах", dataIndex: "action", key: "action" },
   ];
 
-
   const handleCancel = (value) => {
     setIsModalVisible(false);
   };
   const onDelete = async (id, type) => {
     var data = {
-        jsonrpc: 2.0,
-        params: {
-          db: baseDB,
-          uid: Auth.getUserId(),
-          product_id: id,
-          type: type
-        },
-      };
-      console.log(data, "dataaa");
-      const res = await axios.post(baseUrl + "delete/cart_list", data, {
-        headers: {
-          "Set-Cookie": "session_id=" + Auth.getToken(),
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(res, "delete ress")
-      if(res.data.id == null){
-        //   message.success("Амжилттай устлаа");
-          window.location.reload(false);
-      }
+      jsonrpc: 2.0,
+      params: {
+        db: baseDB,
+        uid: Auth.getUserId(),
+        product_id: id,
+        type: type,
+      },
+    };
+    console.log(data, "dataaa");
+    const res = await axios.post(baseUrl + "delete/cart_list", data, {
+      headers: {
+        "Set-Cookie": "session_id=" + Auth.getToken(),
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(res, "delete ress");
+    if (res.data.id == null) {
+      // message.success("Амжилттай устлаа");
+      window.location.reload(false);
+    }
   };
-
 
   const onPurchase = async () => {
     var productIds = [];
@@ -65,11 +63,10 @@ const Cart = () => {
       productIds.push(item.product_id);
     });
     server.map((item) => {
-       
-        serverID = item.server_id;
-      });
+      serverID = item.server_id;
+    });
 
-    console.log( productIds, serverID, "odoooldoo");
+    console.log(productIds, serverID, "odoooldoo");
 
     var data = {
       jsonrpc: 2.0,
@@ -77,7 +74,7 @@ const Cart = () => {
         db: baseDB,
         uid: Auth.getUserId(),
         server_id: serverID,
-        
+
         product_ids: productIds,
       },
     };
@@ -99,7 +96,7 @@ const Cart = () => {
       message.warning("Хүсэлт амжилтгүй");
     }
     console.log(res, "purchase res");
-  }
+  };
 
   useEffect(async () => {
     const res = await axios.post(
@@ -129,36 +126,51 @@ const Cart = () => {
     var a = 0;
     var sale = 0;
     product?.map((item, index) => {
-        a += item.product_price;
-        sale +=
+      a += item.product_price;
+      sale +=
         Number(item.product_price) * (Number(item.product_discount) / 100);
       arr.push({
         key: index,
-        
-        name: <div className=" flex items-center">
-          <Image src={"data:image/png;base64," + item.product_icon} />
-          
-          <span className=" ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
-            {item.product_name}
-          </span>
-          </div>,
+
+        name: (
+          <div className=" flex items-center">
+            <Image src={"data:image/png;base64," + item.product_icon} />
+
+            <span className=" ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
+              {item.product_name}
+            </span>
+          </div>
+        ),
         count: "1",
         price: item.product_price + "₮",
-        action: <Image className=" cursor-pointer" onClick={() => onDelete(item.product_id, 1)} preview={false} src="/img/delete.svg" />,
+        action: (
+          <Image
+            className=" cursor-pointer"
+            onClick={() => onDelete(item.product_id, 1)}
+            preview={false}
+            src="/img/delete.svg"
+          />
+        ),
       });
     });
-   
-      server?.map((item, index) => {
-        a += item.server_price;
-        sale +=
-        Number(item.server_price) * (Number(item.server_discount) / 100);
+
+    server?.map((item, index) => {
+      a += item.server_price;
+      sale += Number(item.server_price) * (Number(item.server_discount) / 100);
       arr.push({
         key: item.server_name,
-        
-        name:  item.server_name,
+
+        name: item.server_name,
         count: "1",
         price: item.server_price + "₮",
-        action: <Image className=" cursor-pointer" onClick={() => onDelete(item.server_id, 2)} preview={false} src="/img/delete.svg" />,
+        action: (
+          <Image
+            className=" cursor-pointer"
+            onClick={() => onDelete(item.server_id, 2)}
+            preview={false}
+            src="/img/delete.svg"
+          />
+        ),
       });
     });
     setData(arr);
@@ -166,8 +178,8 @@ const Cart = () => {
     setDiscount(sale);
     setTotalPrice(price - sale);
     console.log(product, "product");
-  }, [server, product]);
-  
+  }, [server || product]);
+
   useEffect(() => {
     console.log(data, "dataa22");
   }, [data]);
@@ -178,16 +190,23 @@ const Cart = () => {
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
-           <div className=" mt-[20px] ml-[375px] flex justify-between w-[230px]">
+          <div className=" mt-[20px] ml-[375px] flex justify-between w-[230px]">
             <div>
               <Image preview={false} src="/img/home.svg" />
             </div>
-            <div className="text-white text-[14px] font-semibold"><a href="/" className="text-white text-[14px] font-semibold">Нүүр хуудас</a></div>
+            <div className="text-white text-[14px] font-semibold">
+              <a href="/" className="text-white text-[14px] font-semibold">
+                Нүүр хуудас
+              </a>
+            </div>
             <div>
               <Image preview={false} src="/img/right.svg" />
             </div>
-            <div className="text-white text-[14px] font-semibold"><a href="/cart" className="text-white text-[14px] font-semibold" >Миний сагс</a></div>
-       
+            <div className="text-white text-[14px] font-semibold">
+              <a href="/cart" className="text-white text-[14px] font-semibold">
+                Миний сагс
+              </a>
+            </div>
           </div>
           <div className="hidden my-auto uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-poppins-semibold">
             Миний сагс
@@ -202,6 +221,7 @@ const Cart = () => {
       </div>
       <div className=" flex flex-col md:flex-row justify-center mt-10">
         <div className=" mr-[30px] px-4 md:px-4">
+         
           <Table
             className="tcell"
             className=" w-[770px]"
@@ -218,7 +238,7 @@ const Cart = () => {
               Үнийн дүн
             </div>
             <div className=" text-[#2F3747] text-[16px] font-semibold">
-             {price}₮
+              {price}₮
             </div>
           </div>
           <Divider className="mar" />
@@ -242,7 +262,7 @@ const Cart = () => {
           <Divider className="mar" />
           <div className=" flex justify-center mt-[30px]">
             <Button
-                onClick={() => onPurchase()}
+              onClick={() => onPurchase()}
               className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
               type="primary"
             >

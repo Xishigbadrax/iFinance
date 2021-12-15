@@ -21,7 +21,7 @@ const Order = () => {
   const data2 = [];
 
   const expandedRowRender = (rowData) => {
-    console.log(rowData, "ggg");
+    // console.log(rowData, "ggg");
 
     const columns = [
       { title: "Бараа", dataIndex: "product_name", key: "product" },
@@ -39,7 +39,11 @@ const Order = () => {
   };
 
   const columns = [
-    { title: "Нэхэмжлэх дугаар", dataIndex: "dugaar", key: "dugaar" },
+    { title: "Нэхэмжлэх дугаар", dataIndex: "dugaar", key: "dugaar", onHeaderCell: (column) => {
+      return { onClick: () => {
+        console.log("быйб");
+      }}
+    }  },
     { title: "Нэхэмжилсэн дүн", dataIndex: "dun", key: "dun" },
     { title: "Төлбөрийн систем", dataIndex: "system", key: "system" },
     { title: "Захиалгын огноо", dataIndex: "sognoo", key: "ognoo" },
@@ -47,25 +51,14 @@ const Order = () => {
     { title: "Төлөв", dataIndex: "tuluv", key: "tuluv" },
   ];
 
-  // const data = [];
-  // for (let i = 0; i < 3; ++i) {
-  //   data.push({
-  //     key: i,
-  //     dugaar: "Screem",
-  //     dun: "iOS",
-  //     system: "10.3.4.5654",
-  //     sognoo: 500,
-  //     dognoo: "Jack",
-  //     tuluv: "2014-12-24 23:12:00",
-  //   });
-  // }
+ 
   const data = [];
 
   invoices?.map((item, index) => {
     data.push({
       key: item.invoice_id,
       dugaar: item.invoice_id,
-      dun: item.invoice_amount.toFixed(2),
+      dun: item.invoice_amount.toFixed(2) + "₮",
       system: item.invoice_type,
       sognoo: item.invoice_start_date,
       dognoo: item.invoice_end_date,
@@ -73,17 +66,6 @@ const Order = () => {
       sub: item.invoice_lines,
     });
 
-    // item.invoice_lines.map((line, index2) => {
-    //   if (line) {
-
-    //     data2.push({
-    //           key: line.index2,
-    //           product: line.product_name,
-    //           value: "This is production name",
-    //           upgradeNum: "Upgraded: 56",
-    //         });
-    //   }
-    // })
   });
 
   useEffect(async () => {
@@ -106,7 +88,7 @@ const Order = () => {
         }
       )
       .then((response) => {
-        console.log(response, "zahialga");
+        // console.log(response, "zahialga");
         setInvoices(response.data.result.invoices);
       })
       .catch((error) => {

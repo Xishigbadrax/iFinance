@@ -43,7 +43,7 @@ const Dashboard = () => {
       }
     );
     setList(res.data.result);
-    console.log(res, "ehnii");
+    // console.log(res, "ehnii");
 
     // console.log(res, "listtttt");
   }, []);
