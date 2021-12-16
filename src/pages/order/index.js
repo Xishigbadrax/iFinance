@@ -76,7 +76,7 @@ const Order = () => {
           jsonrpc: 2.0,
           params: {
             uid: Auth.getUserId(),
-            db: baseDB,
+        
           },
         },
 

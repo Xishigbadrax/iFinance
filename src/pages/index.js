@@ -400,7 +400,7 @@ export default function Home() {
             Бүтээгдэхүүний онцлог
           </div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" max-w-[1920px] flex flex-col md:flex-col xl:flex-row xl:w-[65vw] justify-between pb-[100px]">
+            <div className=" max-w-[1920px] flex flex-col md:flex-col xl:flex-row  lg:min-w-[1200px] justify-between pb-[100px]">
               <div>
                 <div>
                   <Image preview={false} src="/img/b1.svg" />
@@ -414,7 +414,7 @@ export default function Home() {
                   нарийвчилсан шинжилгээ хийх боломжтой
                 </div>
               </div>
-              <div className=" pt-[50px]">
+              <div className=" mt-[50px] md:mt-[0px]">
                 <div>
                   <Image preview={false} src="/img/b2.svg" />
                 </div>
@@ -438,7 +438,7 @@ export default function Home() {
                   тухайн цагт шууд ашиглах боломжтой
                 </div>
               </div>
-              <div className=" pt-[50px]">
+              <div className=" mt-[50px] md:mt-[0px]">
                 <div>
                   <Image preview={false} src="/img/b4.svg" />
                 </div>
@@ -630,7 +630,7 @@ export default function Home() {
           </div>
         </div>
         <div className=" w-full flex justify-center mt-[40px]">
-          <div className=" max-w-[1920px] w-[300px] flex flex-col xl:flex-row xl:w-[65vw] justify-between">
+          <div className=" max-w-[1920px] w-[300px]  flex flex-col xl:flex-row xl:w-[65vw] justify-between">
             <div className="  ">
               <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/app.svg" />
@@ -638,7 +638,7 @@ export default function Home() {
               <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center md:justify-start">
                 Андройд гар утасны апп
               </p>
-              <p className=" text-[#2F3747] text-justify text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
+              <p className=" text-[#2F3747] text-justify text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
                 Андройд үйлдлийн системд ажиллах гар утасны аппликейшин татах.
               </p>
               <div className=" flex justify-center mt-[40px] md:justify-start">
@@ -655,10 +655,10 @@ export default function Home() {
               <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/ifin.svg" />
               </div>
-              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center">
+              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] w-[300px] flex justify-center text-center">
                 SaaS болон Cloud суурьтай програм хангамж
               </p>
-              <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
+              <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
                 SaaS болон Cloud програм хангамжийн танилцуулга харах.
               </p>
               <div className=" flex justify-center mt-[40px] md:justify-start">
@@ -671,10 +671,10 @@ export default function Home() {
               <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/play.svg" />
               </div>
-              <p className=" flex justify-center text-[#2F3747] text-[18px] font-bold mt-[24px] md:justify-start">
+              <p className=" flex justify-center  text-[#2F3747] text-[18px] font-bold mt-[24px] md:justify-start">
                 IOS гар утасны апп
               </p>
-              <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] xl:w-[370px] ">
+              <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
                 IOS үйлдлийн системд ажиллах гар утасны аппликейшин татах.
               </p>
               <div className=" flex justify-center mt-[40px] md:justify-start">
@@ -690,33 +690,35 @@ export default function Home() {
         </div>
       </div>
       <div className=" w-full flex justify-center mt-[100px]">
-        <div className=" h-[600px] md:h-auto max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] xl:h-[228px] bg-[#2E28D4] bg-opacity-5 xl:items-center items-start justify-around">
+        <div className=" h-[600px] md:h-auto max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] w-full xl:h-[228px] items-center bg-[#2E28D4]  bg-opacity-5 xl:items-center lg:items-start justify-around">
+         
+        <div className=" flex justify-center">
+            <div>
+              <div className=" text-[48px] text-[#F01A63] font-bold">5000+</div>
+              <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
+                Жилд хандсан хүний тоо
+              </div>
+            </div>
+          </div>
           <div className=" flex justify-center">
             <div>
               <div className=" text-[48px] text-[#2E28D4] font-bold">
-                99225+
+                1200+
               </div>
               <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
                 Улиралд хандсан хүний тоо
               </div>
             </div>
           </div>
-          <div className=" flex justify-center">
-            <div>
-              <div className=" text-[48px] text-[#F01A63] font-bold">1047+</div>
-              <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
-                Жилд хандсан хүний тоо
-              </div>
-            </div>
-          </div>
+         
           <div className="">
-            <div className=" text-[48px] text-[#AC27FD] font-bold">877+</div>
+            <div className=" text-[48px] text-[#AC27FD] font-bold">400+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center ">
               Сард хандсан хүний тоо
             </div>
           </div>
           <div>
-            <div className=" text-[48px] text-[#011F70] font-bold">283+</div>
+            <div className=" text-[48px] text-[#011F70] font-bold">13+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
               Өдөрт хандсан хүний тоо
             </div>

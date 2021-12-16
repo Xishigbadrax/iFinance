@@ -31,7 +31,7 @@ const Dashboard = () => {
       {
         jsonrpc: 2.0,
         params: {
-          db: baseDB,
+          
         },
       },
 
@@ -45,7 +45,7 @@ const Dashboard = () => {
     setList(res.data.result);
     // console.log(res, "ehnii");
 
-    // console.log(res, "listtttt");
+    console.log(res, "listtttt");
   }, []);
 
   const onCategory = (id) => {

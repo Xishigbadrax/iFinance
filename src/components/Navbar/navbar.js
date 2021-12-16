@@ -167,7 +167,7 @@ const Navbar = ({}) => {
         jsonrpc: 2.0,
         params: {
           code: confirmCode,
-          db: baseDB,
+        
           login: email,
           password: password,
         },
@@ -205,7 +205,7 @@ const Navbar = ({}) => {
       jsonrpc: 2.0,
 
       params: {
-        db: baseDB,
+        
         name: values.name,
         login: values.email,
         password: values.password,
@@ -250,7 +250,7 @@ const Navbar = ({}) => {
       {
         jsonrpc: 2.0,
         params: {
-          db: baseDB,
+         
           login: values.name,
           password: values.password,
           // device: {

@@ -31,7 +31,7 @@ const CategoryId = () => {
       {
         jsonrpc: 2.0,
         params: {
-          db: baseDB,
+          
           uid: Auth.getUserId(),
           product_id: id,
           type: type,
@@ -57,7 +57,7 @@ const CategoryId = () => {
       {
         jsonrpc: 2.0,
         params: {
-          db: baseDB,
+       
           category_id: id,
         },
       },

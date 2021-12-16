@@ -12,6 +12,7 @@ import {
   Select,
   message,
   Modal,
+  Input,
 } from "antd";
 
 import Auth from "../../utils/auth";
@@ -72,7 +73,9 @@ const Pricing = ({ id }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bank, setBank] = useState();
   const [invoice, setInvoice] = useState();
-  const [copy, setCopy] = useState(false);
+  const [domain, setDomain] = useState();
+  const [domainState, setDomainState] = useState(null);
+  const [lock, setLock] = useState(false);
 
   // const [isChecked, setIsChecked] = useState([]);
 
@@ -84,6 +87,35 @@ const Pricing = ({ id }) => {
   };
   const handleCancel = (value) => {
     setIsModalVisible(false);
+  };
+  const onCheck = async () => {
+    await axios
+      .post(
+        baseUrl + "subdomain/checker",
+        {
+          jsonrpc: 2.0,
+          params: {
+            domain: domain,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        
+        console.log(response, "dom shalgah");
+        setDomainState(response.data.result);
+        response?.data?.result == true ?   setLock(true) : setLock(false)
+      
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleChange2 = (value) => {
@@ -114,7 +146,6 @@ const Pricing = ({ id }) => {
           jsonrpc: 2.0,
           params: {
             category_id: id,
-            db: baseDB,
           },
         },
 
@@ -126,7 +157,7 @@ const Pricing = ({ id }) => {
         }
       )
       .then((response) => {
-        // console.log(response, "ggg");
+        console.log(response, "ggg");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -152,31 +183,39 @@ const Pricing = ({ id }) => {
     var data = {
       jsonrpc: 2.0,
       params: {
-        db: baseDB,
         uid: userID,
         server_id: serverId,
         type: type,
         product_ids: productIds,
+        domain: domain
       },
     };
     // console.log(data, "dataaa");
-    const res = await axios.post(baseUrl + "create/invoice", data, {
-      headers: {
-        "Set-Cookie": "session_id=" + sid,
-        "Content-Type": "application/json",
-      },
-    });
-    if (res.data.result && res.data.result) {
-      // message.success("Хүсэлт амжилттай биеллээ.");
-      setBank(res.data.result.bank);
-      setInvoice(res.data.result.invoice);
-      setIsModalVisible(true);
-    } else if (res.data.error) {
-      message.warning(res.data.error.data.message);
-    } else {
-      message.warning("Хүсэлт амжилтгүй");
+    if (lock) {
+      const res = await axios.post(baseUrl + "create/invoice", data, {
+        headers: {
+          "Set-Cookie": "session_id=" + sid,
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.data.result && res.data.result) {
+        // message.success("Хүсэлт амжилттай биеллээ.");
+        setBank(res.data.result.bank);
+        setInvoice(res.data.result.invoice);
+        setIsModalVisible(true);
+      } else if (res.data.error) {
+        message.warning(res.data.error.data.message);
+      } else {
+        message.warning("Хүсэлт амжилтгүй");
+      }
+      // console.log(res, "purchase res");
     }
-    // console.log(res, "purchase res");
+    else {
+      message.warning("Домайнаа сонгоно уу!")
+    }
+   
+
+    
   };
 
   const isChecked = (item, isRequired) => {
@@ -398,12 +437,12 @@ const Pricing = ({ id }) => {
                       }
                     `}
                     >
-                       <div className=" p-[10px]  flex justify-between  ">
+                      <div className=" p-[10px]  flex justify-between  ">
                         <div className="">
                           <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
                             {item.product_name}
                           </div>
-                            <Divider className="price bg-black " />
+                          <Divider className="price bg-black " />
                           <div className=" ">
                             {item.product_discount == 0 ? (
                               <div className=" flex w-[100px] justify-end">
@@ -439,9 +478,9 @@ const Pricing = ({ id }) => {
                           </div>
                         </div>
                       </div>
-                      </div>
-                    );
-                  })}
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -469,7 +508,7 @@ const Pricing = ({ id }) => {
                           <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
                             {item.product_name}
                           </div>
-                            <Divider className="price bg-black " />
+                          <Divider className="price bg-black " />
                           <div className=" ">
                             {item.product_discount == 0 ? (
                               <div className=" flex w-[100px] justify-end">
@@ -670,7 +709,7 @@ const Pricing = ({ id }) => {
             </div>
           </div>
         </div>
-        <div className=" flex justify-center mb-10 xl:mb-0">
+        <div className=" flex flex-col mb-10 xl:mb-0">
           <div className=" ml-[10px] w-[370px]   xl:h-[625px] shadow-custom rounded-[8px] ">
             <Tabs className="payment" defaultActiveKey="1">
               <TabPane tab="САР" key="1">
@@ -724,16 +763,17 @@ const Pricing = ({ id }) => {
                   <Divider className="bill" />
 
                   <div className=" w-full  flex flex-col justify-center items-center">
-                    <div className="text-[13px] text-[#9CA6C0] font-normal">
+                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
-                    </div>
+                    </div> */}
                     <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
                         <Image src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
-                        Those apps are free as long as you don't need more apps
-                        or hosting options.
+                      <p className=" pt-[16px] w-[300px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
+                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
+                        суугдана.
                       </p>
                     </div>
                   </div>
@@ -757,12 +797,12 @@ const Pricing = ({ id }) => {
                       </Button>
                     )}
                   </div>
-                  <div className=" mx-[24px] my-[30px]">
+                  {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </TabPane>
               <TabPane tab="УЛИРАЛ" key="2">
@@ -950,6 +990,47 @@ const Pricing = ({ id }) => {
                 </div>
               </TabPane>
             </Tabs>
+          </div>
+          <div className=" w-[370px]  shadow-lg ml-3 mt-5 rounded-[4px] p-[20px]">
+            <Input
+              addonBefore="https://"
+              addonAfter=".ifinance.mn"
+              placeholder="Домайн нэр"
+              disabled ={lock}
+              onChange={(e) => setDomain(e.target.value)}
+            />
+            {domainState != null && (
+              <div className=" flex justify-center mt-4">
+                {domainState ? <p className=" text-green-500">Боломжтой</p> : <p className=" text-red-500">Боломжгүй</p>}
+              </div>
+            )}
+            <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] ">
+              <div className=" pt-[16px] pl-[17px] pr-[17px]">
+                <Image preview={false} src="/img/warning.png" />
+              </div>
+              <p className=" pt-[16px] w-[350px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
+                Домайн хаягаа дараа нь өөрийн хаягаараа солих боломжтой.
+              </p>
+            </div>
+            <div className=" flex justify-center mt-[30px]">
+              {sid ? (
+                <Button
+                  className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                  type="primary"
+                  onClick={onCheck}
+                >
+                  Шалгах
+                </Button>
+              ) : (
+                <Button
+                  className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-[#9CA6C0] border-none"
+                  type="primary"
+                  disabled
+                >
+                  Шалгах
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

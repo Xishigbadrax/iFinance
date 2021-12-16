@@ -169,7 +169,7 @@ const NavbarTrans = () => {
         jsonrpc: 2.0,
         params: {
           code: confirmCode,
-          db: baseDB,
+         
           login: email,
           password: password,
         },
@@ -213,7 +213,7 @@ const NavbarTrans = () => {
       jsonrpc: 2.0,
 
       params: {
-        db: baseDB,
+       
         name: values.name,
         login: values.email,
         password: values.password,
@@ -257,7 +257,7 @@ const NavbarTrans = () => {
       {
         jsonrpc: 2.0,
         params: {
-          db: baseDB,
+          
           login: values.name,
           password: values.password,
           // device: {
@@ -344,7 +344,7 @@ const NavbarTrans = () => {
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item className="order3" key="4">
-      <div className="flex items-center">
+      <div onClick={Logout} className="flex items-center">
           <Image preview={false} width={20} height={20} src="/img/i5.svg" />
           <a className="pl-1 text-[#F01A63]" href="/">
           Гарах

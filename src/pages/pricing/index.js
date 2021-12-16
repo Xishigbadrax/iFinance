@@ -72,7 +72,7 @@ const Pricing = ({  }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bank, setBank] = useState();
   const [invoice, setInvoice] = useState();
-  const [copy, setCopy] = useState(false);
+ 
 
   // const [isChecked, setIsChecked] = useState([]);
 
@@ -113,6 +113,7 @@ const Pricing = ({  }) => {
         {
           jsonrpc: 2.0,
           params: {
+            category_id: ""
           },
         },
 
@@ -150,7 +151,7 @@ const Pricing = ({  }) => {
     var data = {
       jsonrpc: 2.0,
       params: {
-        db: baseDB,
+      
         uid: userID,
         server_id: serverId,
         type: type,
@@ -379,66 +380,76 @@ const Pricing = ({  }) => {
 
             <div className=" mt-[1.875rem]  shadow-custom">
               <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                1. ББСБ Зээлийн модуль
+                {mainData?.map((item, index) => {
+                  if (item.product_category_id == 5) {
+                    const name = item.product_category;
+                    console.log(name, "nerr")
+                    
+                    
+                  }
+                })}
               </div>
               <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {mainData?.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      onClick={() => isChecked(item, item.is_required)}
-                      className={`
-                      ${item.is_required && "cursor-not-allowed"}
-                      mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                        state.includes(item)
-                          ? "border-[#2E28D4]"
-                          : "border-[#9CA6C0]"
-                      }
-                    `}
-                    >
-                       <div className=" p-[10px]  flex justify-between  ">
-                        <div className="">
-                          <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                            {item.product_name}
-                          </div>
-                            <Divider className="price bg-black " />
-                          <div className=" ">
-                            {item.product_discount == 0 ? (
-                              <div className=" flex w-[100px] justify-end">
-                                <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                  {item.product_price}₮
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="flex  justify-end">
-                                <div className="flex w-[100px] items-center">
-                                  <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                    -{item.product_discount}% off
-                                  </div>
-
-                                  <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                    {Number(item.product_price) -
-                                      Number(item.product_price) *
-                                        (Number(item.product_discount) / 100)}
-                                    ₮
+                  if (item.product_category_id == 5) {
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                         <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                              <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
                                   </div>
                                 </div>
-                              </div>
-                            )}
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+  
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                        <div>
                           <div>
-                            {item.is_required ? (
-                              <Checkbox checked />
-                            ) : (
-                              <Checkbox checked={state.includes(item)} />
-                            )}
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      </div>
-                    );
+                        </div>
+                      );
+                  }
+                 
                   })}
               </div>
             </div>
@@ -447,7 +458,7 @@ const Pricing = ({  }) => {
               <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4 gap-0  xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
                   return (
                     <div
