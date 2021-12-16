@@ -47,12 +47,12 @@ const Info = () => {
     setIsPhoneModal(false);
   };
   const onFinish = (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
   };
 
   
   const onChangePhone = async (values) => {
-    console.log(phone, "utas");
+    // console.log(phone, "utas");
     const res = await axios.post(
       baseUrl + "user/change",
       {
@@ -70,10 +70,10 @@ const Info = () => {
       }
     );
     res.data.result.msg == "success" ? setIsPhoneModal(true) : null; 
-    console.log(res, "chnage phone res");
+    // console.log(res, "chnage phone res");
   };
   const onChangeConfrim = async (values) => {
-    console.log(confirmCode, "code");
+    // console.log(confirmCode, "code");
     const res = await axios.post(
       baseUrl + "user/change_confirm",
       {
@@ -92,10 +92,10 @@ const Info = () => {
       }
     );
     res?.data?.result == "Success" ? message.success("Амжилттай") & setIsPhoneModal(false) : message.error("Алдаа гарлаа");
-    console.log(res, "last phone res");
+    // console.log(res, "last phone res");
   };
   const onChangeConfrimEmail = async (values) => {
-    console.log(confirmCode, "code");
+    // console.log(confirmCode, "code");
     const res = await axios.post(
       baseUrl + "user/change_confirm",
       {
@@ -114,13 +114,13 @@ const Info = () => {
       }
     );
     res?.data?.result == "Success" ? message.success("Амжилттай") & setIsMailModal(false) : message.error("Алдаа гарлаа");
-    console.log(res, "last phone res");
+    // console.log(res, "last phone res");
   };
 
   
   
   const onSave = async () => {
-    console.log(form.getFieldsValue());
+    // console.log(form.getFieldsValue());
     const res = await axios.post(
       baseUrl + "update/user/info",
       {
@@ -137,11 +137,11 @@ const Info = () => {
         },
       }
     );
-    console.log(res, "update res");
+    // console.log(res, "update res");
   };
   const onSumChange = (value) => {
     setSumkhorooId(value);
-    console.log(value, "iddd");
+    // console.log(value, "iddd");
   };
 
   const onChangeMail = async () => {
@@ -162,11 +162,11 @@ const Info = () => {
       }
     );
     res.data.result.msg == "success" ? setIsMailModal(true) : null; 
-    console.log(res, "mail res");
+    // console.log(res, "mail res");
   };
   
   const onChangePass = async (value) => {
-    console.log(form2.getFieldsValue().old, "pass iin utga");
+    // console.log(form2.getFieldsValue().old, "pass iin utga");
     const res = await axios.post(
       baseUrl + "user/change_password",
       {
@@ -185,7 +185,7 @@ const Info = () => {
         },
       }
     );
-    console.log(res, "pass res");
+    // console.log(res, "pass res");
   };
 
   useEffect(async () => {
@@ -207,7 +207,7 @@ const Info = () => {
     setMainData(res.data.result.main[0]);
     setDistrict(res.data.result.district);
     setSumkhoroo(res.data.result.sumkhoroo);
-    console.log(res, "info res");
+    // console.log(res, "info res");
   }, []);
 
   useEffect(() => {

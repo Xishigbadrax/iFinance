@@ -98,7 +98,7 @@ const CategoryId = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
-      <div className="  relative w-[vw]">
+      <div className="  relative ">
         <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center ">
           <div className=" mt-[20px] ml-[375px] lg:flex justify-between w-[450px] hidden">
             <div>
@@ -187,8 +187,8 @@ const CategoryId = () => {
                           }
                           key={index}
                         >
-                          <div className="xl:w-[770px]  mr-6 xl:mr-0 shadow-custom rounded mb-[40px] px-[30px] pb-[30px] ">
-                            <p className=" ">{parse(content)} </p>
+                          <div className="xl:w-[770px]   mr-6 xl:mr-0 shadow-custom rounded mb-[40px] px-[30px] pb-[30px] ">
+                            <p className="">{parse(content)} </p>
 
                             <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">

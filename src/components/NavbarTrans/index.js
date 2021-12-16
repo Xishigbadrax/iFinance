@@ -82,7 +82,6 @@ const NavbarTrans = () => {
   const [mobileForgotConfirm, setMobileForgotConfirm] = useState(false);
   const [screen, setScreen] = useState(false);
   const [mobileConfirm, setMobileConfirm] = useState(false);
-  
 
   const handleCancel = () => {
     setMobileConfirm(false);
@@ -122,7 +121,7 @@ const NavbarTrans = () => {
   };
 
   const onForgotTypeChange = (e) => {
-    console.log("radio checked", e.target.value);
+    // console.log("radio checked", e.target.value);
     setForgotType(e.target.value);
   };
   // Auth.destroyToken();
@@ -157,7 +156,7 @@ const NavbarTrans = () => {
       Router.push("/");
     }
 
-    console.log(res, "logout res");
+    // console.log(res, "logout res");
   };
 
   const handleCancelMessage = () => {
@@ -191,7 +190,7 @@ const NavbarTrans = () => {
         res.data.result.erp_info,
         res.data.result.uid
       );
-      console.log(res, "last res");
+      // console.log(res, "last res");
       setConfirmModal(false);
       setMobileConfirm(false);
       message.success("Амжилттай нэвтэрлээ");
@@ -202,12 +201,12 @@ const NavbarTrans = () => {
       setmessageShow(true);
     }
 
-    console.log(res, "confirm res");
+    // console.log(res, "confirm res");
   };
 
   const onFinishRegister = async (values) => {
     setScreen(true);
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
     setEmail(values.email);
     setPassword(values.password);
     var data = {
@@ -231,7 +230,7 @@ const NavbarTrans = () => {
       },
     });
 
-    console.log(res, "sign up res");
+    // console.log(res, "sign up res");
     if (res.data.result && res.data.result.msg) {
       setConfirmMessage(res.data.result.msg);
       setaddclass("right-panel-active");
@@ -252,7 +251,7 @@ const NavbarTrans = () => {
   };
 
   const onFinishLogin = async (values) => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
     const res = await axios.post(
       baseUrl + "login",
       {
@@ -296,7 +295,7 @@ const NavbarTrans = () => {
       setstatus("error");
       setmessageShow(true);
     }
-    console.log(res, "login res");
+    // console.log(res, "login res");
   };
 
   useEffect(() => {
@@ -309,38 +308,48 @@ const NavbarTrans = () => {
   }, [sessionId]);
 
   const menu = (
-    <Menu className="profileDropdownPopup">
+    <Menu className="profileDropdownPopup p-[30px]">
       <Menu.Item className="order" key="0">
-        <ShopOutlined className="text-[20px]" />
-        <a className="pl-1 " href="/order">
-          Миний захиалга
-        </a>
+        <div className="flex items-center">
+          <Image preview={false} width={20} height={20} src="/img/i1.svg" />
+          <a className="pl-1 text-[#2E28D4] text-[14px] font-semibold" href="/order">
+            Миний захиалга
+          </a>
+        </div>
       </Menu.Item>
 
       <Menu.Item className="order2" key="1">
-        <ShoppingCartOutlined className="text-[20px]" />
-        <a className="pl-1" href="/cart">
+        <div className="flex items-center ">
+          <Image preview={false} width={20} height={20} src="/img/i2.svg" />
+          <a className="pl-1 text-[#2E28D4]" href="/cart">
           Миний сагс
-        </a>
+          </a>
+        </div>
       </Menu.Item>
       <Menu.Item className="order2" key="2">
-        <EditOutlined className="text-[20px]" />
-        <a className="pl-1" href="/info">
+      <div className="flex items-center">
+          <Image preview={false} width={20} height={20} src="/img/i3.svg" />
+          <a className="pl-1 text-[#2E28D4]" href="/info">
           Миний мэдээлэл
-        </a>
+          </a>
+        </div>
       </Menu.Item>
       <Menu.Item className="order2" key="3">
-        <SettingOutlined className="text-[20px]" />
-        <a className="pl-1" href="/">
+      <div className="flex items-center">
+          <Image preview={false} width={20} height={20} src="/img/i4.svg" />
+          <a className="pl-1 text-[#2E28D4]" href="/">
           Тохиргоо
-        </a>
+          </a>
+        </div>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item className="order3" key="4">
-        <LogoutOutlined className="text-[20px]" />
-        <a className="pl-1" onClick={Logout}>
+      <div className="flex items-center">
+          <Image preview={false} width={20} height={20} src="/img/i5.svg" />
+          <a className="pl-1 text-[#F01A63]" href="/">
           Гарах
-        </a>
+          </a>
+        </div>
       </Menu.Item>
     </Menu>
   );
@@ -427,7 +436,7 @@ const NavbarTrans = () => {
               />
             </Form.Item>
             <Form.Item
-            name="password"
+              name="password"
               rules={[
                 {
                   required: true,
@@ -449,7 +458,6 @@ const NavbarTrans = () => {
                   required: true,
                   message: "Нууц үгээ оруулна уу!",
                 },
-                
               ]}
             >
               <Input.Password
@@ -731,7 +739,11 @@ const NavbarTrans = () => {
               ]}
             >
               <Space>
-                <Input onChange={(e) => setConfirmCode(e.target.value)} type="number" className=" w-[15rem]" />
+                <Input
+                  onChange={(e) => setConfirmCode(e.target.value)}
+                  type="number"
+                  className=" w-[15rem]"
+                />
               </Space>
             </Form.Item>
             <div className=" w-full flex justify-center">
@@ -756,7 +768,6 @@ const NavbarTrans = () => {
           </Form>
         </div>
       </Modal>
-
 
       {/* Desktop login & signup modal */}
 
@@ -1625,12 +1636,16 @@ const NavbarTrans = () => {
               </li>
               <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" text-white font-poppins-semibold">Бүтээгдэхүүн</a>
+                  <a className=" text-white font-poppins-semibold">
+                    Бүтээгдэхүүн
+                  </a>
                 </Link>
               </li>
               <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className="  text-white font-poppins-semibold">Үнийн санал</a>
+                  <a className="  text-white font-poppins-semibold">
+                    Үнийн санал
+                  </a>
                 </Link>
               </li>
 

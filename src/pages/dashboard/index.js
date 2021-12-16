@@ -69,13 +69,13 @@ const Dashboard = () => {
         <img className=" absolute w-full h-auto z-[-1]" src="/img/Slider.svg" /> */}
       {/* </div> */}
 
-      <div className="relative h-[100px] flex bg-red-500 overflow-hidden">
+      <div className="relative h-[100px] flex  overflow-hidden">
         <div className="absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans />
           </div>
 
-          <div className=" hidden  bg-red-600  my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+          <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Манай бүтээгдэхүүн
           </div>
         </div>
@@ -131,7 +131,7 @@ const Dashboard = () => {
         </p>
       </div>
 
-      <div className=" w-full flex flex-col justify-center px-4">
+      <div className=" w-full flex flex-col justify-center px-4 mb-[100px]">
         <div className=" flex justify-center">
           <Collapse
             accordion

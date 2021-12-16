@@ -119,7 +119,7 @@ const Navbar = ({}) => {
   };
 
   const onForgotTypeChange = (e) => {
-    console.log("radio checked", e.target.value);
+    // console.log("radio checked", e.target.value);
     setForgotType(e.target.value);
   };
   // Auth.destroyToken();
@@ -154,7 +154,7 @@ const Navbar = ({}) => {
       Router.push("/");
     }
 
-    console.log(res, "logout res");
+    // console.log(res, "logout res");
   };
 
   const handleCancelMessage = () => {
@@ -184,7 +184,7 @@ const Navbar = ({}) => {
       setUserSid(res.data.result.sid);
       setIsLogin(true);
       auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info);
-      console.log(res, "last res");
+      // console.log(res, "last res");
       setConfirmModal(false);
       message.success("Амжилттай нэвтэрлээ");
     } else {
@@ -194,11 +194,11 @@ const Navbar = ({}) => {
       setmessageShow(true);
     }
 
-    console.log(res, "confirm res");
+    // console.log(res, "confirm res");
   };
 
   const onFinishRegister = async (values) => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
     setEmail(values.email);
     setPassword(values.password);
     var data = {
@@ -222,7 +222,7 @@ const Navbar = ({}) => {
       },
     });
 
-    console.log(res, "sign up res");
+    // console.log(res, "sign up res");
     if (res.data.result && res.data.result.msg) {
       setConfirmMessage(res.data.result.msg);
       setaddclass("right-panel-active");
@@ -244,7 +244,7 @@ const Navbar = ({}) => {
 
   const onFinishLogin = async (values) => {
    
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
     const res = await axios.post(
       baseUrl + "login",
       {
@@ -267,7 +267,7 @@ const Navbar = ({}) => {
       }
     );
     if (res.data.result && res.data.result) {
-      console.log(res, "login res");
+      // console.log(res, "login res");
       setUserName(res.data.result.erp_info);
       auth_cookie.setToken(res.data.result.sid, res.data.result.erp_info, res.data.result.uid);
       window.location.reload(false);
@@ -285,11 +285,11 @@ const Navbar = ({}) => {
       setstatus("error");
       setmessageShow(true);
     }
-    console.log(res, "login res");
+    // console.log(res, "login res");
   };
 
   useEffect(() => {
-    console.log(sessionId, "id shuu");
+    // console.log(sessionId, "id shuu");
     // fetch(
     //   "https://geolocation-db.com/json/297364b0-2bc6-11ec-a8a6-1fc54772a803"
     // )
@@ -298,40 +298,50 @@ const Navbar = ({}) => {
   }, [sessionId]);
 
   const menu = (
-    <Menu className="profileDropdownPopup">
-      <Menu.Item className="order" key="0">
-        <ShopOutlined className="text-[20px]" />
-        <a className="pl-1 pointer-events-none" href="/order">
+    <Menu className="profileDropdownPopup p-[30px]">
+    <Menu.Item className="order" key="0">
+      <div className="flex items-center">
+        <Image preview={false} width={20} height={20} src="/img/i1.svg" />
+        <a className="pl-1 text-[#2E28D4]" href="/order">
           Миний захиалга
         </a>
-      </Menu.Item>
+      </div>
+    </Menu.Item>
 
-      <Menu.Item className="order2" key="1">
-        <ShoppingCartOutlined className="text-[20px]" />
-        <a className="pl-1" href="/cart">
-          Миний сагс
+    <Menu.Item className="order2" key="1">
+      <div className="flex items-center">
+        <Image preview={false} width={20} height={20} src="/img/i2.svg" />
+        <a className="pl-1 text-[#2E28D4]" href="/cart">
+        Миний сагс
         </a>
-      </Menu.Item>
-      <Menu.Item className="order2" key="2">
-        <EditOutlined className="text-[20px]" />
-        <a className="pl-1" href="/info">
-          Миний мэдээлэл
+      </div>
+    </Menu.Item>
+    <Menu.Item className="order2" key="2">
+    <div className="flex items-center">
+        <Image preview={false} width={20} height={20} src="/img/i3.svg" />
+        <a className="pl-1 text-[#2E28D4]" href="/info">
+        Миний мэдээлэл
         </a>
-      </Menu.Item>
-      <Menu.Item className="order2" key="3">
-        <SettingOutlined className="text-[20px]" />
-        <a className="pl-1" href="/">
-          Тохиргоо
+      </div>
+    </Menu.Item>
+    <Menu.Item className="order2" key="3">
+    <div className="flex items-center">
+        <Image preview={false} width={20} height={20} src="/img/i4.svg" />
+        <a className="pl-1 text-[#2E28D4]" href="/">
+        Тохиргоо
         </a>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item className="order3" key="4">
-        <LogoutOutlined className="text-[20px]" />
-        <a className="pl-1" onClick={Logout}>
-          Гарах
+      </div>
+    </Menu.Item>
+    <Menu.Divider />
+    <Menu.Item className="order3" key="4">
+    <div className="flex items-center">
+        <Image preview={false} width={20} height={20} src="/img/i5.svg" />
+        <a className="pl-1 text-[#F01A63]" href="/">
+        Гарах
         </a>
-      </Menu.Item>
-    </Menu>
+      </div>
+    </Menu.Item>
+  </Menu>
   );
 
   return (

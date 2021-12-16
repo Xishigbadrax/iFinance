@@ -159,8 +159,11 @@ const Cart = () => {
 
         name: (
           <div className=" flex items-center">
+            { item.product_icon ? 
             <Image src={"data:image/png;base64," + item.product_icon} />
-
+            :
+            <Image width={30} height={30} src="/img/default.png" />
+            }
             <span className=" ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
               {item.product_name}
             </span>

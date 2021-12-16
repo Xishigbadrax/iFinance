@@ -126,7 +126,7 @@ const Pricing = ({ id }) => {
         }
       )
       .then((response) => {
-        console.log(response, "ggg");
+        // console.log(response, "ggg");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -381,9 +381,9 @@ const Pricing = ({ id }) => {
 
             <div className=" mt-[1.875rem]  shadow-custom">
               <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                {mainData[0]?.product_category}
+                {mainData && mainData[0]?.product_category}
               </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {mainData?.map((item, index) => {
                   return (
                     <div
@@ -449,7 +449,7 @@ const Pricing = ({ id }) => {
               <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4 gap-0  xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+              <div className="grid grid-cols-2 gap-3  md:grid-cols-5 lg:gap-4   md:pl-4 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
                   return (
                     <div
@@ -670,7 +670,7 @@ const Pricing = ({ id }) => {
             </div>
           </div>
         </div>
-        <div className=" flex justify-center">
+        <div className=" flex justify-center mb-10 xl:mb-0">
           <div className=" ml-[10px] w-[370px]   xl:h-[625px] shadow-custom rounded-[8px] ">
             <Tabs className="payment" defaultActiveKey="1">
               <TabPane tab="САР" key="1">

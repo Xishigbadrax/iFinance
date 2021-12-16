@@ -593,9 +593,9 @@ color: red !important;
 .ant-tabs-tabpane .ant-tabs-tabpane-active .test{
   margin-top: -100px !important;
 }
- .ant-tabs-tabpane .ant-tabs-tabpane-active{
+ /* .ant-tabs-tabpane .ant-tabs-tabpane-active{
   box-shadow: 5px 10px !important;
-}
+} */
 
  /* thead[class*="ant-table-thead"] th{
   background-image: linear-gradient(45deg, #2E28D4  , #AC27FD) !important;
