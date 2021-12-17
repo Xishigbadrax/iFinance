@@ -17,12 +17,7 @@ import {
   UserOutlined,
   WarningOutlined,
   PhoneOutlined,
-  ShopOutlined,
-  ShoppingCartOutlined,
   MailOutlined,
-  EditOutlined,
-  SettingOutlined,
-  LogoutOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useState, useContext, useEffect } from "react";
@@ -37,7 +32,7 @@ import Auth from "../../utils/auth";
 import Router from "next/router";
 import newhead from "../../../public/img/newhead.svg";
 
-const NavbarTrans = () => {
+const NavbarTrans = ({ cartLogin }) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const baseDB = process.env.NEXT_PUBLIC_DB;
 
@@ -82,6 +77,17 @@ const NavbarTrans = () => {
   const [mobileForgotConfirm, setMobileForgotConfirm] = useState(false);
   const [screen, setScreen] = useState(false);
   const [mobileConfirm, setMobileConfirm] = useState(false);
+  const [mobileForgotConfirmModal, setMobileForgotConfirmModal] =
+    useState(false);
+
+  const [forgotPhoneValue, setForgotPhoneValue] = useState();
+  const [forgotEmailValue, setForgotEmailValue] = useState("");
+  const [forgotEmailConfirmModal, setForgotEmailConfirmModal] = useState(false);
+  const [forgotPhoneConfirmModal, setForgotPhoneConfirmModal] = useState(false);
+  const [newPass, setNewPass] = useState("");
+  const [newPassConfirm, setNewPassConfirm] = useState("");
+
+  const [test, setTest] = useState(false);
 
   const handleCancel = () => {
     setMobileConfirm(false);
@@ -93,6 +99,10 @@ const NavbarTrans = () => {
     setForgotPassConfirm(false);
     setMobileForgot(false);
     setMobileForgotConfirm(false);
+    setForgotEmailConfirmModal(false);
+    setForgotPhoneConfirmModal(false);
+    setMobileForgotConfirmModal(false);
+    setMobileForgotConfirmModal(false);
   };
   const renderer = ({ hours, minutes, seconds }) => (
     <span>
@@ -119,6 +129,122 @@ const NavbarTrans = () => {
     setLoginModal(false);
     setForgotPassModal(true);
   };
+  const onFunction = () => {
+    setaddclass("right-panel-active");
+    setForgotEmailConfirmModal(true);
+    setForgotPassConfirm(false);
+  };
+  const onMobileFunction = () => {
+    setMobileForgotConfirmModal(true);
+    setMobileForgot(false);
+  };
+
+  const [width, setWidth] = useState();
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+  // console.log(width, "widdd");
+  const onForgotConfirmModal = async () => {
+    await axios
+      .post(
+        baseUrl + "user/reset_password",
+        {
+          jsonrpc: 2.0,
+          params: {
+            email: forgotEmailValue,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response, "forgot res");
+        response?.data?.result && onFunction();
+      });
+  };
+
+  const onForgotConfirmModal2 = async () => {
+    await axios
+      .post(
+        baseUrl + "user/reset_password",
+        {
+          jsonrpc: 2.0,
+          params: {
+            phone: forgotPhoneValue,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + sid,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response, "forgot res");
+      });
+  };
+
+  const onMobileForgot = async () => {
+    await axios
+      .post(
+        baseUrl + "user/reset_password",
+        {
+          jsonrpc: 2.0,
+          params: {
+            email: forgotEmailValue,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response, "forgot res");
+        response?.data?.result && onMobileFunction();
+      });
+  };
+
+  const onMobileForgot2 = async () => {
+    await axios
+      .post(
+        baseUrl + "user/reset_password",
+        {
+          jsonrpc: 2.0,
+          params: {
+            phone: forgotPhoneValue,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + sid,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response, "forgot res");
+      });
+  };
 
   const onForgotTypeChange = (e) => {
     // console.log("radio checked", e.target.value);
@@ -127,6 +253,10 @@ const NavbarTrans = () => {
   // Auth.destroyToken();
   const onForgotModal = () => {
     setForgotPassConfirm(true);
+  };
+  const onMobileForgotModal = () => {
+    setMobileLogin(false);
+    setMobileForgot(true);
   };
 
   const Signup = () => {
@@ -159,6 +289,36 @@ const NavbarTrans = () => {
     // console.log(res, "logout res");
   };
 
+  const onForgotConFirm = async () => {
+    await axios
+      .post(
+        baseUrl + "user/reset_password/confirm",
+        {
+          jsonrpc: 2.0,
+          params: {
+            email: forgotEmailValue,
+            code: confirmCode,
+            password: newPass,
+            password_confirm: newPassConfirm,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response, "last forgot res");
+        response?.data?.result == true &&
+          message.success("Амжилттай") & handleCancel();
+        response?.data?.error?.data?.message &&
+          message.error(response?.data?.error?.data?.message);
+      });
+  };
+
   const handleCancelMessage = () => {
     setmessageShow(false);
   };
@@ -169,7 +329,7 @@ const NavbarTrans = () => {
         jsonrpc: 2.0,
         params: {
           code: confirmCode,
-         
+
           login: email,
           password: password,
         },
@@ -213,7 +373,6 @@ const NavbarTrans = () => {
       jsonrpc: 2.0,
 
       params: {
-       
         name: values.name,
         login: values.email,
         password: values.password,
@@ -250,6 +409,49 @@ const NavbarTrans = () => {
     }
   };
 
+  const onMobileRegister = async (values) => {
+    setScreen(true);
+    // console.log("Received values of form: ", values);
+    setEmail(values.email);
+    setPassword(values.password);
+    var data = {
+      jsonrpc: 2.0,
+
+      params: {
+        name: values.name,
+        login: values.email,
+        password: values.password,
+        confirm_password: values.confirm_password,
+        phone_number: values.phone_number,
+        // session_id: sessionId,
+      },
+    };
+
+    const res = await axios.post(baseUrl + "signup", data, {
+      headers: {
+        "Set-Cookie": "session_id=" + sessionId,
+        "Content-Type": "application/json",
+      },
+    });
+
+    // console.log(res, "sign up res");
+    if (res.data.result && res.data.result.msg) {
+      setConfirmMessage(res.data.result.msg);
+      setMobileConfirm(true);
+      setMobileSignUp(false);
+    } else if (res.data.error && res.data.error.data.message) {
+      settitle("Алдлаа гарлаа");
+      settext(res.data.error.data.message);
+      setstatus("error");
+      setmessageShow(true);
+    } else {
+      settitle("Алдлаа");
+      setConfirmMessage("Бүртгэхэд алдаа гарлаа");
+      setstatus("error");
+      setmessageShow(true);
+    }
+  };
+
   const onFinishLogin = async (values) => {
     // console.log("Received values of form: ", values);
     const res = await axios.post(
@@ -257,7 +459,6 @@ const NavbarTrans = () => {
       {
         jsonrpc: 2.0,
         params: {
-          
           login: values.name,
           password: values.password,
           // device: {
@@ -299,20 +500,25 @@ const NavbarTrans = () => {
   };
 
   useEffect(() => {
-    // console.log(sessionId, "id shuu");
-    // fetch(
-    //   "https://geolocation-db.com/json/297364b0-2bc6-11ec-a8a6-1fc54772a803"
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => setDeviceInfo(data));
-  }, [sessionId]);
+    if (test) {
+
+
+      Auth.getToken() ? null  : width < 768 ? setMobileLogin(true) : setLoginModal(true);
+      
+    } else {
+      setTest(true);
+    }
+  }, [cartLogin]);
 
   const menu = (
     <Menu className="profileDropdownPopup p-[30px]">
       <Menu.Item className="order" key="0">
         <div className="flex items-center">
           <Image preview={false} width={20} height={20} src="/img/i1.svg" />
-          <a className="pl-1 text-[#2E28D4] text-[14px] font-semibold" href="/order">
+          <a
+            className="pl-1 text-[#2E28D4] text-[14px] font-semibold"
+            href="/order"
+          >
             Миний захиалга
           </a>
         </div>
@@ -322,32 +528,32 @@ const NavbarTrans = () => {
         <div className="flex items-center ">
           <Image preview={false} width={20} height={20} src="/img/i2.svg" />
           <a className="pl-1 text-[#2E28D4]" href="/cart">
-          Миний сагс
+            Миний сагс
           </a>
         </div>
       </Menu.Item>
       <Menu.Item className="order2" key="2">
-      <div className="flex items-center">
+        <div className="flex items-center">
           <Image preview={false} width={20} height={20} src="/img/i3.svg" />
           <a className="pl-1 text-[#2E28D4]" href="/info">
-          Миний мэдээлэл
+            Миний мэдээлэл
           </a>
         </div>
       </Menu.Item>
       <Menu.Item className="order2" key="3">
-      <div className="flex items-center">
+        <div className="flex items-center">
           <Image preview={false} width={20} height={20} src="/img/i4.svg" />
           <a className="pl-1 text-[#2E28D4]" href="/">
-          Тохиргоо
+            Тохиргоо
           </a>
         </div>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item className="order3" key="4">
-      <div onClick={Logout} className="flex items-center">
+        <div onClick={Logout} className="flex items-center">
           <Image preview={false} width={20} height={20} src="/img/i5.svg" />
           <a className="pl-1 text-[#F01A63]" href="/">
-          Гарах
+            Гарах
           </a>
         </div>
       </Menu.Item>
@@ -381,7 +587,7 @@ const NavbarTrans = () => {
             initialValues={{
               remember: true,
             }}
-            onFinish={onFinishRegister}
+            onFinish={onMobileRegister}
           >
             <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-2">
               Бүртгүүлэх
@@ -552,7 +758,7 @@ const NavbarTrans = () => {
                     <Checkbox>Намайг сана</Checkbox>
                   </Form.Item>
                 </div>
-                <div onClick={onForgotModal}>Нууц үгээ мартсан?</div>
+                <div onClick={onMobileForgotModal}>Нууц үгээ мартсан?</div>
               </div>
             </Form.Item>
 
@@ -585,7 +791,6 @@ const NavbarTrans = () => {
             initialValues={{
               remember: true,
             }}
-            onFinish={onFinishRegister}
           >
             <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-10">
               Нууц үгээ мартсан
@@ -609,16 +814,17 @@ const NavbarTrans = () => {
                   className=" w-[20rem] h-[3rem] rounded-[41px]"
                   id="normal_signup_name"
                   placeholder="Бүртгэлтэй утасны дугаар"
+                  onChange={(e) => setForgotPhoneValue(e.target.value)}
                 />
               ) : (
                 <Input
-                  maxLength={8}
                   suffix={
                     <MailOutlined className="text-[1.25rem] opacity-70" />
                   }
                   className=" w-[20rem] h-[3rem] rounded-[41px]"
                   id="normal_signup_name"
                   placeholder="Бүртгэлтэй и-мэйл хаяг"
+                  onChange={(e) => setForgotEmailValue(e.target.value)}
                 />
               )}
             </Form.Item>
@@ -638,13 +844,23 @@ const NavbarTrans = () => {
               </div>
             </div>
             <Form.Item>
-              <Button
-                className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
-                type="primary"
-                htmlType="submit"
-              >
-                Илгээх
-              </Button>
+              {forgotType == 1 ? (
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                  type="primary"
+                  onClick={onMobileForgot2}
+                >
+                  Илгээх
+                </Button>
+              ) : (
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                  type="primary"
+                  onClick={onMobileForgot}
+                >
+                  Илгээх
+                </Button>
+              )}
             </Form.Item>
           </Form>
         </div>
@@ -761,6 +977,105 @@ const NavbarTrans = () => {
                 className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
                 type="primary"
                 htmlType="submit"
+              >
+                Илгээх
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </Modal>
+
+      {/* mobile forgot confirm modal */}
+
+      <Modal
+        visible={mobileForgotConfirmModal}
+        footer={[]}
+        onCancel={handleCancel}
+      >
+        <div>
+          <Image
+            className="pt-[3rem] pl-[3rem]"
+            preview={false}
+            src="/img/logo.png"
+          />
+
+          <Form
+            name="normal_login3"
+            className="form"
+            initialValues={{
+              remember: true,
+            }}
+          >
+            <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-10">
+              Баталгаажуулах
+            </p>
+
+            <Form.Item
+              name="forgotValue"
+              rules={[
+                {
+                  required: true,
+                  message: "Хэрэглэгчийн нэрээ оруулна уу!",
+                },
+              ]}
+            >
+              <Space>
+                <Input
+                  onChange={(e) => setConfirmCode(e.target.value)}
+                  type="number"
+                  className=" w-[15rem]"
+                />
+              </Space>
+            </Form.Item>
+            <Form.Item
+              name="forgotValue"
+              rules={[
+                {
+                  required: true,
+                  message: "Мэдээллээ оруулна уу!",
+                },
+              ]}
+            >
+              <div className=" w-full flex justify-center mt-[20px] ">
+                <div
+                  className=" w-[300px]"
+                  style={{ borderBottom: "1px solid black" }}
+                >
+                  <Input.Password
+                    onChange={(e) => setNewPass(e.target.value)}
+                    bordered={false}
+                    placeholder="Шинэ нууц үг "
+                  />
+                </div>
+              </div>
+              <div className=" w-full flex justify-center  mt-[20px]  ">
+                <div
+                  className=" w-[300px]"
+                  style={{ borderBottom: "1px solid black" }}
+                >
+                  <Input.Password
+                    onChange={(e) => setNewPassConfirm(e.target.value)}
+                    bordered={false}
+                    placeholder="Шинэ нууц үг давтах"
+                  />
+                </div>
+              </div>
+            </Form.Item>
+            <div className=" w-full flex justify-center">
+              <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
+                <div className="text-[#F01A63]">
+                  <Countdown renderer={renderer} date={Date.now() + 180000} />
+                </div>
+              </div>
+            </div>
+            <div className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-pointer ">
+              Баталгаажуулах код авах
+            </div>
+            <Form.Item>
+              <Button
+                className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                type="primary"
+                onClick={onForgotConFirm}
               >
                 Илгээх
               </Button>
@@ -1067,10 +1382,11 @@ const NavbarTrans = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Хэрэглэгчийн нэрээ оруулна уу!",
+                    message: "Нууц код авах мэдээллээ оруулна уу!",
                   },
                 ]}
               >
+                {/* aliv */}
                 {forgotType == 1 ? (
                   <Input
                     maxLength={8}
@@ -1080,16 +1396,18 @@ const NavbarTrans = () => {
                     className=" w-[27.5rem] h-[3rem] rounded-[41px]"
                     id="normal_signup_name"
                     placeholder="Бүртгэлтэй утасны дугаар"
+                    onChange={(e) => setForgotPhoneValue(e.target.value)}
                   />
                 ) : (
                   <Input
-                    maxLength={8}
+                    maxLength={30}
                     suffix={
                       <MailOutlined className="text-[1.25rem] opacity-70" />
                     }
                     className=" w-[27.5rem] h-[3rem] rounded-[41px]"
-                    id="normal_signup_name"
+                    id="normal_signup_утйшл"
                     placeholder="Бүртгэлтэй и-мэйл хаяг"
+                    onChange={(e) => setForgotEmailValue(e.target.value)}
                   />
                 )}
               </Form.Item>
@@ -1109,13 +1427,24 @@ const NavbarTrans = () => {
                 </div>
               </div>
               <Form.Item>
-                <Button
-                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
-                  type="primary"
-                  htmlType="submit"
-                >
-                  Илгээх
-                </Button>
+                {forgotType == 1 ? (
+                  <Button
+                    className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                    type="primary"
+                    htmlType="submit"
+                    onClick={onForgotConfirmModal2}
+                  >
+                    Илгээх
+                  </Button>
+                ) : (
+                  <Button
+                    className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                    type="primary"
+                    onClick={onForgotConfirmModal}
+                  >
+                    Илгээх
+                  </Button>
+                )}
               </Form.Item>
             </Form>
           </div>
@@ -1279,6 +1608,439 @@ const NavbarTrans = () => {
                     fields={4}
                   />
                 </Space>
+              </Form.Item>
+              <div className=" w-full flex justify-center">
+                <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
+                  <div className="text-[#F01A63]">
+                    <Countdown renderer={renderer} date={Date.now() + 180000} />
+                  </div>
+                </div>
+              </div>
+              <div className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-pointer">
+                Баталгаажуулах код авах
+              </div>
+              <Form.Item>
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Илгээх
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+
+          {/* Login form */}
+
+          <div className="form-container sign-in-container">
+            <Image
+              className="pt-[3rem] pl-[3rem]"
+              preview={false}
+              src="/img/logo.png"
+            />
+
+            <Form
+              name="normal_login4"
+              className="form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinishLogin}
+            >
+              <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-20">
+                Нэвтрэх
+              </p>
+              <Form.Item
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Хэрэглэгчийн нэрээ оруулна уу!",
+                  },
+                ]}
+              >
+                <Input
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  placeholder="Нэвтрэх нэр*"
+                />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Нууц үгээ оруулна уу!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  type="password"
+                  placeholder="Нууц үг*"
+                />
+              </Form.Item>
+              <Form.Item>
+                <div className=" flex justify-between w-full pl-[2rem] pr-[2rem] ">
+                  <div>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                      <Checkbox>Намайг сана</Checkbox>
+                    </Form.Item>
+                  </div>
+                  <div
+                    onClick={onForgotPass}
+                    className=" text-[#2E28D4] cursor-pointer"
+                  >
+                    Нууц үгээ мартсан?
+                  </div>
+                </div>
+              </Form.Item>
+
+              <Form.Item>
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px]"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Нэвтрэх
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+          <div className="overlay-container">
+            <div className="overlay">
+              <div className="overlay-panel overlay-left">
+                <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
+                <p className=" text-[1.125rem]">
+                  Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
+                </p>
+                <Image preview={false} src="/img/login.png" />
+
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-transparent border-[#fff] bg-opacity-50 rounded-[43px] mt-[2rem]"
+                  onClick={() => setaddclass("")}
+                  type="primary"
+                >
+                  Нэвтрэх
+                </Button>
+              </div>
+              <div className="overlay-panel overlay-right">
+                <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
+                <p className=" text-[1.125rem]">
+                  Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
+                </p>
+                <Image preview={false} src="/img/login.png" />
+
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-transparent border-[#fff] bg-opacity-50 rounded-[43px] mt-[2rem]"
+                  onClick={() => setaddclass("right-panel-active")}
+                  type="primary"
+                >
+                  Баталгаажуулах
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Nuuts ug martsan modal */}
+      {/* email */}
+      <Modal
+        centered={true}
+        width={"60.25rem"}
+        className="login2"
+        footer={[]}
+        visible={forgotEmailConfirmModal}
+        onCancel={handleCancel}
+      >
+        <div className={`container ${addclass}`} id="container">
+          <div className="form-container sign-up-container">
+            <Image
+              className="pt-[3rem] pl-[3rem] "
+              preview={false}
+              src="/img/logo.png"
+            />
+
+            <Form
+              name="normal_login3"
+              className="form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onForgotConFirm}
+            >
+              <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-10">
+                Баталгаажуулах
+              </p>
+
+              <Form.Item
+                name="forgotValue"
+                rules={[
+                  {
+                    required: true,
+                    message: "Баталгаажуулах 4 оронтой тоо!",
+                  },
+                ]}
+              >
+                <Space>
+                  <ReactCodeInput
+                    onChange={(e) => setForgotConfirmCode(e)}
+                    className="confirmInput"
+                    fields={4}
+                  />
+                </Space>
+              </Form.Item>
+              <Form.Item
+                name="forgotValue"
+                rules={[
+                  {
+                    required: true,
+                    message: "Мэдээллээ оруулна уу!",
+                  },
+                ]}
+              >
+                <div className=" w-full flex justify-center mt-[20px] ">
+                  <div
+                    className=" w-[300px]"
+                    style={{ borderBottom: "1px solid black" }}
+                  >
+                    <Input.Password
+                      onChange={(e) => setNewPass(e.target.value)}
+                      bordered={false}
+                      placeholder="Шинэ нууц үг "
+                    />
+                  </div>
+                </div>
+                <div className=" w-full flex justify-center  mt-[20px]  ">
+                  <div
+                    className=" w-[300px]"
+                    style={{ borderBottom: "1px solid black" }}
+                  >
+                    <Input.Password
+                      onChange={(e) => setNewPassConfirm(e.target.value)}
+                      bordered={false}
+                      placeholder="Шинэ нууц үг давтах"
+                    />
+                  </div>
+                </div>
+              </Form.Item>
+
+              <div className=" w-full flex justify-center">
+                <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
+                  <div className="text-[#F01A63]">
+                    <Countdown renderer={renderer} date={Date.now() + 180000} />
+                  </div>
+                </div>
+              </div>
+              <div className="text-[13px] text-[#acabc9] mt-[1.5rem] cursor-pointer">
+                Баталгаажуулах код авах
+              </div>
+              <Form.Item>
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Илгээх
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+
+          {/* Login form */}
+
+          <div className="form-container sign-in-container">
+            <Image
+              className="pt-[3rem] pl-[3rem]"
+              preview={false}
+              src="/img/logo.png"
+            />
+
+            <Form
+              name="normal_login4"
+              className="form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinishLogin}
+            >
+              <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-20">
+                Нэвтрэх
+              </p>
+              <Form.Item
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Хэрэглэгчийн нэрээ оруулна уу!",
+                  },
+                ]}
+              >
+                <Input
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  placeholder="Нэвтрэх нэр*"
+                />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Нууц үгээ оруулна уу!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  type="password"
+                  placeholder="Нууц үг*"
+                />
+              </Form.Item>
+              <Form.Item>
+                <div className=" flex justify-between w-full pl-[2rem] pr-[2rem] ">
+                  <div>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                      <Checkbox>Намайг сана</Checkbox>
+                    </Form.Item>
+                  </div>
+                  <div
+                    onClick={onForgotPass}
+                    className=" text-[#2E28D4] cursor-pointer"
+                  >
+                    Нууц үгээ мартсан?
+                  </div>
+                </div>
+              </Form.Item>
+
+              <Form.Item>
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px]"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Нэвтрэх
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+          <div className="overlay-container">
+            <div className="overlay">
+              <div className="overlay-panel overlay-left">
+                <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
+                <p className=" text-[1.125rem]">
+                  Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
+                </p>
+                <Image preview={false} src="/img/login.png" />
+
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-transparent border-[#fff] bg-opacity-50 rounded-[43px] mt-[2rem]"
+                  onClick={() => setaddclass("")}
+                  type="primary"
+                >
+                  Нэвтрэх
+                </Button>
+              </div>
+              <div className="overlay-panel overlay-right">
+                <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
+                <p className=" text-[1.125rem]">
+                  Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
+                </p>
+                <Image preview={false} src="/img/login.png" />
+
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-transparent border-[#fff] bg-opacity-50 rounded-[43px] mt-[2rem]"
+                  onClick={() => setaddclass("right-panel-active")}
+                  type="primary"
+                >
+                  Баталгаажуулах
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
+      {/* utas */}
+
+      <Modal
+        centered={true}
+        width={"60.25rem"}
+        className="login2"
+        footer={[]}
+        visible={forgotPhoneConfirmModal}
+        onCancel={handleCancel}
+      >
+        <div className={`container ${addclass}`} id="container">
+          <div className="form-container sign-up-container">
+            <Image
+              className="pt-[3rem] pl-[3rem] "
+              preview={false}
+              src="/img/logo.png"
+            />
+
+            <Form
+              name="normal_login3"
+              className="form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinishRegister}
+            >
+              <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-10">
+                Баталгаажуулах
+              </p>
+
+              <Form.Item
+                name="forgotValue"
+                rules={[
+                  {
+                    required: true,
+                    message: "Хэрэглэгчийн нэрээ оруулна уу!",
+                  },
+                ]}
+              >
+                <Space>
+                  <ReactCodeInput
+                    onChange={(e) => setForgotConfirmCode(e)}
+                    className="confirmInput"
+                    fields={4}
+                  />
+                </Space>
+              </Form.Item>
+              <Form.Item
+                name="forgotValue"
+                rules={[
+                  {
+                    required: true,
+                    message: "Мэдээллээ оруулна уу!",
+                  },
+                ]}
+              >
+                <div className=" w-full flex justify-center mt-[20px] ">
+                  <div
+                    className=" w-[300px]"
+                    style={{ borderBottom: "1px solid black" }}
+                  >
+                    <Input.Password
+                      onChange={(e) => setNewPass(e.target.value)}
+                      bordered={false}
+                      placeholder="Шинэ нууц үг "
+                    />
+                  </div>
+                </div>
+                <div className=" w-full flex justify-center  mt-[20px]  ">
+                  <div
+                    className=" w-[300px]"
+                    style={{ borderBottom: "1px solid black" }}
+                  >
+                    <Input.Password
+                      onChange={(e) => setNewPassConfirm(e.target.value)}
+                      bordered={false}
+                      placeholder="Шинэ нууц үг давтах"
+                    />
+                  </div>
+                </div>
               </Form.Item>
               <div className=" w-full flex justify-center">
                 <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
@@ -1600,6 +2362,8 @@ const NavbarTrans = () => {
         </div>
       </Modal>
 
+      {/* mobile confirm modal */}
+
       <div className="flex justify-around w-[75rem] h-full m-auto items-center">
         <div className="z-10">
           <a href="/">
@@ -1714,46 +2478,6 @@ const NavbarTrans = () => {
       >
         <Alert message={title} description={text} type={status} />
       </Modal>
-      {/* <Modal
-        visible={confirmModal}
-        title="Мэдээлэл"
-        onCancel={handleCancel}
-        footer={[]}
-      >
-        <div className=" flex flex-col lg:flex-row justify-center text-[2.25rem] mb-3">
-          <div
-            style={{ marginRight: "5%", color: "#6366F1", fontWeight: "bold" }}
-          >
-            Бүртгэл
-          </div>
-          <div style={{ color: "#2D3748", fontWeight: "bold" }}>
-            Баталгаажуулах
-          </div>
-        </div>
-        <p>{confirmMessage}</p>
-        <MaskedInput
-          mask="1111"
-          onChange={(e) => setConfirmCode(e.target.value)}
-          style={{ marginBottom: "1rem" }}
-          placeholder="Баталгаажуулах тоо"
-        />
-        <div style={{ textAlign: "center" }}>
-          <Button
-            onClick={onConfirmEmail}
-            style={{
-              width: "15rem",
-              height: "3rem",
-              backgroundColor: "#A855F7",
-              fontSize: "16px",
-              borderRadius: "15px",
-              border: "none",
-            }}
-            type="primary"
-          >
-            Баталгаажуулах
-          </Button>
-        </div>
-      </Modal> */}
     </div>
   );
 };

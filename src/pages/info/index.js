@@ -18,6 +18,7 @@ import {
 import Auth from "../../utils/auth";
 import axios from "axios";
 import Head from "next/head";
+import router from "next/router";
 
 const Info = () => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
@@ -143,6 +144,12 @@ const Info = () => {
     setSumkhorooId(value);
     // console.log(value, "iddd");
   };
+  const onResChangePass = (value) => {
+    message.success("Амжилттай солигдлоо")
+    Auth.destroyToken();
+    router.push("/")
+  };
+  
 
   const onChangeMail = async () => {
     const res = await axios.post(
@@ -165,6 +172,7 @@ const Info = () => {
     // console.log(res, "mail res");
   };
   
+  
   const onChangePass = async (value) => {
     // console.log(form2.getFieldsValue().old, "pass iin utga");
     const res = await axios.post(
@@ -185,7 +193,8 @@ const Info = () => {
         },
       }
     );
-    // console.log(res, "pass res");
+    res?.data?.result == "SUCCESS" ? onResChangePass() : message.error("Амжилтгүй");
+    console.log(res, "pass res");
   };
 
   useEffect(async () => {

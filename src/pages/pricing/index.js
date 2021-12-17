@@ -12,6 +12,7 @@ import {
   Select,
   message,
   Modal,
+  Input
 } from "antd";
 
 import Auth from "../../utils/auth";
@@ -23,7 +24,7 @@ import { set } from "js-cookie";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Head from "next/head";
 
-const Pricing = ({  }) => {
+const Pricing = ({}) => {
   // const router = useRouter();
   // const { id } = router.query;
   // console.log(id, 'this is id')
@@ -72,7 +73,20 @@ const Pricing = ({  }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bank, setBank] = useState();
   const [invoice, setInvoice] = useState();
- 
+
+  const [module1, setModule1] = useState([]);
+  const [module2, setModule2] = useState([]);
+  const [module3, setModule3] = useState([]);
+  const [module4, setModule4] = useState([]);
+  const [module5, setModule5] = useState([]);
+  const [module6, setModule6] = useState([]);
+  const [module7, setModule7] = useState([]);
+  const [module8, setModule8] = useState([]);
+  const [module9, setModule9] = useState([]);
+
+  const [domain, setDomain] = useState();
+  const [domainState, setDomainState] = useState(null);
+  const [lock, setLock] = useState(false);
 
   // const [isChecked, setIsChecked] = useState([]);
 
@@ -113,7 +127,7 @@ const Pricing = ({  }) => {
         {
           jsonrpc: 2.0,
           params: {
-            category_id: ""
+            category_id: "",
           },
         },
 
@@ -125,7 +139,7 @@ const Pricing = ({  }) => {
         }
       )
       .then((response) => {
-        console.log(response, "all module");
+        // console.log(response, "all module");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -151,7 +165,6 @@ const Pricing = ({  }) => {
     var data = {
       jsonrpc: 2.0,
       params: {
-      
         uid: userID,
         server_id: serverId,
         type: type,
@@ -176,6 +189,36 @@ const Pricing = ({  }) => {
       message.warning("Хүсэлт амжилтгүй");
     }
     // console.log(res, "purchase res");
+  };
+
+  const onCheck = async () => {
+    await axios
+      .post(
+        baseUrl + "subdomain/checker",
+        {
+          jsonrpc: 2.0,
+          params: {
+            domain: domain,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        
+        console.log(response, "dom shalgah");
+        setDomainState(response.data.result);
+        response?.data?.result == true ?   setLock(true) : setLock(false)
+      
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const isChecked = (item, isRequired) => {
@@ -247,11 +290,59 @@ const Pricing = ({  }) => {
     setServerPriceYear(Number(serverPrice) * 12);
   }, [serverPrice]);
   useEffect(() => {
-    // console.log(serverState1, "serverstateee1");
-  }, [serverState1]);
+    var a = [];
+    var a2 = [];
+    var a3 = [];
+    var a4 = [];
+    var a5 = [];
+    var a6 = [];
+    var a7 = [];
+    var a8 = [];
+    var a9 = [];
+    
+    mainData?.map((item) => {
+      if (item.product_category_id == 7) {
+        a.push(item);
+      }
+      if (item.product_category_id == 5) {
+        a2.push(item);
+      }
+      if (item.product_category_id == 6) {
+        a3.push(item);
+      }
+      if (item.product_category_id == 15) {
+        a4.push(item);
+      }
+      if (item.product_category_id == 9) {
+        a5.push(item);
+      }
+      if (item.product_category_id == 16) {
+        a6.push(item);
+      }
+      if (item.product_category_id == 11) {
+        a7.push(item);
+      }
+      if (item.product_category_id == 8) {
+        a8.push(item);
+      }
+      if (item.product_category_id == 13) {
+        a9.push(item);
+      }
+   
+      setModule1(a);
+      setModule2(a2);
+      setModule3(a3);
+      setModule4(a4);
+      setModule5(a5);
+      setModule6(a6);
+      setModule7(a7);
+      setModule8(a8);
+      setModule9(a9);
+    });
+  }, [mainData]);
   useEffect(() => {
-    // console.log(serverState2, "serverstateee2");
-  }, [serverState2]);
+    // console.log(module1, "modddd");
+  }, [module1]);
   useEffect(() => {
     // console.log(serverState3, "serverstateee3");
   }, [serverState3]);
@@ -377,21 +468,83 @@ const Pricing = ({  }) => {
                 ${costOfNumber} USD/user/month
               </div>
             </div> */}
+            {/* {mainData?.map((item, index) => {
 
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                {mainData?.map((item, index) => {
-                  if (item.product_category_id == 5) {
-                    const name = item.product_category;
-                    console.log(name, "nerr")
-                    
-                    
+              return ( <div className=" mt-[1.875rem]  shadow-custom">
+                <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+                  {item.product_category }
+                </div>
+                <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                  {  
+                     <div
+                      key={index}
+                      onClick={() => isChecked(item, item.is_required)}
+                      className={`
+                             ${item.is_required && "cursor-not-allowed"}
+                             mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                               state.includes(item)
+                                 ? "border-[#2E28D4]"
+                                 : "border-[#9CA6C0]"
+                             }
+                           `}
+                    >
+                      <div className=" p-[10px]  flex justify-between  ">
+                        <div className="">
+                          <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                            {item.product_name}
+                          </div>
+                          <Divider className="price bg-black " />
+                          <div className=" ">
+                            {item.product_discount == 0 ? (
+                              <div className=" flex w-[100px] justify-end">
+                                <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                  {item.product_price}₮
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="flex  justify-end">
+                                <div className="flex w-[100px] items-center">
+                                  <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                    -{item.product_discount}% off
+                                  </div>
+
+                                  <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                    {Number(item.product_price) -
+                                      Number(item.product_price) *
+                                        (Number(item.product_discount) / 100)}
+                                    ₮
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            {item.is_required ? (
+                              <Checkbox checked />
+                            ) : (
+                              <Checkbox checked={state.includes(item)} />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   }
-                })}
+                 
+                </div>
+              </div>
+              );
+            })} */}
+
+            <div className="  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+               { "1. " + module1[0]?.product_category}
               </div>
               <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {mainData?.map((item, index) => {
-                  if (item.product_category_id == 5) {
+                { module1?.map((item, index) => {
+              
+                    
                     return (
                       <div
                         key={index}
@@ -405,12 +558,12 @@ const Pricing = ({  }) => {
                         }
                       `}
                       >
-                         <div className=" p-[10px]  flex justify-between  ">
+                        <div className=" p-[10px]  flex justify-between  ">
                           <div className="">
                             <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
                               {item.product_name}
                             </div>
-                              <Divider className="price bg-black " />
+                            <Divider className="price bg-black " />
                             <div className=" ">
                               {item.product_discount == 0 ? (
                                 <div className=" flex w-[100px] justify-end">
@@ -424,7 +577,7 @@ const Pricing = ({  }) => {
                                     <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
                                       -{item.product_discount}% off
                                     </div>
-  
+
                                     <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
                                       {Number(item.product_price) -
                                         Number(item.product_price) *
@@ -446,11 +599,558 @@ const Pricing = ({  }) => {
                             </div>
                           </div>
                         </div>
+                      </div>
+                    );
+                  
+                })}
+              </div>
+            </div>
+
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+               { "2. " +module2[0]?.product_category}
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {module2?.map((item, index) => {
+              
+                    
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                        <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                            <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      );
-                  }
-                 
-                  })}
+                      </div>
+                    );
+                  
+                })}
+              </div>
+            </div>
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+               { "3. " + module3[0]?.product_category}
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {module3?.map((item, index) => {
+              
+                    
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                        <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                            <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  
+                })}
+              </div>
+            </div>
+
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+               {"4. " + module4[0]?.product_category}
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {module4?.map((item, index) => {
+              
+                    
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                        <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                            <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  
+                })}
+              </div>
+            </div>
+
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              { "5. " + module5[0]?.product_category}
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {module5?.map((item, index) => {
+              
+                    
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                        <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                            <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  
+                })}
+              </div>
+            </div>
+
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+               { "6. " + module6[0]?.product_category}
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {module6?.map((item, index) => {
+              
+                    
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                        <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                            <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  
+                })}
+              </div>
+            </div>
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              { "7. " +module7[0]?.product_category}
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {module7?.map((item, index) => {
+              
+                    
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                        <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                            <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  
+                })}
+              </div>
+            </div>
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              { "8. " +module8[0]?.product_category}
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {module8?.map((item, index) => {
+              
+                    
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                        <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                            <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  
+                })}
+              </div>
+            </div>
+            <div className=" mt-[1.875rem]  shadow-custom">
+              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              { "9. " +module9[0]?.product_category}
+              </div>
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {module9?.map((item, index) => {
+              
+                    
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => isChecked(item, item.is_required)}
+                        className={`
+                        ${item.is_required && "cursor-not-allowed"}
+                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                          state.includes(item)
+                            ? "border-[#2E28D4]"
+                            : "border-[#9CA6C0]"
+                        }
+                      `}
+                      >
+                        <div className=" p-[10px]  flex justify-between  ">
+                          <div className="">
+                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                              {item.product_name}
+                            </div>
+                            <Divider className="price bg-black " />
+                            <div className=" ">
+                              {item.product_discount == 0 ? (
+                                <div className=" flex w-[100px] justify-end">
+                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                    {item.product_price}₮
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex  justify-end">
+                                  <div className="flex w-[100px] items-center">
+                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                      -{item.product_discount}% off
+                                    </div>
+
+                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                      {Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)}
+                                      ₮
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div>
+                              {item.is_required ? (
+                                <Checkbox checked />
+                              ) : (
+                                <Checkbox checked={state.includes(item)} />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  
+                })}
               </div>
             </div>
 
@@ -478,7 +1178,7 @@ const Pricing = ({  }) => {
                           <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
                             {item.product_name}
                           </div>
-                            <Divider className="price bg-black " />
+                          <Divider className="price bg-black " />
                           <div className=" ">
                             {item.product_discount == 0 ? (
                               <div className=" flex w-[100px] justify-end">
@@ -679,7 +1379,7 @@ const Pricing = ({  }) => {
             </div>
           </div>
         </div>
-        <div className=" flex justify-center">
+        <div className=" flex flex-col ">
           <div className=" ml-[10px] w-[370px]   xl:h-[625px] shadow-custom rounded-[8px] ">
             <Tabs className="payment" defaultActiveKey="1">
               <TabPane tab="САР" key="1">
@@ -733,16 +1433,17 @@ const Pricing = ({  }) => {
                   <Divider className="bill" />
 
                   <div className=" w-full  flex flex-col justify-center items-center">
-                    <div className="text-[13px] text-[#9CA6C0] font-normal">
+                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
-                    </div>
+                    </div> */}
                     <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image src="/img/warning.png" />
+                        <Image preview={false} src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
-                        Those apps are free as long as you don't need more apps
-                        or hosting options.
+                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
+                        суугдана.
                       </p>
                     </div>
                   </div>
@@ -766,12 +1467,12 @@ const Pricing = ({  }) => {
                       </Button>
                     )}
                   </div>
-                  <div className=" mx-[24px] my-[30px]">
+                  {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </TabPane>
               <TabPane tab="УЛИРАЛ" key="2">
@@ -825,16 +1526,17 @@ const Pricing = ({  }) => {
                   <Divider className="bill" />
 
                   <div className=" w-full  flex flex-col justify-center items-center">
-                    <div className="text-[13px] text-[#9CA6C0] font-normal">
+                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
-                    </div>
+                    </div> */}
                     <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image src="/img/warning.png" />
+                        <Image preview={false} src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
-                        Those apps are free as long as you don't need more apps
-                        or hosting options.
+                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
+                        суугдана.
                       </p>
                     </div>
                   </div>
@@ -858,12 +1560,12 @@ const Pricing = ({  }) => {
                       </Button>
                     )}
                   </div>
-                  <div className=" mx-[24px] my-[30px]">
+                  {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </TabPane>
               <TabPane tab="ЖИЛ" key="3">
@@ -917,16 +1619,17 @@ const Pricing = ({  }) => {
                   <Divider className="bill" />
 
                   <div className=" w-full  flex flex-col justify-center items-center">
-                    <div className="text-[13px] text-[#9CA6C0] font-normal">
+                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
-                    </div>
+                    </div> */}
                     <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image src="/img/warning.png" />
+                        <Image preview={false} src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
-                        Those apps are free as long as you don't need more apps
-                        or hosting options.
+                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
+                        суугдана.
                       </p>
                     </div>
                   </div>
@@ -950,15 +1653,60 @@ const Pricing = ({  }) => {
                       </Button>
                     )}
                   </div>
-                  <div className=" mx-[24px] my-[30px]">
+                  {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </TabPane>
             </Tabs>
+          </div>
+          <div className=" w-[370px]  shadow-lg ml-3 mt-5 rounded-[4px] p-[20px]">
+            <div className="flex">
+            <Input
+              addonBefore="https://"
+              addonAfter=".ifinance.mn"
+              placeholder="Домайн нэр"
+              disabled ={lock}
+              onChange={(e) => setDomain(e.target.value)}
+              
+            />
+              <Button type="default" onClick={() => setLock(false)} >X</Button>
+              </div>
+            {domainState != null && (
+              <div className=" flex justify-center mt-4">
+                {domainState ? <p className=" text-green-500">Боломжтой</p> : <p className=" text-red-500">Боломжгүй</p>}
+              </div>
+            )}
+            <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] ">
+              <div className=" pt-[16px] pl-[17px] pr-[17px]">
+                <Image preview={false} src="/img/warning.png" />
+              </div>
+              <p className=" pt-[16px] w-[350px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
+                Домайн хаягаа дараа нь өөрийн хаягаараа солих боломжтой.
+              </p>
+            </div>
+            <div className=" flex justify-center mt-[30px]">
+              {sid ? (
+                <Button
+                  className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                  type="primary"
+                  onClick={onCheck}
+                >
+                  Шалгах
+                </Button>
+              ) : (
+                <Button
+                  className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-[#9CA6C0] border-none"
+                  type="primary"
+                  disabled
+                >
+                  Шалгах
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -1207,11 +1955,10 @@ const Pricing = ({  }) => {
             </div>
           </TabPane>
         </Tabs>
+        
       </Modal>
     </div>
   );
 };
 
 export default Pricing;
-
-

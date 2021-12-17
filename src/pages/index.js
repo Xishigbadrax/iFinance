@@ -655,7 +655,7 @@ export default function Home() {
               <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/ifin.svg" />
               </div>
-              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] w-[300px] flex justify-center text-center">
+              <p className=" text-[#2F3747] text-[18px] font-bold mt-[24px] w-[300px] flex justify-center ">
                 SaaS болон Cloud суурьтай програм хангамж
               </p>
               <p className=" text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">

@@ -108,7 +108,7 @@ const Pricing = ({ id }) => {
       )
       .then((response) => {
         
-        console.log(response, "dom shalgah");
+        // console.log(response, "dom shalgah");
         setDomainState(response.data.result);
         response?.data?.result == true ?   setLock(true) : setLock(false)
       
@@ -157,7 +157,7 @@ const Pricing = ({ id }) => {
         }
       )
       .then((response) => {
-        console.log(response, "ggg");
+        // console.log(response, "ggg");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -204,7 +204,7 @@ const Pricing = ({ id }) => {
         setInvoice(res.data.result.invoice);
         setIsModalVisible(true);
       } else if (res.data.error) {
-        message.warning(res.data.error.data.message);
+        message.warning("Алдаа гарлаа");
       } else {
         message.warning("Хүсэлт амжилтгүй");
       }
@@ -418,7 +418,7 @@ const Pricing = ({ id }) => {
               </div>
             </div> */}
 
-            <div className=" mt-[1.875rem]  shadow-custom">
+            <div className="   shadow-custom">
               <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 {mainData && mainData[0]?.product_category}
               </div>
@@ -768,7 +768,7 @@ const Pricing = ({ id }) => {
                     </div> */}
                     <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image src="/img/warning.png" />
+                        <Image preview={false} src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] w-[300px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
                         Хэрвээ та клауд сервэр сонгосон бол таны сервэр
@@ -856,16 +856,16 @@ const Pricing = ({ id }) => {
                   <Divider className="bill" />
 
                   <div className=" w-full  flex flex-col justify-center items-center">
-                    <div className="text-[13px] text-[#9CA6C0] font-normal">
+                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
-                    </div>
+                    </div> */}
                     <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
                         <Image src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
-                        Those apps are free as long as you don't need more apps
-                        or hosting options.
+                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      
+Хэрвээ та клауд сервэр сонгосон бол таны сервэр автоматаар үүсэж худалдан авсан бараанууд автоматаар суугдана.
                       </p>
                     </div>
                   </div>
@@ -889,12 +889,12 @@ const Pricing = ({ id }) => {
                       </Button>
                     )}
                   </div>
-                  <div className=" mx-[24px] my-[30px]">
+                  {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </TabPane>
               <TabPane tab="ЖИЛ" key="3">
@@ -948,16 +948,16 @@ const Pricing = ({ id }) => {
                   <Divider className="bill" />
 
                   <div className=" w-full  flex flex-col justify-center items-center">
-                    <div className="text-[13px] text-[#9CA6C0] font-normal">
+                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
-                    </div>
+                    </div> */}
                     <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
                         <Image src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
-                        Those apps are free as long as you don't need more apps
-                        or hosting options.
+                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                     
+Хэрвээ та клауд сервэр сонгосон бол таны сервэр автоматаар үүсэж худалдан авсан бараанууд автоматаар суугдана.
                       </p>
                     </div>
                   </div>
@@ -981,17 +981,18 @@ const Pricing = ({ id }) => {
                       </Button>
                     )}
                   </div>
-                  <div className=" mx-[24px] my-[30px]">
+                  {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </TabPane>
             </Tabs>
           </div>
           <div className=" w-[370px]  shadow-lg ml-3 mt-5 rounded-[4px] p-[20px]">
+            <div className="flex">
             <Input
               addonBefore="https://"
               addonAfter=".ifinance.mn"
@@ -999,6 +1000,8 @@ const Pricing = ({ id }) => {
               disabled ={lock}
               onChange={(e) => setDomain(e.target.value)}
             />
+            <Button type="default" onClick={() => setLock(false)} >X</Button>
+            </div>
             {domainState != null && (
               <div className=" flex justify-center mt-4">
                 {domainState ? <p className=" text-green-500">Боломжтой</p> : <p className=" text-red-500">Боломжгүй</p>}

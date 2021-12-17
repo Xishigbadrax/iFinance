@@ -7,6 +7,7 @@ import Context from "../../context/Context";
 import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer";
 import { Tabs, Image, Button, message } from "antd";
+import NavbarTrans from "../../components/NavbarTrans";
 import parse from "html-react-parser";
 import Head from "next/head";
 
@@ -23,9 +24,17 @@ const CategoryId = () => {
   const [additionalProduct, setAdditionalProduct] = useState();
   const [categoryName, setCategoryName] = useState();
   const [images, setImages] = useState();
-  const [angilal, setAngilal] = useState(false);
+  const [cartLogin, setCartLogin] = useState(false);
 
+
+  
+  const onCartLogin = () => {
+    setCartLogin(!cartLogin);
+    console.log("daragdlaa")
+    
+  }
   const onCart = async (id, type) => {
+   
     const res = await axios.post(
       baseUrl + "add/cart_list",
       {
@@ -45,7 +54,7 @@ const CategoryId = () => {
         },
       }
     );
-    console.log(res, "sagsand nemeh res");
+    // console.log(res, "sagsand nemeh res");
     res?.data?.id == null
       ? message.success("Амжилттай сагсанд нэмэгдлээ")
       : message.error("Амжилтгүй");
@@ -97,7 +106,22 @@ const CategoryId = () => {
         <title>iFinance | Танилцуулга</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Navbar />
+      <div className="relative h-[100px] flex  overflow-hidden">
+        <div className="absolute z-20 flex flex-col w-full h-full">
+          <div className="w-full flex justify-center mb-2 ">
+            <NavbarTrans cartLogin={cartLogin} />
+          </div>
+
+          {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+            Манай бүтээгдэхүүн
+          </div> */}
+        </div>
+        <Image
+          className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto"
+          preview={false}
+          src="/img/Slider.svg"
+        />
+      </div>
       <div className="  relative ">
         <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center ">
           <div className=" mt-[20px] ml-[375px] lg:flex justify-between w-[450px] hidden">
@@ -197,14 +221,15 @@ const CategoryId = () => {
                                   <Button
                                     onClick={() => onCart(item.product_id, 1)}
                                     type="primary"
+                                   
                                     className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                                   >
                                     Сагсанд нэмэх
                                   </Button>
                                 ) : (
                                   <Button
-                                    onClick={() => onCart(item.product_id, 1)}
-                                    disabled
+                                    onClick={onCartLogin}
+                                    
                                     type="primary"
                                     className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                                   >
@@ -270,17 +295,29 @@ const CategoryId = () => {
                             <div className=" mt-2 flex">
                               <div className="  w-[500px] flex flex-col md:flex-row ">
                                 <div className=" flex flex-col  items-center">
+                                {Auth.getToken() ? (
                                   <Button
                                     onClick={() => onCart(item.product_id, 1)}
                                     type="primary"
-                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold mb-4"
+                                   
+                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                                   >
                                     Сагсанд нэмэх
                                   </Button>
+                                ) : (
+                                  <Button
+                                    onClick={onCartLogin}
+                                    
+                                    type="primary"
+                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                  >
+                                    Сагсанд нэмэх
+                                  </Button>
+                                )}
                                   <Button
                                     onClick={() => onDetails(id)}
                                     type="primary"
-                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                    className=" mt-2 w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                                   >
                                     Худалдан авах
                                   </Button>

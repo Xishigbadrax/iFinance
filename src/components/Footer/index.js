@@ -86,7 +86,7 @@ const Footer = () => {
               <a className=" text-white">Эхлэл</a>
             </li>
             <li>
-              <a className=" text-white ">Мэдээ</a>k
+              <a className=" text-white ">Мэдээ</a>
             </li>
             <li>
               <a className=" text-white ">Бүтээгдэхүүн</a>

@@ -45,7 +45,7 @@ const Dashboard = () => {
     setList(res.data.result);
     // console.log(res, "ehnii");
 
-    console.log(res, "listtttt");
+    // console.log(res, "listtttt");
   }, []);
 
   const onCategory = (id) => {
@@ -75,9 +75,9 @@ const Dashboard = () => {
             <NavbarTrans />
           </div>
 
-          <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+          {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Манай бүтээгдэхүүн
-          </div>
+          </div> */}
         </div>
         <Image
           className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto"

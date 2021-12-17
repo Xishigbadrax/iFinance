@@ -41,14 +41,14 @@ const Cart = () => {
         type: type,
       },
     };
-    console.log(data, "dataaa");
+    // console.log(data, "dataaa");
     const res = await axios.post(baseUrl + "delete/cart_list", data, {
       headers: {
         "Set-Cookie": "session_id=" + Auth.getToken(),
         "Content-Type": "application/json",
       },
     });
-    console.log(res, "delete ress");
+    // console.log(res, "delete ress");
     if (res.data.id == null) {
       // message.success("Амжилттай устлаа");
       window.location.reload(false);
@@ -91,7 +91,7 @@ const Cart = () => {
       serverID = item.server_id;
     });
 
-    console.log(productIds, serverID, "odoooldoo");
+    // console.log(productIds, serverID, "odoooldoo");
 
     var data = {
       jsonrpc: 2.0,
@@ -120,7 +120,7 @@ const Cart = () => {
     } else {
       message.warning("Хүсэлт амжилтгүй");
     }
-    console.log(res, "purchase res");
+    // console.log(res, "purchase res");
   };
 
   useEffect(async () => {
@@ -143,7 +143,7 @@ const Cart = () => {
     );
     setProduct(res.data.result.products);
     setServer(res.data.result.server);
-    console.log(res, "cartiin api");
+    // console.log(res, "cartiin api");
   }, []);
 
   useEffect(() => {
@@ -205,11 +205,11 @@ const Cart = () => {
     setPrice(a);
     setDiscount(sale);
     setTotalPrice(price - sale);
-    console.log(product, "product");
+    // console.log(product, "product");
   }, [server || product]);
 
   useEffect(() => {
-    console.log(data, "dataa22");
+    // console.log(data, "dataa22");
   }, [data]);
   return (
     <div>
