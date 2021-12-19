@@ -12,7 +12,7 @@ import {
   Select,
   message,
   Modal,
-  Input
+  Input,
 } from "antd";
 
 import Auth from "../../utils/auth";
@@ -73,16 +73,8 @@ const Pricing = ({}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bank, setBank] = useState();
   const [invoice, setInvoice] = useState();
-
-  const [module1, setModule1] = useState([]);
-  const [module2, setModule2] = useState([]);
-  const [module3, setModule3] = useState([]);
-  const [module4, setModule4] = useState([]);
-  const [module5, setModule5] = useState([]);
-  const [module6, setModule6] = useState([]);
-  const [module7, setModule7] = useState([]);
-  const [module8, setModule8] = useState([]);
-  const [module9, setModule9] = useState([]);
+  const [arrayNames, setArrayNames] = useState([]);
+  const [test, setTest] = useState(false);
 
   const [domain, setDomain] = useState();
   const [domainState, setDomainState] = useState(null);
@@ -139,7 +131,21 @@ const Pricing = ({}) => {
         }
       )
       .then((response) => {
-        // console.log(response, "all module");
+        if (response.data.result.main_products) {
+          var mainProduct = response.data.result.main_products;
+
+          var names = [];
+
+          mainProduct.map((item) => {
+            if (!names.includes(item.product_category)) {
+              names.push(item.product_category);
+            }
+          });
+
+          setArrayNames(names);
+        }
+
+        console.log(response, "all module");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -210,11 +216,9 @@ const Pricing = ({}) => {
         }
       )
       .then((response) => {
-        
         console.log(response, "dom shalgah");
         setDomainState(response.data.result);
-        response?.data?.result == true ?   setLock(true) : setLock(false)
-      
+        response?.data?.result == true ? setLock(true) : setLock(false);
       })
       .catch((error) => {
         console.log(error);
@@ -233,6 +237,14 @@ const Pricing = ({}) => {
         setState([...state, item]);
       }
     }
+  };
+  
+  const tursh =  (catName) => {
+    mainData?.map( (item) => {
+      if (item.product_category == catName) {
+         isChecked(item, item.is_required);
+      }
+    });
   };
 
   useEffect(() => {
@@ -289,60 +301,7 @@ const Pricing = ({}) => {
     setServerPriceSeason(Number(serverPrice) * 3);
     setServerPriceYear(Number(serverPrice) * 12);
   }, [serverPrice]);
-  useEffect(() => {
-    var a = [];
-    var a2 = [];
-    var a3 = [];
-    var a4 = [];
-    var a5 = [];
-    var a6 = [];
-    var a7 = [];
-    var a8 = [];
-    var a9 = [];
-    
-    mainData?.map((item) => {
-      if (item.product_category_id == 7) {
-        a.push(item);
-      }
-      if (item.product_category_id == 5) {
-        a2.push(item);
-      }
-      if (item.product_category_id == 6) {
-        a3.push(item);
-      }
-      if (item.product_category_id == 15) {
-        a4.push(item);
-      }
-      if (item.product_category_id == 9) {
-        a5.push(item);
-      }
-      if (item.product_category_id == 16) {
-        a6.push(item);
-      }
-      if (item.product_category_id == 11) {
-        a7.push(item);
-      }
-      if (item.product_category_id == 8) {
-        a8.push(item);
-      }
-      if (item.product_category_id == 13) {
-        a9.push(item);
-      }
-   
-      setModule1(a);
-      setModule2(a2);
-      setModule3(a3);
-      setModule4(a4);
-      setModule5(a5);
-      setModule6(a6);
-      setModule7(a7);
-      setModule8(a8);
-      setModule9(a9);
-    });
-  }, [mainData]);
-  useEffect(() => {
-    // console.log(module1, "modddd");
-  }, [module1]);
+
   useEffect(() => {
     // console.log(serverState3, "serverstateee3");
   }, [serverState3]);
@@ -398,20 +357,6 @@ const Pricing = ({}) => {
     // console.log(lglglg, "lgggg");
   }, [mainData]);
 
-  useEffect(() => {
-    // console.log(totalPriceSeason, "season price");
-  }, [totalPriceSeason]);
-
-  // useEffect(() => {
-  //   if (additionalData) {
-  //     additionalData.map((item) => {
-  //       if (item.is_required) {
-  //         setState([...state, item]);
-  //       }
-  //     });
-  //   }
-  // }, [additionalData]);
-
   return (
     <div>
       <Head>
@@ -440,719 +385,84 @@ const Pricing = ({}) => {
       <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row   justify-center">
         <div className=" flex  justify-center ">
           <div className=" w-full ">
-            {/* <div>
-              <p className=" border-l-2 border-[#2E28D4] text-[#2E28D4] pl-2 text-[24px] font-semibold mt-4 ">
-                Хэрэглэгчийн тоо
-              </p>
-            </div> */}
-
-            {/* Niit hereglegch boddog heseg */}
-
-            {/* <div className=" flex items-center  ">
-              <div className=" flex items-center w-[9.375rem] h-[3rem] bg-[#9CA6C080] bg-opacity-50 justify-around rounded-[4px] ">
-                <div
-                  className="cursor-pointer"
-                  onClick={() => setNumberOfUser(numberOfUser - 1)}
-                >
-                  <Image preview={false} src="/img/minus.png" />
+            {arrayNames?.map((item, index) => (
+              <div className="  shadow-custom">
+                <div className="pl-2 justify-between  flex text-[1.5rem] text-white items-center  xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+                  <div>{index + 1 + ". " + item}</div>
+                  {/* <div className=" mr-[10px]">
+                    <Checkbox onClick={() => tursh(item)} />
+                  </div> */}
                 </div>
-                <div>{numberOfUser}</div>
-                <div
-                  className="cursor-pointer"
-                  onClick={() => setNumberOfUser(numberOfUser + 1)}
-                >
-                  <Image preview={false} src="/img/add.png" />
-                </div>
-              </div>
-              <div className=" ml-2 text-[16px] font-semibold">
-                ${costOfNumber} USD/user/month
-              </div>
-            </div> */}
-            {/* {mainData?.map((item, index) => {
 
-              return ( <div className=" mt-[1.875rem]  shadow-custom">
-                <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                  {item.product_category }
-                </div>
                 <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                  {  
-                     <div
-                      key={index}
-                      onClick={() => isChecked(item, item.is_required)}
-                      className={`
-                             ${item.is_required && "cursor-not-allowed"}
-                             mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                               state.includes(item)
-                                 ? "border-[#2E28D4]"
-                                 : "border-[#9CA6C0]"
-                             }
-                           `}
-                    >
-                      <div className=" p-[10px]  flex justify-between  ">
-                        <div className="">
-                          <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                            {item.product_name}
-                          </div>
-                          <Divider className="price bg-black " />
-                          <div className=" ">
-                            {item.product_discount == 0 ? (
-                              <div className=" flex w-[100px] justify-end">
-                                <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                  {item.product_price}₮
-                                </div>
+                  {mainData?.map((mainItem, mainIndex) => {
+                    if (mainItem.product_category == item) {
+                      return (
+                        <div
+                          key={mainIndex}
+                          onClick={() =>
+                            isChecked(mainItem, mainItem.is_required)
+                          }
+                          className={`
+                              ${mainItem.is_required && "cursor-not-allowed"}
+                              mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                                state.includes(mainItem)
+                                  ? "border-[#2E28D4]"
+                                  : "border-[#9CA6C0]"
+                              }
+                            `}
+                        >
+                          <div className=" p-[10px]  flex justify-between  ">
+                            <div className="">
+                              <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
+                                {mainItem.product_name}
                               </div>
-                            ) : (
-                              <div className="flex  justify-end">
-                                <div className="flex w-[100px] items-center">
-                                  <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                    -{item.product_discount}% off
+                              <Divider className="price bg-black " />
+                              <div className=" ">
+                                {mainItem.product_discount == 0 ? (
+                                  <div className=" flex w-[100px] justify-end">
+                                    <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
+                                      {mainItem.product_price}₮
+                                    </div>
                                   </div>
+                                ) : (
+                                  <div className="flex  justify-end">
+                                    <div className="flex w-[100px] items-center">
+                                      <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
+                                        -{mainItem.product_discount}%
+                                      </div>
 
-                                  <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                    {Number(item.product_price) -
-                                      Number(item.product_price) *
-                                        (Number(item.product_discount) / 100)}
-                                    ₮
+                                      <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
+                                        {Number(mainItem.product_price) -
+                                          Number(mainItem.product_price) *
+                                            (Number(mainItem.product_discount) /
+                                              100)}
+                                        ₮
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
+                                )}
                               </div>
-                            )}
+                            </div>
+                            <div>
+                              <div>
+                                {mainItem.is_required ? (
+                                  <Checkbox checked />
+                                ) : (
+                                  <Checkbox
+                                    checked={state.includes(mainItem)}
+                                  />
+                                )}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div>
-                          <div>
-                            {item.is_required ? (
-                              <Checkbox checked />
-                            ) : (
-                              <Checkbox checked={state.includes(item)} />
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  }
-                 
+                      );
+                    }
+                  })}
                 </div>
               </div>
-              );
-            })} */}
-
-            <div className="  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-               { "1. " + module1[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                { module1?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
-
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-               { "2. " +module2[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {module2?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-               { "3. " + module3[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {module3?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
-
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-               {"4. " + module4[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {module4?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
-
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-              { "5. " + module5[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {module5?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
-
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-               { "6. " + module6[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {module6?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-              { "7. " +module7[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {module7?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-              { "8. " +module8[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {module8?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
-            <div className=" mt-[1.875rem]  shadow-custom">
-              <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-              { "9. " +module9[0]?.product_category}
-              </div>
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {module9?.map((item, index) => {
-              
-                    
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => isChecked(item, item.is_required)}
-                        className={`
-                        ${item.is_required && "cursor-not-allowed"}
-                        mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
-                          state.includes(item)
-                            ? "border-[#2E28D4]"
-                            : "border-[#9CA6C0]"
-                        }
-                      `}
-                      >
-                        <div className=" p-[10px]  flex justify-between  ">
-                          <div className="">
-                            <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
-                              {item.product_name}
-                            </div>
-                            <Divider className="price bg-black " />
-                            <div className=" ">
-                              {item.product_discount == 0 ? (
-                                <div className=" flex w-[100px] justify-end">
-                                  <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                    {item.product_price}₮
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex  justify-end">
-                                  <div className="flex w-[100px] items-center">
-                                    <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                      -{item.product_discount}% off
-                                    </div>
-
-                                    <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                      {Number(item.product_price) -
-                                        Number(item.product_price) *
-                                          (Number(item.product_discount) / 100)}
-                                      ₮
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              {item.is_required ? (
-                                <Checkbox checked />
-                              ) : (
-                                <Checkbox checked={state.includes(item)} />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  
-                })}
-              </div>
-            </div>
+            ))}
 
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
               <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
@@ -1441,7 +751,7 @@ const Pricing = ({}) => {
                         <Image preview={false} src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
                         автоматаар үүсэж худалдан авсан бараанууд автоматаар
                         суугдана.
                       </p>
@@ -1534,7 +844,7 @@ const Pricing = ({}) => {
                         <Image preview={false} src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
                         автоматаар үүсэж худалдан авсан бараанууд автоматаар
                         суугдана.
                       </p>
@@ -1627,7 +937,7 @@ const Pricing = ({}) => {
                         <Image preview={false} src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
                         автоматаар үүсэж худалдан авсан бараанууд автоматаар
                         суугдана.
                       </p>
@@ -1665,19 +975,24 @@ const Pricing = ({}) => {
           </div>
           <div className=" w-[370px]  shadow-lg ml-3 mt-5 rounded-[4px] p-[20px]">
             <div className="flex">
-            <Input
-              addonBefore="https://"
-              addonAfter=".ifinance.mn"
-              placeholder="Домайн нэр"
-              disabled ={lock}
-              onChange={(e) => setDomain(e.target.value)}
-              
-            />
-              <Button type="default" onClick={() => setLock(false)} >X</Button>
-              </div>
+              <Input
+                addonBefore="https://"
+                addonAfter=".ifinance.mn"
+                placeholder="Домайн нэр"
+                disabled={lock}
+                onChange={(e) => setDomain(e.target.value)}
+              />
+              <Button type="default" onClick={() => setLock(false)}>
+                X
+              </Button>
+            </div>
             {domainState != null && (
               <div className=" flex justify-center mt-4">
-                {domainState ? <p className=" text-green-500">Боломжтой</p> : <p className=" text-red-500">Боломжгүй</p>}
+                {domainState ? (
+                  <p className=" text-green-500">Боломжтой</p>
+                ) : (
+                  <p className=" text-red-500">Боломжгүй</p>
+                )}
               </div>
             )}
             <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] ">
@@ -1955,7 +1270,6 @@ const Pricing = ({}) => {
             </div>
           </TabPane>
         </Tabs>
-        
       </Modal>
     </div>
   );
