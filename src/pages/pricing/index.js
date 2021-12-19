@@ -145,7 +145,7 @@ const Pricing = ({}) => {
           setArrayNames(names);
         }
 
-        console.log(response, "all module");
+        // console.log(response, "all module");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
