@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
-import { Image, Tabs, Divider } from "antd";
+import { Image, Tabs, Divider, message } from "antd";
 import Auth from "../../utils/auth";
 import { Table, Badge, Menu, Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import axios from "axios";
+import Router from "next/router";
 
 const Order = () => {
   const menu = (
@@ -19,6 +20,32 @@ const Order = () => {
   const baseDB = process.env.NEXT_PUBLIC_DB;
   const [invoices, setInvoices] = useState();
   const data2 = [];
+
+  const Logout = async () => {
+    const res = await axios.post(
+      baseUrl + "logout",
+      {
+        jsonrpc: 2.0,
+        params: {},
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (res.data.error && res.data.error) {
+     
+      message.success("Амжилттай систэмээс гарлаа");
+      Auth.destroyToken();
+      // window.location.reload(false);
+      Router.push("/");
+    }
+
+    // console.log(res, "logout res");
+  };
 
   const expandedRowRender = (rowData) => {
     // console.log(rowData, "ggg");
@@ -163,9 +190,9 @@ const Order = () => {
                               src="/img/i1.svg"
                             />
                           </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                             <a href="/order" className="text-[#2E28D4]">
-                              {" "}
+                              
                               Миний захиалга
                             </a>
                           </div>
@@ -179,7 +206,7 @@ const Order = () => {
                               src="/img/i2.svg"
                             />
                           </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                             <a href="/cart" className="text-[#2E28D4]">
                               {" "}
                               Миний сагс
@@ -195,7 +222,7 @@ const Order = () => {
                               src="/img/i3.svg"
                             />
                           </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                             <a href="/info" className="text-[#2E28D4]">
                               {" "}
                               Миний мэдээлэл{" "}
@@ -211,7 +238,7 @@ const Order = () => {
                               src="/img/i4.svg"
                             />
                           </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold ">
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] cursor-pointer font-bold hover:opacity-100">
                             Тохиргоо
                           </div>
                         </div>
@@ -224,7 +251,7 @@ const Order = () => {
                               src="/img/i5.svg"
                             />
                           </div>
-                          <div className="text-[#F01A63] opacity-50 text-[18px] font-bold">
+                          <div onClick={Logout} className="text-[#F01A63] opacity-50 text-[18px] cursor-pointer font-bold hover:opacity-100">
                             Гарах
                           </div>
                         </div>

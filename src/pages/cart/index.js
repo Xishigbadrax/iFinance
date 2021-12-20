@@ -5,6 +5,7 @@ import { Image, Table, Divider, message, Button, Modal, Tabs } from "antd";
 import axios from "axios";
 import Auth from "../../utils/auth";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import Router from "next/router";
 
 const Cart = () => {
   const { TabPane } = Tabs;
@@ -70,7 +71,7 @@ const Cart = () => {
     );
 
     if (res.data.error && res.data.error) {
-      setIsLogin(false);
+      
       message.success("Амжилттай систэмээс гарлаа");
       Auth.destroyToken();
       // window.location.reload(false);
@@ -274,7 +275,7 @@ const Cart = () => {
                               src="/img/i1.svg"
                             />
                           </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                             <a href="/order" className="text-[#2E28D4]">
                               {" "}
                               Миний захиалга
@@ -290,7 +291,7 @@ const Cart = () => {
                               src="/img/i2.svg"
                             />
                           </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                             <a href="/cart" className="text-[#2E28D4]">
                               {" "}
                               Миний сагс
@@ -306,7 +307,7 @@ const Cart = () => {
                               src="/img/i3.svg"
                             />
                           </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                             <a href="/info" className="text-[#2E28D4]">
                               {" "}
                               Миний мэдээлэл{" "}
@@ -322,7 +323,7 @@ const Cart = () => {
                               src="/img/i4.svg"
                             />
                           </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold ">
+                          <div className="text-[#2E28D4] opacity-50 text-[18px] cursor-pointer font-bold hover:opacity-100">
                             Тохиргоо
                           </div>
                         </div>
@@ -335,7 +336,7 @@ const Cart = () => {
                               src="/img/i5.svg"
                             />
                           </div>
-                          <div onClick={onLogout} className="text-[#F01A63] cursor-pointer opacity-50 text-[18px] font-bold">
+                          <div onClick={onLogout} className="text-[#F01A63] cursor-pointer opacity-50 text-[18px] font-bold hover:opacity-100">
                             Гарах
                           </div>
                         </div>

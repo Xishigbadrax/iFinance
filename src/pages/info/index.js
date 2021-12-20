@@ -18,7 +18,7 @@ import {
 import Auth from "../../utils/auth";
 import axios from "axios";
 import Head from "next/head";
-import router from "next/router";
+import Router from "next/router";
 
 const Info = () => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
@@ -36,6 +36,8 @@ const Info = () => {
   const [isMailModal, setIsMailModal] = useState(false);
   const [confirmCode, setConfirmCode] = useState();
   const [mailConfirmCode, setMailConfirmCode] = useState();
+  const [emailVer, setEmailVer] = useState();
+  const [phoneVer, setPhoneVer] = useState();
 
   // console.log(mainData, "maindataaa");
 
@@ -73,6 +75,23 @@ const Info = () => {
     res.data.result.msg == "success" ? setIsPhoneModal(true) : null; 
     // console.log(res, "chnage phone res");
   };
+
+  
+  const emailConfirmed = async (values) => {
+    message.success("Амжилттай");
+    setIsMailModal(false);
+    Auth.destroyToken();
+    Router.push("/");
+  };
+
+  const phoneConfirmed = async (values) => {
+    message.success("Амжилттай");
+    setIsPhoneModal(false);
+    Auth.destroyToken();
+    Router.push("/");
+  };
+
+  
   const onChangeConfrim = async (values) => {
     // console.log(confirmCode, "code");
     const res = await axios.post(
@@ -92,7 +111,7 @@ const Info = () => {
         },
       }
     );
-    res?.data?.result == "Success" ? message.success("Амжилттай") & setIsPhoneModal(false) : message.error("Алдаа гарлаа");
+    res?.data?.result == "Success" ? phoneConfirmed() : message.error("Алдаа гарлаа");
     // console.log(res, "last phone res");
   };
   const onChangeConfrimEmail = async (values) => {
@@ -114,7 +133,7 @@ const Info = () => {
         },
       }
     );
-    res?.data?.result == "Success" ? message.success("Амжилттай") & setIsMailModal(false) : message.error("Алдаа гарлаа");
+    res?.data?.result == "Success" ? emailConfirmed() : message.error("Алдаа гарлаа");
     // console.log(res, "last phone res");
   };
 
@@ -172,6 +191,31 @@ const Info = () => {
     // console.log(res, "mail res");
   };
   
+  const Logout = async () => {
+    const res = await axios.post(
+      baseUrl + "logout",
+      {
+        jsonrpc: 2.0,
+        params: {},
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (res.data.error && res.data.error) {
+      
+      message.success("Амжилттай систэмээс гарлаа");
+      Auth.destroyToken();
+      // window.location.reload(false);
+      Router.push("/");
+    }
+
+    // console.log(res, "logout res");
+  };
   
   const onChangePass = async (value) => {
     // console.log(form2.getFieldsValue().old, "pass iin utga");
@@ -216,7 +260,8 @@ const Info = () => {
     setMainData(res.data.result.main[0]);
     setDistrict(res.data.result.district);
     setSumkhoroo(res.data.result.sumkhoroo);
-    // console.log(res, "info res");
+   
+    console.log(res, "info res");
   }, []);
 
   useEffect(() => {
@@ -273,7 +318,7 @@ const Info = () => {
           <div className=" shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]  md:mb-[100px]">
             <div className=" flex items-center ml-[34px] mt-[34px]">
               <div className=" mr-[20px]">
-                <Image src="/img/profile.svg" />
+                <Image preview={false} src="/img/profile.svg" />
               </div>
               <div className="text-[#2F3747] text-[18px]  font-bold">
                 {Auth.getName()}
@@ -294,7 +339,7 @@ const Info = () => {
                       src="/img/i1.svg"
                     />
                   </div>
-                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                     <a href="/order" className="text-[#2E28D4]">
                       Миний захиалга
                     </a>
@@ -309,7 +354,7 @@ const Info = () => {
                       src="/img/i2.svg"
                     />
                   </div>
-                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                     <a href="/cart" className="text-[#2E28D4]">
                       Миний сагс
                     </a>
@@ -324,7 +369,7 @@ const Info = () => {
                       src="/img/i3.svg"
                     />
                   </div>
-                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold">
+                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
                     <a href="/info" className="text-[#2E28D4]">
                       Миний мэдээлэл
                     </a>
@@ -339,7 +384,7 @@ const Info = () => {
                       src="/img/i4.svg"
                     />
                   </div>
-                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold ">
+                  <div className="text-[#2E28D4] cursor-pointer opacity-50 text-[18px] font-bold hover:opacity-100">
                     Тохиргоо
                   </div>
                 </div>
@@ -352,7 +397,7 @@ const Info = () => {
                       src="/img/i5.svg"
                     />
                   </div>
-                  <div className="text-[#F01A63] opacity-50 text-[18px] font-bold">
+                  <div onClick={Logout} className="text-[#F01A63] cursor-pointer opacity-50 text-[18px] font-bold hover:opacity-100">
                     Гарах
                   </div>
                 </div>
@@ -750,7 +795,14 @@ const Info = () => {
                   <div className=" flex flex-col items-start ml-[10px]">
                     <div className=" text-[11px] font-semibold">Гар утас </div>
                     <div className=" text-[16px] font-normal">
-                      Баталгаажаагүй
+                     {
+                       mainData?.phone_number_verified_at ? <div className="flex"> 
+                        <div className=" mr-[2px]"><Image preview={false} src="/img/valid.svg" /> </div>
+                        <div className=" text-green-600">Баталгаажсан</div>
+                          
+                         </div> : "Баталгаажаагүй"
+                       
+                     } 
                     </div>
                   </div>
                 </div>
@@ -772,10 +824,12 @@ const Info = () => {
                     </div>
                     <div className=" w-[370px] mt-[24px]">
                       <Input
+                      maxLength={8}
                         onChange={(e) => setPhone(e.target.value)}
                         bordered={false}
                         style={{ borderBottom: "1px solid black" }}
-                        placeholder="Утасны дугаар"
+                        placeholder={mainData?.phone_number_verified_at ? mainData.phone : "Утасны дугаар"}
+                        
                       />
                     </div>
                     <Button
@@ -798,7 +852,14 @@ const Info = () => {
                   <div className=" flex flex-col items-start ml-[10px]">
                     <div className=" text-[11px] font-semibold">Цахим хаяг</div>
                     <div className=" text-[16px] font-normal">
-                      Баталгаажаагүй
+                    {
+                       mainData?.email_verified_at ? <div className="flex"> 
+                       <div className=" mr-[2px]"><Image preview={false} src="/img/valid.svg" /> </div>
+                       <div className=" text-green-500">Баталгаажсан</div>
+                         
+                        </div> : "Баталгаажаагүй"
+                       
+                     } 
                     </div>
                   </div>
                 </div>
@@ -823,7 +884,7 @@ const Info = () => {
                       onChange={(e) => setMail(e.target.value)}
                         bordered={false}
                         style={{ borderBottom: "1px solid black" }}
-                        placeholder="И-мэйл хаяг"
+                        placeholder={mainData.email_verified_at ? mainData.email : "И-мэйл хаяг"}
                       />
                     </div>
                     <Button
