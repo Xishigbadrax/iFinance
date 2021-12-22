@@ -29,6 +29,8 @@ const Pricing = ({ id }) => {
   // const { id } = router.query;
   // console.log(id, 'this is id')
 
+  const { setIsLoading } = useContext(Context);
+
   const { Option } = Select;
   const { Meta } = Card;
   const { TabPane } = Tabs;
@@ -136,6 +138,7 @@ const Pricing = ({ id }) => {
     setServerState3((prev) => !prev);
   };
   useEffect(async () => {
+    setIsLoading(true);
     setuserID(Auth.getUserId());
     setSid(Auth.getToken());
 
@@ -163,6 +166,7 @@ const Pricing = ({ id }) => {
           setPhysicalServer(response.data.result?.physical);
         setCloudServer(response.data.result?.cloud);
         setTax(response.data.result?.tax_amount);
+        setIsLoading(false);
       })
       .catch((error) => {
         // console.log(error);
@@ -367,9 +371,9 @@ const Pricing = ({ id }) => {
         <title>iFinance | Худалдан авах</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
+      {/* <div className="relative  h-[100px] md:h-auto overflow-hidden md:overflow-visible">
         <div className="absolute z-20 flex flex-col w-full h-full">
-          <div className="w-full flex justify-center h-1/3">
+          <div className="w-full flex justify-center h-[100px] fixed ">
             <NavbarTrans />
           </div>
           <div className="hidden my-auto uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-poppins-semibold">
@@ -385,6 +389,61 @@ const Pricing = ({ id }) => {
       </div>
       <div className=" xl:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
         Худалдан авах
+      </div> */}
+      <div className=" md:fixed z-30 h-[100px] flex  overflow-hidden">
+        <div className="absolute z-30  flex flex-col w-full h-full">
+          <div className="w-full flex justify-center mb-2 ">
+            <NavbarTrans />
+          </div>
+
+          {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+            Манай бүтээгдэхүүн
+          </div> */}
+        </div>
+        <Image
+          className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto"
+          preview={false}
+          src="/img/Slider.svg"
+        />
+      </div>
+      <div className="  relative">
+        <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center mt-[90px] ">
+          <div className=" mt-[20px] ml-[375px] lg:flex justify-between w-[450px] hidden">
+            <div>
+              <Image preview={false} src="/img/home.svg" />
+            </div>
+            <div className="text-white text-[14px] font-semibold">
+              <a href="/" className="text-white text-[14px] font-semibold">
+                Нүүр хуудас
+              </a>
+            </div>
+            <div>
+              <Image preview={false} src="/img/right.svg" />
+            </div>
+            <div className="">
+              <a
+                href="/dashboard"
+                className="text-white text-[14px] font-semibold"
+              >
+                Бүтээгдэхүүн
+              </a>
+            </div>
+            <div>
+              <Image preview={false} src="/img/right.svg" />
+            </div>
+            <div className="text-white text-[14px] font-semibold">
+              Худалдан авах
+            </div>
+          </div>
+          <div className=" text-center xl:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
+            Худалдан авах
+          </div>
+        </div>
+        <Image
+          className=" hidden xl:flex w-[100vw] mt-[100px]"
+          preview={false}
+          src="/img/dashboard.svg"
+        />
       </div>
       <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row   justify-center">
         <div className=" flex  justify-center ">

@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 const Dashboard = () => {
+  const { setIsLoading } = useContext(Context);
   const { Panel } = Collapse;
   const router = useRouter();
   const [sid, setSid] = useState();
@@ -17,9 +18,10 @@ const Dashboard = () => {
   const [bgHover, setBgHover] = useState(false);
   const [serverType, setServerType] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
-  const baseDB = process.env.NEXT_PUBLIC_DB;
+
   // console.log(baseUrl + "get/category_list", "baseurl");
   useEffect(async () => {
+    setIsLoading(true);
     // console.log(Auth.getToken(), "siddd");
     setSid(Auth.getToken());
     // Auth.getToken() == null || Auth.getToken() == undefined
@@ -43,6 +45,7 @@ const Dashboard = () => {
       }
     );
     setList(res.data.result);
+    setIsLoading(false);
     // console.log(res, "ehnii");
 
     // console.log(res, "listtttt");
@@ -61,6 +64,7 @@ const Dashboard = () => {
 
   return (
     <div className="">
+  
       <Head>
         <title>iFinance | Бүтээгдэхүүн</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -195,6 +199,7 @@ const Dashboard = () => {
       <div>
       <Footer />
       </div>
+     
     </div>
   );
 };

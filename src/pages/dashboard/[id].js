@@ -6,7 +6,7 @@ import axios from "axios";
 import Context from "../../context/Context";
 import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer";
-import { Tabs, Image, Button, message } from "antd";
+import { Tabs, Image, Button, message, Spin } from "antd";
 import NavbarTrans from "../../components/NavbarTrans";
 import parse from "html-react-parser";
 import Head from "next/head";
@@ -15,7 +15,7 @@ const CategoryId = () => {
   const router = useRouter();
 
   const { id } = router.query;
-  const { sessionId } = useContext(Context);
+  const { sessionId, setIsLoading } = useContext(Context);
   const { TabPane } = Tabs;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const baseDB = process.env.NEXT_PUBLIC_DB;
@@ -61,6 +61,7 @@ const CategoryId = () => {
   };
 
   const fetchData = async () => {
+    setIsLoading(true);
     const res = await axios.post(
       baseUrl + "get/product_list_by_category",
       {
@@ -83,6 +84,7 @@ const CategoryId = () => {
         setAdditionalProduct(res.data.result.additional_products),
       res.data.result &&
         setCategoryName(res.data.result.main_products[0].product_category);
+       setIsLoading(false);
     // console.log(res.data.result, sessionId, "medeenuud");
   };
 
@@ -106,8 +108,8 @@ const CategoryId = () => {
         <title>iFinance | Танилцуулга</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="relative h-[100px] flex  overflow-hidden">
-        <div className="absolute z-20 flex flex-col w-full h-full">
+      <div className=" md:fixed z-30 h-[100px] flex  overflow-hidden  ">
+        <div className="absolute z-30  flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans cartLogin={cartLogin} />
           </div>
@@ -122,8 +124,8 @@ const CategoryId = () => {
           src="/img/Slider.svg"
         />
       </div>
-      <div className="  relative ">
-        <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center ">
+      <div className="  relative  ">
+        <div className="xl:absolute z-20   flex flex-col w-full h-[260px] justify-center mt-[90px] ">
           <div className=" mt-[20px] ml-[375px] lg:flex justify-between w-[450px] hidden">
             <div>
               <Image preview={false} src="/img/home.svg" />
@@ -156,12 +158,12 @@ const CategoryId = () => {
           </div>
         </div>
         <Image
-          className=" hidden xl:flex w-[100vw]"
+          className=" hidden xl:flex w-[100vw] mt-[100px]"
           preview={false}
           src="/img/dashboard.svg"
         />
       </div>
-      <div className=" 2xl:pl-[200px] z-10  mb-[11.813rem]">
+      <div className=" 2xl:pl-[200px]  z-10  mb-[20px]">
         <Tabs defaultActiveKey="1" className="">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" lg:mt-[20px]">
@@ -333,7 +335,7 @@ const CategoryId = () => {
             </div>
           </TabPane>
           <TabPane className="mainTab" tab="Нэмэлт модуль" key="2">
-            <div className=" lg:mt-[80px]">
+            <div className=" mt-[20px] ">
               <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] lg:flex items-center  rounded-t-xl ">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
                   Ангилал

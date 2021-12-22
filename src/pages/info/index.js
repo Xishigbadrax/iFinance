@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
 import {
@@ -19,8 +19,10 @@ import Auth from "../../utils/auth";
 import axios from "axios";
 import Head from "next/head";
 import Router from "next/router";
+import Context from "../../context/Context";
 
 const Info = () => {
+  const { setIsLoading } = useContext(Context);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const { TabPane } = Tabs;
   const [form] = Form.useForm();
@@ -242,6 +244,7 @@ const Info = () => {
   };
 
   useEffect(async () => {
+    setIsLoading(true);
     const res = await axios.post(
       baseUrl + "get/user/info",
       {
@@ -261,7 +264,8 @@ const Info = () => {
     setDistrict(res.data.result.district);
     setSumkhoroo(res.data.result.sumkhoroo);
    
-    console.log(res, "info res");
+    // console.log(res, "info res");
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -828,7 +832,7 @@ const Info = () => {
                         onChange={(e) => setPhone(e.target.value)}
                         bordered={false}
                         style={{ borderBottom: "1px solid black" }}
-                        placeholder={mainData?.phone_number_verified_at ? mainData.phone : "Утасны дугаар"}
+                        placeholder={mainData?.phone_number_verified_at ? mainData?.phone : "Утасны дугаар"}
                         
                       />
                     </div>
@@ -884,7 +888,7 @@ const Info = () => {
                       onChange={(e) => setMail(e.target.value)}
                         bordered={false}
                         style={{ borderBottom: "1px solid black" }}
-                        placeholder={mainData.email_verified_at ? mainData.email : "И-мэйл хаяг"}
+                        placeholder={mainData?.email_verified_at ? mainData.email : "И-мэйл хаяг"}
                       />
                     </div>
                     <Button

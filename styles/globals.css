@@ -608,3 +608,13 @@ thead > tr > th {
 .price  {
   margin: 15px 9px !important;
 }
+.spinner{
+   align-items: center !important;
+   color: purple !important;
+   
+   margin-top: 20vh !important;
+}
+
+.ant-spin-dot-item{
+  background-color: purple !important;
+}

@@ -28,7 +28,7 @@ const Pricing = ({}) => {
   // const router = useRouter();
   // const { id } = router.query;
   // console.log(id, 'this is id')
-
+const {setIsLoading} = useContext(Context);
   const { Option } = Select;
   const { Meta } = Card;
   const { TabPane } = Tabs;
@@ -80,8 +80,10 @@ const Pricing = ({}) => {
   const [domain, setDomain] = useState();
   const [domainState, setDomainState] = useState(null);
   const [lock, setLock] = useState(false);
+ 
 
   // const [isChecked, setIsChecked] = useState([]);
+
 
   const handleChange = (value) => {
     // console.log(value, "serveree");
@@ -111,6 +113,7 @@ const Pricing = ({}) => {
     setServerState3((prev) => !prev);
   };
   useEffect(async () => {
+    setIsLoading(true);
     setuserID(Auth.getUserId());
     setSid(Auth.getToken());
 
@@ -155,12 +158,13 @@ const Pricing = ({}) => {
          
         }
 
-        console.log(response, "all module");
+        // console.log(response, "all module");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
         setCloudServer(response.data.result?.cloud);
         setTax(response.data.result?.tax_amount);
+        setIsLoading(false);
       })
       .catch((error) => {
         // console.log(error);
@@ -303,7 +307,7 @@ const Pricing = ({}) => {
   }
 
   useEffect(() => {
-    console.log(state, 'gg state')
+    // console.log(state, 'gg state')
   }, [state])
 
   useEffect(() => {
@@ -422,9 +426,9 @@ const Pricing = ({}) => {
         <title>iFinance | Үнийн санал</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
+      {/* <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
         <div className="absolute z-20 flex flex-col w-full h-full">
-          <div className="w-full flex justify-center h-1/3">
+          <div className="w-full flex justify-center h-[100px]  bg-black fixed  ">
             <NavbarTrans />
           </div>
           <div className="hidden my-auto uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-poppins-semibold">
@@ -440,6 +444,53 @@ const Pricing = ({}) => {
       </div>
       <div className=" xl:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
         Үнийн санал
+      </div> */}
+     
+      <div className=" md:fixed z-30 h-[100px] flex  overflow-hidden">
+        <div className="absolute z-30  flex flex-col w-full h-full">
+          <div className="w-full flex justify-center mb-2 ">
+            <NavbarTrans />
+          </div>
+
+          {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+            Манай бүтээгдэхүүн
+          </div> */}
+        </div>
+        <Image
+          className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto"
+          preview={false}
+          src="/img/Slider.svg"
+        />
+      </div>
+      <div className="  relative">
+        <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center mt-[90px] ">
+          <div className=" mt-[20px] ml-[375px] lg:flex justify-between w-[300px] hidden">
+            <div>
+              <Image preview={false} src="/img/home.svg" />
+            </div>
+            <div className="text-white text-[14px] font-semibold">
+              <a href="/" className="text-white text-[14px] font-semibold">
+                Нүүр хуудас
+              </a>
+            </div>
+            
+           
+            <div>
+              <Image preview={false} src="/img/right.svg" />
+            </div>
+            <div className="text-white text-[14px] font-semibold">
+              Үнийн санал
+            </div>
+          </div>
+          <div className=" text-center  lg:mt-20 lg:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex   items-center lg:text-white   text-[36px] font-semibold">
+            Үнийн санал
+          </div>
+        </div>
+        <Image
+          className=" hidden xl:flex w-[100vw] mt-[100px]"
+          preview={false}
+          src="/img/dashboard.svg"
+        />
       </div>
       <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row   justify-center">
         <div className=" flex  justify-center ">
@@ -464,7 +515,7 @@ const Pricing = ({}) => {
                           }
                           className={`
                               ${mainItem.is_required && "cursor-not-allowed"}
-                              mt-[24px] xl:w-[140px] h-auto  rounded-[8px] border-[1px]  ${
+                              mt-[24px] xl:w-[140px] h-auto cursor-pointer rounded-[8px] border-[1px]  ${
                                 state.includes(mainItem)
                                   ? "border-[#2E28D4]"
                                   : "border-[#9CA6C0]"
@@ -526,7 +577,9 @@ const Pricing = ({}) => {
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
               <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
+               
               </div>
+              
               <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
                   return (
@@ -543,10 +596,13 @@ const Pricing = ({}) => {
                     `}
                     >
                       <div className=" p-[10px]  flex justify-between  ">
+                        
                         <div className="">
                           <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
                             {item.product_name}
+                            
                           </div>
+                          
                           <Divider className="price bg-black " />
                           <div className=" ">
                             {item.product_discount == 0 ? (
@@ -910,7 +966,7 @@ const Pricing = ({}) => {
                         disabled={serverState2 || serverState3 ? true : false}
                         defaultValue="Сонгох"
                         // style={{ width: 300 }}
-                        className=" w-[300px] lg:w-[330px]"
+                        className=" w-[280px] lg:w-[330px]"
                         allowClear
                         onChange={handleChange}
                       >
@@ -978,7 +1034,7 @@ const Pricing = ({}) => {
                         defaultValue="Сонгох"
                         // style={{ width: 300 }}
                         allowClear
-                        className=" w-[300px] xl:w-[330px]"
+                        className=" w-[280px] xl:w-[330px]"
                         onChange={handleChange2}
                       >
                         {cloudServer?.map((item, index) => {
@@ -1331,6 +1387,7 @@ const Pricing = ({}) => {
           </TabPane>
         </Tabs>
       </Modal>
+      
     </div>
   );
 };

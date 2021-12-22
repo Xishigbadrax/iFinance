@@ -1,11 +1,13 @@
 import {useState, createContext, useEffect} from 'react';
 import axios from 'axios';
 import {callPost} from '../api/api';
+import { Spin } from 'antd';
 import Auth from '../utils/auth';
 const Context = createContext();
 export const ContextProvider = ({children}) => {
     const [sessionId, setSessionId] = useState();
     const [sid, setSid] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const baseUrl = process.env.NEXT_PUBLIC_URL;
     const baseDB = process.env.NEXT_PUBLIC_DB;
     const onSid = (value) => {
@@ -54,10 +56,14 @@ const setMenuAndPermissions = async () => {
         setMenuAndPermissions,
         sessionId,
         onSid,
-        sid
+        sid,
+        setIsLoading
       }}
     >
+        <Spin spinning={isLoading} className="spinner" tip="Уншиж байна">
       {children}
+      </Spin>
+  
     </Context.Provider>
   );
     }

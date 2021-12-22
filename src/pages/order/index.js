@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
 import { Image, Tabs, Divider, message } from "antd";
 import Auth from "../../utils/auth";
 import { Table, Badge, Menu, Dropdown, Space } from "antd";
-import { DownOutlined } from "@ant-design/icons";
 import axios from "axios";
 import Router from "next/router";
+import Context from "../../context/Context";
 
 const Order = () => {
   const menu = (
@@ -15,9 +15,10 @@ const Order = () => {
       <Menu.Item>Action 2</Menu.Item>
     </Menu>
   );
+  const { setIsLoading } = useContext(Context);
   const { TabPane } = Tabs;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
-  const baseDB = process.env.NEXT_PUBLIC_DB;
+ 
   const [invoices, setInvoices] = useState();
   const data2 = [];
 
@@ -96,6 +97,7 @@ const Order = () => {
   });
 
   useEffect(async () => {
+    setIsLoading(true);
     await axios
       .post(
         baseUrl + "get/invoices",
@@ -117,6 +119,7 @@ const Order = () => {
       .then((response) => {
         // console.log(response, "zahialga");
         setInvoices(response.data.result.invoices);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
