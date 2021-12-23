@@ -113,7 +113,7 @@ const {setIsLoading} = useContext(Context);
     setServerState3((prev) => !prev);
   };
   useEffect(async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     setuserID(Auth.getUserId());
     setSid(Auth.getToken());
 
@@ -158,7 +158,7 @@ const {setIsLoading} = useContext(Context);
          
         }
 
-        // console.log(response, "all module");
+        console.log(response, "all module");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -247,17 +247,36 @@ const {setIsLoading} = useContext(Context);
     }
   };
 
-  const isModuleCheck = (item, isRequired) => {
+  const isModuleCheck = async (item, isRequired) => {
     if (!isRequired) {
       if (state.includes(item)) {
         let filtered = state.filter(function (el) {
           return el != item;
         });
-
+        
         setState(filtered);
       } else {
-      
-        setState([...state, item]);
+        if (item.product_dependency == false) {
+          setState([...state, item]);
+        }
+        else {
+          // console.log( item.product_dependency,"bnuu")
+          mainData?.map((el) => {
+            item.product_dependency?.map((hamt) => {
+              if (el.product_id == hamt) {
+                if (state.includes(el)) {
+                  setState([...state, item]);
+                }
+                else {
+
+                  setState([...state, el, item]);
+                }
+              }
+            })
+            
+          })
+          
+        }
       }
     }
   };
@@ -266,48 +285,112 @@ const {setIsLoading} = useContext(Context);
     console.log(isTrue, 'sdfsdfsfsf')
 
     if (isTrue) {
-    
-      var response = await Promise.all(mainData?.map((item) => {
-        if (item.product_category_id == catId) {
-          return isChecked(item, item.is_required)
+      
+      var lastArraay = await Promise.all(mainData.filter(function(el) {
+        if( el.is_required == false){
+
+          return el.product_category_id == catId
         }
+       
       }))
+
+      setState((prev) => [...prev, ...lastArraay])
     
-      var lalar = []
+      // var response = await Promise.all(mainData?.map((item) => {
+      //   if (item.product_category_id == catId) {
+      //     return isChecked(item, item.is_required)
+      //   }
+      // }))
+    
+      // var lalar = []
 
-      for (let i = 0; i < response.length; i++) {
-        if (response[i] instanceof Object) {
-          lalar.push(response[i])
-        }
-      }
+      // for (let i = 0; i < response.length; i++) {
+      //   if (response[i] instanceof Object) {
+      //     lalar.push(response[i])
+      //   }
+      // }
 
-      setState([...state, ...lalar]);
+      // setState([...state, ...lalar]);
     } 
     else {
-      
-            mainData?.map( (item) => {
-              deleteGG(item)
-          }
-      )
+      var lastArraay = await Promise.all(state.filter(function(el) {
+        return el.is_required == true || el.product_category_id != catId
+      }))
+
+      setState(lastArraay)
     }
   };
 
-  const deleteGG = async (item) => { 
+  // const deleteCheckedAdd = async (item) => { 
      
-    if (state.includes(item)) {
-      if (!item.is_required) {
-        let filtered = await Promise.all(state.filter(function (el) {
-         return el != item;
-        }));
-                     
-         setState(filtered);
-      }
+  //   if (state.includes(item)) {
+  //     if (!item.is_required) {
+  //       var response = await Promise.all(additionalData?.map((item) => {
+  //           return isChecked(item, item.is_required)
+  //       }))
+  //       var lalar = []
+
+  //       for (let i = 0; i < response.length; i++) {
+  //         if (response[i] instanceof Object) {
+  //           lalar.push(response[i])
+  //         }
+  //       }
+
+  //       lalar.map((element) => {
+  //         state.filter(function(el) {
+  //           setState(el != element);
+  //         })
+  //       })
+  //     }
       
+  //   }
+  // }
+
+  const CheckAllAdditional = async (isTrue) => {
+    
+
+    if (isTrue) {
+
+      var addArray = await Promise.all(additionalData.filter(function(el) {
+        return el
+      }))
+
+      setState((prev) => [...prev, ...addArray])
+    
+      // var response = await Promise.all(additionalData?.map((item) => {
+        
+      //     return isChecked(item, item.is_required)
+        
+      // }))
+    
+      // var lalar = []
+
+      // for (let i = 0; i < response.length; i++) {
+      //   if (response[i] instanceof Object) {
+      //     lalar.push(response[i])
+      //   }
+      // }
+
+      // setState([...state, ...lalar]);
+    } 
+    else {
+
+      var deleteArray = await Promise.all(state.filter(function(el) {
+        return el.is_required == true 
+      }))
+
+      setState(deleteArray)
+      //       additionalData?.map( (item) => {
+      //         deleteCheckedAdd(item)
+      //     }
+      // )
     }
-  }
+  };
+
+  
 
   useEffect(() => {
-    // console.log(state, 'gg state')
+    console.log(state, 'gg state')
   }, [state])
 
   useEffect(() => {
@@ -499,9 +582,9 @@ const {setIsLoading} = useContext(Context);
               <div className="  shadow-custom">
                 <div className="pl-2 justify-between  flex text-[1.5rem] text-white items-center  xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                   <div>{index + 1 + ". " + item.name}</div>
-                  {/* <div className=" mr-[10px]">
+                  <div className=" mr-[10px]">
                     <Checkbox onClick={(e) => tursh(item.id, e.target.checked)} />
-                  </div> */}
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
@@ -575,9 +658,13 @@ const {setIsLoading} = useContext(Context);
             ))}
 
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              <div className=" justify-between pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+                <div>
                 Нэмэлт Модулиуд:
-               
+                  </div>
+                <div className=" mr-[10px]">
+                <Checkbox onClick={(e) => CheckAllAdditional(e.target.checked)} />
+                  </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
