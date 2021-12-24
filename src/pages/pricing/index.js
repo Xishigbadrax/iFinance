@@ -28,7 +28,7 @@ const Pricing = ({}) => {
   // const router = useRouter();
   // const { id } = router.query;
   // console.log(id, 'this is id')
-const {setIsLoading} = useContext(Context);
+  const { setIsLoading } = useContext(Context);
   const { Option } = Select;
   const { Meta } = Card;
   const { TabPane } = Tabs;
@@ -80,10 +80,8 @@ const {setIsLoading} = useContext(Context);
   const [domain, setDomain] = useState();
   const [domainState, setDomainState] = useState(null);
   const [lock, setLock] = useState(false);
- 
 
   // const [isChecked, setIsChecked] = useState([]);
-
 
   const handleChange = (value) => {
     // console.log(value, "serveree");
@@ -139,7 +137,7 @@ const {setIsLoading} = useContext(Context);
           var mainProduct = response.data.result.main_products;
 
           var names = [];
-          var id = []
+          var id = [];
 
           mainProduct.map((item) => {
             if (!names.includes(item.product_category)) {
@@ -148,14 +146,13 @@ const {setIsLoading} = useContext(Context);
             }
           });
 
-          var lastArray = []
+          var lastArray = [];
 
           names.map((item, index) => {
-            lastArray.push({name:item, id: id[index]})
-          })
+            lastArray.push({ name: item, id: id[index] });
+          });
 
           setArrayNames(lastArray);
-         
         }
 
         console.log(response, "all module");
@@ -208,7 +205,7 @@ const {setIsLoading} = useContext(Context);
     }
     // console.log(res, "purchase res");
   };
-// console.log(arrayNames, "idss")
+  // console.log(arrayNames, "idss")
   const onCheck = async () => {
     await axios
       .post(
@@ -240,9 +237,7 @@ const {setIsLoading} = useContext(Context);
   const isChecked = (item, isRequired) => {
     if (!isRequired) {
       if (!state.includes(item)) {
-    
-        return item
-        
+        return item;
       }
     }
   };
@@ -250,58 +245,129 @@ const {setIsLoading} = useContext(Context);
   const isModuleCheck = async (item, isRequired) => {
     if (!isRequired) {
       if (state.includes(item)) {
-        let filtered = state.filter(function (el) {
-          return el != item;
+        // var filtered = state.filter(function (el) {
+        //   return el == item;
+        // });
+        var p = null;
+        mainData?.map((baraa) => {
+          if (baraa.product_dependency?.includes(item.product_id)) {
+            p = true;
+          }
         });
-        
-        setState(filtered);
+
+        if (p) {
+          mainData?.map((element) => {
+            if (element.product_dependency?.includes(item.product_id)) {
+              console.log("1");
+              let filtered2 = state.filter(function (el) {
+                return el != element;
+              });
+
+              console.log(filtered2, "filtered 2");
+
+              var lastFilter = filtered2.filter(function (el) {
+                return el != item;
+              });
+              setState(lastFilter);
+              p = false;
+            }
+
+            // else {
+            //   console.log("2");
+            //   var filtered = state.filter(function (el) {
+            //     return el != item;
+            //   });
+            //   setState(filtered);
+            // }
+          });
+        } else {
+          var filtered = state.filter(function (el) {
+            return el != item;
+          });
+          setState(filtered);
+        }
+
+        // setState(filtered);
       } else {
         if (item.product_dependency == false) {
           setState([...state, item]);
-        }
-        else {
-          // console.log( item.product_dependency,"bnuu")
-          mainData?.map((el) => {
-            item.product_dependency?.map((hamt) => {
-              if (el.product_id == hamt) {
-                if (state.includes(el)) {
-                  setState([...state, item]);
-                }
-                else {
+        } else {
+          // mainData?.map((el) => {
+          //   item.product_dependency?.map((hamt) => {
+          //     if (el.product_id == hamt) {
+          //       if (state.includes(el)) {
+          //         setState([...state, item]);
+          //       }
+          //       else {
 
-                  setState([...state, el, item]);
+          //         console.log( hamt,"bnuu")
+          //         setState([...state, el, item]);
+          //       }
+          //     }
+          //   })
+
+          // })
+
+          var response2 = await Promise.all(
+            mainData?.map((baraa) => {
+              for (let i = 0; i < item.product_dependency.length; i++) {
+                if (baraa.product_id == item.product_dependency[i]) {
+                  return isChecked(baraa, baraa.is_required);
                 }
               }
             })
-            
-          })
-          
+          );
+          var test = [];
+          for (let i = 0; i < response2.length; i++) {
+            if (response2[i] instanceof Object) {
+              test.push(response2[i]);
+            }
+          }
+
+          // item.product_dependency?.map((el) => {
+          //   mainData?.map((hamt) => {
+          //     if (el == hamt.product_id) {
+          //       if (state.includes(hamt)) {
+          //         setState([...state, item]);
+          //       }
+          //       else {
+          //         var ar = [];
+          //         ar.push(...ar ,hamt);
+          //         // console.log( ar,"bnuu")
+          //       }
+          //       // setState([...state, ...hamt, item]);
+          //     }
+          //   })
+
+          // })
+          setState((prev) => [...prev, ...test, item]);
         }
       }
     }
   };
-  
+
   const tursh = async (catId, isTrue) => {
-    console.log(isTrue, 'sdfsdfsfsf')
+    // console.log(isTrue, "sdfsdfsfsf");
 
     if (isTrue) {
+      var lastArraay = await Promise.all(
+        mainData.filter(function (el) {
+          if (el.is_required == false) {
+            if (!state.includes(el)) {
+              
+              return el.product_category_id == catId;
+            }
+          }
+        })
+      );
+      setState((prev) => [...prev, ...lastArraay]);
       
-      var lastArraay = await Promise.all(mainData.filter(function(el) {
-        if( el.is_required == false){
-
-          return el.product_category_id == catId
-        }
-       
-      }))
-
-      setState((prev) => [...prev, ...lastArraay])
-    
       // var response = await Promise.all(mainData?.map((item) => {
       //   if (item.product_category_id == catId) {
       //     return isChecked(item, item.is_required)
       //   }
       // }))
-    
+
       // var lalar = []
 
       // for (let i = 0; i < response.length; i++) {
@@ -311,18 +377,19 @@ const {setIsLoading} = useContext(Context);
       // }
 
       // setState([...state, ...lalar]);
-    } 
-    else {
-      var lastArraay = await Promise.all(state.filter(function(el) {
-        return el.is_required == true || el.product_category_id != catId
-      }))
+    } else {
+      var lastArraay = await Promise.all(
+        state.filter(function (el) {
+          return el.is_required == true || el.product_category_id != catId;
+        })
+      );
 
-      setState(lastArraay)
+      setState(lastArraay);
     }
   };
 
-  // const deleteCheckedAdd = async (item) => { 
-     
+  // const deleteCheckedAdd = async (item) => {
+
   //   if (state.includes(item)) {
   //     if (!item.is_required) {
   //       var response = await Promise.all(additionalData?.map((item) => {
@@ -342,27 +409,26 @@ const {setIsLoading} = useContext(Context);
   //         })
   //       })
   //     }
-      
+
   //   }
   // }
 
   const CheckAllAdditional = async (isTrue) => {
-    
-
     if (isTrue) {
+      var addArray = await Promise.all(
+        additionalData.filter(function (el) {
+          return el;
+        })
+      );
 
-      var addArray = await Promise.all(additionalData.filter(function(el) {
-        return el
-      }))
+      setState((prev) => [...prev, ...addArray]);
 
-      setState((prev) => [...prev, ...addArray])
-    
       // var response = await Promise.all(additionalData?.map((item) => {
-        
+
       //     return isChecked(item, item.is_required)
-        
+
       // }))
-    
+
       // var lalar = []
 
       // for (let i = 0; i < response.length; i++) {
@@ -372,14 +438,14 @@ const {setIsLoading} = useContext(Context);
       // }
 
       // setState([...state, ...lalar]);
-    } 
-    else {
+    } else {
+      var deleteArray = await Promise.all(
+        state.filter(function (el) {
+          return el.is_required == true;
+        })
+      );
 
-      var deleteArray = await Promise.all(state.filter(function(el) {
-        return el.is_required == true 
-      }))
-
-      setState(deleteArray)
+      setState(deleteArray);
       //       additionalData?.map( (item) => {
       //         deleteCheckedAdd(item)
       //     }
@@ -387,11 +453,9 @@ const {setIsLoading} = useContext(Context);
     }
   };
 
-  
-
   useEffect(() => {
-    console.log(state, 'gg state')
-  }, [state])
+    console.log(state, "gg state");
+  }, [state]);
 
   useEffect(() => {
     setNumberOfProgram(state.length);
@@ -528,7 +592,7 @@ const {setIsLoading} = useContext(Context);
       <div className=" xl:hidden mt-10  my-auto font-poppins-semibold uppercase flex justify-center items-center text-[#2E28D4] h-2/3 text-[36px] font-semibold">
         Үнийн санал
       </div> */}
-     
+
       <div className=" md:fixed z-30 h-[100px] flex  overflow-hidden">
         <div className="absolute z-30  flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
@@ -556,8 +620,7 @@ const {setIsLoading} = useContext(Context);
                 Нүүр хуудас
               </a>
             </div>
-            
-           
+
             <div>
               <Image preview={false} src="/img/right.svg" />
             </div>
@@ -583,7 +646,9 @@ const {setIsLoading} = useContext(Context);
                 <div className="pl-2 justify-between  flex text-[1.5rem] text-white items-center  xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                   <div>{index + 1 + ". " + item.name}</div>
                   <div className=" mr-[10px]">
-                    <Checkbox onClick={(e) => tursh(item.id, e.target.checked)} />
+                    <Checkbox
+                      onClick={(e) => tursh(item.id, e.target.checked)}
+                    />
                   </div>
                 </div>
 
@@ -659,14 +724,14 @@ const {setIsLoading} = useContext(Context);
 
             <div className=" mt-[1.875rem] mb-[30px] shadow-custom">
               <div className=" justify-between pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                <div>
-                Нэмэлт Модулиуд:
-                  </div>
+                <div>Нэмэлт Модулиуд:</div>
                 <div className=" mr-[10px]">
-                <Checkbox onClick={(e) => CheckAllAdditional(e.target.checked)} />
-                  </div>
+                  <Checkbox
+                    onClick={(e) => CheckAllAdditional(e.target.checked)}
+                  />
+                </div>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
                   return (
@@ -683,13 +748,11 @@ const {setIsLoading} = useContext(Context);
                     `}
                     >
                       <div className=" p-[10px]  flex justify-between  ">
-                        
                         <div className="">
                           <div className="text-[#2F3747] w-[100px]  font-semibold text-[14px] h-[80px]">
                             {item.product_name}
-                            
                           </div>
-                          
+
                           <Divider className="price bg-black " />
                           <div className=" ">
                             {item.product_discount == 0 ? (
@@ -731,7 +794,6 @@ const {setIsLoading} = useContext(Context);
                 })}
               </div>
             </div>
-           
           </div>
         </div>
         <div className=" flex flex-col ">
@@ -1019,163 +1081,163 @@ const {setIsLoading} = useContext(Context);
             </Tabs>
           </div>
           <div className=" ml-[10px] mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[400px] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                Сервер байршуулах:
-              </div>
-              <div>
-                <div className=" mx-[24px]  p-[24px lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
-                  <div className=" p-[20px]">
-                    <div className=" flex w-full  justify-between">
-                      <div className="text-[#2F3747] text-[16px] font-semibold">
-                        1. Itools.mn Физик серверт байршуулах
+            <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[400px] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              Сервер байршуулах:
+            </div>
+            <div>
+              <div className=" mx-[24px]  p-[24px lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+                <div className=" p-[20px]">
+                  <div className=" flex w-full  justify-between">
+                    <div className="text-[#2F3747] text-[16px] font-semibold">
+                      1. Itools.mn Физик серверт байршуулах
+                    </div>
+                    <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
+                      <div className=" text-[#2F3747] text-[16px] font-semibold">
+                        {pServerPrice}₮
                       </div>
-                      <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
-                        <div className=" text-[#2F3747] text-[16px] font-semibold">
-                          {pServerPrice}₮
-                        </div>
-                        <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
-                          1 сард
-                        </div>
-                        <div>
-                          {/* className={serverState2 || serverState3 ? " cursor-not-allowed" : null} */}
+                      <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
+                        1 сард
+                      </div>
+                      <div>
+                        {/* className={serverState2 || serverState3 ? " cursor-not-allowed" : null} */}
 
-                          {/* <Checkbox
+                        {/* <Checkbox
                             disabled={
                               serverState2 || serverState3 ? true : false
                             }
                             onClick={() => onChangerServerPrice1()}
                           /> */}
-                        </div>
                       </div>
                     </div>
-                    <div className=" mt-[16px]">
-                      <Select
-                        disabled={serverState2 || serverState3 ? true : false}
-                        defaultValue="Сонгох"
-                        // style={{ width: 300 }}
-                        className=" w-[280px] lg:w-[330px]"
-                        allowClear
-                        onChange={handleChange}
-                      >
-                        {physicalServer?.map((item, index) => {
-                          return (
-                            <Option
-                              key={index}
-                              value={[
-                                <div
-                                  key={index}
-                                  className=" flex justify-between"
-                                >
-                                  <div>{item.server_name}</div>
-                                  <div>CPU Cores: {item.server_cpu}</div>
-                                  <div>Ram: {item.server_ram}</div>
-                                  <div>Hard: {item.server_hard}</div>
-                                  <div>{item.server_price} ₮</div>
-                                </div>,
-                                item.server_id,
-                                item.server_price,
-                              ]}
-                            >
-                              <div className=" flex justify-between">
+                  </div>
+                  <div className=" mt-[16px]">
+                    <Select
+                      disabled={serverState2 || serverState3 ? true : false}
+                      defaultValue="Сонгох"
+                      // style={{ width: 300 }}
+                      className=" w-[280px] lg:w-[330px]"
+                      allowClear
+                      onChange={handleChange}
+                    >
+                      {physicalServer?.map((item, index) => {
+                        return (
+                          <Option
+                            key={index}
+                            value={[
+                              <div
+                                key={index}
+                                className=" flex justify-between"
+                              >
                                 <div>{item.server_name}</div>
                                 <div>CPU Cores: {item.server_cpu}</div>
                                 <div>Ram: {item.server_ram}</div>
                                 <div>Hard: {item.server_hard}</div>
                                 <div>{item.server_price} ₮</div>
-                              </div>
-                            </Option>
-                          );
-                        })}
-                      </Select>
-                    </div>
+                              </div>,
+                              item.server_id,
+                              item.server_price,
+                            ]}
+                          >
+                            <div className=" flex justify-between">
+                              <div>{item.server_name}</div>
+                              <div>CPU Cores: {item.server_cpu}</div>
+                              <div>Ram: {item.server_ram}</div>
+                              <div>Hard: {item.server_hard}</div>
+                              <div>{item.server_price} ₮</div>
+                            </div>
+                          </Option>
+                        );
+                      })}
+                    </Select>
                   </div>
                 </div>
               </div>
-              <div className=" w-full">
-                <div className=" mx-[24px]  lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
-                  <div className=" p-[20px]">
-                    <div className=" flex w-full  justify-between">
-                      <div className="text-[#2F3747] text-[16px] font-semibold">
-                        2. Cloud.mn Клауд Платформ
+            </div>
+            <div className=" w-full">
+              <div className=" mx-[24px]  lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+                <div className=" p-[20px]">
+                  <div className=" flex w-full  justify-between">
+                    <div className="text-[#2F3747] text-[16px] font-semibold">
+                      2. Cloud.mn Клауд Платформ
+                    </div>
+                    <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
+                      <div className=" text-[#2F3747] text-[16px] font-semibold">
+                        {cServerPrice}₮
                       </div>
-                      <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
-                        <div className=" text-[#2F3747] text-[16px] font-semibold">
-                          {cServerPrice}₮
-                        </div>
-                        <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
-                          1 сард
-                        </div>
-                        <div>
-                          {/* <Checkbox
+                      <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
+                        1 сард
+                      </div>
+                      <div>
+                        {/* <Checkbox
                             disabled={
                               serverState1 || serverState3 ? true : false
                             }
                             onClick={() => onChangerServerPrice2()}
                           /> */}
-                        </div>
                       </div>
                     </div>
-                    <div className=" mt-[16px]">
-                      <Select
-                        disabled={serverState1 || serverState3 ? true : false}
-                        defaultValue="Сонгох"
-                        // style={{ width: 300 }}
-                        allowClear
-                        className=" w-[280px] xl:w-[330px]"
-                        onChange={handleChange2}
-                      >
-                        {cloudServer?.map((item, index) => {
-                          return (
-                            <Option
-                              key={index}
-                              value={[
-                                <div
-                                  key={index}
-                                  className=" flex justify-between"
-                                >
-                                  <div>{item.server_name}</div>
-                                  <div>CPU Cores: {item.server_cpu}</div>
-                                  <div>Ram: {item.server_ram}</div>
-                                  <div>Hard: {item.server_hard}</div>
-                                  <div>{item.server_price} ₮</div>
-                                </div>,
-                                item.server_id,
-                                item.server_price,
-                              ]}
-                            >
-                              <div className=" flex justify-between">
+                  </div>
+                  <div className=" mt-[16px]">
+                    <Select
+                      disabled={serverState1 || serverState3 ? true : false}
+                      defaultValue="Сонгох"
+                      // style={{ width: 300 }}
+                      allowClear
+                      className=" w-[280px] xl:w-[330px]"
+                      onChange={handleChange2}
+                    >
+                      {cloudServer?.map((item, index) => {
+                        return (
+                          <Option
+                            key={index}
+                            value={[
+                              <div
+                                key={index}
+                                className=" flex justify-between"
+                              >
                                 <div>{item.server_name}</div>
                                 <div>CPU Cores: {item.server_cpu}</div>
                                 <div>Ram: {item.server_ram}</div>
                                 <div>Hard: {item.server_hard}</div>
                                 <div>{item.server_price} ₮</div>
-                              </div>
-                            </Option>
-                          );
-                        })}
-                      </Select>
-                    </div>
+                              </div>,
+                              item.server_id,
+                              item.server_price,
+                            ]}
+                          >
+                            <div className=" flex justify-between">
+                              <div>{item.server_name}</div>
+                              <div>CPU Cores: {item.server_cpu}</div>
+                              <div>Ram: {item.server_ram}</div>
+                              <div>Hard: {item.server_hard}</div>
+                              <div>{item.server_price} ₮</div>
+                            </div>
+                          </Option>
+                        );
+                      })}
+                    </Select>
                   </div>
                 </div>
               </div>
-              <div className=" w-full pb-[17px]">
-                <div className="   lg:w-[370px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
-                  <div className=" p-[20px]">
-                    <div className=" flex w-full  justify-between">
-                      <div className="text-[#2F3747] text-[16px] font-semibold">
-                        3. Өөрсдийн сервер дээр байршуулах
-                      </div>
-                      <div className="">
-                        <Checkbox
-                          disabled={serverState1 || serverState2 ? true : false}
-                          onClick={() => onChangerServerPrice3()}
-                        />
-                      </div>
+            </div>
+            <div className=" w-full pb-[17px]">
+              <div className="   lg:w-[370px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
+                <div className=" p-[20px]">
+                  <div className=" flex w-full  justify-between">
+                    <div className="text-[#2F3747] text-[16px] font-semibold">
+                      3. Өөрсдийн сервер дээр байршуулах
+                    </div>
+                    <div className="">
+                      <Checkbox
+                        disabled={serverState1 || serverState2 ? true : false}
+                        onClick={() => onChangerServerPrice3()}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
           <div className=" w-[370px]  shadow-lg ml-3 mt-5 rounded-[4px] p-[20px]">
             <div className="flex">
               <Input
@@ -1474,7 +1536,6 @@ const {setIsLoading} = useContext(Context);
           </TabPane>
         </Tabs>
       </Modal>
-      
     </div>
   );
 };
