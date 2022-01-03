@@ -88,6 +88,7 @@ const NavbarTrans = ({ cartLogin }) => {
   const [newPassConfirm, setNewPassConfirm] = useState("");
 
   const [test, setTest] = useState(false);
+  const [hover, setHover] = useState(0);
 
   const handleCancel = () => {
     setMobileConfirm(false);
@@ -145,6 +146,10 @@ const NavbarTrans = ({ cartLogin }) => {
     setWidth(window.innerWidth);
   }
   useEffect(() => {
+    window.location.href.includes("dashboard") && setHover(1);
+    window.location.href.includes("pricing") && setHover(2);
+    window.location.href.includes("service") && setHover(3);
+
     setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowSizeChange);
     return () => {
@@ -1096,13 +1101,7 @@ const NavbarTrans = ({ cartLogin }) => {
       >
         <div className={`container ${addclass}`} id="container">
           <div className="form-container sign-up-container">
-            <Image
-              className="pt-[3rem] pl-[3rem] "
-              preview={false}
-              src="/img/logo.png"
-            />
-
-            <Form
+          <Form
               name="normal_login3"
               className="form"
               initialValues={{
@@ -1110,7 +1109,17 @@ const NavbarTrans = ({ cartLogin }) => {
               }}
               onFinish={onFinishRegister}
             >
-              <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-2">
+            <div className=" ml-[35%]">
+
+            <Image
+              className="pt-[3rem] pl-[3rem] "
+              preview={false}
+              src="/img/logo.png"
+            />
+            </div>
+
+         
+              <p className=" text-[1.5rem] text-transparent bg-clip-text bg-gradient-to-br from-[#2E28D4] to-[#AC27FD] font-semibold pt-2">
                 Бүртгүүлэх
               </p>
               <Form.Item
@@ -1124,7 +1133,7 @@ const NavbarTrans = ({ cartLogin }) => {
               >
                 <Input
                   maxLength={25}
-                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
                   id="normal_signup_name"
                   placeholder="Нэвтрэх нэр*"
                 />
@@ -1140,7 +1149,7 @@ const NavbarTrans = ({ cartLogin }) => {
               >
                 <MaskedInput
                   mask="11111111"
-                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
                   type="text"
                   placeholder="Утасны дугаар*"
                 />
@@ -1159,7 +1168,7 @@ const NavbarTrans = ({ cartLogin }) => {
                 ]}
               >
                 <Input
-                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
                   type="text"
                   placeholder="И-мэйл*"
                 />
@@ -1174,7 +1183,7 @@ const NavbarTrans = ({ cartLogin }) => {
                 ]}
               >
                 <Input.Password
-                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
                   type="password"
                   placeholder="Нууц үг*"
                 />
@@ -1201,7 +1210,7 @@ const NavbarTrans = ({ cartLogin }) => {
                 ]}
               >
                 <Input.Password
-                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
                   type="password"
                   placeholder="Нууц үг давтах*"
                 />
@@ -1211,7 +1220,7 @@ const NavbarTrans = ({ cartLogin }) => {
                 <div className=" flex justify-between w-full pl-[2rem] pr-[2rem] ">
                   <div>
                     <Form.Item noStyle>
-                      <Checkbox>Хүлээн зөвшөөрч байна</Checkbox>
+                      <Checkbox className="text-[#9CA6C0]">Хүлээн зөвшөөрч байна</Checkbox>
                     </Form.Item>
                   </div>
                   <div>
@@ -1224,7 +1233,7 @@ const NavbarTrans = ({ cartLogin }) => {
 
               <Form.Item>
                 <Button
-                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px]"
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] font-bold"
                   type="primary"
                   htmlType="submit"
                 >
@@ -1251,7 +1260,7 @@ const NavbarTrans = ({ cartLogin }) => {
               }}
               onFinish={onFinishLogin}
             >
-              <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-20">
+              <p className=" text-[1.5rem] text-transparent bg-clip-text bg-gradient-to-br from-[#2E28D4] to-[#AC27FD] font-semibold pt-20">
                 Нэвтрэх
               </p>
               <Form.Item
@@ -1264,7 +1273,7 @@ const NavbarTrans = ({ cartLogin }) => {
                 ]}
               >
                 <Input
-                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
                   placeholder="Нэвтрэх нэр*"
                 />
               </Form.Item>
@@ -1278,7 +1287,7 @@ const NavbarTrans = ({ cartLogin }) => {
                 ]}
               >
                 <Input.Password
-                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
                   type="password"
                   placeholder="Нууц үг*"
                 />
@@ -1287,7 +1296,7 @@ const NavbarTrans = ({ cartLogin }) => {
                 <div className=" flex justify-between w-full pl-[2rem] pr-[2rem] ">
                   <div>
                     <Form.Item name="remember" valuePropName="checked" noStyle>
-                      <Checkbox>Намайг сана</Checkbox>
+                      <Checkbox className=" text-[#9CA6C0]">Намайг сана</Checkbox>
                     </Form.Item>
                   </div>
                   <div
@@ -1314,7 +1323,7 @@ const NavbarTrans = ({ cartLogin }) => {
             <div className="overlay">
               <div className="overlay-panel overlay-left">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
-                <p className=" text-[1.125rem]">
+                <p className=" text-[1.125rem">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
                 </p>
                 <Image preview={false} src="/img/login.png" />
@@ -1329,7 +1338,7 @@ const NavbarTrans = ({ cartLogin }) => {
               </div>
               <div className="overlay-panel overlay-right">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
-                <p className=" text-[1.125rem]">
+                <p className=" text-[1.125rem] opacity-70 w-[330px] text-left">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
                 </p>
                 <Image preview={false} src="/img/login.png" />
@@ -2390,36 +2399,73 @@ const NavbarTrans = ({ cartLogin }) => {
             <div className=" h-1  bg-white w-6"></div>
           </div>
         )}
-        <div className="  hidden lg:flex  lg:w-[900px] lg:justify-between items-center">
+        <div className="  hidden lg:flex  lg:w-[900px]  lg:justify-between items-center">
           <div>
-            <ul className="lg:flex lg:justify-around  lg:w-[40rem] lg:pt-3">
-              <li className=" text-lg ">
+            <ul className="lg:flex lg:justify-around  lg:w-[550px]  lg:pt-3">
+              {hover == 0 ? <li className=" text-lg ">
                 <Link href="/">
-                  <a className=" text-white font-poppins-semibold">Эхлэл</a>
+                  <a className="text-white  opacity-100 font-poppins-semibold">Эхлэл</a>
                 </Link>
               </li>
-              <li className=" text-lg">
+               : 
+               <li className=" text-lg ">
+                <Link href="/">
+                  <a className="text-white hover:opacity-100 opacity-50 font-poppins-semibold">Эхлэл</a>
+                </Link>
+              </li>  
+            }
+              {hover == 1 ?   <li className=" text-lg">
                 <Link href="/dashboard">
-                  <a className=" text-white font-poppins-semibold">
+                  <a className=" text-white opacity-100 font-poppins-semibold">
                     Бүтээгдэхүүн
                   </a>
                 </Link>
               </li>
-              <li className=" text-lg">
+              :  
+               <li className=" text-lg" onClick={() => setHover(1)}>
+              <Link href="/dashboard">
+                <a className=" text-white hover:opacity-100 opacity-50 font-poppins-semibold">
+                  Бүтээгдэхүүн
+                </a>
+              </Link>
+            </li>  
+            }
+            {hover == 2 ? 
+                  <li className=" text-lg">
+                  <Link href="/pricing">
+                    <a className="  text-white  opacity-100 font-poppins-semibold">
+                      Үнийн санал
+                    </a>
+                  </Link>
+                </li>
+                :  
+                <li className=" text-lg">
                 <Link href="/pricing">
-                  <a className="  text-white font-poppins-semibold">
+                  <a className="  text-white hover:opacity-100 opacity-50 font-poppins-semibold">
                     Үнийн санал
                   </a>
                 </Link>
               </li>
-
-              <li className=" text-lg">
+          }
+            {hover == 3 ? 
+                <li className=" text-lg">
                 <Link href="/service">
-                  <a className=" text-[18px] font-poppins-semibold  text-white ">
+                  <a className=" text-[18px]  opacity-100 font-poppins-semibold  text-white ">
                     Үйлчилгээ
                   </a>
                 </Link>
               </li>
+              :
+              <li className=" text-lg">
+              <Link href="/service">
+                <a className=" text-[18px] hover:opacity-100 opacity-50 font-poppins-semibold  text-white ">
+                  Үйлчилгээ
+                </a>
+              </Link>
+            </li>
+            }
+
+          
             </ul>
           </div>
 

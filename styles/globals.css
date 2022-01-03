@@ -105,13 +105,13 @@ a {
 }
 
 .form {
-  background-color: #ffffff;
+  background-color: #fff;
   /* display: flex; */
   align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 0px;
-  height: 100%;
+  height: 800px;
   text-align: center;
 }
 
@@ -197,7 +197,7 @@ a {
 .overlay {
   background: #fff;
   background: -webkit-linear-gradient(to right, #2e28d4, #ac27fd);
-  background: linear-gradient(to right, #2e28d4, #ac27fd);
+  background: linear-gradient(45deg, #2e28d4, #ac27fd);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -349,6 +349,7 @@ a {
  .module  .ant-tabs-tab-active{
   background: linear-gradient(to right, rgba(86, 80, 235,1), rgba(86, 80, 235,0.3));
   color: #fff !important;
+  
 }
 
 
@@ -481,6 +482,8 @@ color: red !important;
 }
 .ant-tabs-ink-bar {
   background-image: linear-gradient(45deg, #2E28D4, #AC27FD) !important;
+  /* width: 200px !important; */
+
 }
 .buyTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: white !important; 
@@ -617,4 +620,19 @@ thead > tr > th {
 
 .ant-spin-dot-item{
   background-color: purple !important;
+}
+.ant-collapse-item-active .ant-collapse-header{
+  background-image: linear-gradient(45deg, #2E28D4, #AC27FD) !important;
+  color: white !important;
+}
+.mainTab .ant-tabs-tab-btn{
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}
+.module .ant-tabs-tab-btn{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.payment .ant-tabs-ink-bar {
+display: none !important;
 }

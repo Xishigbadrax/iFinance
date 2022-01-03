@@ -111,7 +111,7 @@ const Pricing = ({}) => {
     setServerState3((prev) => !prev);
   };
   useEffect(async () => {
-    // setIsLoading(true);
+    setIsLoading(true);
     setuserID(Auth.getUserId());
     setSid(Auth.getToken());
 

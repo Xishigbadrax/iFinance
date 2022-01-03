@@ -15,13 +15,13 @@ const Dashboard = () => {
   const router = useRouter();
   const [sid, setSid] = useState();
   const [list, setList] = useState([]);
-  const [bgHover, setBgHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [serverType, setServerType] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
 
   // console.log(baseUrl + "get/category_list", "baseurl");
   useEffect(async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     // console.log(Auth.getToken(), "siddd");
     setSid(Auth.getToken());
     // Auth.getToken() == null || Auth.getToken() == undefined
@@ -32,9 +32,7 @@ const Dashboard = () => {
       baseUrl + "get/category_list",
       {
         jsonrpc: 2.0,
-        params: {
-          
-        },
+        params: {},
       },
 
       {
@@ -64,7 +62,6 @@ const Dashboard = () => {
 
   return (
     <div className="">
-  
       <Head>
         <title>iFinance | Бүтээгдэхүүн</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -73,21 +70,37 @@ const Dashboard = () => {
         <img className=" absolute w-full h-auto z-[-1]" src="/img/Slider.svg" /> */}
       {/* </div> */}
 
-      <div className="relative h-[100px] flex  overflow-hidden">
+      {/* <div className="relative h-[100px] flex  overflow-hidden">
         <div className="absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans />
-          </div>
+          </div> */}
 
-          {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
+      {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
             Манай бүтээгдэхүүн
           </div> */}
-        </div>
+
+      {/* </div>
         <Image
           className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto"
           preview={false}
           src="/img/Slider.svg"
         />
+      </div> */}
+      <div className="relative  w-full">
+        <div id="head" className=" absolute z-20 flex flex-col w-full h-full">
+          <div className="w-full flex justify-center">
+            <NavbarTrans />
+          </div>
+          <div className=" hidden  xl:flex w-full justify-center  items-center mt-[100px]">
+            <div>
+              <div className=" text-[16px]  lg:text-[36px] lg:text-white font-poppins-semibold uppercase">
+                Манай бүтээгдэхүүн
+              </div>
+            </div>
+          </div>
+        </div>
+        <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
       </div>
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">
@@ -99,28 +112,28 @@ const Dashboard = () => {
                 <div
                   key={index}
                   onClick={() => onCategory(item.category_id)}
-                  className=" relative flex flex-col justify-center items-center md:w-[16.875rem] md:h-[16rem] border-[1px] hover:bg-gradient-to-tr hover: from-[#011F70] to-[#AC27FD]  md:text-[24px] hover:text-white font-semibold rounded-[4px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
+                  className=" relative flex flex-col justify-center items-center md:w-[16.875rem] md:h-[16rem] border-[1px] hover:bg-gradient-to-tr hover: from-[#011F70] to-[#AC27FD]  md:text-[24px] hover:text-white font-semibold rounded-[4px] hover:mt-[-10px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
                 >
-                  <div className=" absolute z-60 bottom-[0rem] right-[1rem] text-[#AC27FD]  text-[120px] text-opacity-5">
+                  <div className=" absolute z-60  bottom-[0rem] right-[1rem] text-[#AC27FD]   text-[120px] text-opacity-5">
                     {Number(index) + 1}
                   </div>
                   <div className=" bg-white h-[100px] md:w-[100px] flex justify-center items-center rounded-[50px]">
-                    { item.category_image ?
-                    <Image
-                      preview={false}
-                      className=" "
-                      src={"data:image/png;base64," + item.category_image}
-                    />
-                    : 
-                    <Image
-                      preview={false}
-                      className=" "
-                      src="/img/default.png"
-                    />
-            }
+                    {item.category_image ? (
+                      <Image
+                        preview={false}
+                        className=" "
+                        src={"data:image/png;base64," + item.category_image}
+                      />
+                    ) : (
+                      <Image
+                        preview={false}
+                        className=" "
+                        src="/img/default.png"
+                      />
+                    )}
                   </div>
                   <div className=" w-full flex justify-center items-center ">
-                    <div className=" flex justify-center items-center text-center  ">
+                    <div className=" flex justify-center items-center text-center w-[100px]">
                       {item.category_name}
                     </div>
                   </div>
@@ -137,13 +150,16 @@ const Dashboard = () => {
 
       <div className=" w-full flex flex-col justify-center px-4 mb-[100px]">
         <div className=" flex justify-center">
+          
           <Collapse
             accordion
             expandIconPosition="right"
+            // expandIcon={() => (isActive  ? <Image src="/img/plus2.svg" alt="close-info" /> : <Image className="" src="/img/plus.svg" alt="open-info" />)}
             className=" w-[73.125rem] bg-white  border-[#2E28D4]  mb-2"
           >
-            <Panel header="АйТүүлс ХХК" key="1">
+            <Panel header="АйТүүлс ХХК" key="1" className=" shadow-md">
               <p className=" text-[14px] text-[#9CA6C0]">
+            
                 Сервер байршуулах үйлчилгээ нь дата төвийн үндсэн үйлчилгээнии
                 нэг бөгөөд хэрэглэгчийн бодит сервер төхөөрөмжийг олон улсын
                 стандартад нийцсэн байр талбай, орчин, сүлжээ, цахилгаан тэжээл,
@@ -171,7 +187,7 @@ const Dashboard = () => {
             expandIconPosition="right"
             className=" w-[73.125rem] bg-white  border-[#2E28D4]  mb-2"
           >
-            <Panel header="АйКлауд.мн" key="1">
+            <Panel header="АйКлауд.мн" key="1" className=" shadow-md">
               <p className=" font-semibold text-[16px]">SAAS гэж юу вэ ?</p>
               <p className=" text-[14px] text-[#9CA6C0]">
                 Software as a Service (SaaS) нь Клауд дэд бүтэц дээр ажиллаж буй
@@ -197,9 +213,8 @@ const Dashboard = () => {
         </div>
       </div>
       <div>
-      <Footer />
+        <Footer />
       </div>
-     
     </div>
   );
 };

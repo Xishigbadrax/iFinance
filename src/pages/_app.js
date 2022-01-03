@@ -6,11 +6,18 @@ import Head from "next/head";
 import { ContextProvider } from "../context/Context";
 import Auth from "../utils/auth";
 import Router from "next/router";
+import MessengerCustomerChat from "react-messenger-customer-chat";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ContextProvider>
-      {Auth.loggedIn ? <Component {...pageProps} /> : Router.push("/")}
+      <Component {...pageProps} />
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+       
+      />
+      
     </ContextProvider>
   );
 }

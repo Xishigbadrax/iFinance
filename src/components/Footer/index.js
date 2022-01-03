@@ -83,22 +83,22 @@ const Footer = () => {
             }}
           >
             <li>
-              <a className=" text-white">Эхлэл</a>
+              <a href="/" className=" text-white">Эхлэл</a>
             </li>
             <li>
               <a className=" text-white ">Мэдээ</a>
             </li>
             <li>
-              <a className=" text-white ">Бүтээгдэхүүн</a>
+              <a href="/dashboard" className=" text-white ">Бүтээгдэхүүн</a>
             </li>
             <li>
-              <a className=" text-white ">Үнийн санал</a>
+              <a href="/pricing" className=" text-white ">Үнийн санал</a>
             </li>
             <li>
-              <a className=" text-white">Үйлчилгээ</a>
+              <a href="/service" className=" text-white">Үйлчилгээ</a>
             </li>
             <li>
-              <a className=" text-white">Холбоо барих</a>
+              <a href="/contact" className=" text-white">Холбоо барих</a>
             </li>
             <li>
               <a className=" text-white">Нээлттэй ажлын байр</a>
@@ -112,12 +112,12 @@ const Footer = () => {
           />
         </div>
 
-        <div className="w-[14.5rem] flex justify-between">
-          <Image preview={false} src="/img/fb.svg" />
-          <Image preview={false} src="/img/insta.svg" />
-          <Image preview={false} src="/img/youtube.svg" />
-          <Image preview={false} src="/img/twit.svg" />
-          <Image preview={false} src="/img/link.svg" />
+        <div className="w-[21rem] flex justify-between">
+         <a href="https://www.facebook.com/ifinance.mn" target={"_blank"}><Image className=" w-[50px]" preview={false} src="/img/fb.svg" />  </a> 
+          <Image className=" w-[50px]" preview={false} src="/img/insta.svg" />
+          <Image className=" w-[50px]" preview={false} src="/img/youtube.svg" />
+          <Image className=" w-[50px]" preview={false} src="/img/twit.svg" />
+          <Image className=" w-[50px]" preview={false} src="/img/link.svg" />
         </div>
       </div>
       <div className=" flex justify-center">

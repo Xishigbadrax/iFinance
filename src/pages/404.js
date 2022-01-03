@@ -6,7 +6,7 @@ import { Button, Image } from "antd";
 
 export default function FourOhFour() {
   return (
-    <div relative>
+    <div className=" ">
       <Navbar />
       <div className=" w-full  flex justify-center ">
         <div className=" flex mt-[50px] items-center ">
@@ -24,7 +24,7 @@ export default function FourOhFour() {
              <a href="/"> Нүүр хуудас</a>
             </Button>
           </div>
-          <div>
+          <div className=" mb-[-6px]">
             <Image preview={false} src="/img/404.svg" />
           </div>
         </div>

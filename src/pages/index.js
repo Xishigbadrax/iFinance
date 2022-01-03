@@ -11,8 +11,6 @@ import "slick-carousel/slick/slick-theme.css";
 import Head from "next/head";
 import Facebook from "../components/Facebook";
 
-
-
 export default function Home() {
   const [onhover, setOnHover] = useState(false);
   const [onhover2, setOnHover2] = useState(false);
@@ -56,7 +54,7 @@ export default function Home() {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
           infinite: true,
           dots: false,
@@ -96,11 +94,8 @@ export default function Home() {
           dots: false,
         },
       },
-
     ],
   };
-  
-
 
   return (
     // <div >
@@ -138,7 +133,7 @@ export default function Home() {
                 </div>
                 <div>
                   <Button className=" font-poppins-semibold w-[166px] h-[48px] rounded-[43px] bg-transparent  text-white border-[1px] border-white">
-                   <a href="/contact">Холбоо барих</a>
+                    <a href="/contact">Холбоо барих</a>
                   </Button>
                 </div>
               </div>
@@ -260,14 +255,14 @@ export default function Home() {
         </div>
         <div className=" w-full ">
           <div className=" flex justify-center ">
-            <div className=" w-[250px]  lg:w-[65vw] max-w-[1400px]">
+            <div className=" w-[250px]  lg:w-[65vw] max-w-[1200px]">
               <Slider className=" " {...settings}>
                 <div className=" p-5">
                   <div className="  xl:w-[170px] h-[184px] bg-white shadow-lg   flex flex-col justify-center items-center">
                     <div>
                       <Image preview={false} src="/img/u1.svg" />
                     </div>
-                    <div className="  text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                    <div className="  text-[#2F3747] text-[16px] font-semibold w-[110px] text-center">
                       ERP хөгжүүлэлт
                     </div>
                   </div>
@@ -277,7 +272,7 @@ export default function Home() {
                     <div>
                       <Image preview={false} src="/img/u2.svg" />
                     </div>
-                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px] ">
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px] text-center">
                       Вебсайт хөгжүүлэлт
                     </div>
                   </div>
@@ -287,7 +282,7 @@ export default function Home() {
                     <div>
                       <Image preview={false} src="/img/u3.svg" />
                     </div>
-                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px] text-center">
                       Мобайл апп хөгжүүлэлт
                     </div>
                   </div>
@@ -297,7 +292,7 @@ export default function Home() {
                     <div>
                       <Image preview={false} src="/img/u4.svg" />
                     </div>
-                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px] text-center">
                       Систем интеграцчилал
                     </div>
                   </div>
@@ -307,7 +302,7 @@ export default function Home() {
                     <div>
                       <Image preview={false} src="/img/u5.svg" />
                     </div>
-                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px] text-center">
                       Тусламж, дэмжлэг
                     </div>
                   </div>
@@ -317,7 +312,7 @@ export default function Home() {
                     <div>
                       <Image preview={false} src="/img/u6.svg" />
                     </div>
-                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px] text-center">
                       Сервер арчилгаа
                     </div>
                   </div>
@@ -327,7 +322,7 @@ export default function Home() {
                     <div>
                       <Image preview={false} src="/img/u3.svg" />
                     </div>
-                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px]">
+                    <div className=" text-[#2F3747] text-[16px] font-semibold w-[110px] text-center">
                       Мобайл апп хөгжүүлэлт
                     </div>
                   </div>
@@ -405,7 +400,7 @@ export default function Home() {
                 <div>
                   <Image preview={false} src="/img/b1.svg" />
                 </div>
-                <div className=" text-[#2F3747] hover:text-[#2E28D4] text-[18px] w-[270px] font-bold">
+                <div className=" text-[#2F3747] hover:text-transparent bg-clip-text hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] text-[18px] w-[270px] font-bold">
                   Ахисан түвшний санхүүгийн бүртгэл
                 </div>
                 <div className=" w-[270px] text-[#2F3747] text-[16px] font-normal text-justify text-opacity-60">
@@ -418,7 +413,7 @@ export default function Home() {
                 <div>
                   <Image preview={false} src="/img/b2.svg" />
                 </div>
-                <div className=" hover:text-[#2E28D4] text-[#2F3747] text-[18px] w-[270px] font-bold">
+                <div className=" text-[#2F3747] hover:text-transparent bg-clip-text hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] text-[18px] w-[270px] font-bold">
                   Олон хэлбэрт харилцаа холбооны хэрэгсэл
                 </div>
                 <div className=" w-[270px] text-[#2F3747] text-[16px] text-justify font-normal text-opacity-60">
@@ -430,7 +425,7 @@ export default function Home() {
                 <div>
                   <Image preview={false} src="/img/b3.svg" />
                 </div>
-                <div className=" hover:text-[#2E28D4] text-[#2F3747] text-[18px] w-[270px] font-bold">
+                <div className=" text-[#2F3747] hover:text-transparent bg-clip-text hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] text-[18px] w-[270px] font-bold">
                   Байршил хамаарахгүй цаг хугацаа хэмнэсэн
                 </div>
                 <div className=" w-[270px] text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60">
@@ -442,7 +437,7 @@ export default function Home() {
                 <div>
                   <Image preview={false} src="/img/b4.svg" />
                 </div>
-                <div className=" hover:text-[#2E28D4]  text-[#2F3747] text-[18px] w-[270px] font-bold">
+                <div className=" text-[#2F3747] hover:text-transparent bg-clip-text hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] text-[18px] w-[270px] font-bold">
                   Хамгийн сүүлийн үеийн технологи
                 </div>
                 <div className=" w-[270px] text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60">
@@ -471,12 +466,12 @@ export default function Home() {
         </div>
         <div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" max-w-[1420px] flex flex-col xl:flex-row w-[65%]   justify-between">
+            <div className=" max-w-[1200px] flex flex-col xl:flex-row w-[65%]   justify-between">
               <div>
                 <div className=" ">
                   <Image preview={false} src="/img/d1.svg" />
                 </div>
-                <div className=" text-[#2F3747] text-center text-[18px] lg:w-[300px] xl:w-[470px] font-bold">
+                <div className=" text-[#2F3747]  text-[18px] lg:w-[300px] xl:w-[470px] font-bold">
                   <span className=" text-[#F01A63] ">
                     Та худалдан авалт хийсэн цагаас эхлэн
                   </span>{" "}
@@ -486,7 +481,7 @@ export default function Home() {
               <div className=" mt-10 xl:mt-0">
                 <div className="flex ">
                   <div className="flex flex-col items-center w-[48px]">
-                    <div className="h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
+                    <div className="h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white font-bold text-[18px]">
                       1
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
@@ -498,7 +493,7 @@ export default function Home() {
                 </div>
                 <div className="flex">
                   <div className="flex flex-col items-center w-[48px]">
-                    <div className="h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
+                    <div className="font-bold text-[18px] h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
                       2
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
@@ -510,7 +505,7 @@ export default function Home() {
                 </div>
                 <div className="flex">
                   <div className="flex flex-col items-center w-[48px]">
-                    <div className="h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
+                    <div className="font-bold text-[18px] h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
                       3
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
@@ -522,7 +517,7 @@ export default function Home() {
                 </div>
                 <div className="flex">
                   <div className="flex flex-col items-center w-[48px]">
-                    <div className="h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
+                    <div className="font-bold text-[18px] h-[48px] w-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[50px] flex justify-center items-center text-white">
                       4
                     </div>
                   </div>
@@ -630,7 +625,7 @@ export default function Home() {
           </div>
         </div>
         <div className=" w-full flex justify-center mt-[40px]">
-          <div className=" max-w-[1920px] w-[300px]  flex flex-col xl:flex-row xl:w-[65vw] justify-between">
+          <div className=" max-w-[1920px]  w-[300px]  flex flex-col xl:flex-row xl:w-[55vw] justify-between">
             <div className="  ">
               <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/app.svg" />
@@ -691,8 +686,7 @@ export default function Home() {
       </div>
       <div className=" w-full flex justify-center mt-[100px]">
         <div className=" h-[600px] md:h-auto max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] w-full xl:h-[228px] items-center bg-[#2E28D4]  bg-opacity-5 xl:items-center lg:items-start justify-around">
-         
-        <div className=" flex justify-center">
+          <div className=" flex justify-center">
             <div>
               <div className=" text-[48px] text-[#F01A63] font-bold">5000+</div>
               <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
@@ -700,22 +694,25 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30">
+          </div>
           <div className=" flex justify-center">
             <div>
-              <div className=" text-[48px] text-[#2E28D4] font-bold">
-                1200+
-              </div>
+              <div className=" text-[48px] text-[#2E28D4] font-bold">1200+</div>
               <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
                 Улиралд хандсан хүний тоо
               </div>
             </div>
           </div>
-         
+          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30">
+          </div>
           <div className="">
             <div className=" text-[48px] text-[#AC27FD] font-bold">400+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center ">
               Сард хандсан хүний тоо
             </div>
+          </div>
+          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30">
           </div>
           <div>
             <div className=" text-[48px] text-[#011F70] font-bold">13+</div>
@@ -731,16 +728,33 @@ export default function Home() {
             <div className="relative">
               <div className="h-full w-full absolute z-10 flex flex-col  items-center justify-center left-100px ">
                 <div className=" z-10">
-                  {/* <Carousel autoplay className=" w-[350px] md:w-[400px]">
+                  <Carousel autoplay className=" w-[353px] md:w-[400px] overflow-hidden">
                     <div className=" w-[300px] md:w-[370px] ">
-                      <h3 style={contentStyle} className=" flex flex-col ">
-                        <div>Quotes</div>
+                      <div style={contentStyle} className="flex flex-col   ">
+                        <div className=" mt-[55px] md:mt-[0px]">Quotes</div>
                         <div className=" flex justify-start mt-[30px]">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus. Duis neque viverra montes, cras enim
-                          purus donec mattis. Sit sit enim, amet orci proin. Nam
-                          gravida ut tortor pulvinar orci quam leo vestibulum.
+                          non faucibus.
+                        </div>
+                        <div className=" flex justify-start mt-[40px] items-center">
+                          <div>
+                            <Image src="/img/q1.png" />
+                          </div>
+                          <div className=" flex flex-col ml-2">
+                            <div>Cameron Williamson</div>
+                            <div>Designer</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className=" w-[370px] ">
+                      <h3 style={contentStyle} className=" flex flex-col ">
+                        <div className=" mt-[55px] md:mt-[0px]">Quotes2</div>
+                        <div className=" flex justify-start mt-[30px]">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Bibendum eget vitae elementum condimentum est
+                          non faucibus. 
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
@@ -755,34 +769,11 @@ export default function Home() {
                     </div>
                     <div className=" w-[370px] ">
                       <h3 style={contentStyle} className=" flex flex-col ">
-                        <div>Quotes2</div>
+                        <div className=" mt-[55px] md:mt-[0px]">Quotes3</div>
                         <div className=" flex justify-start mt-[30px]">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus. Duis neque viverra montes, cras enim
-                          purus donec mattis. Sit sit enim, amet orci proin. Nam
-                          gravida ut tortor pulvinar orci quam leo vestibulum.
-                        </div>
-                        <div className=" flex justify-start mt-[40px] items-center">
-                          <div>
-                            <Image src="/img/q1.png" />
-                          </div>
-                          <div className=" flex flex-col ml-2">
-                            <div>Cameron Williamson</div>
-                            <div>Designer</div>
-                          </div>
-                        </div>
-                      </h3>
-                    </div>
-                    <div className=" w-[370px] ">
-                      <h3 style={contentStyle} className=" flex flex-col ">
-                        <div>Quotes3</div>
-                        <div className=" flex justify-start mt-[30px]">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus. Duis neque viverra montes, cras enim
-                          purus donec mattis. Sit sit enim, amet orci proin. Nam
-                          gravida ut tortor pulvinar orci quam leo vestibulum.
+                          non faucibus. 
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
@@ -795,7 +786,7 @@ export default function Home() {
                         </div>
                       </h3>
                     </div>
-                  </Carousel> */}
+                  </Carousel>
                 </div>
               </div>
               <Image preview={false} src="/img/f1.svg" />

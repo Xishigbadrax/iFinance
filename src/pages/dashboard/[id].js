@@ -164,7 +164,7 @@ const CategoryId = () => {
         />
       </div>
       <div className=" 2xl:pl-[200px]  z-10  mb-[20px]">
-        <Tabs defaultActiveKey="1" className="">
+        <Tabs defaultActiveKey="1" className="angil">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" lg:mt-[20px]">
               <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center rounded-t-xl">
@@ -206,7 +206,7 @@ const CategoryId = () => {
                                   src="/img/default.png"
                                 />
                               }
-                              <div className="ml-[5px]">
+                              <div className="ml-[20px]">
                                 <p className=""> {item.product_name} </p>
                               </div>
                             </div>
@@ -218,26 +218,27 @@ const CategoryId = () => {
 
                             <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">
-                              <div className="  w-[500px] flex flex-col md:flex-row justify-between">
-                                {Auth.getToken() ? (
-                                  <Button
-                                    onClick={() => onCart(item.product_id, 1)}
+                              <div className=" w-full flex flex-col md:flex-row justify-between">
+                                
+                                  {/* <Button
+                                    // onClick={() => }
                                     type="primary"
                                    
                                     className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                                   >
                                     Сагсанд нэмэх
                                   </Button>
-                                ) : (
+                                )  */}
+                                 
                                   <Button
-                                    onClick={onCartLogin}
+                                    onClick={Auth.getToken() ? () => onCart(item.product_id, 1)  : () => onCartLogin }
                                     
                                     type="primary"
-                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                    className=" w-[236px] h-[48px] rounded-[43px]   bg-white border-[1px] border-[#9CA6C0] text-[#9CA6C0] text-[14px] font-bold"
                                   >
-                                    Сагсанд нэмэх
+                                    Сагсанд хийх
                                   </Button>
-                                )}
+                                
                                 <Button
                                   onClick={() => onDetails(id)}
                                   type="primary"
