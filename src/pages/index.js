@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import Loader from "react-loader-spinner";
 import Head from "next/head";
-import Facebook from "../components/Facebook";
+
 
 export default function Home() {
   const [onhover, setOnHover] = useState(false);
@@ -143,7 +143,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Image className=" w-[100vw]" preview={false} src="/img/homeBack.svg" />
+        <Image className=" w-[100vw] h-auto" preview={false} src="/img/homeBack.svg" />
       </div>
       <div className="xl:hidden mt-[-10vh] md:mt-[-15vh] flex justify-center">
         <Image
@@ -486,7 +486,7 @@ export default function Home() {
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className=" mb-2 xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747] ">
+                  <div className=" mb-2  lg:w-[550px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747] ">
                     Бид шинэ санааг боловсруулж хамгийн үр ашигтай, зөв гэсэн
                     шийдлийг гаргаж чаддаг.
                   </div>
@@ -498,7 +498,7 @@ export default function Home() {
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className="mb-2 xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className="mb-2 xl:w-[550px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид хамгийн сүүлийн үеийн програм хангамж дээр хөгжүүлэлт
                     хийж, түүнийгээ ашиглаж чаддаг.{" "}
                   </div>
@@ -510,7 +510,7 @@ export default function Home() {
                     </div>
                     <div className=" bg-[#AC27FD] w-[1px] h-[30px] my-[4px]"></div>
                   </div>
-                  <div className="mb-2 xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className="mb-2 xl:w-[550px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид дотоодын болон гадны системтэй интеграц буюу холболт
                     хийж чаддаг.{" "}
                   </div>
@@ -521,7 +521,7 @@ export default function Home() {
                       4
                     </div>
                   </div>
-                  <div className=" xl:w-[606px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
+                  <div className=" xl:w-[550px] ml-2 xl:text-[16px]  text-[14px] font-semibold text-[#2F3747]">
                     Бид нэгнээ үргэлж дэмждэг. Бид нэгэндээ үргэлж нээлттэй
                     байж, өөриймсөг хандлагаар тусалж чаддаг.{" "}
                   </div>
@@ -545,13 +545,13 @@ export default function Home() {
           </div>
         </div>
         <div className=" w-full flex justify-center mt-[20px] xl:mt-[40px]">
-          <div className=" w-full ">
+          <div className=" w-full  ">
             <div className=" flex justify-center ">
-              <div className=" w-[250px] md:w-[65vw] max-w-[1400px]">
-                <Slider className=" " {...settings2}>
+              <div className=" w-[250px] md:w-[65vw] max-w-[1750px]">
+                <Slider className="" {...settings2}>
                   <div className=" p-5">
-                    <div className=" w-auto flex flex-col lg:flex-row  justify-between">
-                      <div className=" ">
+                    <div className=" w-auto flex flex-col lg:flex-row  justify-center">
+                      <div className=" mr-[130px]">
                         <div className=" flex justify-center text-center">
                           <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
                             Технологийн дэвшлийг таньд мэдрүүлнэ
@@ -578,8 +578,8 @@ export default function Home() {
                     </div>
                   </div>
                   <div className=" p-5">
-                    <div className=" max-w-[1920px] flex flex-col xl:flex-row xl:w-[60vw]  justify-between">
-                      <div className="">
+                    <div className=" max-w-[1920px] flex flex-col xl:flex-row xl:w-[60vw]  justify-center">
+                      <div className=" mr-[130px]">
                         <div className=" flex justify-center text-center">
                           <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
                             Технологийн дэвшлийг таньд мэдрүүлнэ
@@ -799,7 +799,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* <Facebook /> */}
+      
       <Footer />
     </div>
   );

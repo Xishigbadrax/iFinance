@@ -20,6 +20,7 @@ import axios from "axios";
 import Head from "next/head";
 import Router from "next/router";
 import Context from "../../context/Context";
+import PersonalSideBar from "../../components/PersonalSideBar";
 
 const Info = () => {
   const { setIsLoading } = useContext(Context);
@@ -318,97 +319,7 @@ const Info = () => {
         />
       </div>
       <div className="flex flex-col lg:flex-row md:mt-[100px] justify-center ">
-        <div>
-          <div className=" shadow-xl w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]  md:mb-[100px]">
-            <div className=" flex items-center ml-[34px] mt-[34px]">
-              <div className=" mr-[20px]">
-                <Image preview={false} src="/img/profile.svg" />
-              </div>
-              <div className="text-[#2F3747] text-[18px]  font-bold">
-                {Auth.getName()}
-              </div>
-            </div>
-            <div className=" flex justify-center text-[#9CA6C0] text-[11px] font-semibold mt-[12px]">
-              {mainData?.email}
-            </div>
-            <Divider />
-            <div className=" flex justify-center ">
-              <div className=" ">
-                <div className=" flex justify-start">
-                  <div className=" mr-[19px]">
-                    <Image
-                      preview={false}
-                      height={30}
-                      width={30}
-                      src="/img/i1.svg"
-                    />
-                  </div>
-                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                    <a href="/order" className="text-[#2E28D4]">
-                      Миний захиалга
-                    </a>
-                  </div>
-                </div>
-                <div className=" flex justify-start my-[20px]">
-                  <div className=" mr-[19px]">
-                    <Image
-                      preview={false}
-                      height={30}
-                      width={30}
-                      src="/img/i2.svg"
-                    />
-                  </div>
-                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                    <a href="/cart" className="text-[#2E28D4]">
-                      Миний сагс
-                    </a>
-                  </div>
-                </div>
-                <div className=" flex justify-start">
-                  <div className=" mr-[19px]">
-                    <Image
-                      preview={false}
-                      height={30}
-                      width={30}
-                      src="/img/i3.svg"
-                    />
-                  </div>
-                  <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                    <a href="/info" className="text-[#2E28D4]">
-                      Миний мэдээлэл
-                    </a>
-                  </div>
-                </div>
-                <div className=" flex justify-start mt-[20px]">
-                  <div className=" mr-[19px]">
-                    <Image
-                      preview={false}
-                      height={30}
-                      width={30}
-                      src="/img/i4.svg"
-                    />
-                  </div>
-                  <div className="text-[#2E28D4] cursor-pointer opacity-50 text-[18px] font-bold hover:opacity-100">
-                    Тохиргоо
-                  </div>
-                </div>
-                <div className=" flex justify-start mt-[40px]">
-                  <div className=" mr-[19px]">
-                    <Image
-                      preview={false}
-                      height={30}
-                      width={30}
-                      src="/img/i5.svg"
-                    />
-                  </div>
-                  <div onClick={Logout} className="text-[#F01A63] cursor-pointer opacity-50 text-[18px] font-bold hover:opacity-100">
-                    Гарах
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PersonalSideBar hover={3} />
         <div className=" mt-[50px] md:mt-0  shadow-lg mb-[100px]  pl-[30px]">
           <Tabs className="infoTab" defaultActiveKey="1">
             <TabPane

@@ -1,10 +1,11 @@
 import Cookies from 'js-cookie';
 
 export default class Auth {
-  static setToken(token, name, userId) {
+  static setToken(token, name, userId,userData) {
     Cookies.set('authToken', token);
     Cookies.set('userName', name);
     Cookies.set('uId', userId);
+    Cookies.set('userData', userData);
     
   }
  
@@ -15,6 +16,10 @@ export default class Auth {
 
   static getToken() {
     const token = Cookies.get('authToken');
+    return token;
+  }
+  static getUserData() {
+    const token = Cookies.get('userData');
     return token;
   }
   static getName() {

@@ -7,6 +7,7 @@ import { Table, Badge, Menu, Dropdown, Space } from "antd";
 import axios from "axios";
 import Router from "next/router";
 import Context from "../../context/Context";
+import PersonalSideBar from "../../components/PersonalSideBar";
 
 const Order = () => {
   const menu = (
@@ -15,38 +16,39 @@ const Order = () => {
       <Menu.Item>Action 2</Menu.Item>
     </Menu>
   );
-  const { setIsLoading } = useContext(Context);
+  const { setIsLoading, userData } = useContext(Context);
   const { TabPane } = Tabs;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
  
   const [invoices, setInvoices] = useState();
+  const [state, setState] = useState();
   const data2 = [];
 
-  const Logout = async () => {
-    const res = await axios.post(
-      baseUrl + "logout",
-      {
-        jsonrpc: 2.0,
-        params: {},
-      },
-      {
-        headers: {
-          "Set-Cookie": "session_id=" + Auth.getToken(),
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  // const Logout = async () => {
+  //   const res = await axios.post(
+  //     baseUrl + "logout",
+  //     {
+  //       jsonrpc: 2.0,
+  //       params: {},
+  //     },
+  //     {
+  //       headers: {
+  //         "Set-Cookie": "session_id=" + Auth.getToken(),
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
 
-    if (res.data.error && res.data.error) {
+  //   if (res.data.error && res.data.error) {
      
-      message.success("Амжилттай систэмээс гарлаа");
-      Auth.destroyToken();
-      // window.location.reload(false);
-      Router.push("/");
-    }
+  //     message.success("Амжилттай систэмээс гарлаа");
+  //     Auth.destroyToken();
+  //     // window.location.reload(false);
+  //     Router.push("/");
+  //   }
 
-    // console.log(res, "logout res");
-  };
+  //   // console.log(res, "logout res");
+  // };
 
   const expandedRowRender = (rowData) => {
     // console.log(rowData, "ggg");
@@ -62,7 +64,7 @@ const Order = () => {
     ];
 
     return (
-      <Table columns={columns} dataSource={rowData.sub} pagination={false} />
+      <Table columns={columns} dataSource={rowData?.sub} pagination={false} />
     );
   };
 
@@ -81,6 +83,12 @@ const Order = () => {
 
  
   const data = [];
+  const draft = [];
+  const cancelled = [];
+  const paid = [];
+  const open = [];
+
+  
 
   invoices?.map((item, index) => {
     data.push({
@@ -93,7 +101,27 @@ const Order = () => {
       tuluv: item.invoice_state,
       sub: item.invoice_lines,
     });
+    
+    state?.map((el) => {
 
+      if (item.invoice_state == el) {
+        draft.push(
+           {
+          key: item.invoice_id,
+          dugaar: item.invoice_id,
+          dun: item.invoice_amount.toFixed(2) + "₮",
+          system: item.invoice_type,
+          sognoo: item.invoice_start_date,
+          dognoo: item.invoice_end_date,
+          tuluv: item.invoice_state,
+          sub: item.invoice_lines,
+        });
+      }
+    })
+    
+     
+
+   
   });
 
   useEffect(async () => {
@@ -125,7 +153,17 @@ const Order = () => {
         console.log(error);
       });
   }, []);
-
+  useEffect(async () => {
+    let arrayy = []
+    invoices?.map((item) => {
+      if (!arrayy.includes(item.invoice_state)) {
+        
+        arrayy.push(item?.invoice_state);
+      }
+    })
+    setState(arrayy);
+  }, [invoices]);
+// console.log(state);
   return (
     <div>
       <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
@@ -164,105 +202,72 @@ const Order = () => {
       </div>
 
       <Tabs className="myOrder mb-10" defaultActiveKey="1">
+      <TabPane tab="Бүгд" key="1">
+          <div className=" ">
+            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
+              <PersonalSideBar hover={1} />
+              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
+                <Table
+                  className="components-table-demo-nested"
+                  columns={columns}
+                  expandable={{ expandedRowRender }}
+                  dataSource={data}
+                />
+              </div>
+            </div>
+          </div>
+        </TabPane>
+        {state?.map((item, index) => {  
+
+          return <TabPane tab={item} key={index + 2}>
+          <div className=" ">
+            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
+              <PersonalSideBar hover={1} />
+              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
+              
+                <Table
+                  className="components-table-demo-nested"
+                  columns={columns}
+                  expandable={{ expandedRowRender }}
+                  
+                  dataSource= { draft
+                      // invoices?.map((element) => {
+                      //   if (item == element.invoice_state) {
+                       
+                      
+                 
+                            
+                      //      return  {
+                      //           key: element.invoice_id,
+                      //           dugaar: element.invoice_id,
+                      //           dun: element.invoice_amount.toFixed(2) + "₮",
+                      //           system: element.invoice_type,
+                      //           sognoo: element.invoice_start_date,
+                      //           dognoo: element.invoice_end_date,
+                      //           tuluv: element.invoice_state,
+                      //           sub: element.invoice_lines,
+                      //         }
+                            
+                          
+                      //   } 
+                       
+                       
+
+                      // })
+                   }
+                />
+              </div>
+            </div>
+          </div>
+        </TabPane>
+        })}
+
+      </Tabs>
+      {/* <Tabs className="myOrder mb-10" defaultActiveKey="1">
         <TabPane tab="Бүгд" key="1">
           <div className=" ">
             <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
-              <div className=" flex  justify-center  md:mb-[10px] ">
-                <div className=" relative ">
-                  <div className="  shadow-lg w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
-                    <div className=" flex items-center ml-[34px] mt-[34px]">
-                      <div className=" mr-[20px]">
-                        <Image src="/img/profile.svg" />
-                      </div>
-                      <div className="text-[#2F3747] text-[18px]  font-bold">
-                        {Auth.getName()}
-                      </div>
-                    </div>
-                    <div className=" flex justify-center text-[#9CA6C0] text-[11px] font-semibold mt-[12px]">
-                      kenzi.lawson@example.com
-                    </div>
-                    <Divider />
-                    <div className=" flex justify-center   ">
-                      <div className=" ">
-                        <div className=" flex justify-start">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i1.svg"
-                            />
-                          </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                            <a href="/order" className="text-[#2E28D4]">
-                              
-                              Миний захиалга
-                            </a>
-                          </div>
-                        </div>
-                        <div className=" flex justify-start my-[20px]">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i2.svg"
-                            />
-                          </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                            <a href="/cart" className="text-[#2E28D4]">
-                              {" "}
-                              Миний сагс
-                            </a>
-                          </div>
-                        </div>
-                        <div className=" flex justify-start">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i3.svg"
-                            />
-                          </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                            <a href="/info" className="text-[#2E28D4]">
-                              {" "}
-                              Миний мэдээлэл{" "}
-                            </a>
-                          </div>
-                        </div>
-                        <div className=" flex justify-start mt-[20px]">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i4.svg"
-                            />
-                          </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] cursor-pointer font-bold hover:opacity-100">
-                            Тохиргоо
-                          </div>
-                        </div>
-                        <div className=" flex justify-start mt-[40px]">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i5.svg"
-                            />
-                          </div>
-                          <div onClick={Logout} className="text-[#F01A63] opacity-50 text-[18px] cursor-pointer font-bold hover:opacity-100">
-                            Гарах
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <PersonalSideBar hover={1} />
               <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
                 <Table
                   className="components-table-demo-nested"
@@ -275,18 +280,66 @@ const Order = () => {
           </div>
         </TabPane>
         <TabPane tab="Төлбөр хүлээгдэж буй" key="2">
-          Content of Tab Pane 2
+        <div className=" ">
+            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
+              <PersonalSideBar hover={1} />
+              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
+                <Table
+                  className="components-table-demo-nested"
+                  columns={columns}
+                  expandable={{ expandedRowRender }}
+                  dataSource={dataPending}
+                />
+              </div>
+            </div>
+          </div>
         </TabPane>
         <TabPane tab="Баталгаажсан" key="3">
-          Content of Tab Pane 3
+        <div className=" ">
+            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
+              <PersonalSideBar hover={1} />
+              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
+                <Table
+                  className="components-table-demo-nested"
+                  columns={columns}
+                  expandable={{ expandedRowRender }}
+                  dataSource={dataPending}
+                />
+              </div>
+            </div>
+          </div>
         </TabPane>
         <TabPane tab="Сервер үүссэн" key="4">
-          Content of Tab Pane 4
+        <div className=" ">
+            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
+              <PersonalSideBar hover={1} />
+              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
+                <Table
+                  className="components-table-demo-nested"
+                  columns={columns}
+                  expandable={{ expandedRowRender }}
+                  dataSource={dataPending}
+                />
+              </div>
+            </div>
+          </div>
         </TabPane>
         <TabPane tab="Цуцалсан" key="5">
-          Content of Tab Pane 5
+        <div className=" ">
+            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
+              <PersonalSideBar hover={1} />
+              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
+                <Table
+                  className="components-table-demo-nested"
+                  columns={columns}
+                  expandable={{ expandedRowRender }}
+                  dataSource={dataPending}
+                />
+              </div>
+            </div>
+          </div>
         </TabPane>
-      </Tabs>
+      </Tabs> */}
       <Footer />
     </div>
   );

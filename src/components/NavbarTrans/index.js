@@ -38,7 +38,7 @@ const NavbarTrans = ({ cartLogin }) => {
 
   const [loginModal, setLoginModal] = useState(false);
   const { sessionId } = useContext(Context);
-  const { onSid } = useContext(Context);
+  const { setUserData } = useContext(Context);
   const [addclass, setaddclass] = useState("");
   const [messageShow, setmessageShow] = useState(false);
   const [text, settext] = useState("");
@@ -156,6 +156,7 @@ const NavbarTrans = ({ cartLogin }) => {
       window.removeEventListener("resize", handleWindowSizeChange);
     };
   }, []);
+
   // console.log(width, "widdd");
   const onForgotConfirmModal = async () => {
     await axios
@@ -484,13 +485,14 @@ const NavbarTrans = ({ cartLogin }) => {
       auth_cookie.setToken(
         res.data.result.sid,
         res.data.result.erp_info,
-        res.data.result.uid
+        res.data.result.uid,
+        res.data.result.main_user?.username
       );
-      window.location.reload(false);
       message.success("Амжилттай нэвтэрлээ");
+      // window.location.reload(false);
       setUserSid(res.data.result.sid);
       // props.sido(res.data.result.sid);
-
+      setUserData(res.data?.result?.main_user);
       setIsLogin(true);
       setLoginModal(false);
       setMobileLogin(false);
@@ -501,22 +503,23 @@ const NavbarTrans = ({ cartLogin }) => {
       setstatus("error");
       setmessageShow(true);
     }
-    // console.log(res, "login res");
+    console.log(res, "login res");
   };
 
   useEffect(() => {
     if (test) {
-
-
-      Auth.getToken() ? null  : width < 768 ? setMobileLogin(true) : setLoginModal(true);
-      
+      Auth.getToken()
+        ? null
+        : width < 768
+        ? setMobileLogin(true)
+        : setLoginModal(true);
     } else {
       setTest(true);
     }
   }, [cartLogin]);
 
   const menu = (
-    <Menu className="profileDropdownPopup p-[30px]">
+    <Menu className="profileDropdownPopup p-[20px]">
       <Menu.Item className="order" key="0">
         <div className="flex items-center">
           <Image preview={false} width={20} height={20} src="/img/i1.svg" />
@@ -1101,7 +1104,7 @@ const NavbarTrans = ({ cartLogin }) => {
       >
         <div className={`container ${addclass}`} id="container">
           <div className="form-container sign-up-container">
-          <Form
+            <Form
               name="normal_login3"
               className="form"
               initialValues={{
@@ -1109,16 +1112,14 @@ const NavbarTrans = ({ cartLogin }) => {
               }}
               onFinish={onFinishRegister}
             >
-            <div className=" ml-[35%]">
+              <div className=" ml-[35%]">
+                <Image
+                  className="pt-[3rem] pl-[3rem] "
+                  preview={false}
+                  src="/img/logo.png"
+                />
+              </div>
 
-            <Image
-              className="pt-[3rem] pl-[3rem] "
-              preview={false}
-              src="/img/logo.png"
-            />
-            </div>
-
-         
               <p className=" text-[1.5rem] text-transparent bg-clip-text bg-gradient-to-br from-[#2E28D4] to-[#AC27FD] font-semibold pt-2">
                 Бүртгүүлэх
               </p>
@@ -1220,7 +1221,9 @@ const NavbarTrans = ({ cartLogin }) => {
                 <div className=" flex justify-between w-full pl-[2rem] pr-[2rem] ">
                   <div>
                     <Form.Item noStyle>
-                      <Checkbox className="text-[#9CA6C0]">Хүлээн зөвшөөрч байна</Checkbox>
+                      <Checkbox className="text-[#9CA6C0]">
+                        Хүлээн зөвшөөрч байна
+                      </Checkbox>
                     </Form.Item>
                   </div>
                   <div>
@@ -1296,7 +1299,9 @@ const NavbarTrans = ({ cartLogin }) => {
                 <div className=" flex justify-between w-full pl-[2rem] pr-[2rem] ">
                   <div>
                     <Form.Item name="remember" valuePropName="checked" noStyle>
-                      <Checkbox className=" text-[#9CA6C0]">Намайг сана</Checkbox>
+                      <Checkbox className=" text-[#9CA6C0]">
+                        Намайг сана
+                      </Checkbox>
                     </Form.Item>
                   </div>
                   <div
@@ -2402,70 +2407,74 @@ const NavbarTrans = ({ cartLogin }) => {
         <div className="  hidden lg:flex  lg:w-[900px]  lg:justify-between items-center">
           <div>
             <ul className="lg:flex lg:justify-around  lg:w-[550px]  lg:pt-3">
-              {hover == 0 ? <li className=" text-lg ">
-                <Link href="/">
-                  <a className="text-white  opacity-100 font-poppins-semibold">Эхлэл</a>
-                </Link>
-              </li>
-               : 
-               <li className=" text-lg ">
-                <Link href="/">
-                  <a className="text-white hover:opacity-100 opacity-50 font-poppins-semibold">Эхлэл</a>
-                </Link>
-              </li>  
-            }
-              {hover == 1 ?   <li className=" text-lg">
-                <Link href="/dashboard">
-                  <a className=" text-white opacity-100 font-poppins-semibold">
-                    Бүтээгдэхүүн
-                  </a>
-                </Link>
-              </li>
-              :  
-               <li className=" text-lg" onClick={() => setHover(1)}>
-              <Link href="/dashboard">
-                <a className=" text-white hover:opacity-100 opacity-50 font-poppins-semibold">
-                  Бүтээгдэхүүн
-                </a>
-              </Link>
-            </li>  
-            }
-            {hover == 2 ? 
-                  <li className=" text-lg">
+              {hover == 0 ? (
+                <li className=" text-lg ">
+                  <Link href="/">
+                    <a className="text-white  opacity-100 font-poppins-semibold">
+                      Эхлэл
+                    </a>
+                  </Link>
+                </li>
+              ) : (
+                <li className=" text-lg ">
+                  <Link href="/">
+                    <a className="text-white hover:opacity-100 opacity-50 font-poppins-semibold">
+                      Эхлэл
+                    </a>
+                  </Link>
+                </li>
+              )}
+              {hover == 1 ? (
+                <li className=" text-lg">
+                  <Link href="/dashboard">
+                    <a className=" text-white opacity-100 font-poppins-semibold">
+                      Бүтээгдэхүүн
+                    </a>
+                  </Link>
+                </li>
+              ) : (
+                <li className=" text-lg" onClick={() => setHover(1)}>
+                  <Link href="/dashboard">
+                    <a className=" text-white hover:opacity-100 opacity-50 font-poppins-semibold">
+                      Бүтээгдэхүүн
+                    </a>
+                  </Link>
+                </li>
+              )}
+              {hover == 2 ? (
+                <li className=" text-lg">
                   <Link href="/pricing">
                     <a className="  text-white  opacity-100 font-poppins-semibold">
                       Үнийн санал
                     </a>
                   </Link>
                 </li>
-                :  
+              ) : (
                 <li className=" text-lg">
-                <Link href="/pricing">
-                  <a className="  text-white hover:opacity-100 opacity-50 font-poppins-semibold">
-                    Үнийн санал
-                  </a>
-                </Link>
-              </li>
-          }
-            {hover == 3 ? 
+                  <Link href="/pricing">
+                    <a className="  text-white hover:opacity-100 opacity-50 font-poppins-semibold">
+                      Үнийн санал
+                    </a>
+                  </Link>
+                </li>
+              )}
+              {hover == 3 ? (
                 <li className=" text-lg">
-                <Link href="/service">
-                  <a className=" text-[18px]  opacity-100 font-poppins-semibold  text-white ">
-                    Үйлчилгээ
-                  </a>
-                </Link>
-              </li>
-              :
-              <li className=" text-lg">
-              <Link href="/service">
-                <a className=" text-[18px] hover:opacity-100 opacity-50 font-poppins-semibold  text-white ">
-                  Үйлчилгээ
-                </a>
-              </Link>
-            </li>
-            }
-
-          
+                  <Link href="/service">
+                    <a className=" text-[18px]  opacity-100 font-poppins-semibold  text-white ">
+                      Үйлчилгээ
+                    </a>
+                  </Link>
+                </li>
+              ) : (
+                <li className=" text-lg">
+                  <Link href="/service">
+                    <a className=" text-[18px] hover:opacity-100 opacity-50 font-poppins-semibold  text-white ">
+                      Үйлчилгээ
+                    </a>
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -2501,12 +2510,20 @@ const NavbarTrans = ({ cartLogin }) => {
                   trigger={["click"]}
                 >
                   <div>
-                    <div className=" flex cursor-pointer box-border items-center w-[12.5rem] h-[3.75rem]   justify-center rounded-[60px] bg-gradient-to-r from-[#AC27FD] to-[#2E28D4]">
-                      <div>
-                        <UserOutlined className="text-[20px] text-white" />
-                      </div>
-                      <div className="text-[14px] text-white font-semibold ml-1 pt-1 font-sans">
-                        {Auth.getName()}
+                    <div className=" flex cursor-pointer box-border items-center   w-[200px] h-[48px]   justify-center rounded-[60px] bg-white">
+                      <div className=" flex mt-1">
+                        <div className=" mr-[10px]">
+                          <Image
+                            className=""
+                            width={30}
+                            height={30}
+                            preview={false}
+                            src="/img/profile.svg"
+                          />
+                        </div>
+                        <div className="text-[14px] text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] font-semibold ml-1 pt-1 font-sans uppercase">
+                          {Auth.getName()}
+                        </div>
                       </div>
                     </div>
                   </div>

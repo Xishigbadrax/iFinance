@@ -12,11 +12,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <ContextProvider>
       <Component {...pageProps} />
-      <MessengerCustomerChat
+      {/* <MessengerCustomerChat
         pageId="<PAGE_ID>"
         appId="<APP_ID>"
        
-      />
+      /> */}
       
     </ContextProvider>
   );

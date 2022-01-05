@@ -6,8 +6,9 @@ import Auth from '../utils/auth';
 const Context = createContext();
 export const ContextProvider = ({children}) => {
     const [sessionId, setSessionId] = useState();
-    const [sid, setSid] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [sid, setSid] = useState();
+    const [userData, setUserData] = useState();
     const baseUrl = process.env.NEXT_PUBLIC_URL;
     const baseDB = process.env.NEXT_PUBLIC_DB;
     const onSid = (value) => {
@@ -57,7 +58,9 @@ const setMenuAndPermissions = async () => {
         sessionId,
         onSid,
         sid,
-        setIsLoading
+        setIsLoading,
+        setUserData,
+        userData
       }}
     >
         <Spin spinning={isLoading} className="spinner" tip="Уншиж байна">

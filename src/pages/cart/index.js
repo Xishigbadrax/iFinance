@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
 import { Image, Table, Divider, message, Button, Modal, Tabs } from "antd";
@@ -7,6 +7,7 @@ import Auth from "../../utils/auth";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Router from "next/router";
 import Context from "../../context/Context";
+import PersonalSideBar from "../../components/PersonalSideBar";
 
 const Cart = () => {
   const { setIsLoading } = useContext(Context);
@@ -51,7 +52,6 @@ const Cart = () => {
     var data = {
       jsonrpc: 2.0,
       params: {
-        
         uid: Auth.getUserId(),
         product_id: id,
         type: type,
@@ -86,7 +86,6 @@ const Cart = () => {
     );
 
     if (res.data.error && res.data.error) {
-      
       message.success("Амжилттай систэмээс гарлаа");
       Auth.destroyToken();
       // window.location.reload(false);
@@ -110,7 +109,6 @@ const Cart = () => {
     var data = {
       jsonrpc: 2.0,
       params: {
-    
         uid: Auth.getUserId(),
         server_id: serverID,
         type: type,
@@ -144,7 +142,6 @@ const Cart = () => {
       {
         jsonrpc: 2.0,
         params: {
-          
           uid: Auth.getUserId(),
         },
       },
@@ -159,7 +156,7 @@ const Cart = () => {
     setProduct(res.data.result.products);
     setServer(res.data.result.server);
     // console.log(res, "cartiin api");
-      setIsLoading(false);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -175,11 +172,11 @@ const Cart = () => {
 
         name: (
           <div className=" flex items-center">
-            { item.product_icon ? 
-            <Image src={"data:image/png;base64," + item.product_icon} />
-            :
-            <Image width={30} height={30} src="/img/default.png" />
-            }
+            {item.product_icon ? (
+              <Image src={"data:image/png;base64," + item.product_icon} />
+            ) : (
+              <Image width={30} height={30} src="/img/default.png" />
+            )}
             <span className=" ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
               {item.product_name}
             </span>
@@ -221,13 +218,13 @@ const Cart = () => {
     setData(arr);
     setPrice(a);
     setDiscount(sale);
-    
+
     // console.log(product, "product");
   }, [server || product]);
 
   useEffect(() => {
     setTax(totalPrice / 10);
-    
+
     setTotalPriceYear(totalPrice * 12);
     setProgramPriceSeason(programPrice * 3);
     setProgramPriceYear(programPrice * 12);
@@ -238,28 +235,24 @@ const Cart = () => {
     setServerPriceYear(serverPrice * 12);
   }, [totalPrice]);
   useEffect(() => {
-   setTaxPriceSeason(tax * 3);
-   setTaxPriceYear(tax * 12);
+    setTaxPriceSeason(tax * 3);
+    setTaxPriceYear(tax * 12);
   }, [tax]);
 
   useEffect(() => {
     var a = 0;
     product?.map((item) => {
-      a +=item.product_price;
-      
-    })
-    setProgramPrice(a); 
-
+      a += item.product_price;
+    });
+    setProgramPrice(a);
   }, [product]);
 
   useEffect(() => {
     var a = 0;
     server?.map((item) => {
-      a +=item.server_price;
-      
-    })
-    setServerPrice(a); 
-
+      a += item.server_price;
+    });
+    setServerPrice(a);
   }, [server]);
   return (
     <div>
@@ -298,104 +291,8 @@ const Cart = () => {
         />
       </div>
       <div className=" flex flex-col md:flex-row justify-center mt-10">
-      <div className=" flex  justify-center  md:mb-[10px] ">
-                <div className=" relative ">
-                  <div className="  shadow-lg w-[270px] h-[462px] md:mr-[30px] ml-10 rounded-[4px]">
-                    <div className=" flex items-center ml-[34px] mt-[34px]">
-                      <div className=" mr-[20px]">
-                        <Image src="/img/profile.svg" />
-                      </div>
-                      <div className="text-[#2F3747] text-[18px]  font-bold">
-                        {Auth.getName()}
-                      </div>
-                    </div>
-                    <div className=" flex justify-center text-[#9CA6C0] text-[11px] font-semibold mt-[12px]">
-                      kenzi.lawson@example.com
-                    </div>
-                    <Divider />
-                    <div className=" flex justify-center   ">
-                      <div className=" ">
-                        <div className=" flex justify-start">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i1.svg"
-                            />
-                          </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                            <a href="/order" className="text-[#2E28D4]">
-                              {" "}
-                              Миний захиалга
-                            </a>
-                          </div>
-                        </div>
-                        <div className=" flex justify-start my-[20px]">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i2.svg"
-                            />
-                          </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                            <a href="/cart" className="text-[#2E28D4]">
-                              {" "}
-                              Миний сагс
-                            </a>
-                          </div>
-                        </div>
-                        <div className=" flex justify-start">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i3.svg"
-                            />
-                          </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] font-bold hover:opacity-100">
-                            <a href="/info" className="text-[#2E28D4]">
-                              {" "}
-                              Миний мэдээлэл{" "}
-                            </a>
-                          </div>
-                        </div>
-                        <div className=" flex justify-start mt-[20px]">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i4.svg"
-                            />
-                          </div>
-                          <div className="text-[#2E28D4] opacity-50 text-[18px] cursor-pointer font-bold hover:opacity-100">
-                            Тохиргоо
-                          </div>
-                        </div>
-                        <div className=" flex justify-start mt-[40px]">
-                          <div className=" mr-[19px]">
-                            <Image
-                              preview={false}
-                              height={30}
-                              width={30}
-                              src="/img/i5.svg"
-                            />
-                          </div>
-                          <div onClick={onLogout} className="text-[#F01A63] cursor-pointer opacity-50 text-[18px] font-bold hover:opacity-100">
-                            Гарах
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <PersonalSideBar hover={2} />
         <div className=" mr-[30px] px-4 md:px-4">
-         
           <Table
             className="tcell"
             className=" w-[770px]"
@@ -462,279 +359,259 @@ const Cart = () => {
             </Button>
           </div>
         </div> */}
-       
+
         <div className=" ml-[10px] w-[370px]  mb-5 pb-5  lg:h-[530px] shadow-custom rounded-[8px] ">
-            <Tabs className="payment" defaultActiveKey="1">
-              <TabPane tab="САР" key="1">
-                <div className=" flex flex-col justify-center items-center">
-                  <div className=" flex justify-between  w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      {/* {numberOfProgram} */}
-                       {product?.length} модуль
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPrice.toFixed(2)}
-                      ₮
-                    </div>
+          <Tabs className="payment" defaultActiveKey="1">
+            <TabPane tab="САР" key="1">
+              <div className=" flex flex-col justify-center items-center">
+                <div className=" flex justify-between  w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    {/* {numberOfProgram} */}
+                    {product?.length} модуль
                   </div>
-                  <Divider className="bill" />
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {programPrice.toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
 
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      Сервер
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {/* {serverPrice.toFixed(2)} */}
-                      {serverPrice.toFixed(2)}₮
-                    </div>
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Сервер
                   </div>
-                  <Divider className="bill" />
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      НӨАТ
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {/* {taxPrice.toFixed(2)} */}
-                      {tax}₮
-                    </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {/* {serverPrice.toFixed(2)} */}
+                    {serverPrice.toFixed(2)}₮
                   </div>
-                  <Divider className="bill" />
-                  <div className=" flex justify-between w-[322px] ">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      Хөнгөлөлт
-                    </div>
-                    <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discount != 0 ? -discount : 0).toFixed(2)}₮
-                    </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    НӨАТ
                   </div>
-                  <Divider className="bill" />
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {/* {taxPrice.toFixed(2)} */}
+                    {tax}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px] ">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Хөнгөлөлт
+                  </div>
+                  <div className="text-[#30D82E] text-[16px] font-semibold">
+                    {(discount != 0 ? -discount : 0).toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
 
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-semibold">
-                      Нийт төлбөр
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPrice.toFixed(2)}₮
-                    </div>
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-semibold">
+                    Нийт төлбөр
                   </div>
-                  <Divider className="bill" />
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {totalPrice.toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
 
-                  <div className=" w-full  flex flex-col justify-center items-center">
-                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
+                <div className=" w-full  flex flex-col justify-center items-center">
+                  {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
-                      <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image preview={false} src="/img/warning.png" />
-                      </div>
-                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
-                        суугдана.
-                      </p>
+                  <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" pt-[16px] pl-[17px] pr-[17px]">
+                      <Image preview={false} src="/img/warning.png" />
                     </div>
+                    <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр автоматаар
+                      үүсэж худалдан авсан бараанууд автоматаар суугдана.
+                    </p>
                   </div>
-                  <div className=" flex justify-center mt-[30px]">
-                     
-                      <Button
-                        className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
-                        type="primary"
-                        onClick={() => onPurchase("month")}
-                      >
-                        Төлбөр төлөх
-                      </Button>
-                    
-                  </div>
-                  {/* <div className=" mx-[24px] my-[30px]">
+                </div>
+                <div className=" flex justify-center mt-[30px]">
+                  <Button
+                    className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                    type="primary"
+                    onClick={() => onPurchase("month")}
+                  >
+                    Төлбөр төлөх
+                  </Button>
+                </div>
+                {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
                   </div> */}
+              </div>
+            </TabPane>
+            <TabPane tab="УЛИРАЛ" key="2">
+              <div className=" flex flex-col justify-center items-center">
+                <div className=" flex justify-between  w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    {/* {numberOfProgram} */}
+                    {product?.length} модуль
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {programPriceSeason.toFixed(2)}₮
+                  </div>
                 </div>
-              </TabPane>
-              <TabPane tab="УЛИРАЛ" key="2">
-                <div className=" flex flex-col justify-center items-center">
-                  <div className=" flex justify-between  w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                       {/* {numberOfProgram} */}
-                       {product?.length} модуль
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPriceSeason.toFixed(2)}
-                      ₮
-                    </div>
-                  </div>
-                  <Divider className="bill" />
+                <Divider className="bill" />
 
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      Сервер
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPriceSeason.toFixed(2)}
-                      ₮
-                    </div>
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Сервер
                   </div>
-                  <Divider className="bill" />
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      НӨАТ
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPriceSeason.toFixed(2)}
-                      ₮
-                    </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {serverPriceSeason.toFixed(2)}₮
                   </div>
-                  <Divider className="bill" />
-                  <div className=" flex justify-between w-[322px] ">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      Хөнгөлөлт
-                    </div>
-                    <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discountSeason != 0 ? -discountSeason : 0).toFixed(2)}
-                      ₮
-                    </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    НӨАТ
                   </div>
-                  <Divider className="bill" />
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {taxPriceSeason.toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px] ">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Хөнгөлөлт
+                  </div>
+                  <div className="text-[#30D82E] text-[16px] font-semibold">
+                    {(discountSeason != 0 ? -discountSeason : 0).toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
 
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-semibold">
-                      Нийт төлбөр
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPriceSeason.toFixed(2)}
-                      ₮
-                    </div>
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-semibold">
+                    Нийт төлбөр
                   </div>
-                  <Divider className="bill" />
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {totalPriceSeason.toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
 
-                  <div className=" w-full  flex flex-col justify-center items-center">
-                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
+                <div className=" w-full  flex flex-col justify-center items-center">
+                  {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
-                      <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image preview={false} src="/img/warning.png" />
-                      </div>
-                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
-                        суугдана.
-                      </p>
+                  <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" pt-[16px] pl-[17px] pr-[17px]">
+                      <Image preview={false} src="/img/warning.png" />
                     </div>
+                    <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр автоматаар
+                      үүсэж худалдан авсан бараанууд автоматаар суугдана.
+                    </p>
                   </div>
-                  <div className=" flex justify-center mt-[30px]">
-                 
-                      <Button
-                        className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
-                        type="primary"
-                        onClick={() => onPurchase("season")}
-                      >
-                        Төлбөр төлөх
-                      </Button>
-                  
-                  </div>
-                  {/* <div className=" mx-[24px] my-[30px]">
+                </div>
+                <div className=" flex justify-center mt-[30px]">
+                  <Button
+                    className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                    type="primary"
+                    onClick={() => onPurchase("season")}
+                  >
+                    Төлбөр төлөх
+                  </Button>
+                </div>
+                {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
                   </div> */}
+              </div>
+            </TabPane>
+            <TabPane tab="ЖИЛ" key="3">
+              <div className=" flex flex-col justify-center items-center">
+                <div className=" flex justify-between  w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    {/* {numberOfProgram} */}
+                    {product?.length} модуль
+                  </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {programPriceYear.toFixed(2)}₮
+                  </div>
                 </div>
-              </TabPane>
-              <TabPane tab="ЖИЛ" key="3">
-                <div className=" flex flex-col justify-center items-center">
-                  <div className=" flex justify-between  w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      {/* {numberOfProgram} */}
-                      {product?.length} модуль
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPriceYear.toFixed(2)}
-                      ₮
-                    </div>
-                  </div>
-                  <Divider className="bill" />
+                <Divider className="bill" />
 
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      Сервер
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPriceYear.toFixed(2)}
-                      ₮
-                    </div>
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Сервер
                   </div>
-                  <Divider className="bill" />
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      НӨАТ
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPriceYear.toFixed(2)}
-                      ₮
-                    </div>
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {serverPriceYear.toFixed(2)}₮
                   </div>
-                  <Divider className="bill" />
-                  <div className=" flex justify-between w-[322px] ">
-                    <div className=" text-[#2F3747] text-[16px] font-medium">
-                      Хөнгөлөлт
-                    </div>
-                    <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discountYear != 0 ? -discountYear : 0).toFixed(2)}
-                      ₮
-                    </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    НӨАТ
                   </div>
-                  <Divider className="bill" />
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {taxPriceYear.toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
+                <div className=" flex justify-between w-[322px] ">
+                  <div className=" text-[#2F3747] text-[16px] font-medium">
+                    Хөнгөлөлт
+                  </div>
+                  <div className="text-[#30D82E] text-[16px] font-semibold">
+                    {(discountYear != 0 ? -discountYear : 0).toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
 
-                  <div className=" flex justify-between w-[322px]">
-                    <div className=" text-[#2F3747] text-[16px] font-semibold">
-                      Нийт төлбөр
-                    </div>
-                    <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPriceYear.toFixed(2)}
-                      ₮
-                    </div>
+                <div className=" flex justify-between w-[322px]">
+                  <div className=" text-[#2F3747] text-[16px] font-semibold">
+                    Нийт төлбөр
                   </div>
-                  <Divider className="bill" />
+                  <div className="text-[#2F3747] text-[16px] font-semibold">
+                    {totalPriceYear.toFixed(2)}₮
+                  </div>
+                </div>
+                <Divider className="bill" />
 
-                  <div className=" w-full  flex flex-col justify-center items-center">
-                    {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
+                <div className=" w-full  flex flex-col justify-center items-center">
+                  {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
-                      <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image preview={false} src="/img/warning.png" />
-                      </div>
-                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
-                        суугдана.
-                      </p>
+                  <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" pt-[16px] pl-[17px] pr-[17px]">
+                      <Image preview={false} src="/img/warning.png" />
                     </div>
+                    <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      Хэрвээ та клауд сервэр сонгосон бол таны сервэр автоматаар
+                      үүсэж худалдан авсан бараанууд автоматаар суугдана.
+                    </p>
                   </div>
-                  <div className=" flex justify-center mt-[30px]">
-                   
-                      <Button
-                        className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
-                        type="primary"
-                        onClick={() => onPurchase("year")}
-                      >
-                        Төлбөр төлөх
-                      </Button>
-                   
-                  </div>
-                  {/* <div className=" mx-[24px] my-[30px]">
+                </div>
+                <div className=" flex justify-center mt-[30px]">
+                  <Button
+                    className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                    type="primary"
+                    onClick={() => onPurchase("year")}
+                  >
+                    Төлбөр төлөх
+                  </Button>
+                </div>
+                {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
                       (1) New customers get a discount on the initial number of
                       users purchased. ($6.00 USD instead of $8.00 USD).
                     </p>
                   </div> */}
-                </div>
-              </TabPane>
-            </Tabs>
-          </div>
+              </div>
+            </TabPane>
+          </Tabs>
+        </div>
       </div>
       <Footer />
       <Modal
