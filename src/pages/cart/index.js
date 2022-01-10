@@ -173,9 +173,9 @@ const Cart = () => {
         name: (
           <div className=" flex items-center">
             {item.product_icon ? (
-              <Image src={"data:image/png;base64," + item.product_icon} />
+              <Image preview={false} src={"data:image/png;base64," + item.product_icon} />
             ) : (
-              <Image width={30} height={30} src="/img/default.png" />
+              <Image preview={false} width={30} height={30} src="/img/default.png" />
             )}
             <span className=" ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
               {item.product_name}
@@ -294,8 +294,8 @@ const Cart = () => {
         <PersonalSideBar hover={2} />
         <div className=" mr-[30px] px-4 md:px-4">
           <Table
-            className="tcell"
-            className=" w-[770px]"
+            // className="tcell"
+            className="tcell w-[770px]"
             columns={columns}
             dataSource={data}
           />

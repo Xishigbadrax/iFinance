@@ -123,13 +123,13 @@ const Dashboard = () => {
                     {item.category_image ? (
                       <Image
                         preview={false}
-                        className=" "
+                        className=""
                         src={"data:image/png;base64," + item.category_image}
                       />
                     ) : (
                       <Image
                         preview={false}
-                        className=" "
+                        className=" max-w-[80px] max-h-[80px] "
                         src="/img/default.png"
                       />
                     )}

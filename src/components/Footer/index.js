@@ -23,7 +23,7 @@ const Footer = () => {
               }}
             >
               <strong>Утас:</strong>
-              <br /> 976 89977771
+              <br /> +976 72777000
             </div>
           </div>
           <div className=" flex items-center my-3 xl:mx-[95px] ">

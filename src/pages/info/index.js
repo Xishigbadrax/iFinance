@@ -13,7 +13,7 @@ import {
   Radio,
   DatePicker,
   Modal,
-  message
+  message,
 } from "antd";
 import Auth from "../../utils/auth";
 import axios from "axios";
@@ -56,7 +56,6 @@ const Info = () => {
     // console.log("Success:", values);
   };
 
-  
   const onChangePhone = async (values) => {
     // console.log(phone, "utas");
     const res = await axios.post(
@@ -75,11 +74,10 @@ const Info = () => {
         },
       }
     );
-    res.data.result.msg == "success" ? setIsPhoneModal(true) : null; 
+    res.data.result.msg == "success" ? setIsPhoneModal(true) : null;
     // console.log(res, "chnage phone res");
   };
 
-  
   const emailConfirmed = async (values) => {
     message.success("Амжилттай");
     setIsMailModal(false);
@@ -94,7 +92,6 @@ const Info = () => {
     Router.push("/");
   };
 
-  
   const onChangeConfrim = async (values) => {
     // console.log(confirmCode, "code");
     const res = await axios.post(
@@ -103,8 +100,8 @@ const Info = () => {
         jsonrpc: 2.0,
         params: {
           uid: Auth.getUserId(),
-          code : confirmCode,
-          phone: phone
+          code: confirmCode,
+          phone: phone,
         },
       },
       {
@@ -114,7 +111,9 @@ const Info = () => {
         },
       }
     );
-    res?.data?.result == "Success" ? phoneConfirmed() : message.error("Алдаа гарлаа");
+    res?.data?.result == "Success"
+      ? phoneConfirmed()
+      : message.error("Алдаа гарлаа");
     // console.log(res, "last phone res");
   };
   const onChangeConfrimEmail = async (values) => {
@@ -125,8 +124,8 @@ const Info = () => {
         jsonrpc: 2.0,
         params: {
           uid: Auth.getUserId(),
-          code : mailConfirmCode,
-          email: mail 
+          code: mailConfirmCode,
+          email: mail,
         },
       },
       {
@@ -136,12 +135,12 @@ const Info = () => {
         },
       }
     );
-    res?.data?.result == "Success" ? emailConfirmed() : message.error("Алдаа гарлаа");
+    res?.data?.result == "Success"
+      ? emailConfirmed()
+      : message.error("Алдаа гарлаа");
     // console.log(res, "last phone res");
   };
 
-  
-  
   const onSave = async () => {
     // console.log(form.getFieldsValue());
     const res = await axios.post(
@@ -167,11 +166,10 @@ const Info = () => {
     // console.log(value, "iddd");
   };
   const onResChangePass = (value) => {
-    message.success("Амжилттай солигдлоо")
+    message.success("Амжилттай солигдлоо");
     Auth.destroyToken();
-    router.push("/")
+    router.push("/");
   };
-  
 
   const onChangeMail = async () => {
     const res = await axios.post(
@@ -190,10 +188,10 @@ const Info = () => {
         },
       }
     );
-    res.data.result.msg == "success" ? setIsMailModal(true) : null; 
+    res.data.result.msg == "success" ? setIsMailModal(true) : null;
     // console.log(res, "mail res");
   };
-  
+
   const Logout = async () => {
     const res = await axios.post(
       baseUrl + "logout",
@@ -210,7 +208,6 @@ const Info = () => {
     );
 
     if (res.data.error && res.data.error) {
-      
       message.success("Амжилттай систэмээс гарлаа");
       Auth.destroyToken();
       // window.location.reload(false);
@@ -219,7 +216,7 @@ const Info = () => {
 
     // console.log(res, "logout res");
   };
-  
+
   const onChangePass = async (value) => {
     // console.log(form2.getFieldsValue().old, "pass iin utga");
     const res = await axios.post(
@@ -240,7 +237,9 @@ const Info = () => {
         },
       }
     );
-    res?.data?.result == "SUCCESS" ? onResChangePass() : message.error("Амжилтгүй");
+    res?.data?.result == "SUCCESS"
+      ? onResChangePass()
+      : message.error("Амжилтгүй");
     console.log(res, "pass res");
   };
 
@@ -261,11 +260,13 @@ const Info = () => {
         },
       }
     );
+    
     setMainData(res.data.result.main[0]);
+    
     setDistrict(res.data.result.district);
     setSumkhoroo(res.data.result.sumkhoroo);
-   
-    // console.log(res, "info res");
+
+    console.log(res, "info res");
     setIsLoading(false);
   }, []);
 
@@ -296,9 +297,8 @@ const Info = () => {
   }, [mainData]);
 
   return (
-    
     <div>
-       <Head>
+      <Head>
         <title>iFinance | Миний мэдээлэл</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
@@ -595,12 +595,11 @@ const Info = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col md:flex-row md:w-[765px] justify-between mt-[24px] " >
+                  <div className="flex flex-col md:flex-row md:w-[765px] justify-between mt-[24px] ">
                     <div className="flex">
                       <Form.Item name="is_taxpayer" valuePropName="checked">
                         <div>
                           <Checkbox>
-                            
                             <p className="text-[#9CA6C0] text-[13px] ml-[8px]  w-[120px]">
                               НӨАТ төлөгч эсэх
                             </p>
@@ -710,14 +709,16 @@ const Info = () => {
                   <div className=" flex flex-col items-start ml-[10px]">
                     <div className=" text-[11px] font-semibold">Гар утас </div>
                     <div className=" text-[16px] font-normal">
-                     {
-                       mainData?.phone_number_verified_at ? <div className="flex"> 
-                        <div className=" mr-[2px]"><Image preview={false} src="/img/valid.svg" /> </div>
-                        <div className=" text-green-600">Баталгаажсан</div>
-                          
-                         </div> : "Баталгаажаагүй"
-                       
-                     } 
+                      {mainData?.phone_number_verified_at ? (
+                        <div className="flex">
+                          <div className=" mr-[2px]">
+                            <Image preview={false} src="/img/valid.svg" />{" "}
+                          </div>
+                          <div className=" text-green-600">Баталгаажсан</div>
+                        </div>
+                      ) : (
+                        "Баталгаажаагүй"
+                      )}
                     </div>
                   </div>
                 </div>
@@ -739,12 +740,15 @@ const Info = () => {
                     </div>
                     <div className=" w-[370px] mt-[24px]">
                       <Input
-                      maxLength={8}
+                        maxLength={8}
                         onChange={(e) => setPhone(e.target.value)}
                         bordered={false}
                         style={{ borderBottom: "1px solid black" }}
-                        placeholder={mainData?.phone_number_verified_at ? mainData?.phone : "Утасны дугаар"}
-                        
+                        placeholder={
+                          mainData?.phone_number_verified_at
+                            ? mainData?.phone
+                            : "Утасны дугаар"
+                        }
                       />
                     </div>
                     <Button
@@ -767,14 +771,16 @@ const Info = () => {
                   <div className=" flex flex-col items-start ml-[10px]">
                     <div className=" text-[11px] font-semibold">Цахим хаяг</div>
                     <div className=" text-[16px] font-normal">
-                    {
-                       mainData?.email_verified_at ? <div className="flex"> 
-                       <div className=" mr-[2px]"><Image preview={false} src="/img/valid.svg" /> </div>
-                       <div className=" text-green-500">Баталгаажсан</div>
-                         
-                        </div> : "Баталгаажаагүй"
-                       
-                     } 
+                      {mainData?.email_verified_at ? (
+                        <div className="flex">
+                          <div className=" mr-[2px]">
+                            <Image preview={false} src="/img/valid.svg" />{" "}
+                          </div>
+                          <div className=" text-green-500">Баталгаажсан</div>
+                        </div>
+                      ) : (
+                        "Баталгаажаагүй"
+                      )}
                     </div>
                   </div>
                 </div>
@@ -796,10 +802,14 @@ const Info = () => {
                     </div>
                     <div className=" w-[370px] mt-[24px]">
                       <Input
-                      onChange={(e) => setMail(e.target.value)}
+                        onChange={(e) => setMail(e.target.value)}
                         bordered={false}
                         style={{ borderBottom: "1px solid black" }}
-                        placeholder={mainData?.email_verified_at ? mainData.email : "И-мэйл хаяг"}
+                        placeholder={
+                          mainData?.email_verified_at
+                            ? mainData.email
+                            : "И-мэйл хаяг"
+                        }
                       />
                     </div>
                     <Button
@@ -824,23 +834,22 @@ const Info = () => {
         onCancel={handleCancel}
       >
         <div className=" flex justify-center">
-          
           <div className="  w-[310px]">
             <p>Утсанд ирсэн дөрвөн оронтой тоог оруулна уу.</p>
             <Input
-            onChange={(e) => setConfirmCode(e.target.value)}
+              onChange={(e) => setConfirmCode(e.target.value)}
               className=" w-[300px]"
               bordered={false}
               style={{ borderBottom: "1px solid black" }}
             />
             <div className=" flex justify-center">
-            <Button
-            onClick={onChangeConfrim}
-              type="primary"
-              className="  mt-[20px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-            >
-              Илгээх
-            </Button>
+              <Button
+                onClick={onChangeConfrim}
+                type="primary"
+                className="  mt-[20px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Илгээх
+              </Button>
             </div>
           </div>
         </div>
@@ -852,23 +861,22 @@ const Info = () => {
         onCancel={handleCancel}
       >
         <div className=" flex justify-center">
-          
           <div className="  w-[310px]">
             <p> Таны мэйлд ирсэн дөрвөн оронтой тоог оруулна уу.</p>
             <Input
-            onChange={(e) => setMailConfirmCode(e.target.value)}
+              onChange={(e) => setMailConfirmCode(e.target.value)}
               className=" w-[300px]"
               bordered={false}
               style={{ borderBottom: "1px solid black" }}
             />
             <div className=" flex justify-center">
-            <Button
-            onClick={onChangeConfrimEmail}
-              type="primary"
-              className="  mt-[20px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-            >
-              Илгээх
-            </Button>
+              <Button
+                onClick={onChangeConfrimEmail}
+                type="primary"
+                className="  mt-[20px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Илгээх
+              </Button>
             </div>
           </div>
         </div>

@@ -593,7 +593,7 @@ const Pricing = ({}) => {
         Үнийн санал
       </div> */}
 
-      <div className=" md:fixed z-30 h-[100px] flex  overflow-hidden">
+      <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden">
         <div className="absolute z-30  flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans />
@@ -652,7 +652,7 @@ const Pricing = ({}) => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 xl:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
                   {mainData?.map((mainItem, mainIndex) => {
                     if (mainItem.product_category_id == item.id) {
                       return (
@@ -1080,12 +1080,12 @@ const Pricing = ({}) => {
               </TabPane>
             </Tabs>
           </div>
-          <div className=" ml-[10px] mt-[1.875rem] mb-[30px] shadow-custom">
-            <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[400px] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+          <div className=" ml-[10px] mt-[1.875rem] mb-[30px] shadow-custom  w-[375px]">
+            <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[375px] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
               Сервер байршуулах:
             </div>
             <div>
-              <div className=" mx-[24px]  p-[24px lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+              <div className=" mx-[24px]   lg:w-[330px] lg:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">
@@ -1115,7 +1115,7 @@ const Pricing = ({}) => {
                       disabled={serverState2 || serverState3 ? true : false}
                       defaultValue="Сонгох"
                       // style={{ width: 300 }}
-                      className=" w-[280px] lg:w-[330px]"
+                      className=" w-[280px] lg:w-[290px]"
                       allowClear
                       onChange={handleChange}
                     >
@@ -1154,7 +1154,7 @@ const Pricing = ({}) => {
               </div>
             </div>
             <div className=" w-full">
-              <div className=" mx-[24px]  lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+              <div className=" mx-[24px]  lg:w-[330px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">
@@ -1183,7 +1183,7 @@ const Pricing = ({}) => {
                       defaultValue="Сонгох"
                       // style={{ width: 300 }}
                       allowClear
-                      className=" w-[280px] xl:w-[330px]"
+                      className=" w-[280px] xl:w-[290px]"
                       onChange={handleChange2}
                     >
                       {cloudServer?.map((item, index) => {
@@ -1221,7 +1221,7 @@ const Pricing = ({}) => {
               </div>
             </div>
             <div className=" w-full pb-[17px]">
-              <div className="   lg:w-[370px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
+              <div className="   lg:w-[330px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">

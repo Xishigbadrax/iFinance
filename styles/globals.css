@@ -604,10 +604,7 @@ color: red !important;
   background-image: linear-gradient(45deg, #2E28D4  , #AC27FD) !important;
   color: white !important;
 } */
-thead > tr > th {
-  background-color: #4641ce  !important;
-  color: white !important;
-}
+
 .price  {
   margin: 15px 9px !important;
 }
@@ -664,3 +661,17 @@ display: none !important;
   /* overflow: auto !important; */
   border-radius: 20px !important;
 }
+/* thead > tr > th {
+  background-color: #4641ce  !important;
+  color: white !important;
+} */
+.tcell .ant-table-thead > tr >th{
+  background-image: linear-gradient(180deg, #AC27FD, #2E28D4 ) !important;
+  color: white !important;
+
+}
+.components-table-demo-nested .ant-table-thead > tr >th{
+  background-color: #9CA6C0 !important;
+  color: #2E28D4 !important;
+}
+

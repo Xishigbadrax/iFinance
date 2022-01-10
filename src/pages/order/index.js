@@ -19,7 +19,7 @@ const Order = () => {
   const { setIsLoading, userData } = useContext(Context);
   const { TabPane } = Tabs;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
- 
+
   const [invoices, setInvoices] = useState();
   const [state, setState] = useState();
   const data2 = [];
@@ -40,7 +40,7 @@ const Order = () => {
   //   );
 
   //   if (res.data.error && res.data.error) {
-     
+
   //     message.success("Амжилттай систэмээс гарлаа");
   //     Auth.destroyToken();
   //     // window.location.reload(false);
@@ -69,11 +69,18 @@ const Order = () => {
   };
 
   const columns = [
-    { title: "Нэхэмжлэх дугаар", dataIndex: "dugaar", key: "dugaar", onHeaderCell: (column) => {
-      return { onClick: () => {
-        console.log("быйб");
-      }}
-    }  },
+    {
+      title: "Нэхэмжлэх дугаар",
+      dataIndex: "dugaar",
+      key: "dugaar",
+      onHeaderCell: (column) => {
+        return {
+          onClick: () => {
+            console.log("быйб");
+          },
+        };
+      },
+    },
     { title: "Нэхэмжилсэн дүн", dataIndex: "dun", key: "dun" },
     { title: "Төлбөрийн систем", dataIndex: "system", key: "system" },
     { title: "Захиалгын огноо", dataIndex: "sognoo", key: "ognoo" },
@@ -81,14 +88,11 @@ const Order = () => {
     { title: "Төлөв", dataIndex: "tuluv", key: "tuluv" },
   ];
 
- 
   const data = [];
   const draft = [];
   const cancelled = [];
   const paid = [];
   const open = [];
-
-  
 
   invoices?.map((item, index) => {
     data.push({
@@ -101,12 +105,10 @@ const Order = () => {
       tuluv: item.invoice_state,
       sub: item.invoice_lines,
     });
-    
-    state?.map((el) => {
 
+    state?.map((el) => {
       if (item.invoice_state == el) {
-        draft.push(
-           {
+        draft.push({
           key: item.invoice_id,
           dugaar: item.invoice_id,
           dun: item.invoice_amount.toFixed(2) + "₮",
@@ -117,12 +119,31 @@ const Order = () => {
           sub: item.invoice_lines,
         });
       }
-    })
-    
-     
-
-   
+    });
   });
+
+  const dateSource = (item) => {
+    var gg = []
+
+    for (let i = 0; i < invoices.length; i++) {
+      if (item === invoices[i].invoice_state) {
+        console.log(invoices[i], 'ggg');
+
+        gg.push({
+          key: invoices[i].invoice_id,
+          dugaar: invoices[i].invoice_id,
+          dun: invoices[i].invoice_amount.toFixed(2) + "₮",
+          system: invoices[i].invoice_type,
+          sognoo: invoices[i].invoice_start_date,
+          dognoo: invoices[i].invoice_end_date,
+          tuluv: invoices[i].invoice_state,
+          sub: invoices[i].invoice_lines,
+        });
+      }
+    }
+
+    return gg
+  }
 
   useEffect(async () => {
     setIsLoading(true);
@@ -133,7 +154,6 @@ const Order = () => {
           jsonrpc: 2.0,
           params: {
             uid: Auth.getUserId(),
-        
           },
         },
 
@@ -154,16 +174,15 @@ const Order = () => {
       });
   }, []);
   useEffect(async () => {
-    let arrayy = []
+    let arrayy = [];
     invoices?.map((item) => {
       if (!arrayy.includes(item.invoice_state)) {
-        
         arrayy.push(item?.invoice_state);
       }
-    })
+    });
     setState(arrayy);
   }, [invoices]);
-// console.log(state);
+  // console.log(state);
   return (
     <div>
       <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
@@ -202,7 +221,7 @@ const Order = () => {
       </div>
 
       <Tabs className="myOrder mb-10" defaultActiveKey="1">
-      <TabPane tab="Бүгд" key="1">
+        <TabPane tab="Бүгд" key="1">
           <div className=" ">
             <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
               <PersonalSideBar hover={1} />
@@ -217,51 +236,25 @@ const Order = () => {
             </div>
           </div>
         </TabPane>
-        {state?.map((item, index) => {  
-
-          return <TabPane tab={item} key={index + 2}>
-          <div className=" ">
-            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
-              <PersonalSideBar hover={1} />
-              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
-              
-                <Table
-                  className="components-table-demo-nested"
-                  columns={columns}
-                  expandable={{ expandedRowRender }}
-                  
-                  dataSource= { draft
-                      // invoices?.map((element) => {
-                      //   if (item == element.invoice_state) {
-                       
-                      
-                 
-                            
-                      //      return  {
-                      //           key: element.invoice_id,
-                      //           dugaar: element.invoice_id,
-                      //           dun: element.invoice_amount.toFixed(2) + "₮",
-                      //           system: element.invoice_type,
-                      //           sognoo: element.invoice_start_date,
-                      //           dognoo: element.invoice_end_date,
-                      //           tuluv: element.invoice_state,
-                      //           sub: element.invoice_lines,
-                      //         }
-                            
-                          
-                      //   } 
-                       
-                       
-
-                      // })
-                   }
-                />
+        {state?.map((item, index) => {
+          return (
+            <TabPane tab={item} key={index + 2}>
+              <div className=" ">
+                <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
+                  <PersonalSideBar hover={1} />
+                  <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
+                    <Table
+                      className="components-table-demo-nested"
+                      columns={columns}
+                      expandable={{ expandedRowRender }}
+                      dataSource={dateSource(item)}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </TabPane>
+            </TabPane>
+          );
         })}
-
       </Tabs>
       {/* <Tabs className="myOrder mb-10" defaultActiveKey="1">
         <TabPane tab="Бүгд" key="1">
