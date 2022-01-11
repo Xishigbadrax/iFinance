@@ -22,6 +22,8 @@ const Order = () => {
 
   const [invoices, setInvoices] = useState();
   const [state, setState] = useState();
+  const [toggle, setToggle] = useState(1);
+
   const data2 = [];
 
   // const Logout = async () => {
@@ -49,7 +51,6 @@ const Order = () => {
 
   //   // console.log(res, "logout res");
   // };
-
   const expandedRowRender = (rowData) => {
     // console.log(rowData, "ggg");
 
@@ -68,37 +69,203 @@ const Order = () => {
     );
   };
 
+  useEffect(() => {
+    console.log(toggle);
+  }, [toggle]);
   const columns = [
+    // {
+    //   title: "Нэхэмжлэх дугаар",
+    //   dataIndex: "dugaar",
+    //   key: "dugaar",
+    // onHeaderCell: (column) => {
+    //   return {
+    //     onClick: () => setAgeSort()
+    //   };
+    // },
+    // },
     {
-      title: "Нэхэмжлэх дугаар",
+      title:
+        toggle == 1 ? (
+          <div
+            className=" bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[4px] py-[9px] px-[16px]
+    text-white text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[100px] text-center">Нэхэмжлэх дугаар</div>
+          </div>
+        ) : (
+          <div
+            className="  py-[9px] px-[16px]
+     text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[100px] text-center">Нэхэмжлэх дугаар</div>
+          </div>
+        ),
       dataIndex: "dugaar",
       key: "dugaar",
-      onHeaderCell: (column) => {
+      sorter: {
+        compare: (a, b) => a.dugaar - b.dugaar,
+        // multiple: 2,
+      },
+      onHeaderCell: () => {
         return {
-          onClick: () => {
-            console.log("быйб");
-          },
+          onClick: () => setToggle(1),
         };
       },
     },
-    { title: "Нэхэмжилсэн дүн", dataIndex: "dun", key: "dun" },
-    { title: "Төлбөрийн систем", dataIndex: "system", key: "system" },
-    { title: "Захиалгын огноо", dataIndex: "sognoo", key: "ognoo" },
-    { title: "Дуусах огноо", dataIndex: "dognoo", key: "dognoo" },
-    { title: "Төлөв", dataIndex: "tuluv", key: "tuluv" },
+    {
+      title:
+        toggle == 2 ? (
+          <div
+            className=" bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[4px] py-[9px] px-[16px]
+  text-white text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[100px] text-center">Нэхэмжилсэн дүн</div>
+          </div>
+        ) : (
+          <div
+            className="  py-[9px] px-[16px]
+   text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[100px] text-center">Нэхэмжилсэн дүн</div>
+          </div>
+        ),
+
+      dataIndex: "dun",
+      key: "dun",
+      sorter: {
+        compare: (a, b) => a.dun - b.dun,
+
+        // multiple: 2,
+      },
+      onHeaderCell: () => {
+        return {
+          onClick: () => setToggle(2),
+        };
+      },
+    },
+    {
+      title:
+        toggle == 3 ? (
+          <div
+            className=" bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[4px] py-[9px] px-[16px]
+  text-white text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[100px] text-center">Төлбөрийн систем</div>
+          </div>
+        ) : (
+          <div
+            className="  py-[9px] px-[16px]
+   text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[100px] text-center">Төлбөрийн систем</div>
+          </div>
+        ),
+
+      dataIndex: "system",
+      key: "system",
+      sorter: (a, b) => a.system.localeCompare(b.first_name),
+      onHeaderCell: () => {
+        return {
+          onClick: () => setToggle(3),
+        };
+      },
+    },
+    {
+      title:
+        toggle == 4 ? (
+          <div
+            className=" bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[4px] py-[9px] px-[16px]
+text-white text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[100px] text-center">Захиалгын огноо</div>
+          </div>
+        ) : (
+          <div
+            className="  py-[9px] px-[16px]
+ text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[100px] text-center">Захиалгын огноо</div>
+          </div>
+        ),
+
+      dataIndex: "sognoo",
+      key: "ognoo",
+      sorter: (a, b) => a.sognoo.localeCompare(b.first_name),
+      onHeaderCell: () => {
+        return {
+          onClick: () => setToggle(4),
+        };
+      },
+    },
+    {
+      title:
+        toggle == 5 ? (
+          <div
+            className=" bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[4px] py-[9px] px-[16px]
+text-white text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[80px] text-center">Дуусах огноо</div>
+          </div>
+        ) : (
+          <div
+            className="  py-[9px] px-[16px]
+text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[80px] text-center">Дуусах огноо</div>
+          </div>
+        ),
+
+      dataIndex: "dognoo",
+      key: "dognoo",
+      sorter: {
+        compare: (a, b) => a.dognoo - b.dognoo,
+        // multiple: 2,
+      },
+      onHeaderCell: () => {
+        return {
+          onClick: () => setToggle(5),
+        };
+      },
+    },
+    {
+      title:
+        toggle == 6 ? (
+          <div
+            className=" bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[4px] py-[9px] px-[16px]
+text-white text-[14px] font-bold flex justify-center "
+          >
+            <div className=" w-[80px]  h-[44px] flex items-center justify-center text-center">
+              Төлөв
+            </div>
+          </div>
+        ) : (
+          <div
+            className="  py-[9px] px-[16px]
+text-[14px] font-bold flex justify-center"
+          >
+            <div className=" w-[80px] text-center">Төлөв</div>
+          </div>
+        ),
+      dataIndex: "tuluv",
+      key: "tuluv",
+      sorter: (a, b) => a.tuluv.localeCompare(b.first_name),
+      onHeaderCell: () => {
+        return {
+          onClick: () => setToggle(6),
+        };
+      },
+    },
   ];
 
   const data = [];
   const draft = [];
-  const cancelled = [];
-  const paid = [];
-  const open = [];
 
   invoices?.map((item, index) => {
     data.push({
       key: item.invoice_id,
       dugaar: item.invoice_id,
-      dun: item.invoice_amount.toFixed(2) + "₮",
+      // dun: item.invoice_amount.toFixed(2) + "₮",
+      dun: item.invoice_amount,
       system: item.invoice_type,
       sognoo: item.invoice_start_date,
       dognoo: item.invoice_end_date,
@@ -123,11 +290,11 @@ const Order = () => {
   });
 
   const dateSource = (item) => {
-    var gg = []
+    var gg = [];
 
     for (let i = 0; i < invoices.length; i++) {
       if (item === invoices[i].invoice_state) {
-        console.log(invoices[i], 'ggg');
+        // console.log(invoices[i], 'ggg');
 
         gg.push({
           key: invoices[i].invoice_id,
@@ -142,9 +309,12 @@ const Order = () => {
       }
     }
 
-    return gg
-  }
+    return gg;
+  };
 
+  useEffect(() => {
+    console.log(toggle, "togggleee");
+  }, [toggle]);
   useEffect(async () => {
     setIsLoading(true);
     await axios

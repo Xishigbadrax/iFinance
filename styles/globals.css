@@ -671,7 +671,31 @@ display: none !important;
 
 }
 .components-table-demo-nested .ant-table-thead > tr >th{
-  background-color: #9CA6C0 !important;
-  color: #2E28D4 !important;
+  background-color: rgba(156, 166, 192, 0.2)  !important;
+  color: rgba(46, 40, 212, 0.5)  !important;
+  font-weight: bold !important;
+  border-bottom:  1px solid #AC27FD !important;
 }
 
+.components-table-demo-nested .ant-table-column-has-sorters{
+  background-color: red !important;
+}
+
+.components-table-demo-nested .ant-table-thead > tr > th {
+  padding:  0 !important;
+}
+
+.components-table-demo-nested .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+
+
+.ant-table-column-sorters::after {
+  /* background-color: red !important;
+  padding: 16px; */
+
+}
+.ant-table-column-sorter {
+  display:  none !important;  
+}

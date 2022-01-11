@@ -354,14 +354,13 @@ const Pricing = ({}) => {
         mainData.filter(function (el) {
           if (el.is_required == false) {
             if (!state.includes(el)) {
-              
               return el.product_category_id == catId;
             }
           }
         })
       );
       setState((prev) => [...prev, ...lastArraay]);
-      
+
       // var response = await Promise.all(mainData?.map((item) => {
       //   if (item.product_category_id == catId) {
       //     return isChecked(item, item.is_required)
@@ -611,7 +610,7 @@ const Pricing = ({}) => {
       </div>
       <div className="  relative">
         <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center mt-[90px] ">
-          <div className=" mt-[20px] ml-[375px] lg:flex justify-between w-[300px] hidden">
+          <div className=" mt-[20px] 2xl:ml-[20vw] md:ml-[7vw] lg:flex justify-between w-[300px] hidden">
             <div>
               <Image preview={false} src="/img/home.svg" />
             </div>
@@ -628,7 +627,7 @@ const Pricing = ({}) => {
               Үнийн санал
             </div>
           </div>
-          <div className=" text-center  lg:mt-20 lg:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex   items-center lg:text-white   text-[36px] font-semibold">
+          <div className=" text-center  lg:mt-20 2xl:pl-[20vw] md:pl-[7vw] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex   items-center lg:text-white   text-[36px] font-semibold">
             Үнийн санал
           </div>
         </div>
@@ -1335,6 +1334,14 @@ const Pricing = ({}) => {
               </div>
             </div>
             <Divider />
+            <div className="flex justify-center mb-4 mt-2">
+              <Button
+                type="primary"
+                className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Төлөлт шалгах
+              </Button>
+            </div>
             <div className=" w-[300px] md:w-[510px] h-[250px] md:h-[176px] bg-[#F01A63] bg-opacity-10 rounded-[4px] flex items-center ">
               <div className=" flex flex-col  h-[240px] md:h-[144px] justify-between">
                 <div className=" flex">

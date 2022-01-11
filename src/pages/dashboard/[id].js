@@ -126,7 +126,7 @@ const CategoryId = () => {
       </div>
       <div className="  relative  ">
         <div className="xl:absolute z-20   flex flex-col w-full h-[260px] justify-center mt-[90px] ">
-          <div className=" mt-[20px] ml-[375px] lg:flex justify-between w-[450px] hidden">
+          <div className=" mt-[20px] 2xl:ml-[20vw] md:ml-[7vw]  lg:flex justify-between w-[450px] hidden">
             <div>
               <Image preview={false} src="/img/home.svg" />
             </div>
@@ -153,7 +153,7 @@ const CategoryId = () => {
               {categoryName}
             </div>
           </div>
-          <div className=" text-center xl:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
+          <div className=" text-center 2xl:pl-[20vw] md:pl-[7vw] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
             {categoryName}
           </div>
         </div>
@@ -231,10 +231,10 @@ const CategoryId = () => {
                                 )  */}
                                  
                                   <Button
-                                    onClick={Auth.getToken() ? () => onCart(item.product_id, 1)  : () => onCartLogin }
+                                    onClick={Auth.getToken() ? () => onCart(item.product_id, 1)  : () => onCartLogin() }
                                     
                                     type="primary"
-                                    className=" w-[236px] h-[48px] rounded-[43px]   bg-white border-[1px] border-[#9CA6C0] text-[#9CA6C0] text-[14px] font-bold"
+                                    className=" w-[236px] h-[48px] rounded-[43px] hover:text-white hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]  bg-white border-[1px] border-[#9CA6C0] text-[#9CA6C0] text-[14px] font-bold"
                                   >
                                     Сагсанд хийх
                                   </Button>
@@ -298,25 +298,14 @@ const CategoryId = () => {
                             <div className=" mt-2 flex">
                               <div className="  w-[500px] flex flex-col md:flex-row ">
                                 <div className=" flex flex-col  items-center">
-                                {Auth.getToken() ? (
-                                  <Button
-                                    onClick={() => onCart(item.product_id, 1)}
-                                    type="primary"
-                                   
-                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                                  >
-                                    Сагсанд нэмэх
-                                  </Button>
-                                ) : (
-                                  <Button
-                                    onClick={onCartLogin}
+                                <Button
+                                    onClick={Auth.getToken() ? () => onCart(item.product_id, 1)  : () => onCartLogin() }
                                     
                                     type="primary"
-                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                    className=" w-[236px] h-[48px] rounded-[43px]  hover:text-white hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]  bg-white border-[1px] border-[#9CA6C0] text-[#9CA6C0] text-[14px] font-bold"
                                   >
-                                    Сагсанд нэмэх
+                                    Сагсанд хийх
                                   </Button>
-                                )}
                                   <Button
                                     onClick={() => onDetails(id)}
                                     type="primary"
@@ -382,19 +371,20 @@ const CategoryId = () => {
                           }
                           key={index}
                         >
-                          <div className="xl:w-[770px] mr-6 xl:mr-0 shadow-custom rounded mb-[40px]  px-[30px] pb-[30px]">
-                            <p>{parse(content)} </p>
+                          <div className="xl:w-[770px] mr-6  xl:mr-0  shadow-lg rounded mb-[40px]  px-[30px] pb-[30px]">
+                            <div className=" mr-[500px]">{parse(content)} </div>
 
                             <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">
                               <div className="  w-[500px] flex flex-col md:flex-row justify-between">
-                                <Button
-                                  onClick={() => onCart(item.product_id, 1)}
-                                  type="primary"
-                                  className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                                >
-                                  Сагсанд нэмэх
-                                </Button>
+                              <Button
+                                    onClick={Auth.getToken() ? () => onCart(item.product_id, 1)  : () => onCartLogin() }
+                                    
+                                    type="primary"
+                                    className=" w-[236px] h-[48px] rounded-[43px]  hover:text-white hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]  bg-white border-[1px] border-[#9CA6C0] text-[#9CA6C0] text-[14px] font-bold"
+                                  >
+                                    Сагсанд хийх
+                                  </Button>
                                 <Button
                                   onClick={() => onDetails(id)}
                                   type="primary"
@@ -445,17 +435,18 @@ const CategoryId = () => {
                             <div className=" mt-2 flex  ">
                               <div className="  w-[500px] flex flex-col md:flex-row ">
                                 <div className=" flex flex-col  items-center">
-                                  <Button
-                                    onClick={() => onCart(item.product_id, 1)}
+                                <Button
+                                    onClick={Auth.getToken() ? () => onCart(item.product_id, 1)  : () => onCartLogin() }
+                                    
                                     type="primary"
-                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold mb-4"
+                                    className=" w-[236px] h-[48px] rounded-[43px]  hover:text-white hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]  bg-white border-[1px] border-[#9CA6C0] text-[#9CA6C0] text-[14px] font-bold"
                                   >
-                                    Сагсанд нэмэх
+                                    Сагсанд хийх
                                   </Button>
                                   <Button
                                     onClick={() => onDetails(id)}
                                     type="primary"
-                                    className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                                    className=" w-[236px] h-[48px] mt-4 rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
                                   >
                                     Худалдан авах
                                   </Button>

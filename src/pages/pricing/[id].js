@@ -109,11 +109,9 @@ const Pricing = ({ id }) => {
         }
       )
       .then((response) => {
-        
         // console.log(response, "dom shalgah");
         setDomainState(response.data.result);
-        response?.data?.result == true ?   setLock(true) : setLock(false)
-      
+        response?.data?.result == true ? setLock(true) : setLock(false);
       })
       .catch((error) => {
         console.log(error);
@@ -191,7 +189,7 @@ const Pricing = ({ id }) => {
         server_id: serverId,
         type: type,
         product_ids: productIds,
-        domain: domain
+        domain: domain,
       },
     };
     // console.log(data, "dataaa");
@@ -213,13 +211,9 @@ const Pricing = ({ id }) => {
         message.warning("Хүсэлт амжилтгүй");
       }
       // console.log(res, "purchase res");
+    } else {
+      message.warning("Домайнаа сонгоно уу!");
     }
-    else {
-      message.warning("Домайнаа сонгоно уу!")
-    }
-   
-
-    
   };
 
   const isChecked = (item, isRequired) => {
@@ -408,7 +402,7 @@ const Pricing = ({ id }) => {
       </div>
       <div className="  relative">
         <div className="xl:absolute z-20 flex flex-col w-full h-full justify-center mt-[90px] ">
-          <div className=" mt-[20px] ml-[375px] lg:flex justify-between w-[450px] hidden">
+          <div className=" mt-[20px] 2xl:ml-[20vw] md:ml-[7vw] lg:flex justify-between w-[450px] hidden">
             <div>
               <Image preview={false} src="/img/home.svg" />
             </div>
@@ -435,7 +429,7 @@ const Pricing = ({ id }) => {
               Худалдан авах
             </div>
           </div>
-          <div className=" text-center xl:pl-[375px] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
+          <div className=" text-center 2xl:pl-[20vw] md:pl-[7vw] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
             Худалдан авах
           </div>
         </div>
@@ -445,7 +439,7 @@ const Pricing = ({ id }) => {
           src="/img/dashboard.svg"
         />
       </div>
-      <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row   justify-center">
+      <div className=" xl:mt-[80px] flex flex-col md:flex-col xl:flex-row   justify-center mb-[100px]">
         <div className=" flex  justify-center ">
           <div className=" w-full ">
             {/* <div>
@@ -608,7 +602,6 @@ const Pricing = ({ id }) => {
                 })}
               </div>
             </div>
-            
           </div>
         </div>
         <div className=" flex flex-col mb-10 xl:mb-0">
@@ -766,8 +759,9 @@ const Pricing = ({ id }) => {
                         <Image src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                      
-Хэрвээ та клауд сервэр сонгосон бол таны сервэр автоматаар үүсэж худалдан авсан бараанууд автоматаар суугдана.
+                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
+                        суугдана.
                       </p>
                     </div>
                   </div>
@@ -858,8 +852,9 @@ const Pricing = ({ id }) => {
                         <Image src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                     
-Хэрвээ та клауд сервэр сонгосон бол таны сервэр автоматаар үүсэж худалдан авсан бараанууд автоматаар суугдана.
+                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
+                        суугдана.
                       </p>
                     </div>
                   </div>
@@ -893,178 +888,184 @@ const Pricing = ({ id }) => {
               </TabPane>
             </Tabs>
           </div>
-            <div className=" ml-[10px] mt-[1.875rem] mb-[30px] shadow-custom">
-              <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[400px] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
-                Сервер байршуулах:
-              </div>
-              <div>
-                <div className=" mx-[24px]  p-[24px lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
-                  <div className=" p-[20px]">
-                    <div className=" flex w-full  justify-between">
-                      <div className="text-[#2F3747] text-[16px] font-semibold">
-                        1. Itools.mn Физик серверт байршуулах
+          <div className=" ml-[10px] mt-[1.875rem] mb-[30px] shadow-custom">
+            <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[400px] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+              Сервер байршуулах:
+            </div>
+            <div>
+              <div className=" mx-[24px]  p-[24px lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+                <div className=" p-[20px]">
+                  <div className=" flex w-full  justify-between">
+                    <div className="text-[#2F3747] text-[16px] font-semibold">
+                      1. Itools.mn Физик серверт байршуулах
+                    </div>
+                    <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
+                      <div className=" text-[#2F3747] text-[16px] font-semibold">
+                        {pServerPrice}₮
                       </div>
-                      <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
-                        <div className=" text-[#2F3747] text-[16px] font-semibold">
-                          {pServerPrice}₮
-                        </div>
-                        <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
-                          1 сард
-                        </div>
-                        <div>
-                          {/* className={serverState2 || serverState3 ? " cursor-not-allowed" : null} */}
+                      <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
+                        1 сард
+                      </div>
+                      <div>
+                        {/* className={serverState2 || serverState3 ? " cursor-not-allowed" : null} */}
 
-                          {/* <Checkbox
+                        {/* <Checkbox
                             disabled={
                               serverState2 || serverState3 ? true : false
                             }
                             onClick={() => onChangerServerPrice1()}
                           /> */}
-                        </div>
                       </div>
                     </div>
-                    <div className=" mt-[16px]">
-                      <Select
-                        disabled={serverState2 || serverState3 ? true : false}
-                        defaultValue="Сонгох"
-                        // style={{ width: 300 }}
-                        className=" w-[300px] lg:w-[330px]"
-                        allowClear
-                        onChange={handleChange}
-                      >
-                        {physicalServer?.map((item, index) => {
-                          return (
-                            <Option
-                              key={index}
-                              value={[
-                                <div
-                                  key={index}
-                                  className=" flex justify-between"
-                                >
-                                  <div>{item.server_name}</div>
-                                  <div>CPU Cores: {item.server_cpu}</div>
-                                  <div>Ram: {item.server_ram}</div>
-                                  <div>Hard: {item.server_hard}</div>
-                                  <div>{item.server_price} ₮</div>
-                                </div>,
-                                item.server_id,
-                                item.server_price,
-                              ]}
-                            >
-                              <div className=" flex justify-between">
+                  </div>
+                  <div className=" mt-[16px]">
+                    <Select
+                      disabled={serverState2 || serverState3 ? true : false}
+                      defaultValue="Сонгох"
+                      // style={{ width: 300 }}
+                      className=" w-[300px] lg:w-[330px]"
+                      allowClear
+                      onChange={handleChange}
+                    >
+                      {physicalServer?.map((item, index) => {
+                        return (
+                          <Option
+                            key={index}
+                            value={[
+                              <div
+                                key={index}
+                                className=" flex justify-between"
+                              >
                                 <div>{item.server_name}</div>
                                 <div>CPU Cores: {item.server_cpu}</div>
                                 <div>Ram: {item.server_ram}</div>
                                 <div>Hard: {item.server_hard}</div>
                                 <div>{item.server_price} ₮</div>
-                              </div>
-                            </Option>
-                          );
-                        })}
-                      </Select>
-                    </div>
+                              </div>,
+                              item.server_id,
+                              item.server_price,
+                            ]}
+                          >
+                            <div className=" flex justify-between">
+                              <div>{item.server_name}</div>
+                              <div>CPU Cores: {item.server_cpu}</div>
+                              <div>Ram: {item.server_ram}</div>
+                              <div>Hard: {item.server_hard}</div>
+                              <div>{item.server_price} ₮</div>
+                            </div>
+                          </Option>
+                        );
+                      })}
+                    </Select>
                   </div>
                 </div>
               </div>
-              <div className=" w-full">
-                <div className=" mx-[24px]  lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
-                  <div className=" p-[20px]">
-                    <div className=" flex w-full  justify-between">
-                      <div className="text-[#2F3747] text-[16px] font-semibold">
-                        2. Cloud.mn Клауд Платформ
+            </div>
+            <div className=" w-full">
+              <div className=" mx-[24px]  lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+                <div className=" p-[20px]">
+                  <div className=" flex w-full  justify-between">
+                    <div className="text-[#2F3747] text-[16px] font-semibold">
+                      2. Cloud.mn Клауд Платформ
+                    </div>
+                    <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
+                      <div className=" text-[#2F3747] text-[16px] font-semibold">
+                        {cServerPrice}₮
                       </div>
-                      <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
-                        <div className=" text-[#2F3747] text-[16px] font-semibold">
-                          {cServerPrice}₮
-                        </div>
-                        <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
-                          1 сард
-                        </div>
-                        <div>
-                          {/* <Checkbox
+                      <div className=" text-[#9CA6C0] text-[10px] xl:text-[12px] font-semibold ">
+                        1 сард
+                      </div>
+                      <div>
+                        {/* <Checkbox
                             disabled={
                               serverState1 || serverState3 ? true : false
                             }
                             onClick={() => onChangerServerPrice2()}
                           /> */}
-                        </div>
                       </div>
                     </div>
-                    <div className=" mt-[16px]">
-                      <Select
-                        disabled={serverState1 || serverState3 ? true : false}
-                        defaultValue="Сонгох"
-                        // style={{ width: 300 }}
-                        allowClear
-                        className=" w-[300px] xl:w-[330px]"
-                        onChange={handleChange2}
-                      >
-                        {cloudServer?.map((item, index) => {
-                          return (
-                            <Option
-                              key={index}
-                              value={[
-                                <div
-                                  key={index}
-                                  className=" flex justify-between"
-                                >
-                                  <div>{item.server_name}</div>
-                                  <div>CPU Cores: {item.server_cpu}</div>
-                                  <div>Ram: {item.server_ram}</div>
-                                  <div>Hard: {item.server_hard}</div>
-                                  <div>{item.server_price} ₮</div>
-                                </div>,
-                                item.server_id,
-                                item.server_price,
-                              ]}
-                            >
-                              <div className=" flex justify-between">
+                  </div>
+                  <div className=" mt-[16px]">
+                    <Select
+                      disabled={serverState1 || serverState3 ? true : false}
+                      defaultValue="Сонгох"
+                      // style={{ width: 300 }}
+                      allowClear
+                      className=" w-[300px] xl:w-[330px]"
+                      onChange={handleChange2}
+                    >
+                      {cloudServer?.map((item, index) => {
+                        return (
+                          <Option
+                            key={index}
+                            value={[
+                              <div
+                                key={index}
+                                className=" flex justify-between"
+                              >
                                 <div>{item.server_name}</div>
                                 <div>CPU Cores: {item.server_cpu}</div>
                                 <div>Ram: {item.server_ram}</div>
                                 <div>Hard: {item.server_hard}</div>
                                 <div>{item.server_price} ₮</div>
-                              </div>
-                            </Option>
-                          );
-                        })}
-                      </Select>
-                    </div>
+                              </div>,
+                              item.server_id,
+                              item.server_price,
+                            ]}
+                          >
+                            <div className=" flex justify-between">
+                              <div>{item.server_name}</div>
+                              <div>CPU Cores: {item.server_cpu}</div>
+                              <div>Ram: {item.server_ram}</div>
+                              <div>Hard: {item.server_hard}</div>
+                              <div>{item.server_price} ₮</div>
+                            </div>
+                          </Option>
+                        );
+                      })}
+                    </Select>
                   </div>
                 </div>
               </div>
-              <div className=" w-full pb-[17px]">
-                <div className="   lg:w-[370px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
-                  <div className=" p-[20px]">
-                    <div className=" flex w-full  justify-between">
-                      <div className="text-[#2F3747] text-[16px] font-semibold">
-                        3. Өөрсдийн сервер дээр байршуулах
-                      </div>
-                      <div className="">
-                        <Checkbox
-                          disabled={serverState1 || serverState2 ? true : false}
-                          onClick={() => onChangerServerPrice3()}
-                        />
-                      </div>
+            </div>
+            <div className=" w-full pb-[17px]">
+              <div className="   lg:w-[370px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
+                <div className=" p-[20px]">
+                  <div className=" flex w-full  justify-between">
+                    <div className="text-[#2F3747] text-[16px] font-semibold">
+                      3. Өөрсдийн сервер дээр байршуулах
+                    </div>
+                    <div className="">
+                      <Checkbox
+                        disabled={serverState1 || serverState2 ? true : false}
+                        onClick={() => onChangerServerPrice3()}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
           <div className=" w-[370px]  shadow-lg ml-3 mt-5 rounded-[4px] p-[20px]">
             <div className="flex">
-            <Input
-              addonBefore="https://"
-              addonAfter=".ifinance.mn"
-              placeholder="Домайн нэр"
-              disabled ={lock}
-              onChange={(e) => setDomain(e.target.value)}
-            />
-            <Button type="default" onClick={() => setLock(false)} >X</Button>
+              <Input
+                addonBefore="https://"
+                addonAfter=".ifinance.mn"
+                placeholder="Домайн нэр"
+                disabled={lock}
+                onChange={(e) => setDomain(e.target.value)}
+              />
+              <Button type="default" onClick={() => setLock(false)}>
+                X
+              </Button>
             </div>
             {domainState != null && (
               <div className=" flex justify-center mt-4">
-                {domainState ? <p className=" text-green-500">Боломжтой</p> : <p className=" text-red-500">Боломжгүй</p>}
+                {domainState ? (
+                  <p className=" text-green-500">Боломжтой</p>
+                ) : (
+                  <p className=" text-red-500">Боломжгүй</p>
+                )}
               </div>
             )}
             <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] ">

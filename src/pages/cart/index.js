@@ -39,7 +39,7 @@ const Cart = () => {
   const baseDB = process.env.NEXT_PUBLIC_DB;
 
   const columns = [
-    { title: "Бүтээгдэхүүний нэр", dataIndex: "name", key: "name" },
+    { title: <div>Бүтээгдэхүүний нэр</div> , dataIndex: "name", key: "name" },
     { title: "Тоо ширхэг", dataIndex: "count", key: "count" },
     { title: "Үнэ", dataIndex: "price", key: "price" },
     { title: "Хасах", dataIndex: "action", key: "action" },
@@ -177,7 +177,7 @@ const Cart = () => {
             ) : (
               <Image preview={false} width={30} height={30} src="/img/default.png" />
             )}
-            <span className=" ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
+            <span className=" w-[100px] lg:w-auto ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
               {item.product_name}
             </span>
           </div>
@@ -290,76 +290,21 @@ const Cart = () => {
           src="/img/Slider.svg"
         />
       </div>
-      <div className=" flex flex-col md:flex-row justify-center mt-10">
+      <div className=" flex flex-col md:flex-col xl:flex-row justify-center mt-10">
+        <div>
+
         <PersonalSideBar hover={2} />
-        <div className=" mr-[30px] px-4 md:px-4">
+        </div>
+      <div className="flex lg:flex-row flex-col">
+
+        <div className=" mr-[30px] px-4 md:px-4 ">
           <Table
             // className="tcell"
-            className="tcell w-[770px]"
+            className="tcell 2xl:w-[770px] "
             columns={columns}
             dataSource={data}
           />
         </div>
-        {/* <div className=" w-[370px] h-[415px] shadow-xl rounded-[4px] mb-[100px] px-4 md:px-0">
-          <div className=" w-full flex items-center h-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] text-white font-bold text-[18px] rounded-t-[4px] pl-[24px]">
-            Төлөх дүн
-          </div>
-          <div className=" w-full flex justify-between px-4 pt-6">
-            <div className="text-[16px] font-normal text-[#2F3747]">
-              Үнийн дүн
-            </div>
-            <div className=" text-[#2F3747] text-[16px] font-semibold">
-              {price}₮
-            </div>
-          </div>
-          <Divider className="mar" />
-          <div className=" w-full flex justify-between px-4">
-            <div className="text-[16px] font-normal text-[#2F3747]">
-              Хөнгөлөлт
-            </div>
-            <div className=" text-[#30D82E] text-[16px] font-semibold">
-              -{discount}₮
-            </div>
-          </div>
-          <Divider className="mar" />
-          <div className=" w-full flex justify-between px-4">
-            <div className="text-[16px] font-normal text-[#2F3747]">
-              НӨАТ
-            </div>
-            <div className=" text-[#2F3747] text-[16px] font-semibold">
-              0₮
-            </div>
-          </div>
-          <Divider className="mar" />
-          <div className=" w-full flex justify-between px-4">
-            <div className="text-[16px] font-normal text-[#2F3747]">
-              Сервер
-            </div>
-            <div className=" text-[#2F3747] text-[16px] font-semibold">
-              0₮
-            </div>
-          </div>
-          <Divider className="mar" />
-          <div className=" w-full flex justify-between px-4">
-            <div className="text-[16px] font-normal text-[#2F3747]">
-              Нийт төлбөр
-            </div>
-            <div className=" text-[#2F3747] text-[16px] font-semibold">
-              {totalPrice}₮
-            </div>
-          </div>
-          <Divider className="mar" />
-          <div className=" flex justify-center mt-[30px]">
-            <Button
-              onClick={() => onPurchase()}
-              className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
-              type="primary"
-            >
-              Төлбөр төлөх
-            </Button>
-          </div>
-        </div> */}
-
         <div className=" ml-[10px] w-[370px]  mb-5 pb-5  lg:h-[530px] shadow-custom rounded-[8px] ">
           <Tabs className="payment" defaultActiveKey="1">
             <TabPane tab="САР" key="1">
@@ -612,6 +557,8 @@ const Cart = () => {
             </TabPane>
           </Tabs>
         </div>
+      </div>
+
       </div>
       <Footer />
       <Modal

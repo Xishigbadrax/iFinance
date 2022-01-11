@@ -116,7 +116,7 @@ export default function Home() {
           <div className="w-full flex justify-center">
             <NavbarTrans />
           </div>
-          <div className=" hidden  xl:flex w-full justify-center  items-center mt-[100px]">
+          <div className=" hidden  xl:flex w-full justify-center  items-center mt-[20px]">
             <div>
               <div className=" text-[16px]  xl:text-[36px] xl:text-white font-poppins-semibold xl:w-[600px]">
                 Бид танай байгууллагын цахим өвийг бүтээнэ!
@@ -143,7 +143,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Image className=" w-[100vw] h-auto" preview={false} src="/img/homeBack.svg" />
+        <div className="2xl:h-[580px] overflow-hidden">
+          <Image className="w-[100vw]" preview={false} src="/img/newSilder.svg" />
+        </div>
       </div>
       <div className="xl:hidden mt-[-10vh] md:mt-[-15vh] flex justify-center">
         <Image
