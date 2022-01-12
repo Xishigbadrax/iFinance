@@ -1298,7 +1298,7 @@ const Pricing = ({}) => {
         className="buy"
       >
         <Tabs className="buyTab" defaultActiveKey="1">
-          <TabPane tab="QPay үйлчилгээ" key="1">
+          <TabPane tab="QPAY ҮЙЛЧИЛГЭЭ" key="1">
             <div>
               {invoice?.map((item, index) => {
                 return (
@@ -1334,14 +1334,7 @@ const Pricing = ({}) => {
               </div>
             </div>
             <Divider />
-            <div className="flex justify-center mb-4 mt-2">
-              <Button
-                type="primary"
-                className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-              >
-                Төлөлт шалгах
-              </Button>
-            </div>
+           
             <div className=" w-[300px] md:w-[510px] h-[250px] md:h-[176px] bg-[#F01A63] bg-opacity-10 rounded-[4px] flex items-center ">
               <div className=" flex flex-col  h-[240px] md:h-[144px] justify-between">
                 <div className=" flex">
@@ -1387,9 +1380,18 @@ const Pricing = ({}) => {
                   </div>
                 </div>
               </div>
+              
+            </div>
+            <div className="flex justify-center mt-[30px]">
+              <Button
+                type="primary"
+                className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Шалгах
+              </Button>
             </div>
           </TabPane>
-          <TabPane tab="Банкны дансаар" key="2">
+          <TabPane tab="БАНКНЫ ДАНСААР" key="2">
             <div>
               <div className=" flex items-center mt-[20px]">
                 <div>
@@ -1408,6 +1410,7 @@ const Pricing = ({}) => {
                   })}
                 </div>
               </div>
+              
               <div className=" w-full flex justify-between mt-[20px]">
                 <div>
                   <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
@@ -1539,6 +1542,14 @@ const Pricing = ({}) => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="flex justify-center mt-[30px]">
+              <Button
+                type="primary"
+                className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Шалгах
+              </Button>
             </div>
           </TabPane>
         </Tabs>

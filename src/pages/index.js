@@ -116,9 +116,9 @@ export default function Home() {
           <div className="w-full flex justify-center">
             <NavbarTrans />
           </div>
-          <div className=" hidden  xl:flex w-full justify-center  items-center mt-[20px]">
+          <div className=" hidden  xl:flex w-full justify-center  items-center 2xl:mt-[20px] md:mt-[-75px]">
             <div>
-              <div className=" text-[16px]  xl:text-[36px] xl:text-white font-poppins-semibold xl:w-[600px]">
+              <div className=" text-[16px] lg:text-[24px] 2xl:text-[36px] xl:text-white font-poppins-semibold xl:w-[600px]">
                 Бид танай байгууллагын цахим өвийг бүтээнэ!
               </div>
               <br />
@@ -138,7 +138,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="hidden xl:block">
+            <div className="hidden md:scale-75 2xl:scale-100 xl:block">
               <Image preview={false} src="/img/homeImg.svg" />
             </div>
           </div>
@@ -397,7 +397,7 @@ export default function Home() {
             Бүтээгдэхүүний онцлог
           </div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" max-w-[1920px] flex flex-col md:flex-col xl:flex-row  lg:min-w-[1200px] justify-between pb-[100px]">
+            <div className=" max-w-[1920px] grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6 lg:min-w-[1200px]  pb-[100px]">
               <div>
                 <div>
                   <Image preview={false} src="/img/b1.svg" />
@@ -423,7 +423,7 @@ export default function Home() {
                   мессэж болон имэйл мэдэгдэл илгээх боломжтой
                 </div>
               </div>
-              <div className=" mt-[50px] xl:mt-0">
+              <div className=" xl:mt-0">
                 <div>
                   <Image preview={false} src="/img/b3.svg" />
                 </div>
@@ -549,18 +549,18 @@ export default function Home() {
         <div className=" w-full flex justify-center mt-[20px] xl:mt-[40px]">
           <div className=" w-full  ">
             <div className=" flex justify-center ">
-              <div className=" w-[250px] md:w-[65vw] max-w-[1750px]">
+              <div className=" w-[250px]  md:w-[65vw] max-w-[1750px]">
                 <Slider className="" {...settings2}>
                   <div className=" p-5">
-                    <div className=" w-auto flex flex-col lg:flex-row  justify-center">
-                      <div className=" mr-[130px]">
+                    <div className=" w-auto flex flex-col xl:flex-row  justify-center">
+                      <div className=" md:mr-[40px] ">
                         <div className=" flex justify-center text-center">
                           <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
                             Технологийн дэвшлийг таньд мэдрүүлнэ
                           </p>
                         </div>
                         <div className=" flex justify-center ">
-                          <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify ">
+                          <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify">
                             Технологийн дэвшилтэт эрин зуунд танай байгууллагын
                             дотоод системийг хийж гүйцэтгэхээс гадна Финтек
                             шилжилтрүү хөтлөн авч орох болно. Сүүлийн үеийн
@@ -580,15 +580,15 @@ export default function Home() {
                     </div>
                   </div>
                   <div className=" p-5">
-                    <div className=" max-w-[1920px] flex flex-col xl:flex-row xl:w-[60vw]  justify-center">
-                      <div className=" mr-[130px]">
+                    <div className=" w-auto flex flex-col  2xl:flex-row  justify-center">
+                      <div className=" md:mr-[40px] ">
                         <div className=" flex justify-center text-center">
                           <p className=" w-[300px] text-[18px] text-[#2F3747] font-bold">
                             Технологийн дэвшлийг таньд мэдрүүлнэ
                           </p>
                         </div>
-                        <div className=" flex justify-center">
-                          <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify ">
+                        <div className=" flex justify-center ">
+                          <p className=" text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px] w-[300px] text-justify">
                             Технологийн дэвшилтэт эрин зуунд танай байгууллагын
                             дотоод системийг хийж гүйцэтгэхээс гадна Финтек
                             шилжилтрүү хөтлөн авч орох болно. Сүүлийн үеийн
@@ -687,7 +687,7 @@ export default function Home() {
         </div>
       </div>
       <div className=" w-full flex justify-center mt-[100px]">
-        <div className=" h-[600px] md:h-auto max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[70vw] xl:w-[65vw] w-full xl:h-[228px] items-center bg-[#2E28D4]  bg-opacity-5 xl:items-center lg:items-start justify-around">
+        <div className=" h-[600px] md:h-auto max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[90vw] xl:w-[65vw] w-full xl:h-[228px] items-center bg-[#2E28D4]  bg-opacity-5 xl:items-center lg:items-start justify-around">
           <div className=" flex justify-center">
             <div>
               <div className=" text-[48px] text-[#F01A63] font-bold">5000+</div>
@@ -729,15 +729,17 @@ export default function Home() {
           <div className="flex flex-col justify-center  md:flex-row">
             <div className="relative">
               <div className="h-full w-full absolute z-10 flex flex-col  items-center justify-center left-100px ">
-                <div className=" z-10">
+                <div className=" z-10 mt-[5vh] lg:mt-0 ml-[17vw] lg:ml-0">
                   <Carousel autoplay className=" w-[353px] md:w-[400px] overflow-hidden">
-                    <div className=" w-[300px] md:w-[370px] ">
+                    <div className=" w-[300px] md:w-[370px] mt-[80px]">
                       <div style={contentStyle} className="flex flex-col   ">
-                        <div className=" mt-[55px] md:mt-[0px]">Quotes</div>
-                        <div className=" flex justify-start mt-[30px]">
+                        <div className=" flex flex-col justify-start w-[300px]  lg:w-[400px] ">
+                            <div className="">Quotes</div>  
+                            
+                          <div>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus.
+                           elit. Bibendum eget vitae elementum condimentum est
+                          non faucibus.</div> 
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
@@ -750,13 +752,15 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    <div className=" w-[370px] ">
-                      <h3 style={contentStyle} className=" flex flex-col ">
-                        <div className=" mt-[55px] md:mt-[0px]">Quotes2</div>
-                        <div className=" flex justify-start mt-[30px]">
+                    <div className=" w-[300px] md:w-[370px] mt-[80px]">
+                      <div style={contentStyle} className="flex flex-col   ">
+                        <div className=" flex flex-col justify-start w-[300px]  lg:w-[400px]">
+                            <div className="">Quotes</div>  
+                            
+                          <div>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus. 
+                           elit. Bibendum eget vitae elementum condimentum est
+                          non faucibus.</div> 
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
@@ -767,26 +771,28 @@ export default function Home() {
                             <div>Designer</div>
                           </div>
                         </div>
-                      </h3>
+                      </div>
                     </div>
-                    <div className=" w-[370px] ">
-                      <h3 style={contentStyle} className=" flex flex-col ">
-                        <div className=" mt-[55px] md:mt-[0px]">Quotes3</div>
-                        <div className=" flex justify-start mt-[30px]">
+                    <div className=" w-[300px] md:w-[370px] mt-[80px] ">
+                      <div style={contentStyle} className="flex flex-col   ">
+                        <div className=" flex flex-col justify-start w-[300px]  lg:w-[400px] ">
+                            <div className=" ">Quotes</div>  
+                            
+                          <div>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus. 
+                           elit. Bibendum eget vitae elementum condimentum est
+                          non faucibus.</div> 
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
                             <Image src="/img/q1.png" />
                           </div>
-                          <div className=" flex flex-col ml-2 ">
+                          <div className=" flex flex-col ml-2">
                             <div>Cameron Williamson</div>
                             <div>Designer</div>
                           </div>
                         </div>
-                      </h3>
+                      </div>
                     </div>
                   </Carousel>
                 </div>

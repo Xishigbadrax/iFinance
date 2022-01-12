@@ -9,12 +9,12 @@ import {
   Alert,
   message,
   Space,
+  Switch,
   Radio,
   Menu,
   Dropdown,
 } from "antd";
 import {
-  UserOutlined,
   WarningOutlined,
   PhoneOutlined,
   MailOutlined,
@@ -30,11 +30,9 @@ import auth_cookie from "../../utils/auth";
 import Countdown, { zeroPad } from "react-countdown";
 import Auth from "../../utils/auth";
 import Router from "next/router";
-import newhead from "../../../public/img/newhead.svg";
 
-const NavbarTrans = ({ cartLogin }) => {
+const NavbarTrans = ({ cartLogin,cartRender }) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
-  const baseDB = process.env.NEXT_PUBLIC_DB;
 
   const [loginModal, setLoginModal] = useState(false);
   const { sessionId } = useContext(Context);
@@ -49,7 +47,7 @@ const NavbarTrans = ({ cartLogin }) => {
   const [confirmMessage, setConfirmMessage] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [confirmCode, setConfirmCode] = useState(null);
-  const [deviceInfo, setDeviceInfo] = useState(null);
+  const [token, setToken] = useState(null);
   const [userName, setUserName] = useState("");
   const [userSid, setUserSid] = useState("");
 
@@ -58,6 +56,7 @@ const NavbarTrans = ({ cartLogin }) => {
   const [password, setPassword] = useState("");
   const [forgotPassConfirm, setForgotPassConfirm] = useState(false);
   const [forgotConfirmCode, setForgotConfirmCode] = useState("");
+  const [cartNumber, setCartNumber] = useState(0);
 
   // console.log(Auth.loggedIn(), "token status");
   // console.log(Auth.getToken(), "tokenii utga");
@@ -65,7 +64,7 @@ const NavbarTrans = ({ cartLogin }) => {
   // Auth.destroyToken();
 
   const db = "master_test";
-
+console.log(cartRender, "Dsads");
   // console.log(userSid, "sidddddd");
 
   // mobile bolhod ashiglagdaj bgaa state-uud
@@ -145,17 +144,58 @@ const NavbarTrans = ({ cartLogin }) => {
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
-  useEffect(() => {
+  useEffect( async () => {
+    setToken(Auth.getToken());
+   
+   const res = await axios.post(
+    baseUrl + "get/cart_list",
+    {
+      jsonrpc: 2.0,
+      params: {
+        uid: Auth.getUserId(),
+      },
+    },
+
+    {
+      headers: {
+        "Set-Cookie": "session_id=" + Auth.getToken(),
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  setCartNumber(res.data.result.products?.length);
     window.location.href.includes("dashboard") && setHover(1);
     window.location.href.includes("pricing") && setHover(2);
     window.location.href.includes("service") && setHover(3);
 
     setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowSizeChange);
+
     return () => {
       window.removeEventListener("resize", handleWindowSizeChange);
     };
   }, []);
+  useEffect( async () => {
+  
+   const res = await axios.post(
+    baseUrl + "get/cart_list",
+    {
+      jsonrpc: 2.0,
+      params: {
+        uid: Auth.getUserId(),
+      },
+    },
+
+    {
+      headers: {
+        "Set-Cookie": "session_id=" + Auth.getToken(),
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  setCartNumber(res.data.result.products?.length);
+ 
+  }, [cartRender]);
 
   // console.log(width, "widdd");
   const onForgotConfirmModal = async () => {
@@ -288,11 +328,11 @@ const NavbarTrans = ({ cartLogin }) => {
       setIsLogin(false);
       message.success("Амжилттай систэмээс гарлаа");
       Auth.destroyToken();
-      // window.location.reload(false);
       Router.push("/");
+      window.location.reload(false);
     }
 
-    // console.log(res, "logout res");
+    console.log(res, "logout res");
   };
 
   const onForgotConFirm = async () => {
@@ -489,7 +529,7 @@ const NavbarTrans = ({ cartLogin }) => {
         res.data.result.main_user?.username
       );
       message.success("Амжилттай нэвтэрлээ");
-      // window.location.reload(false);
+      window.location.reload(false);
       setUserSid(res.data.result.sid);
       // props.sido(res.data.result.sid);
       setUserData(res.data?.result?.main_user);
@@ -521,49 +561,70 @@ const NavbarTrans = ({ cartLogin }) => {
   const menu = (
     <Menu className="profileDropdownPopup p-[20px]">
       <Menu.Item className="order" key="0">
-        <div className="flex items-center">
-          <Image preview={false} width={20} height={20} src="/img/i1.svg" />
-          <a
-            className="pl-1 text-[#2E28D4] text-[14px] font-semibold"
-            href="/order"
-          >
-            Миний захиалга
-          </a>
-        </div>
+        <a className=" text-[#2E28D4] text-[14px] font-semibold" href="/order">
+          <div className="flex items-center">
+            <Image
+              className=""
+              preview={false}
+              width={20}
+              height={20}
+              src="/img/i1.svg"
+            />
+
+            <div className=" ml-[10px]">Миний захиалга</div>
+          </div>
+        </a>
       </Menu.Item>
 
       <Menu.Item className="order2" key="1">
-        <div className="flex items-center ">
-          <Image preview={false} width={20} height={20} src="/img/i2.svg" />
-          <a className="pl-1 text-[#2E28D4]" href="/cart">
-            Миний сагс
-          </a>
-        </div>
+        <a className=" text-[#2E28D4]" href="/cart">
+          <div className="flex items-center ">
+            <Image preview={false} width={20} height={20} src="/img/i2.svg" />
+
+            <div className=" ml-[10px]"> Миний сагс</div>
+          </div>
+        </a>
       </Menu.Item>
       <Menu.Item className="order2" key="2">
-        <div className="flex items-center">
-          <Image preview={false} width={20} height={20} src="/img/i3.svg" />
-          <a className="pl-1 text-[#2E28D4]" href="/info">
-            Миний мэдээлэл
-          </a>
-        </div>
+        <a className=" text-[#2E28D4]" href="/info">
+          <div className="flex items-center">
+            <Image preview={false} width={20} height={20} src="/img/i3.svg" />
+            <div className=" ml-[10px]">Миний мэдээлэл</div>
+          </div>
+        </a>
       </Menu.Item>
       <Menu.Item className="order2" key="3">
-        <div className="flex items-center">
-          <Image preview={false} width={20} height={20} src="/img/i4.svg" />
-          <a className="pl-1 text-[#2E28D4]" href="/">
-            Тохиргоо
-          </a>
+        <a className=" text-[#2E28D4]" href="/">
+          <div className="flex items-center">
+            <Image preview={false} width={20} height={20} src="/img/i4.svg" />
+            <div className=" ml-[10px]">Тохиргоо</div>
+          </div>
+        </a>
+      </Menu.Item>
+      <Menu.Item className="order2" key="4">
+        <div className=" flex">
+          <div className="flex items-center">
+            <Image
+              preview={false}
+              width={20}
+              height={20}
+              src="/img/darkMode.svg"
+            />
+            <div className=" ml-[10px]"> Dark mode</div>
+          </div>
+          <div className=" ml-[21px]">
+            <Switch />
+          </div>
         </div>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item className="order3" key="4">
-        <div onClick={Logout} className="flex items-center">
-          <Image preview={false} width={20} height={20} src="/img/i5.svg" />
-          <a className="pl-1 text-[#F01A63]" href="/">
-            Гарах
-          </a>
-        </div>
+      <Menu.Item className="order3" key="5">
+      
+          <div onClick={Logout} className="flex items-center">
+            <Image preview={false} width={20} height={20} src="/img/i5.svg" />
+            <div className=" ml-[10px]"> Гарах</div>
+          </div>
+       
       </Menu.Item>
     </Menu>
   );
@@ -2404,7 +2465,7 @@ const NavbarTrans = ({ cartLogin }) => {
             <div className=" h-1  bg-white w-6"></div>
           </div>
         )}
-        <div className="  hidden lg:flex  lg:w-[900px]  lg:justify-between items-center">
+        <div className="  hidden lg:flex  lg:w-[800px]  lg:justify-between items-center ">
           <div>
             <ul className="lg:flex lg:justify-around  lg:w-[550px]  lg:pt-3">
               {hover == 0 ? (
@@ -2478,31 +2539,35 @@ const NavbarTrans = ({ cartLogin }) => {
             </ul>
           </div>
 
-          {Auth.getToken() == null || Auth.getToken() == undefined ? (
-            <>
-              <div className=" font-poppins-semibold lg:w-80 lg:flex lg:justify-between ">
-                <div className=" h-[48px]">
-                  <Button
-                    onClick={Signup}
-                    className=" font-poppins-semibold mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px]  border-white"
-                    type="primary"
-                  >
-                    Бүртгүүлэх
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    className="  h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-poppins-semibold"
-                    onClick={Login}
-                    type="primary"
-                  >
-                    Нэвтрэх
-                  </Button>
-                </div>
+          {token === "undefined" || token == null ? (
+            <div className=" font-poppins-semibold lg:w-80 lg:flex lg:justify-between ">
+              <div className=" h-[48px]">
+                <Button
+                  onClick={Signup}
+                  className=" font-poppins-semibold mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px]  border-white"
+                  type="primary"
+                >
+                  Бүртгүүлэх
+                </Button>
               </div>
-            </>
+              <div>
+                <Button
+                  className="  h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-poppins-semibold"
+                  onClick={Login}
+                  type="primary"
+                >
+                  Нэвтрэх
+                </Button>
+              </div>
+            </div>
           ) : (
-            <>
+            <div className="flex items-center">
+              <div className="relative cursor-pointer mt-2  mr-4">
+                <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
+                  {cartNumber}
+                </div>
+                <Image className=" " preview={false} src="/img/cartIcon.svg" />
+              </div>
               <div className=" cursor-pointer box-border">
                 <Dropdown
                   placement="bottomRight"
@@ -2529,7 +2594,7 @@ const NavbarTrans = ({ cartLogin }) => {
                   </div>
                 </Dropdown>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

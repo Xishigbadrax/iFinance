@@ -689,13 +689,16 @@ display: none !important;
   display: none !important;
 }
 
-
-
-.ant-table-column-sorters::after {
-  /* background-color: red !important;
-  padding: 16px; */
-
-}
 .ant-table-column-sorter {
   display:  none !important;  
+}
+.buyTab .ant-tabs-nav-list {
+
+  width: 100% !important;
+  
+}
+.buyTab .ant-tabs-tab {
+ margin:  0 !important;
+width: 50% !important;
+border-radius: 4px !important;
 }

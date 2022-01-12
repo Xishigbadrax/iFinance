@@ -23,16 +23,12 @@ const CategoryId = () => {
   const [mainProduct, setMainProduct] = useState();
   const [additionalProduct, setAdditionalProduct] = useState();
   const [categoryName, setCategoryName] = useState();
-  const [images, setImages] = useState();
   const [cartLogin, setCartLogin] = useState(false);
+  const [cartRender, setcartRender] = useState(1);
 
 
   
-  const onCartLogin = () => {
-    setCartLogin(!cartLogin);
-    console.log("daragdlaa")
-    
-  }
+
   const onCart = async (id, type) => {
    
     const res = await axios.post(
@@ -56,10 +52,18 @@ const CategoryId = () => {
     );
     // console.log(res, "sagsand nemeh res");
     res?.data?.id == null
-      ? message.success("Амжилттай сагсанд нэмэгдлээ")
+      ? cartSuccess() 
       : message.error("Амжилтгүй");
+
+      setcartRender(cartRender + 1)
   };
 
+  const cartSuccess = () => {
+  
+     message.success("Амжилттай сагсанд нэмэгдлээ");
+  
+    
+  }
   const fetchData = async () => {
     setIsLoading(true);
     const res = await axios.post(
@@ -111,7 +115,7 @@ const CategoryId = () => {
       <div className=" md:fixed z-30 h-[100px] flex  overflow-hidden  ">
         <div className="absolute z-30  flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
-            <NavbarTrans cartLogin={cartLogin} />
+            <NavbarTrans cartLogin={cartLogin} cartRender={cartRender} />
           </div>
 
           {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
@@ -125,7 +129,7 @@ const CategoryId = () => {
         />
       </div>
       <div className="  relative  ">
-        <div className="xl:absolute z-20   flex flex-col w-full h-[260px] justify-center mt-[90px] ">
+        <div className="xl:absolute z-20   flex flex-col w-full md:h-[200px] 2xl:h-[260px] justify-center mt-[90px]  ">
           <div className=" mt-[20px] 2xl:ml-[20vw] md:ml-[7vw]  lg:flex justify-between w-[450px] hidden">
             <div>
               <Image preview={false} src="/img/home.svg" />
@@ -153,7 +157,7 @@ const CategoryId = () => {
               {categoryName}
             </div>
           </div>
-          <div className=" text-center 2xl:pl-[20vw] md:pl-[7vw] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white h-2/3 text-[36px] font-semibold">
+          <div className=" text-center 2xl:pl-[20vw]   md:pl-[7vw] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white  text-[36px] font-semibold">
             {categoryName}
           </div>
         </div>

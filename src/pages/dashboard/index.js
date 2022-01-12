@@ -44,9 +44,8 @@ const Dashboard = () => {
     );
     setList(res.data.result);
     setIsLoading(false);
-    // console.log(res, "ehnii");
 
-    // console.log(res, "listtttt");
+    console.log(res, "listtttt");
   }, []);
 
   const onCategory = (id) => {
@@ -92,9 +91,9 @@ const Dashboard = () => {
           <div className="w-full flex justify-center">
             <NavbarTrans />
           </div>
-          <div className=" hidden  xl:flex w-full justify-center  items-center mt-[100px]">
+          <div className=" hidden  md:flex w-full justify-center  items-center lg:mt-[30px] 2xl:mt-[100px]">
             <div>
-              <div className=" text-[16px]  lg:text-[36px] lg:text-white font-poppins-semibold uppercase">
+              <div className=" text-[16px]  md:text-[36px] md:text-white font-poppins-semibold uppercase">
                 Манай бүтээгдэхүүн
               </div>
             </div>
