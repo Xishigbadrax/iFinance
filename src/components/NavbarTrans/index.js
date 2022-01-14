@@ -31,12 +31,12 @@ import Countdown, { zeroPad } from "react-countdown";
 import Auth from "../../utils/auth";
 import Router from "next/router";
 
-const NavbarTrans = ({ cartLogin,cartRender }) => {
+const NavbarTrans = ({ cartLogin, cartRender }) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
 
   const [loginModal, setLoginModal] = useState(false);
   const { sessionId } = useContext(Context);
-  const { setUserData } = useContext(Context);
+  const { setUserData, setIsLoading } = useContext(Context);
   const [addclass, setaddclass] = useState("");
   const [messageShow, setmessageShow] = useState(false);
   const [text, settext] = useState("");
@@ -64,7 +64,6 @@ const NavbarTrans = ({ cartLogin,cartRender }) => {
   // Auth.destroyToken();
 
   const db = "master_test";
-console.log(cartRender, "Dsads");
   // console.log(userSid, "sidddddd");
 
   // mobile bolhod ashiglagdaj bgaa state-uud
@@ -144,26 +143,27 @@ console.log(cartRender, "Dsads");
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
-  useEffect( async () => {
+  useEffect(async () => {
+  
     setToken(Auth.getToken());
-   
-   const res = await axios.post(
-    baseUrl + "get/cart_list",
-    {
-      jsonrpc: 2.0,
-      params: {
-        uid: Auth.getUserId(),
-      },
-    },
 
-    {
-      headers: {
-        "Set-Cookie": "session_id=" + Auth.getToken(),
-        "Content-Type": "application/json",
+    const res = await axios.post(
+      baseUrl + "get/cart_list",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+        },
       },
-    }
-  );
-  setCartNumber(res.data.result.products?.length);
+
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setCartNumber(res.data.result.products?.length);
     window.location.href.includes("dashboard") && setHover(1);
     window.location.href.includes("pricing") && setHover(2);
     window.location.href.includes("service") && setHover(3);
@@ -175,26 +175,24 @@ console.log(cartRender, "Dsads");
       window.removeEventListener("resize", handleWindowSizeChange);
     };
   }, []);
-  useEffect( async () => {
-  
-   const res = await axios.post(
-    baseUrl + "get/cart_list",
-    {
-      jsonrpc: 2.0,
-      params: {
-        uid: Auth.getUserId(),
+  useEffect(async () => {
+    const res = await axios.post(
+      baseUrl + "get/cart_list",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+        },
       },
-    },
 
-    {
-      headers: {
-        "Set-Cookie": "session_id=" + Auth.getToken(),
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  setCartNumber(res.data.result.products?.length);
- 
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setCartNumber(res.data.result.products?.length);
   }, [cartRender]);
 
   // console.log(width, "widdd");
@@ -411,6 +409,7 @@ console.log(cartRender, "Dsads");
   };
 
   const onFinishRegister = async (values) => {
+    setIsLoading(true)
     setScreen(true);
     // console.log("Received values of form: ", values);
     setEmail(values.email);
@@ -424,6 +423,8 @@ console.log(cartRender, "Dsads");
         password: values.password,
         confirm_password: values.confirm_password,
         phone_number: values.phone_number,
+        type: values.radioType,
+        register: values.register
         // session_id: sessionId,
       },
     };
@@ -434,8 +435,8 @@ console.log(cartRender, "Dsads");
         "Content-Type": "application/json",
       },
     });
-
-    // console.log(res, "sign up res");
+    setIsLoading(false);
+    console.log(res, "sign up res");
     if (res.data.result && res.data.result.msg) {
       setConfirmMessage(res.data.result.msg);
       setaddclass("right-panel-active");
@@ -469,6 +470,8 @@ console.log(cartRender, "Dsads");
         password: values.password,
         confirm_password: values.confirm_password,
         phone_number: values.phone_number,
+        type: values.radioType,
+        register: values.register
         // session_id: sessionId,
       },
     };
@@ -561,70 +564,83 @@ console.log(cartRender, "Dsads");
   const menu = (
     <Menu className="profileDropdownPopup p-[20px]">
       <Menu.Item className="order" key="0">
-        <a className=" text-[#2E28D4] text-[14px] font-semibold" href="/order">
-          <div className="flex items-center">
-            <Image
-              className=""
-              preview={false}
-              width={20}
-              height={20}
-              src="/img/i1.svg"
-            />
+        <div className=" opacity-50 hover:opacity-100 hover: text-[#AC27FD]">
+          <a
+            className=" text-[#2E28D4] text-[14px] font-semibold"
+            href="/order"
+          >
+            <div className="flex items-center">
+              <Image
+                className=""
+                preview={false}
+                width={20}
+                height={20}
+                src="/img/i1.svg"
+              />
 
-            <div className=" ml-[10px]">Миний захиалга</div>
-          </div>
-        </a>
+              <div className=" ml-[10px] ">Миний захиалга</div>
+            </div>
+          </a>
+        </div>
       </Menu.Item>
 
       <Menu.Item className="order2" key="1">
-        <a className=" text-[#2E28D4]" href="/cart">
-          <div className="flex items-center ">
-            <Image preview={false} width={20} height={20} src="/img/i2.svg" />
+        <div className=" opacity-50 hover:opacity-100 hover: text-[#AC27FD]">
+          <a className=" text-[#2E28D4]" href="/cart">
+            <div className="flex items-center ">
+              <Image preview={false} width={20} height={20} src="/img/i2.svg" />
 
-            <div className=" ml-[10px]"> Миний сагс</div>
-          </div>
-        </a>
+              <div className=" ml-[10px]"> Миний сагс</div>
+            </div>
+          </a>
+        </div>
       </Menu.Item>
       <Menu.Item className="order2" key="2">
-        <a className=" text-[#2E28D4]" href="/info">
-          <div className="flex items-center">
-            <Image preview={false} width={20} height={20} src="/img/i3.svg" />
-            <div className=" ml-[10px]">Миний мэдээлэл</div>
-          </div>
-        </a>
+        <div className=" opacity-50 hover:opacity-100 hover: text-[#AC27FD]">
+          <a className=" text-[#2E28D4]" href="/info">
+            <div className="flex items-center">
+              <Image preview={false} width={20} height={20} src="/img/i3.svg" />
+              <div className=" ml-[10px]">Миний мэдээлэл</div>
+            </div>
+          </a>
+        </div>
       </Menu.Item>
       <Menu.Item className="order2" key="3">
-        <a className=" text-[#2E28D4]" href="/">
-          <div className="flex items-center">
-            <Image preview={false} width={20} height={20} src="/img/i4.svg" />
-            <div className=" ml-[10px]">Тохиргоо</div>
-          </div>
-        </a>
+        <div className=" opacity-50 hover:opacity-100 hover: text-[#AC27FD]">
+          <a className=" text-[#2E28D4]" href="/">
+            <div className="flex items-center">
+              <Image preview={false} width={20} height={20} src="/img/i4.svg" />
+              <div className=" ml-[10px]">Тохиргоо</div>
+            </div>
+          </a>
+        </div>
       </Menu.Item>
       <Menu.Item className="order2" key="4">
-        <div className=" flex">
-          <div className="flex items-center">
-            <Image
-              preview={false}
-              width={20}
-              height={20}
-              src="/img/darkMode.svg"
-            />
-            <div className=" ml-[10px]"> Dark mode</div>
-          </div>
-          <div className=" ml-[21px]">
-            <Switch />
+        <div className=" opacity-50 hover:opacity-100 ">
+          <div className=" flex">
+            <div className="flex items-center">
+              <Image
+                preview={false}
+                width={20}
+                height={20}
+                src="/img/darkMode.svg"
+              />
+              <div className=" ml-[10px]"> Dark mode</div>
+            </div>
+            <div className=" ml-[21px]">
+              <Switch />
+            </div>
           </div>
         </div>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item className="order3" key="5">
-      
+      <Menu.Item className="order3 " key="5">
+        <div className=" opacity-50 hover:opacity-100 ">
           <div onClick={Logout} className="flex items-center">
             <Image preview={false} width={20} height={20} src="/img/i5.svg" />
             <div className=" ml-[10px]"> Гарах</div>
           </div>
-       
+        </div>
       </Menu.Item>
     </Menu>
   );
@@ -659,8 +675,19 @@ console.log(cartRender, "Dsads");
             onFinish={onMobileRegister}
           >
             <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-2">
-              Бүртгүүлэх
+              Бүртгүүлэхы
             </p>
+            <Form.Item name="radioType" label="" rules={[
+                  {
+                    required: true,
+                    message: "Сонгоно уу!",
+                  },
+                ]}>
+                <Radio.Group>
+                  <Radio value="1">Хувь хүн</Radio>
+                  <Radio value="2">Албан байгууллага</Radio>
+                </Radio.Group>
+              </Form.Item>
             <Form.Item
               name="name"
               rules={[
@@ -691,6 +718,14 @@ console.log(cartRender, "Dsads");
                 placeholder="Утасны дугаар*"
               />
             </Form.Item>
+            <Form.Item name="register">
+                <Input
+                  maxLength={10}
+                  className=" w-[20rem] h-[3rem] rounded-[41px] "
+                  type="text"
+                  placeholder="Регистрийн дугаар (Заавал биш)"
+                />
+              </Form.Item>
             <Form.Item
               name="email"
               rules={[
@@ -1173,6 +1208,8 @@ console.log(cartRender, "Dsads");
               }}
               onFinish={onFinishRegister}
             >
+              
+             
               <div className=" ml-[35%]">
                 <Image
                   className="pt-[3rem] pl-[3rem] "
@@ -1180,10 +1217,22 @@ console.log(cartRender, "Dsads");
                   src="/img/logo.png"
                 />
               </div>
+            
 
-              <p className=" text-[1.5rem] text-transparent bg-clip-text bg-gradient-to-br from-[#2E28D4] to-[#AC27FD] font-semibold pt-2">
+              {/* <p className=" text-[1.5rem] text-transparent bg-clip-text bg-gradient-to-br from-[#2E28D4] to-[#AC27FD] font-semibold pt-2">
                 Бүртгүүлэх
-              </p>
+              </p> */}
+              <Form.Item name="radioType" label="" rules={[
+                  {
+                    required: true,
+                    message: "Сонгоно уу!",
+                  },
+                ]}>
+                <Radio.Group>
+                  <Radio value="1">Хувь хүн</Radio>
+                  <Radio value="2">Албан байгууллага</Radio>
+                </Radio.Group>
+              </Form.Item>
               <Form.Item
                 name="name"
                 rules={[
@@ -1214,6 +1263,14 @@ console.log(cartRender, "Dsads");
                   className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
                   type="text"
                   placeholder="Утасны дугаар*"
+                />
+              </Form.Item>
+              <Form.Item name="register">
+                <Input
+                  maxLength={10}
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px] pl-[24px]"
+                  type="text"
+                  placeholder="Регистрийн дугаар (Заавал биш)"
                 />
               </Form.Item>
               <Form.Item

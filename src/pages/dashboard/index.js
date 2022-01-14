@@ -99,7 +99,10 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+        <div className=" 2xl:h-[347px] overflow-hidden ">
+
         <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+        </div>
       </div>
 
       <div className=" w-full flex justify-center mt-10 z-[-1]">

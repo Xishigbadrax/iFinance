@@ -375,7 +375,9 @@ const Info = () => {
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Овог
                         </div>
-                        <Form.Item name="surname" rules={[{ required: true }]}>
+                        <Form.Item name="surname"
+                        //  rules={[{ required: true }]}
+                         >
                           <Input
                             bordered={false}
                             suffix={

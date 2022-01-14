@@ -75,7 +75,7 @@ const Pricing = ({}) => {
   const [invoice, setInvoice] = useState();
   const [arrayNames, setArrayNames] = useState([]);
   const [arrayIds, setArrayIds] = useState([]);
-  const [test, setTest] = useState(false);
+  const [invoiceId, setInvoiceId] = useState(null);
 
   const [domain, setDomain] = useState();
   const [domainState, setDomainState] = useState(null);
@@ -155,7 +155,7 @@ const Pricing = ({}) => {
           setArrayNames(lastArray);
         }
 
-        console.log(response, "all module");
+        // console.log(response, "all module");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -169,6 +169,7 @@ const Pricing = ({}) => {
   }, []);
 
   const onPurchase = async (type) => {
+    setIsLoading(true);
     // console.log(sid, "siddd");
     // console.log(userID, "userIdddd");
     var productIds = [];
@@ -186,6 +187,7 @@ const Pricing = ({}) => {
         server_id: serverId,
         type: type,
         product_ids: productIds,
+        domain: domain
       },
     };
     // console.log(data, "dataaa");
@@ -196,11 +198,15 @@ const Pricing = ({}) => {
       },
     });
     if (res.data.result && res.data.result) {
+      console.log(res, "invoice res");
       // message.success("Хүсэлт амжилттай биеллээ.");
+      setInvoiceId(res.data.result.invoice[0].invoice_id);
       setBank(res.data.result.bank);
       setInvoice(res.data.result.invoice);
+      setIsLoading(false);
       setIsModalVisible(true);
     } else {
+      setIsLoading(false);
       message.warning("Хүсэлт амжилтгүй");
     }
     // console.log(res, "purchase res");
@@ -241,6 +247,45 @@ const Pricing = ({}) => {
       }
     }
   };
+  
+  const checkPayment = async () => {
+   
+    await axios
+      .post(
+        baseUrl + "check/invoice",
+        {
+          jsonrpc: 2.0,
+          params: {
+            uid: Auth.getUserId,
+            invoice_id: invoiceId
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + sid,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+          console.log(response, "check");
+          if (response?.data?.result == true) {
+              message.success("Төлбөр амжилттай төлөгдсөн")
+          } else if (response?.data?.result == false) {
+                message.warning("Төлбөр төлөгдөөгүй")
+          } else {
+            message.warning("Нэхэмжлэл олдсонгүй")
+          }
+            
+          
+       } )
+      
+  };
+  
+
+  
+
 
   const isModuleCheck = async (item, isRequired) => {
     if (!isRequired) {
@@ -258,12 +303,11 @@ const Pricing = ({}) => {
         if (p) {
           mainData?.map((element) => {
             if (element.product_dependency?.includes(item.product_id)) {
-              console.log("1");
               let filtered2 = state.filter(function (el) {
                 return el != element;
               });
 
-              console.log(filtered2, "filtered 2");
+              // console.log(filtered2, "filtered 2");
 
               var lastFilter = filtered2.filter(function (el) {
                 return el != item;
@@ -453,8 +497,8 @@ const Pricing = ({}) => {
   };
 
   useEffect(() => {
-    console.log(state, "gg state");
-  }, [state]);
+    console.log(invoiceId, "invo idd");
+  }, [invoiceId]);
 
   useEffect(() => {
     setNumberOfProgram(state.length);
@@ -858,7 +902,7 @@ const Pricing = ({}) => {
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
                         Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаарӨ
                         суугдана.
                       </p>
                     </div>
@@ -1384,6 +1428,7 @@ const Pricing = ({}) => {
             </div>
             <div className="flex justify-center mt-[30px]">
               <Button
+               onClick={checkPayment}
                 type="primary"
                 className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
               >
@@ -1545,6 +1590,7 @@ const Pricing = ({}) => {
             </div>
             <div className="flex justify-center mt-[30px]">
               <Button
+                onClick={checkPayment}
                 type="primary"
                 className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
               >

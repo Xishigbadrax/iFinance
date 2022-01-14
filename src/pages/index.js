@@ -3,19 +3,30 @@ import styles from "../../styles/Home.module.css";
 import NavbarTrans from "../components/NavbarTrans";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
-import { Button, Image, Carousel } from "antd";
+import {
+  Button,
+  Image,
+  Carousel,
+  Modal,
+  Form,
+  Input,
+  Checkbox,
+  Select,
+  
+} from "antd";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import Loader from "react-loader-spinner";
 import Head from "next/head";
 
-
 export default function Home() {
+  const { TextArea } = Input;
+  const { Option } = Select;
   const [onhover, setOnHover] = useState(false);
   const [onhover2, setOnHover2] = useState(false);
   const [onhover3, setOnHover3] = useState(false);
-  const [onhover4, setOnHover4] = useState(false);
+  const [demoModal, setDemoModal] = useState(false);
   const contentStyle = {
     height: "350px",
 
@@ -97,6 +108,18 @@ export default function Home() {
     ],
   };
 
+  const onDemo = () => {
+    setDemoModal(true);
+  };
+  const onFinishDemo = (values) => {
+    console.log('Success:', values);
+  };
+
+  
+
+  const handleCancel = () => {
+    setDemoModal(false);
+  };
   return (
     // <div >
     //     <Navbar />
@@ -127,7 +150,10 @@ export default function Home() {
               </div>
               <div className=" flex mt-[40px]">
                 <div>
-                  <Button className=" w-[166px] h-[48px] rounded-[43px] bg-white text-[#2E28D4] text-[14px] font-poppins-semibold border-none mr-[24px]">
+                  <Button
+                    onClick={onDemo}
+                    className=" w-[166px] h-[48px] rounded-[43px] bg-white text-[#2E28D4] text-[14px] font-poppins-semibold border-none mr-[24px]"
+                  >
                     Демо
                   </Button>
                 </div>
@@ -144,7 +170,11 @@ export default function Home() {
           </div>
         </div>
         <div className="2xl:h-[580px] overflow-hidden">
-          <Image className="w-[100vw]" preview={false} src="/img/newSilder.svg" />
+          <Image
+            className="w-[100vw]"
+            preview={false}
+            src="/img/newSilder.svg"
+          />
         </div>
       </div>
       <div className="xl:hidden mt-[-10vh] md:mt-[-15vh] flex justify-center">
@@ -696,8 +726,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30">
-          </div>
+          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30"></div>
           <div className=" flex justify-center">
             <div>
               <div className=" text-[48px] text-[#2E28D4] font-bold">1200+</div>
@@ -706,16 +735,14 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30">
-          </div>
+          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30"></div>
           <div className="">
             <div className=" text-[48px] text-[#AC27FD] font-bold">400+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center ">
               Сард хандсан хүний тоо
             </div>
           </div>
-          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30">
-          </div>
+          <div className=" bg-[#9CA6C0] w-[1px] h-[80px] bg-opacity-30"></div>
           <div>
             <div className=" text-[48px] text-[#011F70] font-bold">13+</div>
             <div className=" text-[16px] text-[#9CA6C0] w-[140px] text-center">
@@ -730,16 +757,20 @@ export default function Home() {
             <div className="relative">
               <div className="h-full w-full absolute z-10 flex flex-col  items-center justify-center left-100px ">
                 <div className=" z-10 mt-[5vh] lg:mt-0 ml-[17vw] lg:ml-0">
-                  <Carousel autoplay className=" w-[353px] md:w-[400px] overflow-hidden">
+                  <Carousel
+                    autoplay
+                    className=" w-[353px] md:w-[400px] overflow-hidden"
+                  >
                     <div className=" w-[300px] md:w-[370px] mt-[80px]">
                       <div style={contentStyle} className="flex flex-col   ">
                         <div className=" flex flex-col justify-start w-[300px]  lg:w-[400px] ">
-                            <div className="">Quotes</div>  
-                            
+                          <div className="">Quotes</div>
+
                           <div>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                           elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus.</div> 
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Bibendum eget vitae elementum condimentum est
+                            non faucibus.
+                          </div>
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
@@ -755,12 +786,13 @@ export default function Home() {
                     <div className=" w-[300px] md:w-[370px] mt-[80px]">
                       <div style={contentStyle} className="flex flex-col   ">
                         <div className=" flex flex-col justify-start w-[300px]  lg:w-[400px]">
-                            <div className="">Quotes</div>  
-                            
+                          <div className="">Quotes</div>
+
                           <div>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                           elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus.</div> 
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Bibendum eget vitae elementum condimentum est
+                            non faucibus.
+                          </div>
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
@@ -776,12 +808,13 @@ export default function Home() {
                     <div className=" w-[300px] md:w-[370px] mt-[80px] ">
                       <div style={contentStyle} className="flex flex-col   ">
                         <div className=" flex flex-col justify-start w-[300px]  lg:w-[400px] ">
-                            <div className=" ">Quotes</div>  
-                            
+                          <div className=" ">Quotes</div>
+
                           <div>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                           elit. Bibendum eget vitae elementum condimentum est
-                          non faucibus.</div> 
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Bibendum eget vitae elementum condimentum est
+                            non faucibus.
+                          </div>
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
@@ -807,8 +840,214 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
+
       <Footer />
+      <Modal
+        className="demoModal"
+        visible={demoModal}
+        onCancel={handleCancel}
+        footer={[]}
+      >
+        <div className="">
+          <Image preview={false} src="/img/logo.png" />
+          <div className=" mt-[20px] text-[24px] font-semibold text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]">
+            Instant access
+          </div>
+          <div className=" mt-[30px]">
+            <Form
+              name="basic"
+              // labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+              initialValues={{ remember: true }}
+              onFinish={onFinishDemo}
+              autoComplete="off"
+            >
+              <div className=" grid grid-cols-2  gap-x-10  ">
+                <div>
+                  <Form.Item
+                    name="surname"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Хэрэглэгчийн овог оруулна уу!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      id="normal_signup_name"
+                      placeholder="Овог*"
+                    />
+                  </Form.Item>
+                </div>
+
+                <div>
+                  <Form.Item
+                    name="name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Хэрэглэгчийн нэр оруулна уу!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      id="normal_signup_name"
+                      placeholder="Нэр*"
+                    />
+                  </Form.Item>
+                </div>
+                <div>
+                  <Form.Item
+                    name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Хэрэглэгчийн email оруулна уу!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      id="normal_signup_name"
+                      placeholder="И-мэйл*"
+                    />
+                  </Form.Item>
+                </div>
+
+                <div>
+                  <Form.Item
+                    name="phone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Хэрэглэгчийн утас оруулна уу!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      id="normal_signup_name"
+                      placeholder="Утасны дугаар*"
+                    />
+                  </Form.Item>
+                </div>
+                <div>
+                  <Form.Item
+                    name="company_name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Байгууллагын нэр оруулна уу!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      id="normal_signup_name"
+                      placeholder="Байгууллагын нэр*"
+                    />
+                  </Form.Item>
+                </div>
+
+                <div>
+                  <Form.Item
+                    name="register"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Байгууллагын регистэр оруулна уу!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      id="normal_signup_name"
+                      placeholder="Байгууллагын регистэр*"
+                    />
+                  </Form.Item>
+                </div>
+                <div className="">
+                  <Form.Item
+                    name="country"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Улсаа сонгоно уу!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      className=" w-[440px]"
+                      placeholder="Улсаа сонгоно уу!"
+                      allowClear
+                    >
+                      <Option value="Mongolia">Монгол</Option>
+                      <Option value="English">Англи</Option>
+                      <Option value="Korea">Солонгос</Option>
+                    </Select>
+                  </Form.Item>
+                </div>
+                <div className="">
+                  <Form.Item
+                    name="hel"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Хэрэглэгчийн нэрээ оруулна уу!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      className=" w-[440px]"
+                      placeholder="Хэл сонгох"
+                      
+                    >
+                      <Option value="mn">Монгол</Option>
+                      <Option value="en">Англи</Option>
+                    </Select>
+                  </Form.Item>
+                </div>
+                <Form.Item className=" w-[910px]" name="description">
+                  <TextArea
+                    className=" h-[120px] rounded-[8px] "
+                    placeholder="Санал хүсэлтээ энд бичнэ үү"
+                  />
+                </Form.Item>
+              </div>
+              <div className=" flex justify-between">
+                <div>
+                  <Form.Item
+                    name="agreement"
+                
+                 
+                  >
+                    <Checkbox>Хүлээн зөвшөөрч байна</Checkbox>
+                  </Form.Item>
+                </div>
+                <div className=" text-[blue] cursor-pointer">Гэрээг харах</div>
+              </div>
+              <Form.Item
+                    name="remember"
+                    
+                  >
+                    <div className=" flex justify-center">
+
+                    <Button
+                  className="  text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                  type="primary"
+                  htmlType="submit"
+                  
+                >
+                  Илгээх
+                </Button>
+                    </div>
+                  </Form.Item>
+            </Form>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

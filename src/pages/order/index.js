@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
-import { Image, Tabs, Divider, message } from "antd";
+import { Image, Tabs, Divider, message, Button } from "antd";
 import Auth from "../../utils/auth";
 import { Table, Badge, Menu, Dropdown, Space } from "antd";
 import axios from "axios";
@@ -65,7 +65,12 @@ const Order = () => {
     ];
 
     return (
-      <Table columns={columns} dataSource={rowData?.sub} pagination={false} />
+      <Table
+        className="expandTable"
+        columns={columns}
+        dataSource={rowData?.sub}
+        pagination={false}
+      />
     );
   };
 
@@ -269,7 +274,21 @@ text-[14px] font-bold flex justify-center"
       system: item.invoice_type,
       sognoo: item.invoice_start_date,
       dognoo: item.invoice_end_date,
-      tuluv: item.invoice_state,
+      tuluv:  item.invoice_state == "Ноорог" ?
+       ( 
+       
+        <div>
+          {item.invoice_state}
+          <Button
+          onClick={() =>checkPayment(item.invoice_id)}
+            type="primary"
+            className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+          >
+            Шалгах
+          </Button>
+        </div>
+      ) : item.invoice_state,
+        
       sub: item.invoice_lines,
     });
 
@@ -289,6 +308,40 @@ text-[14px] font-bold flex justify-center"
     });
   });
 
+  const checkPayment = async (id) => {
+   
+    await axios
+      .post(
+        baseUrl + "check/invoice",
+        {
+          jsonrpc: 2.0,
+          params: {
+            uid: Auth.getUserId,
+            invoice_id: id
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+          // console.log(response, "check");
+          if (response?.data?.result == true) {
+              message.success("Төлбөр амжилттай төлөгдсөн")
+          } else if (response?.data?.result == false) {
+                message.warning("Төлбөр төлөгдөөгүй")
+          } else {
+            message.warning("Нэхэмжлэл олдсонгүй")
+          }
+            
+          
+       } )
+      
+  };
   const dateSource = (item) => {
     var gg = [];
 
@@ -312,9 +365,9 @@ text-[14px] font-bold flex justify-center"
     return gg;
   };
 
-  useEffect(() => {
-    console.log(toggle, "togggleee");
-  }, [toggle]);
+  // useEffect(() => {
+  //   console.log(toggle, "togggleee");
+  // }, [toggle]);
   useEffect(async () => {
     setIsLoading(true);
     await axios
@@ -426,83 +479,7 @@ text-[14px] font-bold flex justify-center"
           );
         })}
       </Tabs>
-      {/* <Tabs className="myOrder mb-10" defaultActiveKey="1">
-        <TabPane tab="Бүгд" key="1">
-          <div className=" ">
-            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
-              <PersonalSideBar hover={1} />
-              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
-                <Table
-                  className="components-table-demo-nested"
-                  columns={columns}
-                  expandable={{ expandedRowRender }}
-                  dataSource={data}
-                />
-              </div>
-            </div>
-          </div>
-        </TabPane>
-        <TabPane tab="Төлбөр хүлээгдэж буй" key="2">
-        <div className=" ">
-            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
-              <PersonalSideBar hover={1} />
-              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
-                <Table
-                  className="components-table-demo-nested"
-                  columns={columns}
-                  expandable={{ expandedRowRender }}
-                  dataSource={dataPending}
-                />
-              </div>
-            </div>
-          </div>
-        </TabPane>
-        <TabPane tab="Баталгаажсан" key="3">
-        <div className=" ">
-            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
-              <PersonalSideBar hover={1} />
-              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
-                <Table
-                  className="components-table-demo-nested"
-                  columns={columns}
-                  expandable={{ expandedRowRender }}
-                  dataSource={dataPending}
-                />
-              </div>
-            </div>
-          </div>
-        </TabPane>
-        <TabPane tab="Сервер үүссэн" key="4">
-        <div className=" ">
-            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
-              <PersonalSideBar hover={1} />
-              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
-                <Table
-                  className="components-table-demo-nested"
-                  columns={columns}
-                  expandable={{ expandedRowRender }}
-                  dataSource={dataPending}
-                />
-              </div>
-            </div>
-          </div>
-        </TabPane>
-        <TabPane tab="Цуцалсан" key="5">
-        <div className=" ">
-            <div className=" md:mt-[70px] flex flex-col md:flex-row justify-center overflow-x-scroll md:overflow-x-hidden">
-              <PersonalSideBar hover={1} />
-              <div className=" mt-[30px] md:mt-[5px] md:w-[870px]">
-                <Table
-                  className="components-table-demo-nested"
-                  columns={columns}
-                  expandable={{ expandedRowRender }}
-                  dataSource={dataPending}
-                />
-              </div>
-            </div>
-          </div>
-        </TabPane>
-      </Tabs> */}
+
       <Footer />
     </div>
   );
