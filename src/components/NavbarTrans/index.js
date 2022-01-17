@@ -30,8 +30,9 @@ import auth_cookie from "../../utils/auth";
 import Countdown, { zeroPad } from "react-countdown";
 import Auth from "../../utils/auth";
 import Router from "next/router";
+import { useTheme } from "next-themes";
 
-const NavbarTrans = ({ cartLogin, cartRender }) => {
+const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
 
   const [loginModal, setLoginModal] = useState(false);
@@ -87,6 +88,18 @@ const NavbarTrans = ({ cartLogin, cartRender }) => {
 
   const [test, setTest] = useState(false);
   const [hover, setHover] = useState(0);
+  const [darkState, setDarkState] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [initMode, setInitMode] = useState();
+
+  // dark mode state
+  const {systemTheme, theme, setTheme } = useTheme();
+
+  const renderThemeChanger = () => {
+      const currrentTheme = theme == 'system' ? systemTheme : theme;
+     
+  }
+
 
   const handleCancel = () => {
     setMobileConfirm(false);
@@ -132,7 +145,7 @@ const NavbarTrans = ({ cartLogin, cartRender }) => {
     setaddclass("right-panel-active");
     setForgotEmailConfirmModal(true);
     setForgotPassConfirm(false);
-  };
+  }; 
   const onMobileFunction = () => {
     setMobileForgotConfirmModal(true);
     setMobileForgot(false);
@@ -144,7 +157,9 @@ const NavbarTrans = ({ cartLogin, cartRender }) => {
     setWidth(window.innerWidth);
   }
   useEffect(async () => {
-  
+    setTheme(Auth.getMode())
+   
+    setMounted(true);
     setToken(Auth.getToken());
 
     const res = await axios.post(
@@ -175,6 +190,7 @@ const NavbarTrans = ({ cartLogin, cartRender }) => {
       window.removeEventListener("resize", handleWindowSizeChange);
     };
   }, []);
+
   useEffect(async () => {
     const res = await axios.post(
       baseUrl + "get/cart_list",
@@ -194,6 +210,8 @@ const NavbarTrans = ({ cartLogin, cartRender }) => {
     );
     setCartNumber(res.data.result.products?.length);
   }, [cartRender]);
+
+
 
   // console.log(width, "widdd");
   const onForgotConfirmModal = async () => {
@@ -362,6 +380,49 @@ const NavbarTrans = ({ cartLogin, cartRender }) => {
           message.error(response?.data?.error?.data?.message);
       });
   };
+ 
+
+
+  const onDarkMode = (value) => {
+    if (value) {
+      Auth.setMode("dark");
+      setTheme(Auth.getMode())
+    } else {
+      Auth.destroyMode()
+      setTheme("light")
+    }
+    
+  };
+  
+
+  
+  useEffect(() => {
+    // Auth.getToken()  == true ? setTheme('dark') : setTheme("light");
+
+  }, [Auth.getToken()]);
+
+  useEffect(() => {
+    // darkaa && darkaa(theme);
+    // if (theme == "dark") {
+    //   Auth.setMode(theme);
+    // } else {
+    //   Auth.destroyMode();
+    // }
+    // Auth.setMode(theme);
+  }, [theme]);
+  useEffect(() => {
+    
+     darkaa(theme);
+    
+  }, [Auth.getMode()]);
+
+  useEffect(() => {
+    if (!mounted) {
+      return null
+    }
+  darkState ? setTheme('dark') : setTheme('light');
+    
+  }, [darkState]);
 
   const handleCancelMessage = () => {
     setmessageShow(false);
@@ -628,8 +689,8 @@ const NavbarTrans = ({ cartLogin, cartRender }) => {
               <div className=" ml-[10px]"> Dark mode</div>
             </div>
             <div className=" ml-[21px]">
-              <Switch />
-            </div>
+              <Switch checked={ Auth.getMode() == "dark" ? true : false} onClick={onDarkMode} />
+            </div> 
           </div>
         </div>
       </Menu.Item>
@@ -2528,6 +2589,7 @@ const NavbarTrans = ({ cartLogin, cartRender }) => {
               {hover == 0 ? (
                 <li className=" text-lg ">
                   <Link href="/">
+                      
                     <a className="text-white  opacity-100 font-poppins-semibold">
                       Эхлэл
                     </a>

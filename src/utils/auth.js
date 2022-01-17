@@ -8,12 +8,22 @@ export default class Auth {
     Cookies.set('userData', userData);
     
   }
- 
-
+  static setMode(mode) {
+    Cookies.set('darkMode', mode);
+  }
+  
   static destroyToken() {
     Cookies.remove('authToken');
   }
+  static destroyMode() {
+    Cookies.remove('darkMode');
+  }
+ 
 
+  static getMode() {
+    const mode = Cookies.get('darkMode');
+    return mode;
+  }
   static getToken() {
     const token = Cookies.get('authToken');
     return token;

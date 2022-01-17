@@ -7,17 +7,20 @@ import { ContextProvider } from "../context/Context";
 import Auth from "../utils/auth";
 import Router from "next/router";
 import MessengerCustomerChat from "react-messenger-customer-chat";
+import { ThemeProvider } from "next-themes";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ContextProvider>
-      <Component {...pageProps} />
+      <ThemeProvider enableSystem={true} attribute="class">
+        <Component {...pageProps} />
+      </ThemeProvider>
+
       {/* <MessengerCustomerChat
         pageId="<PAGE_ID>"
         appId="<APP_ID>"
        
       /> */}
-      
     </ContextProvider>
   );
 }

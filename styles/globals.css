@@ -714,3 +714,8 @@ border-radius: 4px !important;
 .ant-col-16  {
    max-width: none !important;
 }
+.demoldoo .ant-select-selector{
+  height: 48px !important;
+  padding: 8px !important;
+  border-radius: 41px !important;
+}
