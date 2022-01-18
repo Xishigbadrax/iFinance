@@ -25,7 +25,7 @@ const CategoryId = () => {
   const [categoryName, setCategoryName] = useState();
   const [cartLogin, setCartLogin] = useState(false);
   const [cartRender, setcartRender] = useState(1);
-
+  const [darkMode, setDarkMode] = useState(null);
 
   
 
@@ -112,10 +112,10 @@ const CategoryId = () => {
         <title>iFinance | Танилцуулга</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className=" md:fixed z-30 h-[100px] flex  overflow-hidden  ">
+      <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
         <div className="absolute z-30  flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">
-            <NavbarTrans cartLogin={cartLogin} cartRender={cartRender} />
+            <NavbarTrans cartLogin={cartLogin} cartRender={cartRender} darkaa={setDarkMode} />
           </div>
 
           {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
@@ -127,9 +127,18 @@ const CategoryId = () => {
           preview={false}
           src="/img/Slider.svg"
         />
+
+        {/* 
+        news.map((item, itex) => {
+          if((index % 2) == 0){
+           return <desheH item/>
+          }
+
+          return <doshoo item= {item}/>
+        }) */}
       </div>
-      <div className="  relative  ">
-        <div className="xl:absolute z-20   flex flex-col w-full md:h-[200px] 2xl:h-[260px] justify-center mt-[90px]  ">
+      <div className="  relative ">
+        <div className="xl:absolute z-20   flex flex-col w-full md:h-[200px] 2xl:h-[260px] justify-center mt-[90px] ">
           <div className=" mt-[20px] 2xl:ml-[20vw] md:ml-[7vw]  lg:flex justify-between w-[450px] hidden">
             <div>
               <Image preview={false} src="/img/home.svg" />
@@ -162,21 +171,22 @@ const CategoryId = () => {
           </div>
         </div>
         <Image
-          className=" hidden xl:flex w-[100vw] mt-[100px]"
+          className=" hidden lg:flex w-[100vw] mt-[100px]"
           preview={false}
-          src="/img/dashboard.svg"
+          
+          src= {darkMode == "dark" ? "/img/darkDashboard.svg" : "/img/dashboard.svg"} 
         />
       </div>
-      <div className=" 2xl:pl-[200px]  z-10  mb-[20px]">
+      <div className=" 2xl:pl-[200px]  z-10  mb-[20px] dark:bg-[#08194B] ">
         <Tabs defaultActiveKey="1" className="angil">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
-            <div className=" lg:mt-[20px]">
+            <div className=" lg:mt-[20px] ">
               <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center rounded-t-xl">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
                   Ангилал
                 </p>
               </div>
-              <div className="hidden xl:flex">
+              <div className="hidden lg:flex">
                 <Tabs className="module" tabPosition="left">
                   {mainProduct &&
                     mainProduct.map((item, index) => {

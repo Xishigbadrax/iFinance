@@ -719,3 +719,12 @@ border-radius: 4px !important;
   padding: 8px !important;
   border-radius: 41px !important;
 }
+.dark .demoModal .ant-modal-content {
+  background-color: #08194B !important;
+}
+.dark .demoModal .ant-input  {
+  background-color: transparent !important;
+}
+.dark .demoModal .ant-select-selector  {
+  background-color: transparent !important;
+}

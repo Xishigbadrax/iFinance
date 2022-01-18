@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [list, setList] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [serverType, setServerType] = useState([]);
+  const [darkMode, setDarkMode] = useState(null);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
 
   // console.log(baseUrl + "get/category_list", "baseurl");
@@ -89,7 +90,7 @@ const Dashboard = () => {
       <div className="relative  w-full">
         <div id="head" className=" absolute z-20 flex flex-col w-full h-full">
           <div className="w-full flex justify-center">
-            <NavbarTrans />
+            <NavbarTrans darkaa={setDarkMode} />
           </div>
           <div className=" hidden  md:flex w-full justify-center  items-center lg:mt-[30px] 2xl:mt-[100px]">
             <div>

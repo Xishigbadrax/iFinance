@@ -412,7 +412,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
   }, [theme]);
   useEffect(() => {
     
-     darkaa(theme);
+     darkaa && darkaa(theme);
     
   }, [Auth.getMode()]);
 

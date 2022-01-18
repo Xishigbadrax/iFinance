@@ -116,9 +116,9 @@ export default function Home() {
     console.log("Success:", values);
   };
 
-  useEffect(() => {
-    console.log(darkMode, "<==");
-  }, [darkMode]);
+  // useEffect(() => {
+  //   console.log(darkMode, "<==");
+  // }, [darkMode]);
 
   const handleCancel = () => {
     setDemoModal(false);
@@ -168,7 +168,12 @@ export default function Home() {
               </div>
             </div>
             <div className="hidden md:scale-75 2xl:scale-100 xl:block">
-              <Image preview={false} src="/img/homeImg.svg" />
+            {darkMode == "dark" ? (
+           <Image preview={false} src="/img/darkHomeImg.svg" />
+          ) : (
+            <Image preview={false} src="/img/homeImg.svg" />
+          )}
+             
             </div>
           </div>
         </div>
@@ -189,14 +194,15 @@ export default function Home() {
         
         </div>
       </div>
-      <div className="xl:hidden mt-[-10vh] md:mt-[-15vh] flex justify-center">
+      
+      <div className=" xl:hidden dark:bg-[#08194B] pb-4">
+      <div className="xl:hidden dark:bg-[#08194B] mt-[-10vh] md:mt-[-15vh] flex justify-center">
         <Image
           className="h-40 w-40 md:w-[300px] md:h-[300px]  "
           preview={false}
           src="/img/homeImg.svg"
         />
       </div>
-      <div className=" xl:hidden">
         <div className="flex justify-center">
           <div className=" text-center w-[300px] text-[16px] md:text-[36px] md:w-[500px] text-[#2E28D4] xl:text-[36px] xl:text-white font-semibold xl:w-[571px]">
             Бид танай байгууллагын цахим өвийг бүтээнэ!
@@ -826,8 +832,8 @@ export default function Home() {
         footer={[]}
       >
         <div className="">
-          <Image preview={false} src="/img/logo.png" />
-          <div className=" mt-[20px] text-[24px] font-semibold text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]">
+          {darkMode == "dark" ? <Image preview={false} src="/img/Logo2.svg" /> : <Image preview={false} src="/img/logo.png" /> } 
+          <div className="  mt-[20px] text-[24px] font-semibold text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]  dark:text-white ">
             Instant access
           </div>
           <div className=" mt-[30px]">
@@ -995,15 +1001,16 @@ export default function Home() {
               <div className=" flex justify-between">
                 <div>
                   <Form.Item name="agreement">
-                    <Checkbox>Хүлээн зөвшөөрч байна</Checkbox>
+                    <Checkbox className=" dark:text-[#9CA6C0]">Хүлээн зөвшөөрч байна</Checkbox>
                   </Form.Item>
                 </div>
-                <div className=" text-[blue] cursor-pointer">Гэрээг харах</div>
+                <div className=" text-[blue] cursor-pointer dark:text-[#3C8CE7]">Гэрээг харах</div>
               </div>
               <Form.Item name="remember">
                 <div className=" flex justify-center">
                   <Button
-                    className="  text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                    style={{backgroundImage: "linear-gradient(45deg, #2E28D4, #AC27FD)"}}
+                    className=" dark:text-black dark:bg-gradient-to-br from-[#3C8CE7] to-[#00EAFF]  text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px]  border-none"
                     type="primary"
                     htmlType="submit"
                   >
