@@ -634,7 +634,7 @@ export default function Home() {
           </div>
         </div>
         <div className=" w-full flex justify-center mt-[40px]">
-          <div className=" max-w-[1920px]  w-[300px]  flex flex-col xl:flex-row xl:w-[55vw] justify-between">
+          <div className=" max-w-[1920px]  w-[300px]  flex flex-col xl:flex-row xl:w-[70vw] justify-between">
             <div className="  ">
               <div className="flex justify-center md:justify-start">
                 <Image preview={false} src="/img/app.svg" />

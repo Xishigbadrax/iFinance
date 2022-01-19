@@ -5,9 +5,9 @@ import { Image, Tabs, Divider, message, Button } from "antd";
 import Auth from "../../utils/auth";
 import { Table, Badge, Menu, Dropdown, Space } from "antd";
 import axios from "axios";
-import Router from "next/router";
 import Context from "../../context/Context";
 import PersonalSideBar from "../../components/PersonalSideBar";
+import { useRouter } from "next/router";
 
 const Order = () => {
   const menu = (
@@ -19,6 +19,7 @@ const Order = () => {
   const { setIsLoading, userData } = useContext(Context);
   const { TabPane } = Tabs;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const router = useRouter();
 
   const [invoices, setInvoices] = useState();
   const [state, setState] = useState();
@@ -370,6 +371,12 @@ text-[14px] font-bold flex justify-center"
   //   console.log(toggle, "togggleee");
   // }, [toggle]);
   useEffect(async () => {
+
+    !Auth.getToken() && 
+    router.push({
+      
+      pathname: `/`,
+    });
     setIsLoading(true);
     await axios
       .post(

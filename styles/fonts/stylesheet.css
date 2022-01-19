@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('subset-Poppins-Bold.eot');
+    src: url('subset-Poppins-Bold.eot?#iefix') format('embedded-opentype'),
+        url('subset-Poppins-Bold.woff2') format('woff2'),
+        url('subset-Poppins-Bold.woff') format('woff'),
+        url('subset-Poppins-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('subset-Poppins-Light.eot');
+    src: url('subset-Poppins-Light.eot?#iefix') format('embedded-opentype'),
+        url('subset-Poppins-Light.woff2') format('woff2'),
+        url('subset-Poppins-Light.woff') format('woff'),
+        url('subset-Poppins-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('subset-Poppins-Medium.eot');
+    src: url('subset-Poppins-Medium.eot?#iefix') format('embedded-opentype'),
+        url('subset-Poppins-Medium.woff2') format('woff2'),
+        url('subset-Poppins-Medium.woff') format('woff'),
+        url('subset-Poppins-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('subset-Poppins-SemiBold.eot');
+    src: url('subset-Poppins-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('subset-Poppins-SemiBold.woff2') format('woff2'),
+        url('subset-Poppins-SemiBold.woff') format('woff'),
+        url('subset-Poppins-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('subset-Poppins-Thin.eot');
+    src: url('subset-Poppins-Thin.eot?#iefix') format('embedded-opentype'),
+        url('subset-Poppins-Thin.woff2') format('woff2'),
+        url('subset-Poppins-Thin.woff') format('woff'),
+        url('subset-Poppins-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+

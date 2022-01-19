@@ -21,9 +21,11 @@ import Head from "next/head";
 import Router from "next/router";
 import Context from "../../context/Context";
 import PersonalSideBar from "../../components/PersonalSideBar";
+import { useRouter } from "next/router";
 
 const Info = () => {
   const { setIsLoading } = useContext(Context);
+  const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const { TabPane } = Tabs;
   const [form] = Form.useForm();
@@ -244,6 +246,11 @@ const Info = () => {
   };
 
   useEffect(async () => {
+
+    !Auth.getToken() &&  router.push({
+      
+      pathname: `/`,
+    });
     setIsLoading(true);
     const res = await axios.post(
       baseUrl + "get/user/info",
@@ -320,8 +327,8 @@ const Info = () => {
       </div>
       <div className="flex flex-col lg:flex-row md:mt-[100px] justify-center ">
         <PersonalSideBar hover={3} />
-        <div className=" mt-[50px] md:mt-0  shadow-lg mb-[100px]  pl-[30px]">
-          <Tabs className="infoTab" defaultActiveKey="1">
+        <div className=" mt-[50px] md:mt-0  shadow-lg mb-[100px]  ">
+          <Tabs className="infoTab " defaultActiveKey="1">
             <TabPane
               tab={
                 <div className="flex items-center">
@@ -340,7 +347,7 @@ const Info = () => {
               }
               key="1"
             >
-              <div className=" px-10 md:px-0">
+              <div className=" px-10 md:px-0 ml-[30px]">
                 <Form
                   onFinish={onFinish}
                   {...layout}
@@ -638,9 +645,9 @@ const Info = () => {
               key="2"
             >
               <div className="  w-full">
-                <div className="flex flex-col md:flex-row">
-                  <div className=" w-[370px] h-[284px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] flex justify-center items-center">
-                    <Image preview={false} src="/img/passGirl.svg" />
+                <div className="flex flex-col md:flex-row items-center">
+                  <div className=" w-[370px] h-[324px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] flex justify-center items-center">
+                    <Image className="" preview={false} src="/img/passGirl.svg" />
                   </div>
                   <div className="">
                     <Form
@@ -728,8 +735,8 @@ const Info = () => {
               key="3"
             >
               <div className="  w-full">
-                <div className="flex flex-col md:flex-row">
-                  <div className=" w-[370px] h-[284px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] flex justify-center items-center">
+                <div className="flex flex-col md:flex-row  items-center">
+                  <div className=" w-[370px] h-[324px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] flex justify-center items-center">
                     <Image preview={false} src="/img/passBoy.svg" />
                   </div>
                   <div className="ml-[31px] mt-[30px]">
@@ -790,8 +797,8 @@ const Info = () => {
               key="4"
             >
               <div className="  w-full">
-                <div className="flex flex-col md:flex-row">
-                  <div className=" w-[370px] h-[284px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] flex justify-center items-center">
+                <div className="flex flex-col md:flex-row items-center">
+                  <div className=" w-[370px] h-[324px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] flex justify-center items-center">
                     <Image preview={false} src="/img/passHishgee.svg" />
                   </div>
                   <div className="ml-[31px] mt-[30px]">

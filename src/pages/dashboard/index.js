@@ -46,7 +46,7 @@ const Dashboard = () => {
     setList(res.data.result);
     setIsLoading(false);
 
-    // console.log(res, "listtttt");
+    console.log(res, "listtttt");
   }, []);
 
   const onCategory = (id) => {

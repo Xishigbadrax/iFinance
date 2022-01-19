@@ -7,10 +7,12 @@ import Auth from "../../utils/auth";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Router from "next/router";
 import Context from "../../context/Context";
+import { useRouter } from "next/router";
 import PersonalSideBar from "../../components/PersonalSideBar";
 
 const Cart = () => {
   const { setIsLoading } = useContext(Context);
+  const router = useRouter();
   const { TabPane } = Tabs;
   const [product, setProduct] = useState();
   const [server, setServer] = useState();
@@ -136,6 +138,10 @@ const Cart = () => {
   };
 
   useEffect(async () => {
+    !Auth.getToken() &&  router.push({
+      
+      pathname: `/`,
+    });
     setIsLoading(true);
     const res = await axios.post(
       baseUrl + "get/cart_list",
