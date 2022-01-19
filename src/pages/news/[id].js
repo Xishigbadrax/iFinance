@@ -1,15 +1,9 @@
 import React from "react";
-import { Image } from "antd";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
-import NewsUp from "../../components/NewsUp";
-import NewsDown from "../../components/NewsDown";
-import { useRouter } from "next/router";
+import { Image } from "antd";
 
-const News = () => {
-  const router = useRouter();
-
-  
+const NewsId = () => {
   return (
     <div>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
@@ -40,7 +34,7 @@ const News = () => {
       <div className="  relative ">
         <div className=" flex justify-center">
           <div className="xl:absolute z-20   flex flex-col  md:h-[200px] 2xl:h-[260px] mt-[90px]  ml-[2vw] w-[1200px]  ">
-            <div className=" mt-[20px]    lg:flex justify-between w-[300px] hidden">
+            <div className=" mt-[20px]    lg:flex justify-between w-[350px] hidden">
               <div>
                 <Image preview={false} src="/img/home.svg" />
               </div>
@@ -60,6 +54,17 @@ const News = () => {
                   Мэдээ мэдээлэл
                 </a>
               </div>
+              <div>
+                <Image preview={false} src="/img/right.svg" />
+              </div>
+              <div className="">
+                <a
+                  href="/dashboard"
+                  className="text-white text-[14px] font-semibold"
+                >
+                  Мэдээ
+                </a>
+              </div>
             </div>
             <div className=" text-center  text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white  text-[36px] font-semibold">
               Мэдээ мэдээлэл
@@ -72,16 +77,11 @@ const News = () => {
           src="/img/dashboard.svg"
         />
       </div>
-
-      <div className=" flex mx-auto  lg:w-[1245px]">
-        <div className="  grid lg:grid-cols-2 gap-[30px]  grid-cols-1 ">
-          <NewsUp />
-          <NewsDown />
-        </div>
+      <div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };
 
-export default News;
+export default NewsId;

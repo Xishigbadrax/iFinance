@@ -253,7 +253,11 @@ text-[14px] font-bold flex justify-center"
         ),
       dataIndex: "tuluv",
       key: "tuluv",
-      sorter: (a, b) => a.tuluv.localeCompare(b.first_name),
+      sorter: {
+        compare: (a, b) => a.tuluv - b.tuluv,
+        // multiple: 2,
+      },
+      // sorter: (a, b) => a.tuluv?.localeCompare(b.first_name),
       onHeaderCell: () => {
         return {
           onClick: () => setToggle(6),
@@ -274,21 +278,22 @@ text-[14px] font-bold flex justify-center"
       system: item.invoice_type,
       sognoo: item.invoice_start_date,
       dognoo: item.invoice_end_date,
-      tuluv:  item.invoice_state == "Ноорог" ?
-       ( 
-       
-        <div>
-          {item.invoice_state}
-          <Button
-          onClick={() =>checkPayment(item.invoice_id)}
-            type="primary"
-            className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-          >
-            Шалгах
-          </Button>
-        </div>
-      ) : item.invoice_state,
-        
+      tuluv:
+        item.invoice_state == "Ноорог" ? (
+          <div>
+            {item.invoice_state}
+            <Button
+              onClick={() => checkPayment(item.invoice_id)}
+              type="primary"
+              className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+            >
+              Шалгах
+            </Button>
+          </div>
+        ) : (
+          item.invoice_state
+        ),
+
       sub: item.invoice_lines,
     });
 
@@ -309,7 +314,6 @@ text-[14px] font-bold flex justify-center"
   });
 
   const checkPayment = async (id) => {
-   
     await axios
       .post(
         baseUrl + "check/invoice",
@@ -317,7 +321,7 @@ text-[14px] font-bold flex justify-center"
           jsonrpc: 2.0,
           params: {
             uid: Auth.getUserId,
-            invoice_id: id
+            invoice_id: id,
           },
         },
 
@@ -329,18 +333,15 @@ text-[14px] font-bold flex justify-center"
         }
       )
       .then((response) => {
-          // console.log(response, "check");
-          if (response?.data?.result == true) {
-              message.success("Төлбөр амжилттай төлөгдсөн")
-          } else if (response?.data?.result == false) {
-                message.warning("Төлбөр төлөгдөөгүй")
-          } else {
-            message.warning("Нэхэмжлэл олдсонгүй")
-          }
-            
-          
-       } )
-      
+        // console.log(response, "check");
+        if (response?.data?.result == true) {
+          message.success("Төлбөр амжилттай төлөгдсөн");
+        } else if (response?.data?.result == false) {
+          message.warning("Төлбөр төлөгдөөгүй");
+        } else {
+          message.warning("Нэхэмжлэл олдсонгүй");
+        }
+      });
   };
   const dateSource = (item) => {
     var gg = [];
