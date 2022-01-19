@@ -21,13 +21,13 @@ function MyApp({ Component, pageProps }) {
     <ContextProvider>
       <ThemeProvider enableSystem={true} attribute="class">
         <Component {...pageProps} />
+      <MessengerCustomerChat
+        pageId="251653536754659"
+        appId="516247196361202"
+       
+      />
       </ThemeProvider>
 
-      {/* <MessengerCustomerChat
-        pageId="<PAGE_ID>"
-        appId="<APP_ID>"
-       
-      /> */}
     </ContextProvider>
   );
 }
