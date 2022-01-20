@@ -87,9 +87,9 @@ const CategoryId = () => {
       res.data.result &&
         setAdditionalProduct(res.data.result.additional_products),
       res.data.result &&
-        setCategoryName(res.data.result.main_products[0].product_category);
+        setCategoryName(res.data.result.main_products[0]?.product_category);
        setIsLoading(false);
-    // console.log(res.data.result, sessionId, "medeenuud");
+    console.log(res.data.result, "medeenuud");
   };
 
   const onDetails = (id) => {

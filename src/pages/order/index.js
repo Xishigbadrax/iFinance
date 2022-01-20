@@ -10,12 +10,12 @@ import PersonalSideBar from "../../components/PersonalSideBar";
 import { useRouter } from "next/router";
 
 const Order = () => {
-  const menu = (
-    <Menu>
-      <Menu.Item>Action 1</Menu.Item>
-      <Menu.Item>Action 2</Menu.Item>
-    </Menu>
-  );
+  // const menu = (
+  //   <Menu>
+  //     <Menu.Item>Action 1</Menu.Item>
+  //     <Menu.Item>Action 2</Menu.Item>
+  //   </Menu>
+  // );
   const { setIsLoading, userData } = useContext(Context);
   const { TabPane } = Tabs;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
@@ -371,12 +371,10 @@ text-[14px] font-bold flex justify-center"
   //   console.log(toggle, "togggleee");
   // }, [toggle]);
   useEffect(async () => {
-
-    !Auth.getToken() && 
-    router.push({
-      
-      pathname: `/`,
-    });
+    !Auth.getToken() &&
+      router.push({
+        pathname: `/`,
+      });
     setIsLoading(true);
     await axios
       .post(
@@ -396,8 +394,8 @@ text-[14px] font-bold flex justify-center"
         }
       )
       .then((response) => {
-        // console.log(response, "zahialga");
-        setInvoices(response.data.result.invoices);
+        console.log(response, "zahialga");
+        setInvoices(response.data?.result?.invoices);
         setIsLoading(false);
       })
       .catch((error) => {

@@ -1505,7 +1505,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
           </div>
           <div className="overlay-container">
             <div className="overlay">
-              <div className="overlay-panel overlay-left">
+              <div className="overlay-panel overlay-left bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-r-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -1520,7 +1520,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
                   Нэвтрэх
                 </Button>
               </div>
-              <div className="overlay-panel overlay-right">
+              <div className="overlay-panel overlay-right bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-l-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem] opacity-70 w-[330px] text-left">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -2557,7 +2557,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
 
       {/* mobile confirm modal */}
 
-      <div className="flex justify-around w-[75rem] h-full m-auto items-center">
+      <div className="flex justify-around w-[75rem] h-full m-auto items-center  mt-[-10px]">
         <div className="z-10">
           <a href="/">
             <Image preview={false} src="/img/Logo2.svg" alt="logo" />

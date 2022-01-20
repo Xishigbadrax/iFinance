@@ -24,7 +24,7 @@ const Footer = () => {
                 }}
               >
                 <strong>Утас:</strong>
-                <br /> +976 72777000
+                <br /> +976 72707007
               </div>
             </div>
             <div className=" flex items-center my-3 xl:mx-[95px] ">
@@ -72,9 +72,9 @@ const Footer = () => {
           <Image preview={false} src="/img/Logo2.svg" />
         </div>
         <br />
-        <div className=" max-w-[600px] flex justify-center">
+        <div className=" max-w-[700px] flex  justify-center">
           <ul
-            className=" flex flex-col md:w-[600px] xl:w-[600px] justify-between md:flex-row"
+            className=" flex flex-col md:w-[600px] xl:w-[700px]  justify-between md:flex-row"
             style={{
               fontFamily: Poppins,
               fontWeight: 600,
@@ -110,6 +110,11 @@ const Footer = () => {
             <li>
               <a href="/contact" className=" text-white">
                 Холбоо барих
+              </a>
+            </li>
+            <li>
+              <a href="/faq" className=" text-white">
+                Түгээмэл асуулт хариулт
               </a>
             </li>
             <li>

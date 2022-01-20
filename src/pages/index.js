@@ -3,6 +3,7 @@ import styles from "../../styles/Home.module.css";
 import NavbarTrans from "../components/NavbarTrans";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
+import { MaskedInput } from "antd-mask-input";
 import {
   Button,
   Image,
@@ -19,6 +20,7 @@ import "slick-carousel/slick/slick-theme.css";
 // import Loader from "react-loader-spinner";
 import Head from "next/head";
 import { theme } from "../../tailwind.config";
+import axios from "axios";
 
 export default function Home() {
   const { TextArea } = Input;
@@ -28,6 +30,9 @@ export default function Home() {
   const [onhover3, setOnHover3] = useState(false);
   const [demoModal, setDemoModal] = useState(false);
   const [darkMode, setDarkMode] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [lang, setLang] = useState(null);
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
 
   const contentStyle = {
     height: "350px",
@@ -112,8 +117,34 @@ export default function Home() {
   const onDemo = () => {
     setDemoModal(true);
   };
-  const onFinishDemo = (values) => {
+  const onFinishDemo = async (values) => {
     console.log("Success:", values);
+    const res = await axios.post(
+      baseUrl + "set/demo",
+      {
+        jsonrpc: 2.0,
+        params: {
+          surname:values.surname,
+          firstname: values.firstname,
+          email :values.email,
+          phone:values.phone,
+          company:values.company,
+          company_register: values.company_register,
+          country: values.country,
+          language: values.language,
+          description: values.description
+        },
+      },
+
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log(res, "demo res");
   };
 
   // useEffect(() => {
@@ -123,6 +154,35 @@ export default function Home() {
   const handleCancel = () => {
     setDemoModal(false);
   };
+
+  useEffect( async () => {
+   
+    const res = await axios.post(
+      baseUrl + "get/lang",
+      {
+        jsonrpc: 2.0,
+        params: {
+        
+        },
+      },
+
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log(res, "lang res");
+    setCountry(res?.data?.result?.country_list);
+    setLang(res?.data?.result?.lang_list);
+  }, []);
+  
+  // useEffect(() => {
+  //   console.log(country);
+  // },[country])
+
   return (
     // <div >
     //     <Navbar />
@@ -857,7 +917,7 @@ export default function Home() {
                     ]}
                   >
                     <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Овог*"
                     />
@@ -866,7 +926,7 @@ export default function Home() {
 
                 <div>
                   <Form.Item
-                    name="name"
+                    name="firstname"
                     rules={[
                       {
                         required: true,
@@ -875,7 +935,7 @@ export default function Home() {
                     ]}
                   >
                     <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Нэр*"
                     />
@@ -892,7 +952,7 @@ export default function Home() {
                     ]}
                   >
                     <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="И-мэйл*"
                     />
@@ -909,8 +969,9 @@ export default function Home() {
                       },
                     ]}
                   >
-                    <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                    <MaskedInput
+                    mask="11111111"
+                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Утасны дугаар*"
                     />
@@ -918,7 +979,7 @@ export default function Home() {
                 </div>
                 <div>
                   <Form.Item
-                    name="company_name"
+                    name="company"
                     rules={[
                       {
                         required: true,
@@ -927,7 +988,7 @@ export default function Home() {
                     ]}
                   >
                     <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Байгууллагын нэр*"
                     />
@@ -936,7 +997,7 @@ export default function Home() {
 
                 <div>
                   <Form.Item
-                    name="register"
+                    name="company_register"
                     rules={[
                       {
                         required: true,
@@ -944,8 +1005,9 @@ export default function Home() {
                       },
                     ]}
                   >
-                    <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px]"
+                    <MaskedInput
+                      mask="111111"
+                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Байгууллагын регистэр*"
                     />
@@ -962,19 +1024,21 @@ export default function Home() {
                     ]}
                   >
                     <Select
-                      className="demoldoo w-[440px]"
-                      placeholder="Улсаа сонгоно уу!"
+                      className="demoldoo w-[440px] dark:text-white"
+                      placeholder="Улс сонгох"
                       allowClear
                     >
-                      <Option value="Mongolia">Монгол</Option>
-                      <Option value="English">Англи</Option>
-                      <Option value="Korea">Солонгос</Option>
+                      {country?.map((item,index) => {
+                      
+                      return <Option key={index} value={item.code}>{item.name}</Option>
+                      })} 
+                      
                     </Select>
                   </Form.Item>
                 </div>
                 <div className="">
                   <Form.Item
-                    name="hel"
+                    name="language"
                     rules={[
                       {
                         required: true,
@@ -983,17 +1047,19 @@ export default function Home() {
                     ]}
                   >
                     <Select
-                      className="demoldoo w-[440px]"
+                      className="demoldoo w-[440px] dark:text-white"
                       placeholder="Хэл сонгох"
                     >
-                      <Option value="mn">Монгол</Option>
-                      <Option value="en">Англи</Option>
+                      {lang?.map((item, index) => {
+
+                     return  <Option value={item.code}>{item.name}</Option>
+                      })}
                     </Select>
                   </Form.Item>
                 </div>
                 <Form.Item className=" w-[910px]" name="description">
                   <TextArea
-                    className=" h-[120px] rounded-[8px] "
+                    className=" h-[120px] rounded-[8px] dark:text-white"
                     placeholder="Зарцуулалтын шалтгаан"
                   />
                 </Form.Item>

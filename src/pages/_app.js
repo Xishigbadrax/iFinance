@@ -12,15 +12,13 @@ import { ThemeProvider } from "next-themes";
 import "../../styles/fonts/stylesheet.css";
 
 
-
-
-
 function MyApp({ Component, pageProps }) {
     
   return (
     <ContextProvider>
       <ThemeProvider enableSystem={true} attribute="class">
         <Component {...pageProps} />
+        
       <MessengerCustomerChat
         pageId="251653536754659"
         appId="516247196361202"
