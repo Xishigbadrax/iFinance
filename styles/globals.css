@@ -2,7 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Poppins" !important;
+  /* font-family: "Poppins" !important; */
 }
 
 a {
@@ -642,6 +642,7 @@ a {
 .tcell .ant-table-thead > tr > th {
   background-image: linear-gradient(180deg, #ac27fd, #2e28d4) !important;
   color: white !important;
+  font-weight: bold !important;
 }
 .components-table-demo-nested .ant-table-thead > tr > th {
   background-color: rgba(156, 166, 192, 0.2) !important;
@@ -718,3 +719,39 @@ a {
 /* .cartnii .ant-table-container .ant-table-thead {
   background-color: blue !important;
 } */
+
+/* thead[class*="ant-table-thead" > th[class*="ant-table-cell"] {
+  background-image: linear-gradient(45deg, #2e28d4, #ac27fd);
+  color: white !important;
+} */
+
+/* thead[class*="ant-table-thead"] tr {
+  background-color: #2e28d4;
+} */
+
+/* .cartaa thead > tr > th {
+  background-image: linear-gradient(45deg, #2e28d4, #ac27fd) !important;
+  color: white !important;
+}
+.expandaa thead > tr > th {
+  background-color: black !important;
+} */
+.ant-pagination-item-link {
+  background-image: linear-gradient(45deg, #2e28d4, #ac27fd) !important;
+  color: white !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.ant-pagination-item {
+  border: 1px solid #2e28d4 !important;
+}
+.ant-pagination-item a {
+  color: #2e28d4 !important;
+  font-weight: bold !important;
+}
+.tcell .ant-table-cell {
+  font-size: 16px !important;
+  color: #2f3747 !important;
+  font-weight: 600 !important;
+}

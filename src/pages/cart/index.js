@@ -14,7 +14,8 @@ const Cart = () => {
   const { setIsLoading } = useContext(Context);
   const router = useRouter();
   const { TabPane } = Tabs;
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState([]);
+  const [tursh, setTursh] = useState([]);
   const [server, setServer] = useState();
   const [data, setData] = useState([]);
   const [price, setPrice] = useState(0);
@@ -43,7 +44,9 @@ const Cart = () => {
 
   const columns = [
     {
-      title: <div>Бүтээгдэхүүний ангилал</div>,
+      title: (
+        <div className=" text-[18px] font-bold">Бүтээгдэхүүний ангилал</div>
+      ),
       dataIndex: "catNer",
       key: "carNer",
     },
@@ -53,6 +56,7 @@ const Cart = () => {
   const handleCancel = (value) => {
     setIsModalVisible(false);
   };
+
   const onDelete = async (id, type) => {
     var data = {
       jsonrpc: 2.0,
@@ -75,32 +79,9 @@ const Cart = () => {
       window.location.reload(false);
     }
   };
-  const onLogout = async () => {
-    const res = await axios.post(
-      baseUrl + "logout",
-      {
-        jsonrpc: 2.0,
-        params: {},
-      },
-      {
-        headers: {
-          "Set-Cookie": "session_id=" + Auth.getToken(),
-          "Content-Type": "application/json",
-        },
-      }
-    );
 
-    if (res.data.error && res.data.error) {
-      message.success("Амжилттай систэмээс гарлаа");
-      Auth.destroyToken();
-      // window.location.reload(false);
-      Router.push("/");
-    }
-
-    // console.log(res, "logout res");
-  };
   const expandedRowRender = (rowData) => {
-    // console.log(rowData, "ggg");
+    console.log(rowData, "ggg");
     // console.log(rowData, "Dsad");
     const columns = [
       {
@@ -116,7 +97,7 @@ const Cart = () => {
     return (
       <Table
         rowKey="keyee"
-        className="expandTable"
+        className="expandaa"
         columns={columns}
         dataSource={rowData?.sub}
         pagination={false}
@@ -170,30 +151,38 @@ const Cart = () => {
         pathname: `/`,
       });
     setIsLoading(true);
-    const res = await axios.post(
-      baseUrl + "get/cart_list",
-      {
-        jsonrpc: 2.0,
-        params: {
-          uid: Auth.getUserId(),
+    // const res = await axios.post(
+    axios
+      .post(
+        baseUrl + "get/cart_list",
+        {
+          jsonrpc: 2.0,
+          params: {
+            uid: Auth.getUserId(),
+          },
         },
-      },
 
-      {
-        headers: {
-          "Set-Cookie": "session_id=" + Auth.getToken(),
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    setProduct(res.data.result.products);
-    setServer(res.data.result.server);
-    console.log(res, "cartiin api");
-    setIsLoading(false);
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        setProduct(response?.data?.result?.products);
+        setServer(response?.data?.result?.server);
+        console.log(response, "haha");
+        setIsLoading(false);
+      });
+
+    // console.log(res, " context cartiin api");
+    // console.log(res, "cartiin api");
   }, []);
 
   useEffect(() => {
     const arr = [];
+
     var a = 0;
     var sale = 0;
 
@@ -207,6 +196,7 @@ const Cart = () => {
         sub: [],
       });
     }
+
     // console.log(categories, "cataa");
     var unique = categories.filter((value, index, self) => {
       return (
@@ -216,6 +206,7 @@ const Cart = () => {
         )
       );
     });
+
     for (let index = 0; index < unique.length; index++) {
       for (let i = 0; i < product.length; i++) {
         if (
@@ -231,14 +222,35 @@ const Cart = () => {
                   src="/img/delete.svg"
                 />
               ),
+
               count: "1",
+              product_name: (
+                <div className=" flex  items-center">
+                  {/* {product[i].product_icon != false ? (
+                <Image
+                  preview={false}
+                  src={
+                    "data:image/png;base64," + product[i]?.product_icon
+                  }
+                />
+              ) : ( */}
+
+                  {/* <Image
+                    preview={false}
+                    width={30}
+                    height={30}
+                    src="/img/plus.svg"
+                  /> */}
+                  {product[i].product_name}
+                </div>
+              ),
             })
           );
         }
       }
     }
 
-    console.log(unique, "<===");
+    // console.log(unique, "<===");
     setCatName(unique);
     // for (let index = 0; index < product?.length; index++) {
     // console.log(product[index], "lalar");
@@ -272,24 +284,24 @@ const Cart = () => {
     // arr.push({
     //   key: index,
     //   name: (
-    //     <div className=" flex items-center">
-    //       {product[index].product_icon ? (
-    //         <Image
-    //           preview={false}
-    //           src={"data:image/png;base64," + item.product_icon}
-    //         />
-    //       ) : (
-    //         <Image
-    //           preview={false}
-    //           width={30}
-    //           height={30}
-    //           src="/img/default.png"
-    //         />
-    //       )}
-    //       <span className=" w-[100px] lg:w-auto ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
-    //         {product[index].product_name}
-    //       </span>
-    //     </div>
+    // <div className=" flex items-center">
+    //   {product[index].product_icon ? (
+    //     <Image
+    //       preview={false}
+    //       src={"data:image/png;base64," + item.product_icon}
+    //     />
+    //   ) : (
+    //     <Image
+    //       preview={false}
+    //       width={30}
+    //       height={30}
+    //       src="/img/default.png"
+    //     />
+    //   )}
+    //   <span className=" w-[100px] lg:w-auto ml-2 mt-[5px] font-semibold text-[16px] text-[#2F3747]">
+    //     {product[index].product_name}
+    //   </span>
+    // </div>
     //   ),
     //   count: "1",
     //   price: product[index].product_price + "₮",
@@ -323,32 +335,40 @@ const Cart = () => {
     // setCatName(categoryy);
 
     server?.map((item, index) => {
+      console.log(item, "itemee");
       a += item.server_price;
       sale += Number(item.server_price) * (Number(item.server_discount) / 100);
       arr.push({
-        key: item.server_name,
-
-        name: item.server_name,
-        count: "1",
-        price: item.server_price + "₮",
-        action: (
-          <Image
-            className=" cursor-pointer"
-            onClick={() => onDelete(item.server_id, 2)}
-            preview={false}
-            src="/img/delete.svg"
-          />
-        ),
+        key: item.server_id,
+        catNer: "Сервер",
+        sub: [
+          {
+            product_name: item.server_name,
+            count: "1",
+            product_price: item.server_price,
+            action: (
+              <Image
+                className=" cursor-pointer"
+                onClick={() => onDelete(item.server_id, 2)}
+                preview={false}
+                src="/img/delete.svg"
+              />
+            ),
+          },
+        ],
+        // price: item.server_price + "₮",
       });
     });
     setTotalPrice(a - sale);
-    setData(arr);
+    // setData(arr);
+    setCatName((prev) => [...prev, ...arr]);
     setPrice(a);
     setDiscount(sale);
 
     // console.log(product, "product");
   }, [server || product]);
 
+  console.log(catName, "pp");
   useEffect(() => {
     setTax(totalPrice / 10);
 
@@ -422,9 +442,9 @@ const Cart = () => {
           <PersonalSideBar hover={2} />
         </div>
         <div className="flex lg:flex-row flex-col">
-          <div className=" mr-[30px] px-4 md:px-4  md:w-[870px]">
+          <div className=" mr-[30px] px-4 md:px-4 md:w-[550px] 2xl:w-[870px]">
             <Table
-              className="cartnii"
+              className="tcell"
               columns={columns}
               expandable={{ expandedRowRender }}
               dataSource={catName}
