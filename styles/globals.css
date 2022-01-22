@@ -755,3 +755,7 @@ a {
   color: #2f3747 !important;
   font-weight: 600 !important;
 }
+.ant-table-row-expand-icon {
+  color: #2e28d4 !important;
+  border: 1px solid #2e28d4 !important;
+}

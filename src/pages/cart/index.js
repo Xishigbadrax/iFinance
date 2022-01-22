@@ -9,6 +9,7 @@ import Router from "next/router";
 import Context from "../../context/Context";
 import { useRouter } from "next/router";
 import PersonalSideBar from "../../components/PersonalSideBar";
+import helper from "../../utils/helper";
 
 const Cart = () => {
   const { setIsLoading } = useContext(Context);
@@ -51,7 +52,7 @@ const Cart = () => {
       key: "carNer",
     },
   ];
-  console.log(catName);
+  // console.log(catName);
 
   const handleCancel = (value) => {
     setIsModalVisible(false);
@@ -81,7 +82,7 @@ const Cart = () => {
   };
 
   const expandedRowRender = (rowData) => {
-    console.log(rowData, "ggg");
+    // console.log(rowData, "ggg");
     // console.log(rowData, "Dsad");
     const columns = [
       {
@@ -172,7 +173,7 @@ const Cart = () => {
       .then((response) => {
         setProduct(response?.data?.result?.products);
         setServer(response?.data?.result?.server);
-        console.log(response, "haha");
+        // console.log(response, "haha");
         setIsLoading(false);
       });
 
@@ -235,13 +236,23 @@ const Cart = () => {
                 />
               ) : ( */}
 
-                  {/* <Image
-                    preview={false}
-                    width={30}
-                    height={30}
-                    src="/img/plus.svg"
-                  /> */}
-                  {product[i].product_name}
+                  {product[i].product_icon == false ? (
+                    <Image
+                      preview={false}
+                      width={30}
+                      height={30}
+                      src="/img/default.png"
+                    />
+                  ) : (
+                    <Image
+                      preview={false}
+                      width={30}
+                      height={30}
+                      src={"data:image/png;base64," + product[i]?.product_icon}
+                    />
+                  )}
+
+                  <span className=" ml-2">{product[i].product_name}</span>
                 </div>
               ),
             })
@@ -276,11 +287,18 @@ const Cart = () => {
     //     ],
     //   });
     // }
+    var proPrice = 0;
+    var proSale = 0;
+    var proTotal = 0;
 
-    // a += product[index].product_price;
-    // sale +=
-    //   Number(product[index].product_price) *
-    //   (Number(product[index].product_discount) / 100);
+    product?.map((item) => {
+      proPrice += item.product_price;
+
+      sale +=
+        Number(item.product_price) * (Number(item.product_discount) / 100);
+    });
+    proTotal = proPrice - sale;
+
     // arr.push({
     //   key: index,
     //   name: (
@@ -335,7 +353,6 @@ const Cart = () => {
     // setCatName(categoryy);
 
     server?.map((item, index) => {
-      console.log(item, "itemee");
       a += item.server_price;
       sale += Number(item.server_price) * (Number(item.server_discount) / 100);
       arr.push({
@@ -359,16 +376,16 @@ const Cart = () => {
         // price: item.server_price + "₮",
       });
     });
-    setTotalPrice(a - sale);
+    setTotalPrice(a + proTotal);
     // setData(arr);
     setCatName((prev) => [...prev, ...arr]);
     setPrice(a);
     setDiscount(sale);
 
     // console.log(product, "product");
-  }, [server || product]);
+  }, [server && product]);
 
-  console.log(catName, "pp");
+  // console.log(catName, "pp");
   useEffect(() => {
     setTax(totalPrice / 10);
 
@@ -408,34 +425,43 @@ const Cart = () => {
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
-          <div className=" mt-[20px] ml-[375px] flex justify-between w-[230px]">
-            <div>
-              <Image preview={false} src="/img/home.svg" />
-            </div>
-            <div className="text-white text-[14px] font-semibold">
-              <a href="/" className="text-white text-[14px] font-semibold">
-                Нүүр хуудас
-              </a>
-            </div>
-            <div>
-              <Image preview={false} src="/img/right.svg" />
-            </div>
-            <div className="text-white text-[14px] font-semibold">
-              <a href="/cart" className="text-white text-[14px] font-semibold">
-                Миний сагс
-              </a>
+          <div className=" flex justify-center">
+            <div className=" w-[1100px] ">
+              <div className=" mt-[20px] flex justify-between w-[230px]">
+                <div>
+                  <Image preview={false} src="/img/home.svg" />
+                </div>
+                <div className="text-white text-[14px] font-semibold">
+                  <a href="/" className="text-white text-[14px] font-semibold">
+                    Нүүр хуудас
+                  </a>
+                </div>
+                <div>
+                  <Image preview={false} src="/img/right.svg" />
+                </div>
+                <div className="text-white text-[14px] font-semibold">
+                  <a
+                    href="/cart"
+                    className="text-white text-[14px] font-semibold"
+                  >
+                    Миний сагс
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
+
           <div className="hidden my-auto uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-poppins-semibold">
             Миний сагс
           </div>
         </div>
-
-        <Image
-          className=" w-[100vw] h-[100px] md:h-auto scale-150 md:scale-100"
-          preview={false}
-          src="/img/Slider.svg"
-        />
+        <div className="   h-[348px] overflow-hidden">
+          <Image
+            className=" w-[100vw]  md:h-auto scale-150 md:scale-100"
+            preview={false}
+            src="/img/Slider.svg"
+          />
+        </div>
       </div>
       <div className=" flex flex-col md:flex-col xl:flex-row justify-center mt-10">
         <div>
@@ -468,7 +494,7 @@ const Cart = () => {
                       {product?.length} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPrice.toFixed(2)}₮
+                      {helper.formatValueReverse(programPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -479,7 +505,7 @@ const Cart = () => {
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
                       {/* {serverPrice.toFixed(2)} */}
-                      {serverPrice.toFixed(2)}₮
+                      {helper.formatValueReverse(serverPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -489,7 +515,7 @@ const Cart = () => {
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
                       {/* {taxPrice.toFixed(2)} */}
-                      {tax}₮
+                      {helper.formatValueReverse(tax)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -498,7 +524,8 @@ const Cart = () => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discount != 0 ? -discount : 0).toFixed(2)}₮
+                      {helper.formatValueReverse(discount != 0 ? -discount : 0)}
+                      ₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -508,7 +535,7 @@ const Cart = () => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPrice.toFixed(2)}₮
+                      {helper.formatValueReverse(totalPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -553,7 +580,7 @@ const Cart = () => {
                       {product?.length} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPriceSeason.toFixed(2)}₮
+                      {helper.formatValueReverse(programPriceSeason)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -563,7 +590,7 @@ const Cart = () => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPriceSeason.toFixed(2)}₮
+                      {helper.formatValueReverse(serverPriceSeason)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -572,7 +599,7 @@ const Cart = () => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPriceSeason.toFixed(2)}₮
+                      {helper.formatValueReverse(taxPriceSeason)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -581,7 +608,10 @@ const Cart = () => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discountSeason != 0 ? -discountSeason : 0).toFixed(2)}₮
+                      {helper.formatValueReverse(
+                        discountSeason != 0 ? -discountSeason : 0
+                      )}
+                      ₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -591,7 +621,7 @@ const Cart = () => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPriceSeason.toFixed(2)}₮
+                      {helper.formatValueReverse(totalPriceSeason)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -636,7 +666,7 @@ const Cart = () => {
                       {product?.length} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPriceYear.toFixed(2)}₮
+                      {helper.formatValueReverse(programPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -646,7 +676,7 @@ const Cart = () => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPriceYear.toFixed(2)}₮
+                      {helper.formatValueReverse(serverPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -655,7 +685,7 @@ const Cart = () => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPriceYear.toFixed(2)}₮
+                      {helper.formatValueReverse(taxPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -664,7 +694,10 @@ const Cart = () => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discountYear != 0 ? -discountYear : 0).toFixed(2)}₮
+                      {helper.formatValueReverse(
+                        discountYear != 0 ? -discountYear : 0
+                      )}
+                      ₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -674,7 +707,7 @@ const Cart = () => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPriceYear.toFixed(2)}₮
+                      {helper.formatValueReverse(totalPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -755,7 +788,7 @@ const Cart = () => {
               </div>
               <div className=" font-semibold text-[16px] text-[#2F3747]">
                 {invoice?.map((item) => {
-                  return item.invoice_amount + "₮";
+                  return helper.formatValueReverse(item.invoice_amount) + "₮";
                 })}
               </div>
             </div>
