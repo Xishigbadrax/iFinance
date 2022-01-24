@@ -116,7 +116,7 @@ const Info = () => {
     res?.data?.result == "Success"
       ? phoneConfirmed()
       : message.error("Алдаа гарлаа");
-    // console.log(res, "last phone res");
+    console.log(res, "last phone res");
   };
   const onChangeConfrimEmail = async (values) => {
     // console.log(confirmCode, "code");
@@ -140,7 +140,7 @@ const Info = () => {
     res?.data?.result == "Success"
       ? emailConfirmed()
       : message.error("Алдаа гарлаа");
-    // console.log(res, "last phone res");
+    console.log(res, "last email res");
   };
 
   const onSave = async () => {
@@ -161,7 +161,7 @@ const Info = () => {
         },
       }
     );
-    // console.log(res, "update res");
+    console.log(res, "update res");
   };
   const onSumChange = (value) => {
     setSumkhorooId(value);
@@ -246,11 +246,10 @@ const Info = () => {
   };
 
   useEffect(async () => {
-
-    !Auth.getToken() &&  router.push({
-      
-      pathname: `/`,
-    });
+    !Auth.getToken() &&
+      router.push({
+        pathname: `/`,
+      });
     setIsLoading(true);
     const res = await axios.post(
       baseUrl + "get/user/info",
@@ -267,11 +266,11 @@ const Info = () => {
         },
       }
     );
-    
-    setMainData(res.data.result.main[0]);
-    
-    setDistrict(res.data.result.district);
-    setSumkhoroo(res.data.result.sumkhoroo);
+
+    setMainData(res?.data?.result?.main[0]);
+
+    setDistrict(res?.data?.result?.district);
+    setSumkhoroo(res?.data?.result?.sumkhoroo);
 
     console.log(res, "info res");
     setIsLoading(false);
@@ -309,21 +308,22 @@ const Info = () => {
         <title>iFinance | Миний мэдээлэл</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
-        <div className="absolute z-20 flex flex-col w-full h-full">
-          <div className="w-full flex justify-center h-1/3">
+      <div className="relative  w-full">
+        <div id="head" className=" absolute z-20 flex flex-col w-full h-full">
+          <div className="w-full flex justify-center">
             <NavbarTrans />
           </div>
-          <div className="hidden my-auto uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-poppins-semibold">
-            Миний мэдээлэл
+          <div className=" hidden  md:flex w-full justify-center  items-center lg:mt-[30px] 2xl:mt-[100px]">
+            <div>
+              <div className=" text-[16px]  md:text-[36px] md:text-white font-poppins-semibold uppercase">
+                Миний мэдээлэл
+              </div>
+            </div>
           </div>
         </div>
-
-        <Image
-          className=" w-[100vw] h-[100px] md:h-auto scale-150 md:scale-100"
-          preview={false}
-          src="/img/Slider.svg"
-        />
+        <div className=" 2xl:h-[347px] overflow-hidden ">
+          <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+        </div>
       </div>
       <div className="flex flex-col lg:flex-row md:mt-[100px] justify-center ">
         <PersonalSideBar hover={3} />
@@ -382,9 +382,10 @@ const Info = () => {
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Овог
                         </div>
-                        <Form.Item name="surname"
-                        //  rules={[{ required: true }]}
-                         >
+                        <Form.Item
+                          name="surname"
+                          //  rules={[{ required: true }]}
+                        >
                           <Input
                             bordered={false}
                             suffix={
@@ -438,7 +439,7 @@ const Info = () => {
                         </Form.Item>
                       </div>
 
-                      <div>
+                      {/* <div>
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Улс
                         </div>
@@ -452,7 +453,7 @@ const Info = () => {
                             style={{ borderBottom: "1px solid black" }}
                           />
                         </Form.Item>
-                      </div>
+                      </div> */}
                       <div>
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Аймаг /хот
@@ -533,7 +534,7 @@ const Info = () => {
                           />
                         </Form.Item>
                       </div>
-                      <div>
+                      {/* <div>
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Тоот дугаар /хашааны дугаар
                         </div>
@@ -550,7 +551,7 @@ const Info = () => {
                             placeholder="Тоот дугаар /хашааны дугаар"
                           />
                         </Form.Item>
-                      </div>
+                      </div> */}
                       <div>
                         <div className="text-[#9CA6C0] text-[12px] font-normal">
                           Оршин суугаа хаяг
@@ -647,7 +648,11 @@ const Info = () => {
               <div className="  w-full">
                 <div className="flex flex-col md:flex-row items-center">
                   <div className=" w-[370px] h-[324px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] flex justify-center items-center">
-                    <Image className="" preview={false} src="/img/passGirl.svg" />
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/passGirl.svg"
+                    />
                   </div>
                   <div className="">
                     <Form

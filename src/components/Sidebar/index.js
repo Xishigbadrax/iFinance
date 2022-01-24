@@ -17,7 +17,6 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
             </div>
             <div className="text-[14px] text-white font-semibold ml-1 pt-1 font-sans">
               {Auth.getName()}
-      
             </div>
           </div>
         )}
@@ -34,6 +33,11 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
               </Link>
             </li>
             <li className=" text-lg">
+              <Link href="/pricing">
+                <a className=" text-white font-semibold">Үнийн санал</a>
+              </Link>
+            </li>
+            <li className=" text-lg">
               <Link href="/order">
                 <a className=" text-white font-semibold">Миний Захиалга</a>
               </Link>
@@ -44,13 +48,8 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
               </Link>
             </li>
             <li className=" text-lg">
-              <Link href="/">
+              <Link href="/info">
                 <a className=" text-white font-semibold">Миний мэдээлэл</a>
-              </Link>
-            </li>
-            <li className=" text-lg">
-              <Link href="/">
-                <a className=" text-white font-semibold">Тохиргоо</a>
               </Link>
             </li>
           </ul>
@@ -77,15 +76,17 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
               </Button>
             </div>
           </div>
-        ) :    <div className="mt-2">
-        <Button
-          className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
-          onClick={() => Logout(2)}
-          type="primary"
-        >
-          Гарах
-        </Button>
-      </div>}
+        ) : (
+          <div className="mt-2">
+            <Button
+              className=" h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-bold"
+              onClick={() => Logout(2)}
+              type="primary"
+            >
+              Гарах
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

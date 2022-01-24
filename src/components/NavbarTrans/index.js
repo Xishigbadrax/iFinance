@@ -20,7 +20,7 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import Context from "../../context/Context";
 import axios from "axios";
 import MaskedInput from "antd-mask-input";
@@ -32,8 +32,9 @@ import Auth from "../../utils/auth";
 import Router from "next/router";
 import { useTheme } from "next-themes";
 
-const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
+const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const clockRef = useRef();
 
   const [loginModal, setLoginModal] = useState(false);
   const { sessionId } = useContext(Context);
@@ -44,6 +45,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
   const [status, setstatus] = useState("");
   const [title, settitle] = useState("");
   const [confirmModal, setConfirmModal] = useState(false);
+
   const [forgotPassModal, setForgotPassModal] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState("");
   const [isLogin, setIsLogin] = useState(false);
@@ -58,6 +60,8 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
   const [forgotPassConfirm, setForgotPassConfirm] = useState(false);
   const [forgotConfirmCode, setForgotConfirmCode] = useState("");
   const [cartNumber, setCartNumber] = useState(0);
+  const [timer, setTimer] = useState(10000);
+  const [badTimer, setBadTimer] = useState(false);
 
   // console.log(Auth.loggedIn(), "token status");
   // console.log(Auth.getToken(), "tokenii utga");
@@ -91,15 +95,16 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
   const [darkState, setDarkState] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [initMode, setInitMode] = useState();
+  const [reSend, setReSend] = useState(false);
+
+  var conCode = 0;
 
   // dark mode state
-  const {systemTheme, theme, setTheme } = useTheme();
+  const { systemTheme, theme, setTheme } = useTheme();
 
   const renderThemeChanger = () => {
-      const currrentTheme = theme == 'system' ? systemTheme : theme;
-     
-  }
-
+    const currrentTheme = theme == "system" ? systemTheme : theme;
+  };
 
   const handleCancel = () => {
     setMobileConfirm(false);
@@ -125,6 +130,11 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
     setaddclass("");
     setLoginModal(true);
   };
+  const onCount = (value) => {
+    // setConfirmCode(value);
+    conCode = value;
+    console.log(conCode);
+  };
 
   const onShadowBox = () => {
     setSideBarActive(false);
@@ -134,6 +144,10 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
   const onSideBarActive = () => {
     setSideBarActive(true);
     setShadowModal(true);
+  };
+  const onCompleteTimer = () => {
+    setReSend(true);
+    // setTimer(0);
   };
 
   const onForgotPass = () => {
@@ -145,7 +159,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
     setaddclass("right-panel-active");
     setForgotEmailConfirmModal(true);
     setForgotPassConfirm(false);
-  }; 
+  };
   const onMobileFunction = () => {
     setMobileForgotConfirmModal(true);
     setMobileForgot(false);
@@ -157,8 +171,8 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
     setWidth(window.innerWidth);
   }
   useEffect(async () => {
-    setTheme(Auth.getMode())
-   
+    setTheme(Auth.getMode());
+
     setMounted(true);
     setToken(Auth.getToken());
 
@@ -210,8 +224,6 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
     );
     setCartNumber(res.data.result.products?.length);
   }, [cartRender]);
-
-
 
   // console.log(width, "widdd");
   const onForgotConfirmModal = async () => {
@@ -325,6 +337,28 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
     setaddclass("right-panel-active");
     setLoginModal(true);
   };
+  const onAgain = async () => {
+    const res = await axios.post(
+      baseUrl + "resend",
+      {
+        jsonrpc: 2.0,
+        params: {
+          login: email,
+          is_mobile: true,
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + userSid,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res, "dahin kodnii res");
+
+    clockRef.current.start();
+    setReSend(false);
+  };
   const Logout = async () => {
     const res = await axios.post(
       baseUrl + "logout",
@@ -344,6 +378,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
       setIsLogin(false);
       message.success("Амжилттай систэмээс гарлаа");
       Auth.destroyToken();
+      Auth.destroyId();
       Router.push("/");
       window.location.reload(false);
     }
@@ -380,25 +415,19 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
           message.error(response?.data?.error?.data?.message);
       });
   };
- 
-
 
   const onDarkMode = (value) => {
     if (value) {
       Auth.setMode("dark");
-      setTheme(Auth.getMode())
+      setTheme(Auth.getMode());
     } else {
-      Auth.destroyMode()
-      setTheme("light")
+      Auth.destroyMode();
+      setTheme("light");
     }
-    
   };
-  
 
-  
   useEffect(() => {
     // Auth.getToken()  == true ? setTheme('dark') : setTheme("light");
-
   }, [Auth.getToken()]);
 
   useEffect(() => {
@@ -411,17 +440,14 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
     // Auth.setMode(theme);
   }, [theme]);
   useEffect(() => {
-    
-     darkaa && darkaa(theme);
-    
+    darkaa && darkaa(theme);
   }, [Auth.getMode()]);
 
   useEffect(() => {
     if (!mounted) {
-      return null
+      return null;
     }
-  darkState ? setTheme('dark') : setTheme('light');
-    
+    darkState ? setTheme("dark") : setTheme("light");
   }, [darkState]);
 
   const handleCancelMessage = () => {
@@ -433,8 +459,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
       {
         jsonrpc: 2.0,
         params: {
-          code: confirmCode,
-
+          code: conCode,
           login: email,
           password: password,
         },
@@ -455,9 +480,10 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
         res.data.result.erp_info,
         res.data.result.uid
       );
-      // console.log(res, "last res");
+      console.log(res, "confirm res");
       setConfirmModal(false);
       setMobileConfirm(false);
+      window.location.reload(false);
       message.success("Амжилттай нэвтэрлээ");
     } else {
       settitle("Алдлаа");
@@ -470,7 +496,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
   };
 
   const onFinishRegister = async (values) => {
-    setIsLoading(true)
+    setIsLoading(true);
     setScreen(true);
     // console.log("Received values of form: ", values);
     setEmail(values.email);
@@ -485,7 +511,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
         confirm_password: values.confirm_password,
         phone_number: values.phone_number,
         type: values.radioType,
-        register: values.register
+        register: values.register,
         // session_id: sessionId,
       },
     };
@@ -501,7 +527,8 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
     if (res.data.result && res.data.result.msg) {
       setConfirmMessage(res.data.result.msg);
       setaddclass("right-panel-active");
-      screen ? setMobileConfirm(true) : setConfirmModal(true);
+      // screen ? setMobileConfirm(true) :
+      setConfirmModal(true);
       setMobileSignUp(false);
       setLoginModal(false);
     } else if (res.data.error && res.data.error.data.message) {
@@ -532,7 +559,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
         confirm_password: values.confirm_password,
         phone_number: values.phone_number,
         type: values.radioType,
-        register: values.register
+        register: values.register,
         // session_id: sessionId,
       },
     };
@@ -603,24 +630,26 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
     } else {
       settitle("Алдлаа");
       setConfirmMessage("Нэвтрэхэд алдаа гарлаа");
-      settext(res.data.error.data.message);
+      settext("Нэвтрэхэд алдаа гарлаа");
+
       setstatus("error");
       setmessageShow(true);
     }
+
     console.log(res, "login res");
   };
 
-  useEffect(() => {
-    if (test) {
-      Auth.getToken()
-        ? null
-        : width < 768
-        ? setMobileLogin(true)
-        : setLoginModal(true);
-    } else {
-      setTest(true);
-    }
-  }, [cartLogin]);
+  // useEffect(() => {
+  //   if (test) {
+  //     Auth.getToken()
+  //       ? null
+  //       : width < 768
+  //       ? setMobileLogin(true)
+  //       : setLoginModal(true);
+  //   } else {
+  //     setTest(true);
+  //   }
+  // }, [cartLogin]);
 
   const menu = (
     <Menu className="profileDropdownPopup p-[20px]">
@@ -689,8 +718,11 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
               <div className=" ml-[10px]"> Dark mode</div>
             </div>
             <div className=" ml-[21px]">
-              <Switch checked={ Auth.getMode() == "dark" ? true : false} onClick={onDarkMode} />
-            </div> 
+              <Switch
+                checked={Auth.getMode() == "dark" ? true : false}
+                onClick={onDarkMode}
+              />
+            </div>
           </div>
         </div>
       </Menu.Item>
@@ -738,17 +770,21 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
             <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-2">
               Бүртгүүлэхы
             </p>
-            <Form.Item name="radioType" label="" rules={[
-                  {
-                    required: true,
-                    message: "Сонгоно уу!",
-                  },
-                ]}>
-                <Radio.Group>
-                  <Radio value="1">Хувь хүн</Radio>
-                  <Radio value="2">Албан байгууллага</Radio>
-                </Radio.Group>
-              </Form.Item>
+            <Form.Item
+              name="radioType"
+              label=""
+              rules={[
+                {
+                  required: true,
+                  message: "Сонгоно уу!",
+                },
+              ]}
+            >
+              <Radio.Group>
+                <Radio value="1">Хувь хүн</Radio>
+                <Radio value="2">Албан байгууллага</Radio>
+              </Radio.Group>
+            </Form.Item>
             <Form.Item
               name="name"
               rules={[
@@ -780,13 +816,13 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
               />
             </Form.Item>
             <Form.Item name="register">
-                <Input
-                  maxLength={10}
-                  className=" w-[20rem] h-[3rem] rounded-[41px] "
-                  type="text"
-                  placeholder="Регистрийн дугаар (Заавал биш)"
-                />
-              </Form.Item>
+              <Input
+                maxLength={10}
+                className=" w-[20rem] h-[3rem] rounded-[41px] "
+                type="text"
+                placeholder="Регистрийн дугаар (Заавал биш)"
+              />
+            </Form.Item>
             <Form.Item
               name="email"
               rules={[
@@ -1269,8 +1305,6 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
               }}
               onFinish={onFinishRegister}
             >
-              
-             
               <div className=" ml-[35%]">
                 <Image
                   className="pt-[3rem] pl-[3rem] "
@@ -1278,17 +1312,20 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
                   src="/img/logo.png"
                 />
               </div>
-            
 
               {/* <p className=" text-[1.5rem] text-transparent bg-clip-text bg-gradient-to-br from-[#2E28D4] to-[#AC27FD] font-semibold pt-2">
                 Бүртгүүлэх
               </p> */}
-              <Form.Item name="radioType" label="" rules={[
+              <Form.Item
+                name="radioType"
+                label=""
+                rules={[
                   {
                     required: true,
                     message: "Сонгоно уу!",
                   },
-                ]}>
+                ]}
+              >
                 <Radio.Group>
                   <Radio value="1">Хувь хүн</Radio>
                   <Radio value="2">Албан байгууллага</Radio>
@@ -1720,7 +1757,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
           </div>
           <div className="overlay-container">
             <div className="overlay">
-              <div className="overlay-panel overlay-left">
+              <div className="overlay-panel overlay-left bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-r-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -1735,7 +1772,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
                   Нэвтрэх
                 </Button>
               </div>
-              <div className="overlay-panel overlay-right">
+              <div className="overlay-panel overlay-right bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-l-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -1902,7 +1939,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
           </div>
           <div className="overlay-container">
             <div className="overlay">
-              <div className="overlay-panel overlay-left">
+              <div className="overlay-panel overlay-left bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-r-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -1917,7 +1954,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
                   Нэвтрэх
                 </Button>
               </div>
-              <div className="overlay-panel overlay-right">
+              <div className="overlay-panel overlay-right bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-l-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -2119,7 +2156,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
           </div>
           <div className="overlay-container">
             <div className="overlay">
-              <div className="overlay-panel overlay-left">
+              <div className="overlay-panel overlay-left bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-r-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -2134,7 +2171,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
                   Нэвтрэх
                 </Button>
               </div>
-              <div className="overlay-panel overlay-right">
+              <div className="overlay-panel overlay-right bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-l-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -2335,7 +2372,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
           </div>
           <div className="overlay-container">
             <div className="overlay">
-              <div className="overlay-panel overlay-left">
+              <div className="overlay-panel overlay-left bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-r-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -2350,7 +2387,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
                   Нэвтрэх
                 </Button>
               </div>
-              <div className="overlay-panel overlay-right">
+              <div className="overlay-panel overlay-right bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-l-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -2380,8 +2417,8 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
         visible={confirmModal}
         onCancel={handleCancel}
       >
-        <div className={`container ${addclass} `} id="container  ">
-          <div className="form-container sign-up-container ">
+        <div className={`container ${addclass}  `} id="container ">
+          <div className="form-container sign-up-container   ">
             <Image
               className="pt-[3rem] pl-[3rem] "
               preview={false}
@@ -2414,7 +2451,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
               >
                 <Space>
                   <ReactCodeInput
-                    onChange={(e) => setConfirmCode(e)}
+                    onChange={(e) => onCount(e)}
                     className="confirmInput"
                     fields={4}
                   />
@@ -2423,13 +2460,29 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
               <div className=" w-full flex justify-center">
                 <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
                   <div className="text-[#F01A63]">
-                    <Countdown renderer={renderer} date={Date.now() + 180000} />
+                    <Countdown
+                      renderer={renderer}
+                      ref={clockRef}
+                      autoStart={true}
+                      onComplete={() => onCompleteTimer()}
+                      date={Date.now() + timer}
+                    />
                   </div>
                 </div>
               </div>
-              <div className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-pointer">
-                Дахин илгээх
-              </div>
+              {reSend ? (
+                <div
+                  onClick={() => onAgain()}
+                  className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-pointer "
+                >
+                  Дахин илгээх
+                </div>
+              ) : (
+                <div className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-not-allowed ">
+                  Дахин илгээх
+                </div>
+              )}
+
               <Form.Item>
                 <Button
                   className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
@@ -2444,7 +2497,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
 
           {/* Login form */}
 
-          <div className="  form-container sign-in-container ">
+          <div className="  form-container sign-in-container  ">
             <Image
               className="pt-[3rem] pl-[3rem]"
               preview={false}
@@ -2520,7 +2573,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
           </div>
           <div className="overlay-container ">
             <div className="overlay">
-              <div className="overlay-panel overlay-left">
+              <div className="overlay-panel overlay-left bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-r-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -2535,7 +2588,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
                   Нэвтрэх
                 </Button>
               </div>
-              <div className="overlay-panel overlay-right">
+              <div className="overlay-panel overlay-right bg-gradient-to-tl from-[#2E28D4] to-[#AC27FD] rounded-l-[50%]">
                 <p className=" text-[2rem] font-semibold">Тавтай морилно уу.</p>
                 <p className=" text-[1.125rem]">
                   Хэрвээ бүртгэлгүй бол бүртгэл үүсгэх шаардлагатай.
@@ -2589,7 +2642,6 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
               {hover == 0 ? (
                 <li className=" text-lg ">
                   <Link href="/">
-                      
                     <a className="text-white  opacity-100 font-poppins-semibold">
                       Эхлэл
                     </a>
@@ -2657,9 +2709,17 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
               )}
             </ul>
           </div>
+          <div className="flex items-center">
+            <div className="relative cursor-pointer mt-2  mr-4">
+              <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
+                {cartNumber}
+              </div>
+              <Image className=" " preview={false} src="/img/cartIcon.svg" />
+            </div>
+          </div>
 
           {token === "undefined" || token == null ? (
-            <div className=" font-poppins-semibold lg:w-80 lg:flex lg:justify-between ">
+            <div className=" font-semibold lg:w-[200px] lg:flex lg:justify-between ">
               <div className=" h-[48px]">
                 <Button
                   onClick={Signup}
@@ -2681,12 +2741,12 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa}) => {
             </div>
           ) : (
             <div className="flex items-center">
-              <div className="relative cursor-pointer mt-2  mr-4">
+              {/* <div className="relative cursor-pointer mt-2  mr-4">
                 <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
                   {cartNumber}
                 </div>
                 <Image className=" " preview={false} src="/img/cartIcon.svg" />
-              </div>
+              </div> */}
               <div className=" cursor-pointer box-border">
                 <Dropdown
                   placement="bottomRight"

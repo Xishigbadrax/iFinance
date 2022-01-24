@@ -1,43 +1,44 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export default class Auth {
-  static setToken(token, name, userId,userData) {
-    Cookies.set('authToken', token);
-    Cookies.set('userName', name);
-    Cookies.set('uId', userId);
-    Cookies.set('userData', userData);
-    
+  static setToken(token, name, userId, userData) {
+    Cookies.set("authToken", token);
+    Cookies.set("userName", name);
+    Cookies.set("uId", userId);
+    Cookies.set("userData", userData);
   }
   static setMode(mode) {
-    Cookies.set('darkMode', mode);
+    Cookies.set("darkMode", mode);
   }
-  
+
+  static destroyId() {
+    Cookies.remove("uId");
+  }
   static destroyToken() {
-    Cookies.remove('authToken');
+    Cookies.remove("authToken");
   }
   static destroyMode() {
-    Cookies.remove('darkMode');
+    Cookies.remove("darkMode");
   }
- 
 
   static getMode() {
-    const mode = Cookies.get('darkMode');
+    const mode = Cookies.get("darkMode");
     return mode;
   }
   static getToken() {
-    const token = Cookies.get('authToken');
+    const token = Cookies.get("authToken");
     return token;
   }
   static getUserData() {
-    const token = Cookies.get('userData');
+    const token = Cookies.get("userData");
     return token;
   }
   static getName() {
-    const userName = Cookies.get('userName');
+    const userName = Cookies.get("userName");
     return userName;
   }
   static getUserId() {
-    const userId = Cookies.get('uId');
+    const userId = Cookies.get("uId");
     return userId;
   }
 
