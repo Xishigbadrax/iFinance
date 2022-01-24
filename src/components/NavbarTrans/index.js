@@ -700,16 +700,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
           </a>
         </div>
       </Menu.Item>
-      <Menu.Item className="order2" key="3">
-        <div className=" opacity-50 hover:opacity-100 hover: text-[#AC27FD]">
-          <a className=" text-[#2E28D4]" href="/">
-            <div className="flex items-center">
-              <Image preview={false} width={20} height={20} src="/img/i4.svg" />
-              <div className=" ml-[10px]">Тохиргоо</div>
-            </div>
-          </a>
-        </div>
-      </Menu.Item>
+
       <Menu.Item className="order2" key="4">
         <div className=" opacity-50 hover:opacity-100 ">
           <div className=" flex">

@@ -59,6 +59,7 @@ const Info = () => {
   };
 
   const onChangePhone = async (values) => {
+    setIsLoading(true);
     // console.log(phone, "utas");
     const res = await axios.post(
       baseUrl + "user/change",
@@ -76,7 +77,10 @@ const Info = () => {
         },
       }
     );
-    res.data.result.msg == "success" ? setIsPhoneModal(true) : null;
+
+    setIsLoading(false);
+
+    res?.data?.result?.msg == "success" ? setIsPhoneModal(true) : null;
     // console.log(res, "chnage phone res");
   };
 
@@ -116,7 +120,7 @@ const Info = () => {
     res?.data?.result == "Success"
       ? phoneConfirmed()
       : message.error("Алдаа гарлаа");
-    console.log(res, "last phone res");
+    // console.log(res, "last phone res");
   };
   const onChangeConfrimEmail = async (values) => {
     // console.log(confirmCode, "code");
@@ -140,33 +144,36 @@ const Info = () => {
     res?.data?.result == "Success"
       ? emailConfirmed()
       : message.error("Алдаа гарлаа");
-    console.log(res, "last email res");
+    // console.log(res, "last email res");
   };
 
   const onSave = async () => {
+    console.log(form.getFieldsValue());
+    // setIsLoading(true);
     // console.log(form.getFieldsValue());
-    const res = await axios.post(
-      baseUrl + "update/user/info",
-      {
-        jsonrpc: 2.0,
-        params: {
-          uid: Auth.getUserId(),
-          info: form.getFieldsValue(),
-        },
-      },
-      {
-        headers: {
-          "Set-Cookie": "session_id=" + Auth.getToken(),
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (res?.data?.result == "SUCCESS") {
-      Auth.destroyToken();
-      router.push("/");
-      message.success("Амжилттай солигдлоо");
-    }
-    console.log(res, "update res");
+    // const res = await axios.post(
+    //   baseUrl + "update/user/info",
+    //   {
+    //     jsonrpc: 2.0,
+    //     params: {
+    //       uid: Auth.getUserId(),
+    //       info: form.getFieldsValue(),
+    //     },
+    //   },
+    //   {
+    //     headers: {
+    //       "Set-Cookie": "session_id=" + Auth.getToken(),
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    // setIsLoading(false);
+    // if (res?.data?.result == "SUCCESS") {
+    //   Auth.destroyToken();
+    //   router.push("/");
+    //   message.success("Амжилттай солигдлоо");
+    // }
+    // console.log(res, "update res");
   };
   const onSumChange = (value) => {
     setSumkhorooId(value);
@@ -179,6 +186,7 @@ const Info = () => {
   };
 
   const onChangeMail = async () => {
+    setIsLoading(true);
     const res = await axios.post(
       baseUrl + "user/change",
       {
@@ -195,7 +203,10 @@ const Info = () => {
         },
       }
     );
-    res.data.result.msg == "success" ? setIsMailModal(true) : null;
+    setIsLoading(false);
+    res.data?.result?.msg == "success"
+      ? setIsMailModal(true)
+      : message.warning("Алдаа гарлаа");
     // console.log(res, "mail res");
   };
 
@@ -225,6 +236,7 @@ const Info = () => {
   };
 
   const onChangePass = async (value) => {
+    setIsLoading(true);
     // console.log(form2.getFieldsValue().old, "pass iin utga");
     const res = await axios.post(
       baseUrl + "user/change_password",
@@ -244,10 +256,11 @@ const Info = () => {
         },
       }
     );
+    setIsLoading(false);
     res?.data?.result == "SUCCESS"
       ? onResChangePass()
       : message.error("Амжилтгүй");
-    console.log(res, "pass res");
+    // console.log(res, "pass res");
   };
 
   useEffect(async () => {
@@ -277,7 +290,7 @@ const Info = () => {
     setDistrict(res?.data?.result?.district);
     setSumkhoroo(res?.data?.result?.sumkhoroo);
 
-    console.log(res, "info res");
+    // console.log(res, "info res");
     setIsLoading(false);
   }, []);
 
@@ -359,26 +372,37 @@ const Info = () => {
                   form={form}
                   name="control-hooks2"
                 >
-                  <div className=" md:w-[616px] flex flex-col md:flex-row  ">
-                    <Form.Item name="company_type" label="">
-                      <Radio.Group>
-                        <div className="flex">
-                          <div className="flex  w-[140px]">
-                            <Radio value="person">
-                              <p className="text-[18px] font-bold text-[#2F3747]">
-                                Хувь хүн
-                              </p>
-                            </Radio>
+                  <div className="flex ">
+                    <div className=" md:w-[616px] flex flex-col md:flex-row  ">
+                      <Form.Item name="company_type" label="">
+                        <Radio.Group>
+                          <div className="flex">
+                            <div className="flex  w-[140px]">
+                              <Radio value="person">
+                                <p className="text-[18px] font-bold text-[#2F3747]">
+                                  Хувь хүн
+                                </p>
+                              </Radio>
+                            </div>
+                            <div className=" w-[140px]">
+                              <Radio value="company">
+                                <p className="text-[18px] font-bold text-[#2F3747]">
+                                  Байгууллага
+                                </p>
+                              </Radio>
+                            </div>
                           </div>
-                          <div className=" w-[140px]">
-                            <Radio value="company">
-                              <p className="text-[18px] font-bold text-[#2F3747]">
-                                Байгууллага
-                              </p>
-                            </Radio>
-                          </div>
-                        </div>
-                      </Radio.Group>
+                        </Radio.Group>
+                      </Form.Item>
+                    </div>
+                    <Form.Item name="subUser" valuePropName="checked">
+                      <div className=" w-[240px]">
+                        <Checkbox>
+                          <p className="text-[18px] font-bold text-[#2F3747]">
+                            Давхар хэрэглэгч
+                          </p>
+                        </Checkbox>
+                      </div>
                     </Form.Item>
                   </div>
                   <div className=" mt-[31px]">
