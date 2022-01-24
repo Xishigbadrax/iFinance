@@ -161,6 +161,11 @@ const Info = () => {
         },
       }
     );
+    if (res?.data?.result == "SUCCESS") {
+      Auth.destroyToken();
+      router.push("/");
+      message.success("Амжилттай солигдлоо");
+    }
     console.log(res, "update res");
   };
   const onSumChange = (value) => {

@@ -149,6 +149,11 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     setReSend(true);
     // setTimer(0);
   };
+  const mobileConcode = (e) => {
+    conCode = e.target.value;
+    console.log(e.target.value, "eee");
+    // setTimer(0);
+  };
 
   const onForgotPass = () => {
     setaddclass("right-panel-active");
@@ -492,7 +497,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
       setmessageShow(true);
     }
 
-    // console.log(res, "confirm res");
+    console.log(res, "confirm res");
   };
 
   const onFinishRegister = async (values) => {
@@ -1157,7 +1162,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
             >
               <Space>
                 <Input
-                  onChange={(e) => setConfirmCode(e.target.value)}
+                  onChange={(e) => mobileConcode(e)}
                   type="number"
                   className=" w-[15rem]"
                 />
