@@ -155,7 +155,7 @@ const Pricing = ({}) => {
           setArrayNames(lastArray);
         }
 
-        console.log(response, "all module");
+        // console.log(response, "all module");
         setAdditionalData(response.data.result?.additional_products);
         setMainData(response.data.result?.main_products),
           setPhysicalServer(response.data.result?.physical);
@@ -187,7 +187,7 @@ const Pricing = ({}) => {
         server_id: serverId,
         type: type,
         product_ids: productIds,
-        domain: domain
+        domain: domain,
       },
     };
     // console.log(data, "dataaa");
@@ -198,7 +198,7 @@ const Pricing = ({}) => {
       },
     });
     if (res.data.result && res.data.result) {
-      console.log(res, "invoice res");
+      // console.log(res, "invoice res");
       // message.success("Хүсэлт амжилттай биеллээ.");
       setInvoiceId(res.data.result.invoice[0].invoice_id);
       setBank(res.data.result.bank);
@@ -231,7 +231,7 @@ const Pricing = ({}) => {
         }
       )
       .then((response) => {
-        console.log(response, "dom shalgah");
+        // console.log(response, "dom shalgah");
         setDomainState(response.data.result);
         response?.data?.result == true ? setLock(true) : setLock(false);
       })
@@ -247,9 +247,8 @@ const Pricing = ({}) => {
       }
     }
   };
-  
+
   const checkPayment = async () => {
-   
     await axios
       .post(
         baseUrl + "check/invoice",
@@ -257,7 +256,7 @@ const Pricing = ({}) => {
           jsonrpc: 2.0,
           params: {
             uid: Auth.getUserId,
-            invoice_id: invoiceId
+            invoice_id: invoiceId,
           },
         },
 
@@ -269,23 +268,16 @@ const Pricing = ({}) => {
         }
       )
       .then((response) => {
-          console.log(response, "check");
-          if (response?.data?.result == true) {
-              message.success("Төлбөр амжилттай төлөгдсөн")
-          } else if (response?.data?.result == false) {
-                message.warning("Төлбөр төлөгдөөгүй")
-          } else {
-            message.warning("Нэхэмжлэл олдсонгүй")
-          }
-            
-          
-       } )
-      
+        // console.log(response, "check");
+        if (response?.data?.result == true) {
+          message.success("Төлбөр амжилттай төлөгдсөн");
+        } else if (response?.data?.result == false) {
+          message.warning("Төлбөр төлөгдөөгүй");
+        } else {
+          message.warning("Нэхэмжлэл олдсонгүй");
+        }
+      });
   };
-  
-
-  
-
 
   const isModuleCheck = async (item, isRequired) => {
     if (!isRequired) {
@@ -496,9 +488,9 @@ const Pricing = ({}) => {
     }
   };
 
-  useEffect(() => {
-    console.log(invoiceId, "invo idd");
-  }, [invoiceId]);
+  // useEffect(() => {
+  //   console.log(invoiceId, "invo idd");
+  // }, [invoiceId]);
 
   useEffect(() => {
     setNumberOfProgram(state.length);
@@ -1378,7 +1370,7 @@ const Pricing = ({}) => {
               </div>
             </div>
             <Divider />
-           
+
             <div className=" w-[300px] md:w-[510px] h-[250px] md:h-[176px] bg-[#F01A63] bg-opacity-10 rounded-[4px] flex items-center ">
               <div className=" flex flex-col  h-[240px] md:h-[144px] justify-between">
                 <div className=" flex">
@@ -1424,11 +1416,10 @@ const Pricing = ({}) => {
                   </div>
                 </div>
               </div>
-              
             </div>
             <div className="flex justify-center mt-[30px]">
               <Button
-               onClick={checkPayment}
+                onClick={checkPayment}
                 type="primary"
                 className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
               >
@@ -1455,7 +1446,7 @@ const Pricing = ({}) => {
                   })}
                 </div>
               </div>
-              
+
               <div className=" w-full flex justify-between mt-[20px]">
                 <div>
                   <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">

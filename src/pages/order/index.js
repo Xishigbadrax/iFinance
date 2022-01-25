@@ -3,11 +3,13 @@ import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
 import { Image, Tabs, Divider, message, Button } from "antd";
 import Auth from "../../utils/auth";
-import { Table, Badge, Menu, Dropdown, Space } from "antd";
+import { Table, Badge, Menu, Dropdown, Space, Modal } from "antd";
 import axios from "axios";
 import Context from "../../context/Context";
 import PersonalSideBar from "../../components/PersonalSideBar";
 import { useRouter } from "next/router";
+import helper from "../../utils/helper";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Order = () => {
   // const menu = (
@@ -24,6 +26,10 @@ const Order = () => {
   const [invoices, setInvoices] = useState();
   const [state, setState] = useState();
   const [toggle, setToggle] = useState(1);
+  const [pay, setPay] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [invoice, setInvoice] = useState();
+  const [bank, setBank] = useState();
 
   const data2 = [];
 
@@ -67,17 +73,53 @@ const Order = () => {
 
     return (
       <Table
-        className="expandTable"
+        className="expandTable "
         columns={columns}
         dataSource={rowData?.sub}
         pagination={false}
       />
     );
   };
+  const handleCancel = (value) => {
+    setIsModalVisible(false);
+  };
 
-  useEffect(() => {
-    console.log(toggle);
-  }, [toggle]);
+  const payPayment = async (id) => {
+    setIsLoading(true);
+    await axios
+      .post(
+        baseUrl + "payment/invoice",
+        {
+          jsonrpc: 2.0,
+          params: {
+            uid: Auth.getUserId(),
+            invoice_id: id,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        setIsLoading(false);
+        if (response?.data?.result) {
+          setIsModalVisible(true);
+          setInvoice(response?.data?.result?.invoice);
+          setBank(response?.data?.result?.bank);
+        } else {
+          message.warning("Алдаа гарлаа");
+        }
+        // console.log(response, "payment");
+      });
+  };
+
+  // useEffect(() => {
+  //   console.log(toggle);
+  // }, [toggle]);
   const columns = [
     // {
     //   title: "Нэхэмжлэх дугаар",
@@ -265,6 +307,21 @@ text-[14px] font-bold flex justify-center"
         };
       },
     },
+    {
+      title: (
+        <div
+          className="  py-[9px] px-[16px]
+text-[14px] font-bold flex justify-center"
+        >
+          <div className=" w-[80px] text-center"></div>
+        </div>
+      ),
+
+      dataIndex: "check",
+      key: "check",
+
+      // sorter: (a, b) => a.tuluv?.localeCompare(b.first_name),
+    },
   ];
 
   const data = [];
@@ -275,27 +332,35 @@ text-[14px] font-bold flex justify-center"
       key: item.invoice_id,
       dugaar: item.invoice_id,
       // dun: item.invoice_amount.toFixed(2) + "₮",
-      dun: item.invoice_amount,
+      dun: helper.formatValueReverse(item.invoice_amount) + "₮",
       system: item.invoice_type,
       sognoo: item.invoice_start_date,
       dognoo: item.invoice_end_date,
       tuluv:
         item.invoice_state == "Ноорог" ? (
-          <div>
-            {item.invoice_state}
-            <Button
-              onClick={() => checkPayment(item.invoice_id)}
-              type="primary"
-              className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-            >
-              Шалгах
-            </Button>
-          </div>
+          <div>{item.invoice_state}</div>
         ) : (
           item.invoice_state
         ),
 
       sub: item.invoice_lines,
+      check: pay ? (
+        <Button
+          onClick={() => payPayment(item.invoice_id)}
+          type="primary"
+          className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+        >
+          Төлөх
+        </Button>
+      ) : (
+        <Button
+          onClick={() => checkPayment(item.invoice_id)}
+          type="primary"
+          className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+        >
+          Шалгах
+        </Button>
+      ),
     });
 
     state?.map((el) => {
@@ -315,13 +380,15 @@ text-[14px] font-bold flex justify-center"
   });
 
   const checkPayment = async (id) => {
+    setIsLoading(true);
+    // console.log(id, "itemm");
     await axios
       .post(
         baseUrl + "check/invoice",
         {
           jsonrpc: 2.0,
           params: {
-            uid: Auth.getUserId,
+            uid: Auth.getUserId(),
             invoice_id: id,
           },
         },
@@ -334,11 +401,14 @@ text-[14px] font-bold flex justify-center"
         }
       )
       .then((response) => {
+        setIsLoading(false);
         // console.log(response, "check");
+
         if (response?.data?.result == true) {
           message.success("Төлбөр амжилттай төлөгдсөн");
         } else if (response?.data?.result == false) {
           message.warning("Төлбөр төлөгдөөгүй");
+          setPay(true);
         } else {
           message.warning("Нэхэмжлэл олдсонгүй");
         }
@@ -354,12 +424,30 @@ text-[14px] font-bold flex justify-center"
         gg.push({
           key: invoices[i].invoice_id,
           dugaar: invoices[i].invoice_id,
-          dun: invoices[i].invoice_amount.toFixed(2) + "₮",
+          dun: helper.formatValueReverse(invoices[i].invoice_amount) + "₮",
           system: invoices[i].invoice_type,
           sognoo: invoices[i].invoice_start_date,
           dognoo: invoices[i].invoice_end_date,
           tuluv: invoices[i].invoice_state,
           sub: invoices[i].invoice_lines,
+
+          check: pay ? (
+            <Button
+              onClick={() => payPayment(invoices[i].invoice_id)}
+              type="primary"
+              className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+            >
+              Төлөх
+            </Button>
+          ) : (
+            <Button
+              onClick={() => checkPayment(item.invoice_id)}
+              type="primary"
+              className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+            >
+              Шалгах
+            </Button>
+          ),
         });
       }
     }
@@ -394,7 +482,7 @@ text-[14px] font-bold flex justify-center"
         }
       )
       .then((response) => {
-        console.log(response, "zahialga");
+        // console.log(response, "zahialga");
         setInvoices(response.data?.result?.invoices);
         setIsLoading(false);
       })
@@ -487,6 +575,271 @@ text-[14px] font-bold flex justify-center"
       </Tabs>
 
       <Footer />
+      <Modal
+        title="Төлбөр төлөх"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={[]}
+        className="buy"
+      >
+        <Tabs className="buyTab" defaultActiveKey="1">
+          <TabPane tab="QPAY ҮЙЛЧИЛГЭЭ" key="1">
+            <div>
+              {invoice?.map((item, index) => {
+                return (
+                  <div className="flex justify-center">
+                    <Image
+                      className=""
+                      preview={false}
+                      src={"data:image/png;base64," + item.invoice_qr}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <div className=" flex items-center md:w-[510px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] h-[74px]">
+              <div className="flex ">
+                <div className=" mr-[17px] pl-[17px]">
+                  <Image className="" preview={false} src="/img/warning.png" />
+                </div>
+                <div className="  md:w-[400px] text-[14px] text-[#F09A1A]  ">
+                  Та энэ QRCode -ийг доорх банкуудын гар утасны аппликейшнийг
+                  ашиглан уншуулж орлого хийнэ үү.
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex justify-between mt-[16px]">
+              <div className="  font-semibold text-[16px] text-[#2F3747]">
+                Төлөх дүн
+              </div>
+              <div className=" font-semibold text-[16px] text-[#2F3747]">
+                {invoice?.map((item) => {
+                  return item.invoice_amount + "₮";
+                })}
+              </div>
+            </div>
+            <Divider />
+
+            <div className=" w-[300px] md:w-[510px] h-[250px] md:h-[176px] bg-[#F01A63] bg-opacity-10 rounded-[4px] flex items-center ">
+              <div className=" flex flex-col  h-[240px] md:h-[144px] justify-between">
+                <div className=" flex">
+                  <div className=" mx-[17px]">
+                    {" "}
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/warningred.svg"
+                    />
+                  </div>
+                  <div className=" w-[240px] md:w-[446px] text-[#F01A63] text-[13px] font-semibold">
+                    Зөвхөн IFinance-д бүртгэлтэй дансаар орлого шилжүүлэхийг
+                    анхаарна уу.
+                  </div>
+                </div>
+                <div className=" flex">
+                  <div className=" mx-[17px]">
+                    {" "}
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/warningred.svg"
+                    />
+                  </div>
+                  <div className=" w-[240px] md:w-[446px] text-[#F01A63] text-[13px] font-semibold">
+                    Орлогын гүйлгээний утга дээр зөвхөн бүртгэлтэй имэйл хаягаа
+                    бичихийг анхаарна уу.
+                  </div>
+                </div>
+                <div className=" flex w-full   ">
+                  <div className=" mx-[17px]">
+                    {" "}
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/warningred.svg"
+                    />
+                  </div>
+                  <div className=" w-[240px] md:w-[446px] text-[#F01A63] text-[13px] font-semibold">
+                    Хэрэв өөр дансаар болон имэйл хаягийг буруу бичиж шилжүүлсэн
+                    тохиолдолд таны худалдан авалт амжилтгүй болно.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center mt-[30px]">
+              <Button
+                onClick={checkPayment}
+                type="primary"
+                className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Шалгах
+              </Button>
+            </div>
+          </TabPane>
+          <TabPane tab="БАНКНЫ ДАНСААР" key="2">
+            <div>
+              <div className=" flex items-center mt-[20px]">
+                <div>
+                  {bank?.map((item) => {
+                    return (
+                      <Image
+                        preview={false}
+                        src={"data:image/png;base64," + item.invoice_bank_logo}
+                      />
+                    );
+                  })}
+                </div>
+                <div className=" ml-[16px] text-[24px] text-[#2F3747] font-bold">
+                  {bank?.map((item) => {
+                    return item.invoice_bank;
+                  })}
+                </div>
+              </div>
+
+              <div className=" w-full flex justify-between mt-[20px]">
+                <div>
+                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                    Дансны дугаар
+                  </div>
+                  <div className="text-[18px] text-[#2F3747] font-bold">
+                    {bank?.map((item) => {
+                      return item.invoice_bank_number;
+                    })}
+                  </div>
+                </div>
+                <div className=" flex items-center">
+                  <CopyToClipboard
+                    text={bank?.map((item) => {
+                      return item.invoice_bank_number;
+                    })}
+                  >
+                    <div
+                      onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer"
+                    >
+                      <Image preview={false} src="/img/copy.svg" />
+                    </div>
+                  </CopyToClipboard>
+                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                    Хуулах
+                  </div>
+                </div>
+              </div>
+              <div className=" w-full flex justify-between mt-[20px]">
+                <div>
+                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                    Дансны нэр
+                  </div>
+                  <div className="text-[18px] text-[#2F3747] font-bold">
+                    {bank?.map((item) => {
+                      return item.invoice_bank_account_name;
+                    })}
+                  </div>
+                </div>
+                <div className=" flex items-center">
+                  <CopyToClipboard
+                    text={bank?.map((item) => {
+                      return item.invoice_bank_account_name;
+                    })}
+                  >
+                    <div
+                      onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer"
+                    >
+                      <Image preview={false} src="/img/copy.svg" />
+                    </div>
+                  </CopyToClipboard>
+                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                    Хуулах
+                  </div>
+                </div>
+              </div>
+              <div className=" w-full flex justify-between mt-[20px]">
+                <div>
+                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                    Гүйлгээний утга
+                  </div>
+                  <div className="text-[18px] text-[#2F3747] font-bold">
+                    {invoice?.map((item) => {
+                      return item.invoice_name;
+                    })}
+                  </div>
+                </div>
+                <div className=" flex items-center">
+                  <CopyToClipboard
+                    text={invoice?.map((item) => {
+                      return item.invoice_name;
+                    })}
+                  >
+                    <div
+                      onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer"
+                    >
+                      <Image preview={false} src="/img/copy.svg" />
+                    </div>
+                  </CopyToClipboard>
+                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                    Хуулах
+                  </div>
+                </div>
+              </div>
+              <div className=" w-full flex justify-between mt-[20px]">
+                <div>
+                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                    Төлөх дүн
+                  </div>
+                  <div className="text-[18px] text-[#2F3747] font-bold">
+                    {invoice?.map((item) => {
+                      return item.invoice_amount + "₮";
+                    })}
+                  </div>
+                </div>
+                <div className=" flex items-center">
+                  <CopyToClipboard
+                    text={invoice?.map((item) => {
+                      return item.invoice_amount;
+                    })}
+                  >
+                    <div
+                      onClick={() => message.success("Амжилттай хуулагдлаа")}
+                      className="cursor-pointer"
+                    >
+                      <Image preview={false} src="/img/copy.svg" />
+                    </div>
+                  </CopyToClipboard>
+                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                    Хуулах
+                  </div>
+                </div>
+              </div>
+              <div className=" flex items-center w-[510px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] h-[74px] mt-[24px]">
+                <div className="flex ">
+                  <div className=" mr-[17px] pl-[17px]">
+                    <Image
+                      className=""
+                      preview={false}
+                      src="/img/warning.png"
+                    />
+                  </div>
+                  <div className=" w-[400px] text-[14px] text-[#F09A1A]  ">
+                    Таны төлбөр төлөлт амжилттай хийгдсэний дараа 5 минутын
+                    дотор худалдан авалт хийгдэнэ.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center mt-[30px]">
+              <Button
+                onClick={checkPayment}
+                type="primary"
+                className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Шалгах
+              </Button>
+            </div>
+          </TabPane>
+        </Tabs>
+      </Modal>
     </div>
   );
 };

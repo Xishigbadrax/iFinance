@@ -10,6 +10,7 @@ import Router from "next/router";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import { ThemeProvider } from "next-themes";
 import "../../styles/fonts/stylesheet.css";
+import "react-perfect-scrollbar/dist/css/styles.css";
 
 function MyApp({ Component, pageProps }) {
   return (

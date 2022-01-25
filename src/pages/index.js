@@ -118,7 +118,7 @@ export default function Home() {
     setDemoModal(true);
   };
   const onFinishDemo = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     const res = await axios.post(
       baseUrl + "set/demo",
       {
@@ -144,7 +144,7 @@ export default function Home() {
       }
     );
 
-    console.log(res, "demo res");
+    // console.log(res, "demo res");
   };
 
   // useEffect(() => {
@@ -171,7 +171,7 @@ export default function Home() {
       }
     );
 
-    console.log(res, "lang res");
+    // console.log(res, "lang res");
     setCountry(res?.data?.result?.country_list);
     setLang(res?.data?.result?.lang_list);
   }, []);

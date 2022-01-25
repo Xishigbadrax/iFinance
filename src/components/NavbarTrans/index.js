@@ -13,6 +13,7 @@ import {
   Radio,
   Menu,
   Dropdown,
+  Divider,
 } from "antd";
 import {
   WarningOutlined,
@@ -31,6 +32,8 @@ import Countdown, { zeroPad } from "react-countdown";
 import Auth from "../../utils/auth";
 import Router from "next/router";
 import { useTheme } from "next-themes";
+import helper from "../../utils/helper";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL;
@@ -96,6 +99,9 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   const [mounted, setMounted] = useState(false);
   const [initMode, setInitMode] = useState();
   const [reSend, setReSend] = useState(false);
+  const [cartProducts, setCartProducts] = useState(null);
+  const [cartRefresh, setCartRefresh] = useState(false);
+  var totalPrice = 0;
 
   var conCode = 0;
 
@@ -227,8 +233,31 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         },
       }
     );
+    setCartProducts(res.data.result.products);
+
     setCartNumber(res.data.result.products?.length);
   }, [cartRender]);
+  useEffect(async () => {
+    const res = await axios.post(
+      baseUrl + "get/cart_list",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+        },
+      },
+
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setCartProducts(res.data.result.products);
+    console.log(res, "sd");
+    setCartNumber(res.data.result.products?.length);
+  }, [cartRefresh]);
 
   // console.log(width, "widdd");
   const onForgotConfirmModal = async () => {
@@ -364,6 +393,30 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     clockRef.current.start();
     setReSend(false);
   };
+  const onDelete = async (id, type) => {
+    var data = {
+      jsonrpc: 2.0,
+      params: {
+        uid: Auth.getUserId(),
+        product_id: id,
+        type: type,
+      },
+    };
+    // console.log(data, "dataaa");
+    const res = await axios.post(baseUrl + "delete/cart_list", data, {
+      headers: {
+        "Set-Cookie": "session_id=" + Auth.getToken(),
+        "Content-Type": "application/json",
+      },
+    });
+    // console.log(res, "delete ress");
+    if (res.data.id == null) {
+      // window.location.reload(false);
+      setCartRefresh(!cartRefresh);
+      message.success("Амжилттай устлаа");
+    }
+  };
+
   const Logout = async () => {
     const res = await axios.post(
       baseUrl + "logout",
@@ -731,6 +784,150 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
           </div>
         </div>
       </Menu.Item>
+    </Menu>
+  );
+
+  const cart = (
+    <Menu className="profileDropdownPopup p-[30px] ">
+      <div>
+        <a href="/cart" className="text-[24px] text-[#2E28D4] font-bold">
+          Миний сагс
+        </a>
+      </div>
+
+      {cartNumber == "0" ? (
+        <div>Сагсанд байраа байхгүй байна</div>
+      ) : (
+        <div>
+          <div className=" h-[552px] mt-[30px]">
+            <PerfectScrollbar>
+              {cartProducts?.map((item, index) => {
+                totalPrice += item.product_price;
+
+                return (
+                  <div className="">
+                    <div className=" w-[492px]  flex justify-between">
+                      <div>
+                        <div className=" text-[#2F3747] font-bold text-[18px]">
+                          {item.product_name}
+                        </div>
+                        <Divider className=" w-[422px] my-[16px]" />
+                        <div className=" flex justify-between">
+                          <div className=" text-[#2F3747] text-[16px] opacity-60">
+                            Тоо ширхэг:
+                          </div>
+                          <div className=" text-[#2F3747] text-[16px] opacity-60">
+                            1 ш
+                          </div>
+                        </div>
+                        <Divider className="my-[16px]" />
+                        <div className=" flex justify-between">
+                          <div className=" text-[#2F3747] text-[16px] opacity-60">
+                            Үнэ:
+                          </div>
+                          <div className=" text-[#2F3747] text-[16px] opacity-60">
+                            {helper.formatValueReverse(item.product_price) +
+                              "₮"}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        className=" cursor-pointer"
+                        onClick={() => onDelete(item.product_id, 1)}
+                      >
+                        <Image preview={false} src="/img/delete.svg" />
+                      </div>
+                    </div>
+                    <Divider className="my-[16px] bg-black bg-opacity-40" />
+                  </div>
+                );
+              })}
+            </PerfectScrollbar>
+          </div>
+          <div className=" mt-[10px] flex justify-between">
+            <div className=" text-[#2F3747] text-[18px] font-bold opacity-60">
+              Захиалгын үнийн дүн
+            </div>
+            <div className="text-[#2F3747] text-[18px] font-bold">
+              {helper.formatValueReverse(totalPrice)}₮
+            </div>
+          </div>
+        </div>
+      )}
+      {/* <Menu.Item className="order" key="0">
+        <div className=" opacity-50 hover:opacity-100 hover: text-[#AC27FD]">
+          <a
+            className=" text-[#2E28D4] text-[14px] font-semibold"
+            href="/order"
+          >
+            <div className="flex items-center">
+              <Image
+                className=""
+                preview={false}
+                width={20}
+                height={20}
+                src="/img/i1.svg"
+              />
+
+              <div className=" ml-[10px] ">Миний захиалга</div>
+            </div>
+          </a>
+        </div>
+      </Menu.Item>
+
+      <Menu.Item className="order2" key="1">
+        <div className=" opacity-50 hover:opacity-100 hover: text-[#AC27FD]">
+          <a className=" text-[#2E28D4]" href="/cart">
+            <div className="flex items-center ">
+              <Image preview={false} width={20} height={20} src="/img/i2.svg" />
+
+              <div className=" ml-[10px]"> Миний сагс</div>
+            </div>
+          </a>
+        </div>
+      </Menu.Item>
+      <Menu.Item className="order2" key="2">
+        <div className=" opacity-50 hover:opacity-100 hover: text-[#AC27FD]">
+          <a className=" text-[#2E28D4]" href="/info">
+            <div className="flex items-center">
+              <Image preview={false} width={20} height={20} src="/img/i3.svg" />
+              <div className=" ml-[10px]">Миний мэдээлэл</div>
+            </div>
+          </a>
+        </div>
+      </Menu.Item>
+
+      <Menu.Item className="order2" key="4">
+        <div className=" opacity-50 hover:opacity-100 ">
+          <div className=" flex">
+            <div className="flex items-center">
+              <Image
+                preview={false}
+                width={20}
+                height={20}
+                src="/img/darkMode.svg"
+              />
+              <div className=" ml-[10px]"> Dark mode</div>
+            </div>
+            <div className=" ml-[21px]">
+              <Switch
+                checked={Auth.getMode() == "dark" ? true : false}
+                onClick={onDarkMode}
+              />
+            </div>
+          </div>
+        </div>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item className="order3 " key="5">
+        <div className=" opacity-50 hover:opacity-100 ">
+          <div onClick={Logout} className="flex items-center">
+            <Image preview={false} width={20} height={20} src="/img/i5.svg" />
+            <div className=" ml-[10px]"> Гарах</div>
+          </div>
+        </div>
+      </Menu.Item> */}
     </Menu>
   );
 
@@ -2705,13 +2902,20 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
               )}
             </ul>
           </div>
-          <div className="flex items-center">
-            <div className="relative cursor-pointer mt-2  mr-4">
-              <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
-                {cartNumber}
+          <div className="flex items-center ">
+            <Dropdown
+              arrow
+              placement="bottomLeft"
+              overlay={cart}
+              trigger={["click"]}
+            >
+              <div className="relative cursor-pointer mt-2  mr-4">
+                <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
+                  {cartNumber}
+                </div>
+                <Image className=" " preview={false} src="/img/cartIcon.svg" />
               </div>
-              <Image className=" " preview={false} src="/img/cartIcon.svg" />
-            </div>
+            </Dropdown>
           </div>
 
           {token === "undefined" || token == null ? (
@@ -2745,6 +2949,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
               </div> */}
               <div className=" cursor-pointer box-border">
                 <Dropdown
+                  arrow
                   placement="bottomRight"
                   overlay={menu}
                   trigger={["click"]}

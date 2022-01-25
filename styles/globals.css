@@ -759,3 +759,29 @@ a {
   color: #2e28d4 !important;
   border: 1px solid #2e28d4 !important;
 }
+.myOrder .ant-tabs-tab-active .ant-tabs-tab-btn {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  color: #2f3747 !important;
+}
+.myOrder .ant-tabs-tab-btn {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  color: #9ca6c0 !important;
+}
+.expandTable .ant-table-tbody {
+  background-color: rgba(46, 40, 212, 0.2);
+  color: #2f3747 !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+.expandTable .ant-table-thead {
+  background-color: rgba(46, 40, 212, 0.5);
+  font-weight: 600 !important;
+  color: #011f70 !important;
+  font-size: 14px !important;
+}
+.components-table-demo-nested .ant-table-row {
+  color: #2f3747 !important;
+  font-weight: 600 !important;
+}
