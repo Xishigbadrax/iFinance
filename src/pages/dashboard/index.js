@@ -17,8 +17,31 @@ const Dashboard = () => {
   const [list, setList] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [serverType, setServerType] = useState([]);
+  const [revert, setRevert] = useState([]);
   const [darkMode, setDarkMode] = useState(null);
+  const [open, setOpen] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
+
+  const onAdd = (item) => {
+    setRevert(item.category_id);
+  };
+  const onMinus = (item) => {
+    setRevert([]);
+  };
+
+  const onChange = (itemIndex) => {
+    if (open.includes(itemIndex)) {
+      for (let i = 0; i < open.length; i++) {
+        if (open[i] === itemIndex) {
+          open.splice(i, 1);
+        }
+      }
+
+      setOpen(open);
+    } else {
+      setOpen((prev) => [...prev, itemIndex]);
+    }
+  };
 
   // console.log(baseUrl + "get/category_list", "baseurl");
   useEffect(async () => {
@@ -101,8 +124,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className=" 2xl:h-[347px] overflow-hidden ">
-
-        <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+          <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
         </div>
       </div>
 
@@ -115,15 +137,47 @@ const Dashboard = () => {
                 <div
                   key={index}
                   onClick={() => onCategory(item.category_id)}
-                  onMouseEnter={() => setIsActive(true)}
-                  onMouseLeave={() => setIsActive(false)}
+                  onMouseEnter={() => onAdd(item)}
+                  onMouseLeave={() => onMinus(item)}
                   className=" relative flex flex-col justify-center items-center md:w-[16.875rem] md:h-[16rem] border-[1px] hover:bg-gradient-to-tr hover: from-[#011F70] to-[#AC27FD]  md:text-[24px] hover:text-white font-semibold rounded-[4px] hover:mt-[-10px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
                 >
-                  <div className={` absolute z-60  bottom-[0rem] right-[1rem] text-[#AC27FD] text-[120px] text-opacity-5 `}>
+                  {revert == item.category_id ? (
+                    <div
+                      className={` absolute z-60  bottom-[0rem] right-[1rem] text-white text-[120px] text-opacity-10 `}
+                    >
+                      {a}
+                    </div>
+                  ) : (
+                    <div
+                      className={` absolute z-60  bottom-[0rem] right-[1rem] text-[#AC27FD] text-[120px] text-opacity-5 `}
+                    >
+                      {a}
+                    </div>
+                  )}
+                  <div
+                    className={` absolute z-60  bottom-[0rem] right-[1rem] text-[#AC27FD] text-[120px] text-opacity-5 `}
+                  >
                     {a}
                   </div>
                   <div className=" bg-white h-[100px] md:w-[100px] flex justify-center items-center rounded-[50px]">
-                    {item.category_image ? (
+                    {revert == item.category_id ? (
+                      item.category_image_inverted == false ? (
+                        <Image
+                          preview={false}
+                          className=" max-w-[80px] max-h-[80px] "
+                          src="/img/default.png"
+                        />
+                      ) : (
+                        <Image
+                          preview={false}
+                          className=""
+                          src={
+                            "data:image/png;base64," +
+                            item.category_image_inverted
+                          }
+                        />
+                      )
+                    ) : item.category_image ? (
                       <Image
                         preview={false}
                         className=""
@@ -155,16 +209,27 @@ const Dashboard = () => {
 
       <div className=" w-full flex flex-col justify-center px-4 mb-[100px]">
         <div className=" flex justify-center">
-          
           <Collapse
             accordion
+            expandIcon={() =>
+              open.includes(0) ? (
+                <div>
+                  {" "}
+                  <Image preview={false} src="/img/plus2.svg" />
+                </div>
+              ) : (
+                <div>
+                  <Image preview={false} className=" " src="/img/plus.svg" />
+                </div>
+              )
+            }
+            onChange={() => onChange(0)}
             expandIconPosition="right"
             // expandIcon={() => (isActive  ? <Image src="/img/plus2.svg" alt="close-info" /> : <Image className="" src="/img/plus.svg" alt="open-info" />)}
             className=" w-[73.125rem] bg-white  border-[#2E28D4]  mb-2"
           >
             <Panel header="АйТүүлс ХХК" key="1" className=" shadow-md">
               <p className=" text-[14px] text-[#9CA6C0]">
-            
                 Сервер байршуулах үйлчилгээ нь дата төвийн үндсэн үйлчилгээнии
                 нэг бөгөөд хэрэглэгчийн бодит сервер төхөөрөмжийг олон улсын
                 стандартад нийцсэн байр талбай, орчин, сүлжээ, цахилгаан тэжээл,
@@ -175,21 +240,40 @@ const Dashboard = () => {
                 төлбөртэй дата төв хайж байгаа бол энэхүү үйлчилгээ танд
                 тохирно.
               </p>
-              <div className=" flex justify-center">
-                <Button
-                  className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
-                  type="primary f"
-                >
-                  Үйлчилгээтэй танилцах
-                </Button>
-              </div>
+              <a
+                href="https://www.itools.mn/hosting/server-bairshuulah/"
+                target={"_blank"}
+              >
+                <div className=" flex justify-center">
+                  <Button
+                    className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
+                    type="primary f"
+                  >
+                    Үйлчилгээтэй танилцах
+                  </Button>
+                </div>
+              </a>
             </Panel>
           </Collapse>
         </div>
         <div className=" flex justify-center">
           <Collapse
             accordion
+            expandIcon={() =>
+              open.includes(1) ? (
+                <div>
+                  {" "}
+                  <Image preview={false} src="/img/plus2.svg" />
+                </div>
+              ) : (
+                <div>
+                  <Image preview={false} className=" " src="/img/plus.svg" />
+                </div>
+              )
+            }
+            onChange={() => onChange(1)}
             expandIconPosition="right"
+            // expandIcon={() => (isActive  ? <Image src="/img/plus2.svg" alt="close-info" /> : <Image className="" src="/img/plus.svg" alt="open-info" />)}
             className=" w-[73.125rem] bg-white  border-[#2E28D4]  mb-2"
           >
             <Panel header="АйКлауд.мн" key="1" className=" shadow-md">
@@ -205,14 +289,16 @@ const Dashboard = () => {
                 Ази, Европ дахь хэрэглэгчдийн тоо огцом өсч байгаа тохиолдолд
                 эрэлтдээ тохируулан нөөц, хүчин чадлаа бүрэн нэмэх боломжтой.
               </p>
-              <div className=" flex justify-center">
-                <Button
-                  className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
-                  type="primary f"
-                >
-                  Үйлчилгээтэй танилцах
-                </Button>
-              </div>
+              <a href="https://cloud.mn/pricing/" target={"_blank"}>
+                <div className=" flex justify-center">
+                  <Button
+                    className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
+                    type="primary f"
+                  >
+                    Үйлчилгээтэй танилцах
+                  </Button>
+                </div>
+              </a>
             </Panel>
           </Collapse>
         </div>

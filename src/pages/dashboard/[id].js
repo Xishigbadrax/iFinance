@@ -176,7 +176,7 @@ const CategoryId = () => {
         <Tabs defaultActiveKey="1" className="angil">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" lg:mt-[20px] ">
-              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center rounded-t-xl">
+              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] xl:flex items-center rounded-t-[4px]">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
                   Ангилал
                 </p>
@@ -216,14 +216,14 @@ const CategoryId = () => {
                                 />
                               )}
                               <div className="ml-[20px]">
-                                <p className=""> {item.product_name} </p>
+                                <p className=" "> {item.product_name} </p>
                               </div>
                             </div>
                           }
                           key={index}
                         >
-                          <div className="xl:w-[770px]   mr-6 xl:mr-0 shadow-custom rounded mb-[40px] px-[30px] pb-[30px] ">
-                            <p className="">{parse(content)} </p>
+                          <div className="xl:w-[770px]   shadow-lg rounded mb-[40px] px-[30px] mr-[20px] pb-[30px] ">
+                            <p className=" ">{parse(content)} </p>
 
                             <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">
@@ -295,9 +295,7 @@ const CategoryId = () => {
                                     src="/img/default.png"
                                   />
                                 )}
-                                <div className="" style={{ fontSize: "12px" }}>
-                                  {item.product_name}
-                                </div>
+                                <div className="">{item.product_name}</div>
                               </div>
                             </div>
                           }
@@ -355,7 +353,7 @@ const CategoryId = () => {
                         <TabPane
                           className="test"
                           tab={
-                            <div className="flex items-center  ">
+                            <div className="flex  items-center  w-[380px] ">
                               {item.product_icon ? (
                                 <Image
                                   className=""
@@ -375,22 +373,19 @@ const CategoryId = () => {
                                   src="/img/default.png"
                                 />
                               )}
-                              <div
-                                className="ml-[22px]"
-                                style={{ fontSize: "12px" }}
-                              >
+                              <div className="ml-[22px]   ">
                                 {item.product_name}
                               </div>
                             </div>
                           }
                           key={index}
                         >
-                          <div className="xl:w-[770px] mr-6  xl:mr-0  shadow-lg rounded mb-[40px]  px-[30px] pb-[30px]">
-                            <div className=" mr-[500px]">{parse(content)} </div>
+                          <div className="xl:w-[770px]   shadow-lg rounded mb-[40px] px-[30px] mr-[20px] pb-[30px] ">
+                            <p className=" ">{parse(content)} </p>
 
                             <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">
-                              <div className="  w-[500px] flex flex-col md:flex-row justify-between">
+                              <div className="  w-full flex flex-col md:flex-row justify-between">
                                 <Button
                                   onClick={
                                     Auth.getToken()

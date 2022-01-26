@@ -340,7 +340,10 @@ a {
     rgba(86, 80, 235, 1),
     rgba(86, 80, 235, 0.3)
   );
-  color: #fff !important;
+  color: white !important;
+}
+.ant-tabs-nav-list .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #2f3747 !important;
 }
 
 .mainTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -668,10 +671,14 @@ a {
 }
 .buyTab .ant-tabs-nav-list {
   width: 100% !important;
+  border: none !important;
+  border-bottom: 1px solid white !important;
 }
 .buyTab .ant-tabs-tab {
   margin: 0 !important;
   width: 50% !important;
+  border-bottom: none !important;
+
   border-radius: 4px !important;
 }
 
@@ -784,4 +791,12 @@ a {
 .components-table-demo-nested .ant-table-row {
   color: #2f3747 !important;
   font-weight: 600 !important;
+}
+
+.module .ant-tabs-content-holder {
+  border: none !important;
+}
+.module .ant-tabs-nav-list {
+  /* box-shadow: 10px 10px grey; */
+  margin-right: 5px !important;
 }

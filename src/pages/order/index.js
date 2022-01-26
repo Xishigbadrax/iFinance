@@ -26,10 +26,11 @@ const Order = () => {
   const [invoices, setInvoices] = useState();
   const [state, setState] = useState();
   const [toggle, setToggle] = useState(1);
-  const [pay, setPay] = useState(false);
+  const [pay, setPay] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [invoice, setInvoice] = useState();
   const [bank, setBank] = useState();
+  const [invoiceId, setInvoiceId] = useState(null);
 
   const data2 = [];
 
@@ -108,6 +109,7 @@ const Order = () => {
         setIsLoading(false);
         if (response?.data?.result) {
           setIsModalVisible(true);
+          setInvoiceId(id);
           setInvoice(response?.data?.result?.invoice);
           setBank(response?.data?.result?.bank);
         } else {
@@ -180,11 +182,7 @@ const Order = () => {
 
       dataIndex: "dun",
       key: "dun",
-      sorter: {
-        compare: (a, b) => a.dun - b.dun,
-
-        // multiple: 2,
-      },
+      sorter: (a, b) => a.system.localeCompare(b.first_name),
       onHeaderCell: () => {
         return {
           onClick: () => setToggle(2),
@@ -344,23 +342,24 @@ text-[14px] font-bold flex justify-center"
         ),
 
       sub: item.invoice_lines,
-      check: pay ? (
-        <Button
-          onClick={() => payPayment(item.invoice_id)}
-          type="primary"
-          className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-        >
-          Төлөх
-        </Button>
-      ) : (
-        <Button
-          onClick={() => checkPayment(item.invoice_id)}
-          type="primary"
-          className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-        >
-          Шалгах
-        </Button>
-      ),
+      check:
+        pay == item.invoice_id ? (
+          <Button
+            onClick={() => payPayment(item.invoice_id)}
+            type="primary"
+            className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+          >
+            Төлөх
+          </Button>
+        ) : (
+          <Button
+            onClick={() => checkPayment(item.invoice_id)}
+            type="primary"
+            className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+          >
+            Шалгах
+          </Button>
+        ),
     });
 
     state?.map((el) => {
@@ -402,13 +401,47 @@ text-[14px] font-bold flex justify-center"
       )
       .then((response) => {
         setIsLoading(false);
-        // console.log(response, "check");
+        console.log(response, "check");
 
         if (response?.data?.result == true) {
           message.success("Төлбөр амжилттай төлөгдсөн");
         } else if (response?.data?.result == false) {
           message.warning("Төлбөр төлөгдөөгүй");
-          setPay(true);
+          setPay(id);
+        } else {
+          message.warning("Нэхэмжлэл олдсонгүй");
+        }
+      });
+  };
+  const checkPay = async () => {
+    setIsLoading(true);
+
+    await axios
+      .post(
+        baseUrl + "check/invoice",
+        {
+          jsonrpc: 2.0,
+          params: {
+            uid: Auth.getUserId(),
+            invoice_id: invoiceId,
+          },
+        },
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + Auth.getToken(),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        setIsLoading(false);
+        console.log(response, "check");
+
+        if (response?.data?.result == true) {
+          message.success("Төлбөр амжилттай төлөгдсөн");
+        } else if (response?.data?.result == false) {
+          message.warning("Төлбөр төлөгдөөгүй");
+          // setPay(id);
         } else {
           message.warning("Нэхэмжлэл олдсонгүй");
         }
@@ -431,23 +464,24 @@ text-[14px] font-bold flex justify-center"
           tuluv: invoices[i].invoice_state,
           sub: invoices[i].invoice_lines,
 
-          check: pay ? (
-            <Button
-              onClick={() => payPayment(invoices[i].invoice_id)}
-              type="primary"
-              className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-            >
-              Төлөх
-            </Button>
-          ) : (
-            <Button
-              onClick={() => checkPayment(item.invoice_id)}
-              type="primary"
-              className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-            >
-              Шалгах
-            </Button>
-          ),
+          check:
+            pay == invoices[i].invoice_id ? (
+              <Button
+                onClick={() => payPayment(invoices[i].invoice_id)}
+                type="primary"
+                className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Төлөх
+              </Button>
+            ) : (
+              <Button
+                onClick={() => checkPayment(invoices[i].invoice_id)}
+                type="primary"
+                className=" ml-2 w-[80px] h-[38px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Шалгах
+              </Button>
+            ),
         });
       }
     }
@@ -455,9 +489,9 @@ text-[14px] font-bold flex justify-center"
     return gg;
   };
 
-  // useEffect(() => {
-  //   console.log(toggle, "togggleee");
-  // }, [toggle]);
+  useEffect(() => {
+    console.log(pay, "togggleee");
+  }, [pay]);
   useEffect(async () => {
     !Auth.getToken() &&
       router.push({
@@ -507,34 +541,43 @@ text-[14px] font-bold flex justify-center"
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
-          <div className=" mt-[20px] ml-[375px] flex justify-between w-[270px]">
-            <div>
-              <Image preview={false} src="/img/home.svg" />
-            </div>
-            <div className="text-white text-[14px] font-semibold">
-              <a href="/" className="text-white text-[14px] font-semibold">
-                Нүүр хуудас
-              </a>
-            </div>
-            <div>
-              <Image preview={false} src="/img/right.svg" />
-            </div>
-            <div className="text-white text-[14px] font-semibold">
-              <a href="/cart" className="text-white text-[14px] font-semibold">
-                Миний захиалгууд
-              </a>
+          <div className=" flex justify-center">
+            <div className=" w-[1100px] ">
+              <div className=" mt-[20px] flex justify-between w-[250px]">
+                <div>
+                  <Image preview={false} src="/img/home.svg" />
+                </div>
+                <div className="text-white text-[14px] font-semibold">
+                  <a href="/" className="text-white text-[14px] font-semibold">
+                    Нүүр хуудас
+                  </a>
+                </div>
+                <div>
+                  <Image preview={false} src="/img/right.svg" />
+                </div>
+                <div className="text-white text-[14px] font-semibold">
+                  <a
+                    href="/order"
+                    className="text-white text-[14px] font-semibold"
+                  >
+                    Миний захиалга
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
+
           <div className="hidden my-auto uppercase xl:flex justify-center items-center text-white h-2/3 text-[36px] font-poppins-semibold">
-            Миний захиалгууд
+            Миний захиалга
           </div>
         </div>
-
-        <Image
-          className=" w-[100vw] h-[100px] md:h-auto scale-150 md:scale-100"
-          preview={false}
-          src="/img/Slider.svg"
-        />
+        <div className="   h-[348px] overflow-hidden">
+          <Image
+            className=" w-[100vw]  md:h-auto scale-150 md:scale-100"
+            preview={false}
+            src="/img/Slider.svg"
+          />
+        </div>
       </div>
 
       <Tabs className="myOrder mb-10" defaultActiveKey="1">
@@ -668,7 +711,7 @@ text-[14px] font-bold flex justify-center"
             </div>
             <div className="flex justify-center mt-[30px]">
               <Button
-                onClick={checkPayment}
+                onClick={checkPay}
                 type="primary"
                 className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
               >
@@ -830,7 +873,7 @@ text-[14px] font-bold flex justify-center"
             </div>
             <div className="flex justify-center mt-[30px]">
               <Button
-                onClick={checkPayment}
+                onClick={checkPay}
                 type="primary"
                 className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
               >
