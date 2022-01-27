@@ -754,27 +754,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         </div>
       </Menu.Item>
 
-      <Menu.Item className="order2" key="4">
-        <div className=" opacity-50 hover:opacity-100 ">
-          <div className=" flex">
-            <div className="flex items-center">
-              <Image
-                preview={false}
-                width={20}
-                height={20}
-                src="/img/darkMode.svg"
-              />
-              <div className=" ml-[10px]"> Dark mode</div>
-            </div>
-            <div className=" ml-[21px]">
-              <Switch
-                checked={Auth.getMode() == "dark" ? true : false}
-                onClick={onDarkMode}
-              />
-            </div>
-          </div>
-        </div>
-      </Menu.Item>
+      <Menu.Item className="order2" key="4"></Menu.Item>
       <Menu.Divider />
       <Menu.Item className="order3 " key="5">
         <div className=" opacity-50 hover:opacity-100 ">
@@ -2802,182 +2782,202 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
       </Modal>
 
       {/* mobile confirm modal */}
-
-      <div className="flex justify-around w-[75rem] h-full m-auto items-center  mt-[-10px]">
-        <div className="z-10">
-          <a href="/">
-            <Image preview={false} src="/img/Logo2.svg" alt="logo" />
-          </a>
-        </div>
-        {sideBarActive ? (
-          <div className=" lg:hidden">
-            <Sidebar
-              userName={userName}
-              isLogin={isLogin}
-              Signup={setMobileSignUp}
-              Login={setMobileLogin}
-              Logout={Logout}
+      <div className=" flex justify-between  w-full items-center ">
+        <div className=" flex items-center ml-4">
+          <div className="flex">
+            <div className=" ml-[10px] text-white font-bold text-[18px]">
+              {" "}
+              Dark mode
+            </div>
+          </div>
+          <div className=" ml-[21px]">
+            <Switch
+              checked={Auth.getMode() == "dark" ? true : false}
+              onClick={onDarkMode}
             />
           </div>
-        ) : (
-          <div
-            onClick={onSideBarActive}
-            className="flex flex-col justify-between h-5 lg:hidden"
-          >
-            <div className=" h-1  bg-white w-6"></div>
-            <div className=" h-1  bg-white w-6"></div>
-            <div className=" h-1  bg-white w-6"></div>
+        </div>
+        <div className="flex justify-between lg:w-[68rem]  2xl:w-[75rem] h-full m-auto items-center  mt-[-10px]   md:mt-0">
+          <div className="z-10">
+            <a href="/">
+              <Image preview={false} src="/img/Logo2.svg" alt="logo" />
+            </a>
           </div>
-        )}
-        <div className="  hidden lg:flex  lg:w-[800px]  lg:justify-between items-center ">
-          <div>
-            <ul className="lg:flex lg:justify-around  lg:w-[550px]  lg:pt-3">
-              {hover == 0 ? (
-                <li className=" text-lg ">
-                  <Link href="/">
-                    <a className="text-white  opacity-100 font-poppins-semibold">
-                      Эхлэл
-                    </a>
-                  </Link>
-                </li>
-              ) : (
-                <li className=" text-lg ">
-                  <Link href="/">
-                    <a className="text-white hover:opacity-100 opacity-50 font-poppins-semibold">
-                      Эхлэл
-                    </a>
-                  </Link>
-                </li>
-              )}
-              {hover == 1 ? (
-                <li className=" text-lg">
-                  <Link href="/dashboard">
-                    <a className=" text-white opacity-100 font-poppins-semibold">
-                      Бүтээгдэхүүн
-                    </a>
-                  </Link>
-                </li>
-              ) : (
-                <li className=" text-lg" onClick={() => setHover(1)}>
-                  <Link href="/dashboard">
-                    <a className=" text-white hover:opacity-100 opacity-50 font-poppins-semibold">
-                      Бүтээгдэхүүн
-                    </a>
-                  </Link>
-                </li>
-              )}
-              {hover == 2 ? (
-                <li className=" text-lg">
-                  <Link href="/pricing">
-                    <a className="  text-white  opacity-100 font-poppins-semibold">
-                      Үнийн санал
-                    </a>
-                  </Link>
-                </li>
-              ) : (
-                <li className=" text-lg">
-                  <Link href="/pricing">
-                    <a className="  text-white hover:opacity-100 opacity-50 font-poppins-semibold">
-                      Үнийн санал
-                    </a>
-                  </Link>
-                </li>
-              )}
-              {hover == 3 ? (
-                <li className=" text-lg">
-                  <Link href="/service">
-                    <a className=" text-[18px]  opacity-100 font-poppins-semibold  text-white ">
-                      Үйлчилгээ
-                    </a>
-                  </Link>
-                </li>
-              ) : (
-                <li className=" text-lg">
-                  <Link href="/service">
-                    <a className=" text-[18px] hover:opacity-100 opacity-50 font-poppins-semibold  text-white ">
-                      Үйлчилгээ
-                    </a>
-                  </Link>
-                </li>
-              )}
-            </ul>
-          </div>
-          <div className="flex items-center ">
-            <Dropdown
-              arrow
-              placement="bottomLeft"
-              overlay={cart}
-              trigger={["click"]}
-            >
-              <div className="relative cursor-pointer mt-2  mr-4">
-                <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
-                  {cartNumber}
-                </div>
-                <Image className=" " preview={false} src="/img/cartIcon.svg" />
-              </div>
-            </Dropdown>
-          </div>
-
-          {token === "undefined" || token == null ? (
-            <div className=" font-semibold lg:w-[200px] lg:flex lg:justify-between ">
-              <div className=" h-[48px]">
-                <Button
-                  onClick={Signup}
-                  className=" font-poppins-semibold mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px]  border-white"
-                  type="primary"
-                >
-                  Бүртгүүлэх
-                </Button>
-              </div>
-              <div>
-                <Button
-                  className="  h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-poppins-semibold"
-                  onClick={Login}
-                  type="primary"
-                >
-                  Нэвтрэх
-                </Button>
-              </div>
+          {sideBarActive ? (
+            <div className=" lg:hidden">
+              <Sidebar
+                userName={userName}
+                isLogin={isLogin}
+                Signup={setMobileSignUp}
+                Login={setMobileLogin}
+                Logout={Logout}
+              />
             </div>
           ) : (
-            <div className="flex items-center">
-              {/* <div className="relative cursor-pointer mt-2  mr-4">
-                <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
-                  {cartNumber}
+            <div
+              onClick={onSideBarActive}
+              className="flex flex-col justify-between h-5 lg:hidden"
+            >
+              <div className=" h-1  bg-white w-6"></div>
+              <div className=" h-1  bg-white w-6"></div>
+              <div className=" h-1  bg-white w-6"></div>
+            </div>
+          )}
+          <div className="  hidden lg:flex  lg:w-[800px]  lg:justify-between items-center ">
+            <div>
+              <ul className="lg:flex lg:justify-around  lg:w-[550px]  lg:pt-3">
+                {hover == 0 ? (
+                  <li className=" text-lg ">
+                    <Link href="/">
+                      <a className="text-white  opacity-100 font-poppins-semibold">
+                        Эхлэл
+                      </a>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className=" text-lg ">
+                    <Link href="/">
+                      <a className="text-white hover:opacity-100 opacity-50 font-poppins-semibold">
+                        Эхлэл
+                      </a>
+                    </Link>
+                  </li>
+                )}
+                {hover == 1 ? (
+                  <li className=" text-lg">
+                    <Link href="/dashboard">
+                      <a className=" text-white opacity-100 font-poppins-semibold">
+                        Бүтээгдэхүүн
+                      </a>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className=" text-lg" onClick={() => setHover(1)}>
+                    <Link href="/dashboard">
+                      <a className=" text-white hover:opacity-100 opacity-50 font-poppins-semibold">
+                        Бүтээгдэхүүн
+                      </a>
+                    </Link>
+                  </li>
+                )}
+                {hover == 2 ? (
+                  <li className=" text-lg">
+                    <Link href="/pricing">
+                      <a className="  text-white  opacity-100 font-poppins-semibold">
+                        Үнийн санал
+                      </a>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className=" text-lg">
+                    <Link href="/pricing">
+                      <a className="  text-white hover:opacity-100 opacity-50 font-poppins-semibold">
+                        Үнийн санал
+                      </a>
+                    </Link>
+                  </li>
+                )}
+                {hover == 3 ? (
+                  <li className=" text-lg">
+                    <Link href="/service">
+                      <a className=" text-[18px]  opacity-100 font-poppins-semibold  text-white ">
+                        Үйлчилгээ
+                      </a>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className=" text-lg">
+                    <Link href="/service">
+                      <a className=" text-[18px] hover:opacity-100 opacity-50 font-poppins-semibold  text-white ">
+                        Үйлчилгээ
+                      </a>
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
+            <div className="flex items-center ">
+              <Dropdown
+                arrow
+                placement="bottomLeft"
+                overlay={cart}
+                trigger={["click"]}
+              >
+                <div className="relative cursor-pointer mt-2  mr-4">
+                  <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
+                    {cartNumber}
+                  </div>
+                  <Image
+                    className=" "
+                    preview={false}
+                    src="/img/cartIcon.svg"
+                  />
                 </div>
-                <Image className=" " preview={false} src="/img/cartIcon.svg" />
-              </div> */}
-              <div className=" cursor-pointer box-border">
-                <Dropdown
-                  arrow
-                  placement="bottomRight"
-                  overlay={menu}
-                  trigger={["click"]}
-                >
-                  <div>
-                    <div className=" flex cursor-pointer box-border items-center   w-[200px] h-[48px]   justify-center rounded-[60px] bg-white">
-                      <div className=" flex mt-1">
-                        <div className=" mr-[10px]">
-                          <Image
-                            className=""
-                            width={30}
-                            height={30}
-                            preview={false}
-                            src="/img/profile.svg"
-                          />
-                        </div>
-                        <div className="text-[14px] text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] font-semibold ml-1 pt-1 font-sans uppercase">
-                          {Auth.getName()}
+              </Dropdown>
+            </div>
+
+            {token === "undefined" || token == null ? (
+              <div className=" font-semibold lg:w-[200px] lg:flex lg:justify-between ">
+                <div className=" h-[48px]">
+                  <Button
+                    onClick={Signup}
+                    className=" font-poppins-semibold mr-5 h-[48px] w-[145px] rounded-[43px]  bg-transparent text-white text-[14px]  border-white"
+                    type="primary"
+                  >
+                    Бүртгүүлэх
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    className="  h-[48px] w-[145px] rounded-[43px] bg-white border-none text-[#2E28D4] text-[14px] font-poppins-semibold"
+                    onClick={Login}
+                    type="primary"
+                  >
+                    Нэвтрэх
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                {/* <div className="relative cursor-pointer mt-2  mr-4">
+               <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
+                 {cartNumber}
+               </div>
+               <Image className=" " preview={false} src="/img/cartIcon.svg" />
+             </div> */}
+                <div className=" cursor-pointer box-border">
+                  <Dropdown
+                    arrow
+                    placement="bottomRight"
+                    overlay={menu}
+                    trigger={["click"]}
+                  >
+                    <div>
+                      <div className=" flex cursor-pointer box-border items-center   w-[200px] h-[48px]   justify-center rounded-[60px] bg-white">
+                        <div className=" flex mt-1">
+                          <div className=" mr-[10px]">
+                            <Image
+                              className=""
+                              width={30}
+                              height={30}
+                              preview={false}
+                              src="/img/profile.svg"
+                            />
+                          </div>
+                          <div className="text-[14px] text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] font-semibold ml-1 pt-1 font-sans uppercase">
+                            {Auth.getName()}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Dropdown>
+                  </Dropdown>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
+
       <Modal
         visible={messageShow}
         title="Мэдээлэл"

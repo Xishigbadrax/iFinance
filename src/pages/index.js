@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "../../styles/Home.module.css";
 import NavbarTrans from "../components/NavbarTrans";
 import Auth from "../utils/auth";
@@ -13,6 +13,7 @@ import {
   Input,
   Checkbox,
   Select,
+  message,
 } from "antd";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -21,10 +22,12 @@ import "slick-carousel/slick/slick-theme.css";
 import Head from "next/head";
 import { theme } from "../../tailwind.config";
 import axios from "axios";
+import Context from "../context/Context";
 
 export default function Home() {
   const { TextArea } = Input;
   const { Option } = Select;
+  const { setIsLoading } = useContext(Context);
   const [onhover, setOnHover] = useState(false);
   const [onhover2, setOnHover2] = useState(false);
   const [onhover3, setOnHover3] = useState(false);
@@ -53,7 +56,7 @@ export default function Home() {
       {
         breakpoint: 1900,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: 6,
           slidesToScroll: 1,
           infinite: true,
           dots: false,
@@ -118,6 +121,7 @@ export default function Home() {
     setDemoModal(true);
   };
   const onFinishDemo = async (values) => {
+    setIsLoading(true);
     // console.log("Success:", values);
     const res = await axios.post(
       baseUrl + "set/demo",
@@ -143,8 +147,11 @@ export default function Home() {
         },
       }
     );
-
+    setIsLoading(false);
     // console.log(res, "demo res");
+    res?.data?.result && window.open(res?.data?.result, "_blank").focus();
+    handleCancel();
+    message.success("Амжилттай");
   };
 
   // useEffect(() => {
@@ -244,7 +251,7 @@ export default function Home() {
             <Image
               className="w-[100vw]"
               preview={false}
-              src="/img/newSilder.svg"
+              src="/img/realSilder.svg"
             />
           )}
         </div>
@@ -356,7 +363,7 @@ export default function Home() {
           </div>
           <div className=" w-full ">
             <div className=" flex justify-center ">
-              <div className=" w-[250px]  lg:w-[65vw] max-w-[1200px]">
+              <div className=" w-[250px]  lg:w-[85vw] max-w-[1200px]">
                 <Slider className=" " {...settings}>
                   <div className=" p-5">
                     <div className="  xl:w-[170px] h-[184px] dark:bg-[#1D3888] rounded-[8px]  bg-white shadow-lg   flex flex-col justify-center items-center">
@@ -686,7 +693,7 @@ export default function Home() {
             </div>
           </div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" max-w-[1920px]  w-[300px]  flex flex-col xl:flex-row xl:w-[70vw] justify-between">
+            <div className=" max-w-[1220px]  w-[300px]  flex flex-col xl:flex-row xl:w-[70vw] justify-between">
               <div className="  ">
                 <div className="flex justify-center md:justify-start">
                   <Image preview={false} src="/img/app.svg" />
@@ -759,7 +766,7 @@ export default function Home() {
       </div>
       <div className=" dark:bg-[#08194B]">
         <div className=" w-full flex justify-center pt-[100px] pb-[100px]">
-          <div className=" dark:bg-[#101C66] h-[600px] md:h-auto max-w-[1920px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[90vw] xl:w-[65vw] w-full xl:h-[228px] items-center bg-[#2E28D4]  bg-opacity-5 xl:items-center lg:items-start justify-around">
+          <div className=" dark:bg-[#101C66] h-[600px] md:h-auto max-w-[1250px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[90vw] xl:w-[65vw] w-full xl:h-[228px] items-center bg-[#2E28D4]  bg-opacity-5 xl:items-center lg:items-start justify-around">
             <div className=" flex justify-center">
               <div>
                 <div className=" text-[48px] text-[#F01A63] font-bold dark:text-white">
@@ -929,6 +936,7 @@ export default function Home() {
                     ]}
                   >
                     <Input
+                      maxLength={30}
                       className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Овог*"
@@ -948,6 +956,7 @@ export default function Home() {
                   >
                     <Input
                       className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
+                      maxLength={30}
                       id="normal_signup_name"
                       placeholder="Нэр*"
                     />
@@ -1002,6 +1011,7 @@ export default function Home() {
                     <Input
                       className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
+                      maxLength={50}
                       placeholder="Байгууллагын нэр*"
                     />
                   </Form.Item>
@@ -1018,7 +1028,7 @@ export default function Home() {
                     ]}
                   >
                     <MaskedInput
-                      mask="111111"
+                      mask="1111111"
                       className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Байгууллагын регистэр*"

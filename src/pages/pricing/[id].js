@@ -385,7 +385,7 @@ const Pricing = ({ id }) => {
         Худалдан авах
       </div> */}
       <div className=" md:fixed z-30 h-[100px] flex  overflow-hidden">
-        <div className="absolute z-30  flex flex-col w-full h-full">
+        <div className="absolute z-30  flex flex-col w-full h-[100px]">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans />
           </div>
@@ -507,7 +507,7 @@ const Pricing = ({ id }) => {
                               <div className="flex  justify-end">
                                 <div className="flex w-[100px] items-center">
                                   <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                    -{item.product_discount}% off
+                                    -{item.product_discount}%
                                   </div>
 
                                   <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
@@ -573,7 +573,7 @@ const Pricing = ({ id }) => {
                               <div className="flex  justify-end">
                                 <div className="flex w-[100px] items-center">
                                   <div className=" flex justify-center w-[100px] h-[24px] bg-[#F01A634D] bg-opacity-30 ml-[10px]  mt-5 text-[#F01A63] text-[13px] items-center font-medium">
-                                    -{item.product_discount}% off
+                                    -{item.product_discount}%
                                   </div>
 
                                   <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
@@ -672,7 +672,7 @@ const Pricing = ({ id }) => {
                       </p>
                     </div>
                   </div>
-                  <div className=" flex justify-center mt-[30px]">
+                  <div className=" flex justify-center mt-[30px] pb-4 lg:pb-0">
                     {sid ? (
                       <Button
                         className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
@@ -923,7 +923,7 @@ const Pricing = ({ id }) => {
                       disabled={serverState2 || serverState3 ? true : false}
                       defaultValue="Сонгох"
                       // style={{ width: 300 }}
-                      className=" w-[300px] lg:w-[330px]"
+                      className=" w-[280px] lg:w-[330px]"
                       allowClear
                       onChange={handleChange}
                     >
@@ -991,7 +991,7 @@ const Pricing = ({ id }) => {
                       defaultValue="Сонгох"
                       // style={{ width: 300 }}
                       allowClear
-                      className=" w-[300px] xl:w-[330px]"
+                      className=" w-[280px] xl:w-[330px]"
                       onChange={handleChange2}
                     >
                       {cloudServer?.map((item, index) => {

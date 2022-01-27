@@ -79,7 +79,7 @@ const CategoryId = () => {
       res.data.result &&
         setCategoryName(res.data.result.main_products[0]?.product_category);
     setIsLoading(false);
-    console.log(res.data.result, "medeenuud");
+    // console.log(res.data.result, "medeenuud");
   };
 
   const onDetails = (id) => {
@@ -97,13 +97,13 @@ const CategoryId = () => {
   }, [id]);
 
   return (
-    <div>
+    <div className="">
       <Head>
         <title>iFinance | Танилцуулга</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
-        <div className="absolute z-30  flex flex-col w-full h-full">
+        <div className="absolute z-10  flex flex-col w-full  ">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans
               cartLogin={cartLogin}
@@ -117,7 +117,7 @@ const CategoryId = () => {
           </div> */}
         </div>
         <Image
-          className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto"
+          className="w-[100vw] h-[100px] scale-150 my-auto  lg:h-auto"
           preview={false}
           src="/img/Slider.svg"
         />
@@ -131,13 +131,13 @@ const CategoryId = () => {
           return <doshoo item= {item}/>
         }) */}
       </div>
-      <div className="  relative ">
-        <div className="xl:absolute z-20   flex flex-col w-full md:h-[200px] 2xl:h-[260px] justify-center mt-[90px] ">
+      <div className="  relative   ">
+        <div className="xl:absolute z-20    flex flex-col w-full md:h-[200px] 2xl:h-[260px] justify-center mt-[90px] ">
           <div className=" mt-[20px] 2xl:ml-[20vw] md:ml-[7vw]  lg:flex justify-between w-[450px] hidden">
             <div>
               <Image preview={false} src="/img/home.svg" />
             </div>
-            <div className="text-white text-[14px] font-semibold">
+            <div className="text-white text-[14px] font-semibold ">
               <a href="/" className="text-white text-[14px] font-semibold">
                 Нүүр хуудас
               </a>
@@ -156,14 +156,15 @@ const CategoryId = () => {
             <div>
               <Image preview={false} src="/img/right.svg" />
             </div>
-            <div className="text-white text-[14px] font-semibold">
+            <div className="text-white  text-[14px] font-semibold">
               {categoryName}
             </div>
           </div>
-          <div className=" text-center 2xl:pl-[20vw]   md:pl-[7vw] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white  text-[36px] font-semibold">
+          <div className=" text-center 2xl:pl-[20vw]    md:pl-[7vw] text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white  text-[36px] font-semibold">
             {categoryName}
           </div>
         </div>
+
         <Image
           className=" hidden lg:flex w-[100vw] mt-[100px]"
           preview={false}
@@ -172,7 +173,7 @@ const CategoryId = () => {
           }
         />
       </div>
-      <div className=" 2xl:pl-[200px]  z-10  mb-[20px] dark:bg-[#08194B] ">
+      <div className=" 2xl:pl-[200px]  z-10  mb-[20px] dark:bg-[#08194B]  ">
         <Tabs defaultActiveKey="1" className="angil">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" lg:mt-[20px] ">
@@ -195,7 +196,7 @@ const CategoryId = () => {
                         <TabPane
                           className="test"
                           tab={
-                            <div className="flex items-center  ">
+                            <div className="flex  items-center  ">
                               {item.product_icon ? (
                                 <Image
                                   className=""
@@ -215,7 +216,7 @@ const CategoryId = () => {
                                   src="/img/default.png"
                                 />
                               )}
-                              <div className="ml-[20px]">
+                              <div className="ml-2 text-[15px] mt-4">
                                 <p className=" "> {item.product_name} </p>
                               </div>
                             </div>
@@ -265,7 +266,7 @@ const CategoryId = () => {
                     })}
                 </Tabs>
               </div>
-              <div className=" lg:hidden">
+              <div className=" lg:hidden ">
                 <Tabs className="module" tabPosition="top">
                   {mainProduct &&
                     mainProduct.map((item, index) => {
@@ -338,7 +339,7 @@ const CategoryId = () => {
           </TabPane>
           <TabPane className="mainTab" tab="Нэмэлт модуль" key="2">
             <div className=" mt-[20px] ">
-              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] lg:flex items-center  rounded-t-xl ">
+              <div className="hidden bg-gradient-to-tr from-[#2E28D4] xl:ml-[5px] to-[#AC27FD] w-[375px] h-[48px] lg:flex items-center  rounded-t-[4px] ">
                 <p className=" pl-[24px] text-[18px] pt-[12px] text-white mb-2">
                   Ангилал
                 </p>
@@ -353,7 +354,7 @@ const CategoryId = () => {
                         <TabPane
                           className="test"
                           tab={
-                            <div className="flex  items-center  w-[380px] ">
+                            <div className="flex  items-center   w-[380px] ">
                               {item.product_icon ? (
                                 <Image
                                   className=""
@@ -373,7 +374,7 @@ const CategoryId = () => {
                                   src="/img/default.png"
                                 />
                               )}
-                              <div className="ml-[22px]   ">
+                              <div className=" w-[250px] ml-2  text-[15px] flex justify-start ">
                                 {item.product_name}
                               </div>
                             </div>
@@ -414,14 +415,14 @@ const CategoryId = () => {
               </div>
               <div className=" xl:hidden">
                 <Tabs className="module" tabPosition="top">
-                  {mainProduct &&
-                    mainProduct.map((item, index) => {
+                  {additionalProduct &&
+                    additionalProduct.map((item, index) => {
                       return (
                         <TabPane
                           className="test"
                           tab={
                             <div className="flex items-center  ">
-                              {
+                              {item.product_icon ? (
                                 <Image
                                   className=""
                                   preview={false}
@@ -431,7 +432,15 @@ const CategoryId = () => {
                                     "data:image/png;base64," + item.product_icon
                                   }
                                 />
-                              }
+                              ) : (
+                                <Image
+                                  className=""
+                                  preview={false}
+                                  width="48px"
+                                  height="48px"
+                                  src="/img/default.png"
+                                />
+                              )}
                               <div
                                 className="ml-[22px]"
                                 style={{ fontSize: "12px" }}
