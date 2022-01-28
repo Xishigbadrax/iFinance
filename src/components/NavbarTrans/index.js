@@ -65,6 +65,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   const [cartNumber, setCartNumber] = useState(0);
   const [timer, setTimer] = useState(10000);
   const [badTimer, setBadTimer] = useState(false);
+  const [news, setNews] = useState([]);
 
   // console.log(Auth.loggedIn(), "token status");
   // console.log(Auth.getToken(), "tokenii utga");
@@ -255,7 +256,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
       }
     );
     setCartProducts(res.data.result.products);
-    console.log(res, "sd");
+    // console.log(res, "sd");
     setCartNumber(res.data.result.products?.length);
   }, [cartRefresh]);
 
@@ -445,6 +446,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   };
 
   const onForgotConFirm = async () => {
+    setIsLoading(true);
     await axios
       .post(
         baseUrl + "user/reset_password/confirm",
@@ -452,7 +454,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
           jsonrpc: 2.0,
           params: {
             email: forgotEmailValue,
-            code: confirmCode,
+            code: forgotConfirmCode,
             password: newPass,
             password_confirm: newPassConfirm,
           },
@@ -466,6 +468,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         }
       )
       .then((response) => {
+        setIsLoading(false);
         console.log(response, "last forgot res");
         response?.data?.result == true &&
           message.success("Амжилттай") & handleCancel();
@@ -2783,10 +2786,9 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
 
       {/* mobile confirm modal */}
       <div className=" flex justify-between  w-full items-center ">
-        <div className=" flex items-center ml-4">
+        <div className=" lg:flex items-center ml-4 hidden">
           <div className="flex">
             <div className=" ml-[10px] text-white font-bold text-[18px]">
-              {" "}
               Dark mode
             </div>
           </div>
@@ -2794,10 +2796,11 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
             <Switch
               checked={Auth.getMode() == "dark" ? true : false}
               onClick={onDarkMode}
+              register
             />
           </div>
         </div>
-        <div className="flex justify-between lg:w-[68rem]  2xl:w-[75rem] h-full m-auto items-center  mt-[-10px]   md:mt-0">
+        <div className="flex justify-around lg:justify-between lg:w-[68rem] w-full 2xl:w-[75rem] h-full m-auto items-center  mt-[-10px]   md:mt-0">
           <div className="z-10">
             <a href="/">
               <Image preview={false} src="/img/Logo2.svg" alt="logo" />

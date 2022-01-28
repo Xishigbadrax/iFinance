@@ -32,12 +32,12 @@ const Aboutus = () => {
         <h1 className="flex justify-center text-[24px] font-bold">
           Захиралын мэндчилгээ
         </h1>
-        <div className=" flex justify-center">
+        <div className=" flex justify-center flex-col lg:flex-row">
           <div>
             <Image preview={false} src="/img/a1.png" />
           </div>
-          <div className=" w-[770px] ml-[30px]">
-            <div className=" text-[16px] text-[#2F3747] opacity-60 h-[440px] leading-10 ">
+          <div className=" w-[] lg:w-[770px] ml-[30px]">
+            <div className=" text-[16px] text-[#2F3747] opacity-60 lg:h-[440px]  leading-10 ">
               Class aptent taciti sociosqu ad litora torquent per conubia nostra
               per inceptos himenaeos mauris in erat justo nullam ac urna felis
               dapibus condimentum sit amet augue sed non. Neque elit sed utir
@@ -53,7 +53,7 @@ const Aboutus = () => {
               neque porro quisquam est, qui dolorem ipsum ipsum velit nam nec
               tellus tincidunt auctor ornare odio sed non consequat auctor.
             </div>
-            <div className="flex justify-between text-[24px] font-bold">
+            <div className="flex justify-between text-[24px] font-bold flex-col lg:flex-row">
               <div>Гүйцэтгэх захирал</div>
               <div>Э. Хишигбадрах</div>
             </div>
@@ -64,8 +64,8 @@ const Aboutus = () => {
         <div className="text-[#2F3747] text-[24px] font-bold pt-[80px]">
           Бидний зарчим
         </div>
-        <div className=" flex mt-[40px] pb-[100px] ">
-          <div className=" w-[370px]  h-[289px] hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] cursor-pointer hover:text-white bg-white flex flex-col justify-center items-center rounded-[4px] shadow-lg">
+        <div className=" flex mt-[40px] pb-[100px] flex-col lg:flex-row  ">
+          <div className="  w-[340px]  lg:w-[370px]  h-[289px] hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] cursor-pointer hover:text-white bg-white flex flex-col justify-center items-center rounded-[4px] shadow-lg">
             <div>
               <Image preview={false} src="/img/unet.svg" />
             </div>
@@ -75,7 +75,7 @@ const Aboutus = () => {
               Scelerisque viverra diam non nisl vel.
             </div>
           </div>
-          <div className=" w-[370px]  h-[289px] hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] cursor-pointer hover:text-white bg-white flex flex-col justify-center items-center rounded-[4px] shadow-lg mx-[30px]">
+          <div className="  lg:w-[370px]  h-[289px] hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] cursor-pointer hover:text-white bg-white flex flex-col justify-center items-center rounded-[4px] shadow-lg my-[30px] lg:my-0 lg:mx-[30px]">
             <div>
               <Image preview={false} src="/img/unet2.svg" />
             </div>
@@ -85,7 +85,7 @@ const Aboutus = () => {
               Scelerisque viverra diam non nisl vel.
             </div>
           </div>
-          <div className=" w-[370px]  h-[289px] hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] cursor-pointer hover:text-white bg-white flex flex-col justify-center items-center rounded-[4px] shadow-lg ">
+          <div className="  lg:w-[370px]  h-[289px] hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] cursor-pointer hover:text-white bg-white flex flex-col justify-center items-center rounded-[4px] shadow-lg ">
             <div>
               <Image preview={false} src="/img/unet3.svg" />
             </div>
@@ -101,11 +101,11 @@ const Aboutus = () => {
         <div className="text-[#2F3747] text-[24px] font-bold pt-[80px]">
           Баг хамт олон
         </div>
-        <div className="flex mt-[40px]">
+        <div className="flex mt-[40px] flex-col lg:flex-row">
           <div>
             <Image preview={false} src="/img/unet4.svg" />
           </div>
-          <div className=" text-[16px] text-[#2F3747] opacity-60 w-[370px] leading-9 ml-[30px] ">
+          <div className=" text-[16px] text-[#2F3747] opacity-60 lg:w-[370px] leading-9 ml-[30px] ">
             Class aptent taciti sociosqu ad litora torquent per conubia nostra
             per inceptos himenaeos mauris in erat justo nullam ac urna felis
             dapibus condimentum sit amet augue sed non. Neque elit sed utir
@@ -122,7 +122,7 @@ const Aboutus = () => {
         <div className="text-[#2F3747] text-[24px] font-bold pt-[80px]">
           Баг хамт олон
         </div>
-        <div className=" grid grid-cols-4 gap-4 mt-[40px]">
+        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-[40px]">
           <div className=" w-[270px] h-[360px] relative">
             <div>
               <Image preview={false} src="/img/unet5.svg" />

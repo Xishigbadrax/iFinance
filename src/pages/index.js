@@ -35,6 +35,7 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(null);
   const [country, setCountry] = useState(null);
   const [lang, setLang] = useState(null);
+  const [news, setNews] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
 
   const contentStyle = {
@@ -181,8 +182,26 @@ export default function Home() {
     // console.log(res, "lang res");
     setCountry(res?.data?.result?.country_list);
     setLang(res?.data?.result?.lang_list);
+
+    const res2 = await axios.post(
+      baseUrl + "get/news/less",
+      {
+        jsonrpc: 2.0,
+        params: {},
+      },
+
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setNews(res2?.data?.result.slice(0, 3));
+    console.log(res2, "medee");
   }, []);
 
+  console.log(news, "test");
   // useEffect(() => {
   //   console.log(country);
   // },[country])
@@ -693,17 +712,20 @@ export default function Home() {
             </div>
           </div>
           <div className=" w-full flex justify-center mt-[40px]">
-            <div className=" max-w-[1220px]  w-[300px]  flex flex-col xl:flex-row xl:w-[70vw] justify-between">
-              <div className="  ">
-                <div className="flex justify-center md:justify-start">
-                  <Image preview={false} src="/img/app.svg" />
+            <div className=" max-w-[1220px]  w-[300px]  flex flex-col xl:flex-row xl:w-[70vw] justify-between ">
+              <div className=" flex flex-col justify-between  h-[300px]">
+                <div className="  ">
+                  <div className="flex justify-center md:justify-start">
+                    <Image preview={false} src="/img/app.svg" />
+                  </div>
+                  <p className=" dark:text-white text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center md:justify-start">
+                    Андройд гар утасны апп
+                  </p>
+                  <p className=" dark:text-white dark:opacity-60 text-[#2F3747] text-justify text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
+                    Андройд үйлдлийн системд ажиллах гар утасны аппликейшин
+                    татах.
+                  </p>
                 </div>
-                <p className=" dark:text-white text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center md:justify-start">
-                  Андройд гар утасны апп
-                </p>
-                <p className=" dark:text-white dark:opacity-60 text-[#2F3747] text-justify text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
-                  Андройд үйлдлийн системд ажиллах гар утасны аппликейшин татах.
-                </p>
                 <div className=" flex justify-center mt-[40px] md:justify-start">
                   <a
                     target="_blank"
@@ -718,49 +740,109 @@ export default function Home() {
                 </div>
               </div>
               <div className=" my-10 xl:mt-0">
-                <div className="flex justify-center md:justify-start">
-                  <Image preview={false} src="/img/ifin.svg" />
-                </div>
-                <p className=" dark:text-white text-[#2F3747] text-[18px] font-bold mt-[24px] w-[300px] flex justify-center ">
-                  SaaS болон Cloud суурьтай програм хангамж
-                </p>
-                <p className=" dark:text-white dark:opacity-60 text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
-                  SaaS болон Cloud програм хангамжийн танилцуулга харах.
-                </p>
-                <div className=" flex justify-center mt-[40px] md:justify-start">
-                  <a target="_blank" href="https://ifinance.mn">
-                    {darkMode == "dark" ? (
-                      <Image preview={false} src="/img/darkApp2.svg" />
-                    ) : (
-                      <Image preview={false} src="/img/ifin1.svg" />
-                    )}
-                  </a>
+                <div className=" h-[300px] justify-between flex flex-col ">
+                  <div>
+                    <div className="flex justify-center md:justify-start">
+                      <Image preview={false} src="/img/ifin.svg" />
+                    </div>
+                    <p className=" dark:text-white text-[#2F3747] text-[18px] font-bold mt-[24px] w-[300px] flex justify-center ">
+                      SaaS болон Cloud суурьтай програм хангамж
+                    </p>
+                    <p className=" dark:text-white dark:opacity-60 text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
+                      SaaS болон Cloud програм хангамжийн танилцуулга харах.
+                    </p>
+                  </div>
+                  <div>
+                    <div className=" flex justify-center mt-[40px] md:justify-start">
+                      <a target="_blank" href="https://ifinance.mn">
+                        {darkMode == "dark" ? (
+                          <Image preview={false} src="/img/darkApp2.svg" />
+                        ) : (
+                          <Image preview={false} src="/img/ifin1.svg" />
+                        )}
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div>
-                <div className="flex justify-center md:justify-start">
-                  <Image preview={false} src="/img/play.svg" />
-                </div>
-                <p className=" dark:text-white flex justify-center  text-[#2F3747] text-[18px] font-bold mt-[24px] md:justify-start">
-                  IOS гар утасны апп
-                </p>
-                <p className=" dark:text-white dark:opacity-60 text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
-                  IOS үйлдлийн системд ажиллах гар утасны аппликейшин татах.
-                </p>
-                <div className=" flex justify-center mt-[40px] md:justify-start">
-                  <a
-                    target="_blank"
-                    href="https://apps.apple.com/us/app/odoo/id1272543640"
-                  >
-                    {darkMode == "dark" ? (
-                      <Image preview={false} src="/img/darkApp3.svg" />
-                    ) : (
-                      <Image preview={false} src="/img/play1.svg" />
-                    )}
-                  </a>
+                <div className=" h-[300px] justify-between flex flex-col">
+                  <div>
+                    <div className="flex justify-center md:justify-start">
+                      <Image preview={false} src="/img/play.svg" />
+                    </div>
+                    <p className=" dark:text-white flex justify-center  text-[#2F3747] text-[18px] font-bold mt-[24px] md:justify-start">
+                      IOS гар утасны апп
+                    </p>
+                    <p className=" dark:text-white dark:opacity-60 text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
+                      IOS үйлдлийн системд ажиллах гар утасны аппликейшин татах.
+                    </p>
+                  </div>
+                  <div>
+                    <div className=" flex justify-center mt-[40px] md:justify-start">
+                      <a
+                        target="_blank"
+                        href="https://apps.apple.com/us/app/odoo/id1272543640"
+                      >
+                        {darkMode == "dark" ? (
+                          <Image preview={false} src="/img/darkApp3.svg" />
+                        ) : (
+                          <Image preview={false} src="/img/play1.svg" />
+                        )}
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className=" dark:bg-[#08194B]">
+        <div className=" flex items-center justify-center pt-[80px]">
+          <div className=" bg-[#2E28D4] h-[1px] w-[48px] "></div>
+          <div className="text-[#2E28D4] text-[11px] font-semibold mx-[16px] dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-tr from-[#3C8CE7] to-[#00EAFF] ">
+            07 Байгууллагын давуу тал
+          </div>
+          <div className=" bg-[#2E28D4] h-[1px] w-[48px]"></div>
+        </div>
+        <div className=" flex justify-center">
+          <div className=" text-center dark:text-white w-[300px] md:w-auto xl:w-auto text-[#2F3747] text-[24px] font-bold flex justify-center">
+            Санхүүгийн мэдээ мэдээлэл
+          </div>
+        </div>
+        <div className=" w-full justify-center flex mt-[40px] ">
+          <div className=" grid lg:grid-cols-3 grid-cols-1 gap-4 w-[1170px]">
+            {news?.map((item, index) => {
+              return (
+                <div className="  w-[370px] flex flex-col  items-center cursor-pointer dark:hover:bg-[#2E28D4] dark:hover:bg-opacity-20 hover:shadow-lg pb-[24px] rounded-[8px]">
+                  <div className=" w-[370px] flex flex-col h-[265px]  items-center  relative">
+                    <div className=" ">
+                      {/* <Image preview={false} src="/img/testNews.svg" /> */}
+                      <Image
+                        className=" rounded-[8px]"
+                        preview={false}
+                        src={"data:image/png;base64," + item.news_image}
+                      />
+                    </div>
+                    <div className=" flex justify-center items-center absolute bottom-0 w-[175px] h-[40px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-[20px] ">
+                      <div className=" mt-1">
+                        <Image preview={false} src="/img/timer.svg" />
+                      </div>
+                      <div className=" ml-[10px] text-white">
+                        {item.created_date}
+                      </div>
+                    </div>
+                  </div>
+                  <div className=" text-[#2F3747] text-[18px] font-bold w-[322px] dark:text-white">
+                    {item.title}
+                  </div>
+                  <div className=" text-[#2F3747] text-[16px] w-[322px] mt-[16px] opacity-60 dark:text-white">
+                    {item.content_less}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

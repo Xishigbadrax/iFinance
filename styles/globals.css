@@ -795,3 +795,25 @@ a {
   /* box-shadow: 10px 10px grey; */
   margin-right: 5px !important;
 }
+/* .slick-prev:before {
+  content: url("/img/arrow2.svg") !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border: 1px solid black !important;
+  margin-left: -10px !important;
+}
+.slick-next:before {
+  content: url("/img/arrow.svg") !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border: 1px solid black !important;
+  margin-left: -10px !important;
+} */
