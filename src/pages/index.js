@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Fragment } from "react";
 import styles from "../../styles/Home.module.css";
 import NavbarTrans from "../components/NavbarTrans";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
 import { MaskedInput } from "antd-mask-input";
+import { Transition } from "@headlessui/react";
 import {
   Button,
   Image,
@@ -35,8 +36,49 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(null);
   const [country, setCountry] = useState(null);
   const [lang, setLang] = useState(null);
+  const [test, setTest] = useState(1);
+  const [slideLength, setSlideLength] = useState(null);
   const [news, setNews] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const [isShowing, setIsShowing] = useState(false);
+
+  const slideContent = [
+    {
+      id: 1,
+      name: "Технологийн дэвшлийг таньд мэдрүүлнэ",
+      description:
+        " Технологийн дэвшилтэт эрин зуунд танай байгууллагын дотоод системийг хийж гүйцэтгэхээс гадна Финтек шилжилтрүү хөтлөн авч орох болно. Сүүлийн үеийн тренд болсо н lend.mn, storepay.mn, pocket.mn гэх мэт санхүүгийн үйл ажиллагааг  технологийн тусламжтайгаар өдөр тутмын үйл ажиллагаандаа хэрэгжүүлэх боломжийг таньд олгоно. Та санаагаа захиал. Бид гүйцэлдүүлэе.",
+      image: "/img/z1.svg",
+    },
+    {
+      id: 2,
+      name: " Мэргэжлийн тусламж үйлчилгээ",
+      description:
+        "Санхүү болон технологийн салбарт дор хаяж 3-5 жилийн туршлагатай мэргэжилтнүүд таньд тулгарсан асуудал, хэрэгтэй шийдлийг хэлэлцэж, асуудлыг шийдвэрлэнэ.",
+      image: "/img/z2.svg",
+    },
+    {
+      id: 3,
+      name: "	Харилцагч та илүү зардалгүй ",
+      description:
+        " Танай байгууллага програм байршуулах сервер худалдаж авах, IT-н ажилтан, алба хэлтэс ажиллуулах гэх мэт толгой өвтгөсөн илүү зардал гаргах шаардлагагүй",
+      image: "/img/z3.svg",
+    },
+    {
+      id: 4,
+      name: "	Насан туршийн хамтын үйл ажиллагаа",
+      description:
+        " 	Бид ашигаас илүү харилцагчийн сэтгэл ханамжийг илүүд үзэх учраас насан туршийнд тэмүүлсэн урт хугацааны хамтын ажиллагааг санал болгодгоороо давуу талтай",
+      image: "/img/z4.svg",
+    },
+    {
+      id: 5,
+      name: "	Төлбөрийн уян хатан нөхцөл",
+      description:
+        "	Харилцагч та өөрийн шаардлагад нийцсэн буюу яг хэрэгтэй  бүтээгдэхүүн үйлчилгээг сонгон худалдаж авах, бидний цаашдын үйл ажиллагаанд хэрэгцээтэй гэсэн нэмэлт хөгжүүлэлт хийлгэвэл хөнгөлөлт, урамшуулал эдлэх боломжтой",
+      image: "/img/z5.svg",
+    },
+  ];
 
   const contentStyle = {
     height: "350px",
@@ -163,7 +205,25 @@ export default function Home() {
     setDemoModal(false);
   };
 
+  const onBefore = () => {
+    if (test == 1) {
+      setTest(slideLength);
+    } else {
+      setTest(test - 1);
+    }
+    // setIsShowing((isShowing) => !isShowing);
+  };
+  const onNext = () => {
+    if (test == slideLength) {
+      setTest(1);
+    } else {
+      setTest(test + 1);
+    }
+    // setIsShowing((isShowing) => !isShowing);
+  };
+
   useEffect(async () => {
+    setSlideLength(slideContent.length);
     const res = await axios.post(
       baseUrl + "get/lang",
       {
@@ -201,7 +261,7 @@ export default function Home() {
     console.log(res2, "medee");
   }, []);
 
-  console.log(news, "test");
+  // console.log(news, "test");
   // useEffect(() => {
   //   console.log(country);
   // },[country])
@@ -215,7 +275,7 @@ export default function Home() {
     //     <Footer />
     // </div>
 
-    <div className="">
+    <div className=" overflow-hidden">
       <Head>
         <title>iFinance | Интеллижент Финанс ХХК</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -628,10 +688,74 @@ export default function Home() {
               Манай бүтээгдэхүүнийг сонгох шалтгаан
             </div>
           </div>
-          <div className=" w-full flex justify-center mt-[20px] xl:mt-[40px]">
+          <div className=" flex justify-center mt-[40px] ">
+            <div className=" relative 2xl:w-[1100px] flex justify-center  flex-col pb-[100px] ">
+              <div className=" lg:h-[350px]   h-[630px]">
+                {slideContent?.map((item, index) => {
+                  // if (item.id == test) {
+                  return (
+                    <Transition
+                      as={Fragment}
+                      show={item.id == test ? true : false}
+                      enter="transform transition duration-[400ms]"
+                      enterFrom="opacity-0 rotate-[-120deg] scale-50"
+                      enterTo="opacity-100 rotate-0 scale-100"
+                      leave="transform duration-150 transition ease-in-out"
+                      leaveFrom="opacity-100 rotate-0 scale-100 "
+                      leaveTo="opacity-0 scale-95 "
+                    >
+                      <div className=" flex justify-between flex-col lg:flex-row ">
+                        <div className=" flex justify-center">
+                          <div>
+                            <p className=" dark:text-white  text-[18px] text-[#2F3747] font-bold">
+                              {item.name}
+                            </p>
+                            <div className="flex justify-center">
+                              <p className="   w-[300px] dark:text-white dark:opacity-60   h-[280px] lg:h-auto text-[#2F3747] text-[16px] text-opacity-60 xl:w-[470px] md:w-[470px]  ">
+                                {item.description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <Image preview={false} src={item.image} />
+                        </div>
+                      </div>
+                    </Transition>
+                  );
+                  // }
+                })}
+              </div>
+              <div className=" flex justify-center lg:justify-start">
+                <div className=" flex items-center  w-[250px] justify-between">
+                  <div
+                    onClick={() => onBefore()}
+                    className=" hover:bg-[#2E28D426] cursor-pointer w-[40px] h-[40px] rounded-[50px] border-[1px] flex justify-center items-center"
+                  >
+                    <Image preview={false} src="/img/arrow2.svg" />
+                  </div>
+                  <div
+                    onClick={() => onNext()}
+                    className="hover:bg-[#2E28D426] cursor-pointer w-[40px] h-[40px] rounded-[50px] border-[1px] flex justify-center items-center"
+                  >
+                    <Image preview={false} src="/img/arrow.svg" />
+                  </div>
+                  <div className=" text-[#9CA6C0] text-[18px]  font-bold">
+                    {"0" + test}
+                  </div>
+                  <div className=" w-[80px] h-[2px] bg-[#9CA6C0]"></div>
+                  <div className=" text-[#9CA6C0] text-[18px]  font-bold">
+                    {"0" + slideLength}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className=" w-full flex justify-center mt-[20px] xl:mt-[40px]">
             <div className=" w-full  ">
               <div className=" flex justify-center ">
-                <div className=" w-[250px]  md:w-[65vw] max-w-[1750px]">
+                <div className=" w-[250px]  md:w-[65vw] max-w-[1750px] ">
                   <Slider className="" {...settings2}>
                     <div className=" p-5">
                       <div className=" w-auto flex flex-col xl:flex-row  justify-center">
@@ -693,7 +817,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -713,7 +837,7 @@ export default function Home() {
           </div>
           <div className=" w-full flex justify-center mt-[40px]">
             <div className=" max-w-[1220px]  w-[300px]  flex flex-col xl:flex-row xl:w-[70vw] justify-between ">
-              <div className=" flex flex-col justify-between  h-[300px]">
+              <div className="  flex flex-col justify-between  h-[300px]">
                 <div className="  ">
                   <div className="flex justify-center md:justify-start">
                     <Image preview={false} src="/img/app.svg" />
@@ -726,7 +850,7 @@ export default function Home() {
                     татах.
                   </p>
                 </div>
-                <div className=" flex justify-center mt-[40px] md:justify-start">
+                <div className=" flex justify-center  md:justify-start">
                   <a
                     target="_blank"
                     href="https://play.google.com/store/apps/details?id=com.odoo.mobile&hl=en&gl=US"
@@ -740,7 +864,7 @@ export default function Home() {
                 </div>
               </div>
               <div className=" my-10 xl:mt-0">
-                <div className=" h-[300px] justify-between flex flex-col ">
+                <div className=" h-[300px]  justify-between flex flex-col ">
                   <div>
                     <div className="flex justify-center md:justify-start">
                       <Image preview={false} src="/img/ifin.svg" />
@@ -753,7 +877,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div>
-                    <div className=" flex justify-center mt-[40px] md:justify-start">
+                    <div className=" flex justify-center md:justify-start">
                       <a target="_blank" href="https://ifinance.mn">
                         {darkMode == "dark" ? (
                           <Image preview={false} src="/img/darkApp2.svg" />
@@ -766,7 +890,7 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <div className=" h-[300px] justify-between flex flex-col">
+                <div className=" h-[300px]  justify-between flex flex-col">
                   <div>
                     <div className="flex justify-center md:justify-start">
                       <Image preview={false} src="/img/play.svg" />
@@ -848,7 +972,7 @@ export default function Home() {
       </div>
       <div className=" dark:bg-[#08194B]">
         <div className=" w-full flex justify-center pt-[100px] pb-[100px]">
-          <div className=" dark:bg-[#101C66] h-[600px] md:h-auto max-w-[1250px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[90vw] xl:w-[65vw] w-full xl:h-[228px] items-center bg-[#2E28D4]  bg-opacity-5 xl:items-center lg:items-start justify-around">
+          <div className=" dark:bg-[#101C66] h-[600px] md:h-auto max-w-[1150px] flex flex-col md:flex-row xl:flex-row md:justify-around md:w-[90vw] xl:w-[65vw] w-full xl:h-[228px] items-center bg-[#2E28D4]  bg-opacity-5 xl:items-center lg:items-start justify-around">
             <div className=" flex justify-center">
               <div>
                 <div className=" text-[48px] text-[#F01A63] font-bold dark:text-white">
@@ -899,6 +1023,7 @@ export default function Home() {
                 <div className=" z-10 mt-[5vh] lg:mt-0 ml-[17vw] lg:ml-0">
                   <Carousel
                     autoplay
+                    dots={false}
                     className=" w-[353px] md:w-[400px] overflow-hidden"
                   >
                     <div className=" w-[300px] md:w-[370px] mt-[80px]">
@@ -914,7 +1039,7 @@ export default function Home() {
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
-                            <Image src="/img/q1.png" />
+                            <Image preview={false} src="/img/q1.png" />
                           </div>
                           <div className=" flex flex-col ml-2">
                             <div>Cameron Williamson</div>
@@ -936,7 +1061,7 @@ export default function Home() {
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
-                            <Image src="/img/q1.png" />
+                            <Image preview={false} src="/img/q1.png" />
                           </div>
                           <div className=" flex flex-col ml-2">
                             <div>Cameron Williamson</div>
@@ -958,7 +1083,7 @@ export default function Home() {
                         </div>
                         <div className=" flex justify-start mt-[40px] items-center">
                           <div>
-                            <Image src="/img/q1.png" />
+                            <Image preview={false} src="/img/q1.png" />
                           </div>
                           <div className=" flex flex-col ml-2">
                             <div>Cameron Williamson</div>

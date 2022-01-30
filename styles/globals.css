@@ -804,8 +804,8 @@ a {
   justify-content: center !important;
   align-items: center !important;
   border: 1px solid black !important;
-  margin-left: -10px !important;
 }
+
 .slick-next:before {
   content: url("/img/arrow.svg") !important;
   width: 48px !important;
@@ -815,5 +815,4 @@ a {
   justify-content: center !important;
   align-items: center !important;
   border: 1px solid black !important;
-  margin-left: -10px !important;
 } */
