@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
 import { Image } from "antd";
+import { useRouter } from "next/router";
+import Auth from "../../utils/auth";
+import axios from "axios";
 
 const NewsId = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+  console.log(id, "idii");
+  useEffect(async () => {
+    const res = await axios.post(
+      baseUrl + "get/news/more",
+      {
+        jsonrpc: 2.0,
+        params: {
+          news_id: id,
+        },
+      },
+
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res, "detail medee");
+  }, []);
   return (
     <div>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
@@ -71,11 +97,13 @@ const NewsId = () => {
             </div>
           </div>
         </div>
-        <Image
-          className=" hidden lg:flex w-[100vw] mt-[100px]"
-          preview={false}
-          src="/img/dashboard.svg"
-        />
+        <div className=" bg-black h-[348px] overflow-hidden">
+          <Image
+            className=" hidden lg:flex w-[100vw] mt-[100px]"
+            preview={false}
+            src="/img/dashboard.svg"
+          />
+        </div>
       </div>
       <div>
         <Footer />

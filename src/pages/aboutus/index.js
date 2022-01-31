@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
 import Head from "next/head";
 import { Image } from "antd";
+import Auth from "../../utils/auth";
+import axios from "axios";
 
 const Aboutus = () => {
+  const [data, setData] = useState();
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+
+  useEffect(async () => {
+    const res = await axios.post(
+      baseUrl + "get/about_us",
+      {
+        jsonrpc: 2.0,
+        params: {},
+      },
+
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res, "about");
+    setData(res?.data?.result);
+  }, []);
   return (
     <div>
       <Head>
@@ -120,39 +143,50 @@ const Aboutus = () => {
       </div>
       <div className=" bg-[#9CA6C0] bg-opacity-10 flex flex-col justify-center items-center mt-[100px] pb-[100px]">
         <div className="text-[#2F3747] text-[24px] font-bold pt-[80px]">
-          Баг хамт олон
+          Манай багт
         </div>
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-[40px]">
-          <div className=" w-[270px] h-[360px] relative">
-            <div>
-              <Image preview={false} src="/img/unet5.svg" />
-            </div>
-            <div className=" absolute bottom-0 left-0 w-full bg-white h-[89px] px-4">
-              <div className="  text-[#2F3747] text-[16px] font-bold mt-[16px]">
-                Цолмонбаатар
-              </div>
-              <div className=" flex justify-between mt-[8px] text-[#9CA6C0] items-center">
-                <div>UI Designer</div>
-                <div className=" flex w-[60px] justify-between ">
-                  <div>
-                    <a href="https://www.facebook.com" target="_blank">
-                      <Image preview={false} src="/img/facebook.svg" />
-                    </a>
+          {data?.map((item, index) => {
+            return (
+              <div className=" w-[270px] h-[360px] relative">
+                <div>
+                  {item.employee_portrait ? (
+                    <Image
+                      preview={false}
+                      src={"data:image/png;base64," + item.employee_portrait}
+                    />
+                  ) : (
+                    <Image preview={false} src="/img/defaultPro.png" />
+                  )}
+                </div>
+                <div className=" absolute bottom-0 left-0 w-full bg-white h-[89px] px-4">
+                  <div className="  text-[#2F3747] text-[16px] font-bold mt-[16px]">
+                    {item.employee_name}
                   </div>
-                  <div>
-                    <a href="https://www.facebook.com" target="_blank">
-                      <Image preview={false} src="/img/twitter.svg" />
-                    </a>
-                  </div>
-                  <div>
-                    <a href="https://www.facebook.com" target="_blank">
-                      <Image preview={false} src="/img/ig.svg" />
-                    </a>
+                  <div className=" flex justify-between mt-[8px] text-[#9CA6C0] items-center">
+                    <div>{item.employee_position}</div>
+                    <div className=" flex w-[60px] justify-between ">
+                      <div>
+                        <a href="https://www.facebook.com" target="_blank">
+                          <Image preview={false} src="/img/facebook.svg" />
+                        </a>
+                      </div>
+                      <div>
+                        <a href="https://www.twitter.com" target="_blank">
+                          <Image preview={false} src="/img/twitter.svg" />
+                        </a>
+                      </div>
+                      <div>
+                        <a href="https://www.instagram.com" target="_blank">
+                          <Image preview={false} src="/img/ig.svg" />
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
       <Footer />

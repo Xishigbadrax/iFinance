@@ -2826,7 +2826,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
               <div className=" h-1  bg-white w-6"></div>
             </div>
           )}
-          <div className="  hidden lg:flex  lg:w-[800px]  lg:justify-between items-center ">
+          <div className="  hidden lg:flex  lg:w-[900px]    lg:justify-between items-center ">
             <div>
               <ul className="lg:flex lg:justify-around  lg:w-[550px]  lg:pt-3">
                 {hover == 0 ? (
@@ -2897,6 +2897,23 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                     </Link>
                   </li>
                 )}
+                {hover == 3 ? (
+                  <li className=" text-lg">
+                    <Link href="/service">
+                      <a className=" text-[18px]  opacity-100 font-poppins-semibold  text-white ">
+                        Үйлчилгээ
+                      </a>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className=" text-lg">
+                    <Link href="/news">
+                      <a className=" text-[18px] hover:opacity-100 opacity-50 font-poppins-semibold  text-white ">
+                        Мэдээ
+                      </a>
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
             <div className="flex items-center ">
@@ -2920,7 +2937,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
             </div>
 
             {token === "undefined" || token == null ? (
-              <div className=" font-semibold lg:w-[200px] lg:flex lg:justify-between ">
+              <div className=" font-semibold w-[300px] lg:flex lg:justify-between ">
                 <div className=" h-[48px]">
                   <Button
                     onClick={Signup}

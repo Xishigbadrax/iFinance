@@ -14,6 +14,7 @@ import {
   Modal,
   Input,
 } from "antd";
+import helper from "../../utils/helper";
 
 import Auth from "../../utils/auth";
 // import { useRouter } from "next/router";
@@ -500,7 +501,7 @@ const Pricing = ({ id }) => {
                             {item.product_discount == 0 ? (
                               <div className=" flex w-[100px] justify-end">
                                 <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                  {item.product_price}₮
+                                  {helper.formatValue(item.product_price)}₮
                                 </div>
                               </div>
                             ) : (
@@ -511,9 +512,11 @@ const Pricing = ({ id }) => {
                                   </div>
 
                                   <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                    {Number(item.product_price) -
-                                      Number(item.product_price) *
-                                        (Number(item.product_discount) / 100)}
+                                    {helper.formatValue(
+                                      Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)
+                                    )}
                                     ₮
                                   </div>
                                 </div>
@@ -566,7 +569,7 @@ const Pricing = ({ id }) => {
                             {item.product_discount == 0 ? (
                               <div className=" flex w-[100px] justify-end">
                                 <div className="text-[#2F3747] text-[16px] font-semibold mt-4 ">
-                                  {item.product_price}₮
+                                  {helper.formatValue(item.product_price)}₮
                                 </div>
                               </div>
                             ) : (
@@ -577,9 +580,11 @@ const Pricing = ({ id }) => {
                                   </div>
 
                                   <div className="text-[#2F3747] text-[16px] ml-[5px] font-semibold mt-4  ">
-                                    {Number(item.product_price) -
-                                      Number(item.product_price) *
-                                        (Number(item.product_discount) / 100)}
+                                    {helper.formatValue(
+                                      Number(item.product_price) -
+                                        Number(item.product_price) *
+                                          (Number(item.product_discount) / 100)
+                                    )}
                                     ₮
                                   </div>
                                 </div>
@@ -605,7 +610,7 @@ const Pricing = ({ id }) => {
           </div>
         </div>
         <div className=" flex flex-col mb-10 xl:mb-0">
-          <div className=" ml-[10px] w-[370px]   lg:h-[530px] shadow-custom rounded-[8px] ">
+          <div className=" lg:ml-[30px] w-[370px]   lg:h-[530px] shadow-custom rounded-[8px] ">
             <Tabs className="payment" defaultActiveKey="1">
               <TabPane tab="САР" key="1">
                 <div className=" flex flex-col justify-center items-center">
@@ -614,7 +619,7 @@ const Pricing = ({ id }) => {
                       {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPrice.toFixed(2)}₮
+                      {helper.formatValue(programPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -624,7 +629,7 @@ const Pricing = ({ id }) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPrice.toFixed(2)}₮
+                      {helper.formatValue(serverPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -633,7 +638,7 @@ const Pricing = ({ id }) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPrice.toFixed(2)}₮
+                      {helper.formatValue(taxPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -642,7 +647,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discount != 0 ? -discount : 0).toFixed(2)}₮
+                      {helper.formatValue(discount != 0 ? -discount : 0)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -652,7 +657,7 @@ const Pricing = ({ id }) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPrice.toFixed(2)}₮
+                      {helper.formatValue(totalPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -707,7 +712,7 @@ const Pricing = ({ id }) => {
                       {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPriceSeason.toFixed(2)}₮
+                      {helper.formatValue(programPriceSeason)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -717,7 +722,7 @@ const Pricing = ({ id }) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPriceSeason.toFixed(2)}₮
+                      {helper.formatValue(serverPriceSeason)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -726,7 +731,7 @@ const Pricing = ({ id }) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPriceSeason.toFixed(2)}₮
+                      {helper.formatValue(taxPriceSeason)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -735,7 +740,10 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discountSeason != 0 ? -discountSeason : 0).toFixed(2)}₮
+                      {helper.formatValue(
+                        discountSeason != 0 ? -discountSeason : 0
+                      )}
+                      ₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -745,7 +753,7 @@ const Pricing = ({ id }) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPriceSeason.toFixed(2)}₮
+                      {helper.formatValue(totalPriceSeason)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -800,7 +808,7 @@ const Pricing = ({ id }) => {
                       {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {programPriceYear.toFixed(2)}₮
+                      {helper.formatValue(programPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -810,7 +818,7 @@ const Pricing = ({ id }) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {serverPriceYear.toFixed(2)}₮
+                      {helper.formatValue(serverPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -819,7 +827,7 @@ const Pricing = ({ id }) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {taxPriceYear.toFixed(2)}₮
+                      {helper.formatValue(taxPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -828,7 +836,10 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {(discountYear != 0 ? -discountYear : 0).toFixed(2)}₮
+                      {helper.formatValue(
+                        discountYear != 0 ? -discountYear : 0
+                      )}
+                      ₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -838,7 +849,7 @@ const Pricing = ({ id }) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {totalPriceYear.toFixed(2)}₮
+                      {helper.formatValue(totalPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -888,12 +899,12 @@ const Pricing = ({ id }) => {
               </TabPane>
             </Tabs>
           </div>
-          <div className=" ml-[10px] mt-[1.875rem] mb-[30px] shadow-custom">
-            <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[400px] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+          <div className=" lg:ml-[30px] mt-[1.875rem] mb-[30px] shadow-custom  w-[375px]">
+            <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[375px] h-[3.875rem] rounded-t-[4px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
               Сервер байршуулах:
             </div>
             <div>
-              <div className=" mx-[24px]  p-[24px lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+              <div className=" mx-[24px]   lg:w-[330px] lg:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">
@@ -923,7 +934,7 @@ const Pricing = ({ id }) => {
                       disabled={serverState2 || serverState3 ? true : false}
                       defaultValue="Сонгох"
                       // style={{ width: 300 }}
-                      className=" w-[280px] lg:w-[330px]"
+                      className=" w-[280px] lg:w-[290px]"
                       allowClear
                       onChange={handleChange}
                     >
@@ -962,7 +973,7 @@ const Pricing = ({ id }) => {
               </div>
             </div>
             <div className=" w-full">
-              <div className=" mx-[24px]  lg:w-[370px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
+              <div className=" mx-[24px]  lg:w-[330px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">
@@ -991,7 +1002,7 @@ const Pricing = ({ id }) => {
                       defaultValue="Сонгох"
                       // style={{ width: 300 }}
                       allowClear
-                      className=" w-[280px] xl:w-[330px]"
+                      className=" w-[280px] xl:w-[290px]"
                       onChange={handleChange2}
                     >
                       {cloudServer?.map((item, index) => {
@@ -1029,7 +1040,7 @@ const Pricing = ({ id }) => {
               </div>
             </div>
             <div className=" w-full pb-[17px]">
-              <div className="   lg:w-[370px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
+              <div className="   lg:w-[330px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">
@@ -1046,7 +1057,7 @@ const Pricing = ({ id }) => {
               </div>
             </div>
           </div>
-          <div className=" w-[370px]  shadow-lg ml-3 mt-5 rounded-[4px] p-[20px]">
+          <div className=" w-[370px]  shadow-lg lg:ml-[30px] mt-5 rounded-[4px] p-[20px]">
             <div className="flex">
               <Input
                 addonBefore="https://"
