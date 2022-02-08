@@ -55,6 +55,10 @@ const CategoryId = () => {
   const cartSuccess = () => {
     message.success("Амжилттай сагсанд нэмэгдлээ");
   };
+  const onCartLogin = () => {
+    setCartLogin(!cartLogin);
+    // console.log(cartLogin);
+  };
   const fetchData = async () => {
     setIsLoading(true);
     const res = await axios.post(

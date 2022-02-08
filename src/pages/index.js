@@ -258,7 +258,7 @@ export default function Home() {
       }
     );
     setNews(res2?.data?.result.slice(0, 3));
-    console.log(res2, "medee");
+    // console.log(res2, "medee");
   }, []);
 
   // console.log(news, "test");

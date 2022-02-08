@@ -43,6 +43,7 @@ const Info = () => {
   const [mailConfirmCode, setMailConfirmCode] = useState();
   const [emailVer, setEmailVer] = useState();
   const [phoneVer, setPhoneVer] = useState();
+  const [subUser, setSubUser] = useState(false);
 
   // console.log(mainData, "maindataaa");
 
@@ -53,6 +54,7 @@ const Info = () => {
   const handleCancel = () => {
     setIsMailModal(false);
     setIsPhoneModal(false);
+    setSubUser(false);
   };
   const onFinish = (values) => {
     // console.log("Success:", values);
@@ -149,35 +151,69 @@ const Info = () => {
 
   const onSave = async () => {
     console.log(form.getFieldsValue());
-    // setIsLoading(true);
-    // console.log(form.getFieldsValue());
-    // const res = await axios.post(
-    //   baseUrl + "update/user/info",
-    //   {
-    //     jsonrpc: 2.0,
-    //     params: {
-    //       uid: Auth.getUserId(),
-    //       info: form.getFieldsValue(),
-    //     },
-    //   },
-    //   {
-    //     headers: {
-    //       "Set-Cookie": "session_id=" + Auth.getToken(),
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // );
-    // setIsLoading(false);
-    // if (res?.data?.result == "SUCCESS") {
-    //   Auth.destroyToken();
-    //   router.push("/");
-    //   message.success("Амжилттай солигдлоо");
-    // }
-    // console.log(res, "update res");
+    setIsLoading(true);
+    console.log(form.getFieldsValue());
+    const res = await axios.post(
+      baseUrl + "update/user/info",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+          info: form.getFieldsValue(),
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setIsLoading(false);
+    if (res?.data?.result == "SUCCESS") {
+      Auth.destroyToken();
+      router.push("/");
+      message.success("Амжилттай солигдлоо");
+    }
+    console.log(res, "update res");
   };
   const onSumChange = (value) => {
     setSumkhorooId(value);
     // console.log(value, "iddd");
+  };
+
+  const onSubUser = async (values) => {
+    console.log(values);
+    const res = await axios.post(
+      baseUrl + "signup/sub_user",
+      {
+        jsonrpc: 2.0,
+        params: {
+          uid: Auth.getUserId(),
+          name: values.name,
+          phone: values.phone,
+          login: values.email,
+          password: values.password,
+          confirm_password: values.confirm_password,
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (res?.data?.result) {
+      setSubUser(false);
+      message.success("Амжилттай үүслээ");
+    } else if (
+      res?.data?.error?.data?.message == "Хэрэглэгч бүртгэлтэй байна"
+    ) {
+      message.warning("Хэрэглэгч бүртгэлтэй байна");
+    } else {
+      message.success("Алдаа гарлаа");
+    }
   };
   const onResChangePass = (value) => {
     message.success("Амжилттай солигдлоо");
@@ -397,7 +433,10 @@ const Info = () => {
                     </div>
                     <Form.Item name="subUser" valuePropName="checked">
                       <div className=" w-[240px]">
-                        <Checkbox>
+                        <Checkbox
+                          checked={subUser}
+                          onChange={() => setSubUser(!subUser)}
+                        >
                           <p className="text-[18px] font-bold text-[#2F3747]">
                             Давхар хэрэглэгч
                           </p>
@@ -922,6 +961,146 @@ const Info = () => {
               </Button>
             </div>
           </div>
+        </div>
+      </Modal>
+      <Modal
+        footer={[]}
+        className="subUser"
+        visible={subUser}
+        onCancel={handleCancel}
+      >
+        <div>
+          <Image preview={false} src="/img/logo.png" />
+          <p className=" mt-[40px] text-[24px] font-semibold text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]">
+            Давхар харилцагч үүсгэх
+          </p>
+          <Form
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            initialValues={{ remember: true }}
+            onFinish={onSubUser}
+            autoComplete="off"
+          >
+            <div className=" grid grid-cols-2 gap-x-4">
+              <div>
+                <Form.Item
+                  name="name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Хэрэглэгчийн овог оруулна уу!",
+                    },
+                  ]}
+                >
+                  <Input
+                    maxLength={30}
+                    className="  h-[3rem] rounded-[41px] dark:text-white"
+                    id="normal_signup_name"
+                    placeholder="Нэр*"
+                  />
+                </Form.Item>
+              </div>
+              <div>
+                <Form.Item
+                  name="email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Хэрэглэгчийн и-мэйл оруулна уу!",
+                    },
+                  ]}
+                >
+                  <Input
+                    maxLength={30}
+                    className="  h-[3rem] rounded-[41px] dark:text-white"
+                    id="normal_signup_name"
+                    placeholder="И-мэйл*"
+                  />
+                </Form.Item>
+              </div>
+              <div>
+                <Form.Item
+                  name="phone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Хэрэглэгчийн Утасны дугаар оруулна уу!",
+                    },
+                  ]}
+                >
+                  <Input
+                    maxLength={30}
+                    className="  h-[3rem] rounded-[41px] dark:text-white"
+                    id="normal_signup_name"
+                    placeholder="Утасны дугаар*"
+                  />
+                </Form.Item>
+              </div>
+              <div>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Хэрэглэгчийн нууц үг оруулна уу!",
+                    },
+                  ]}
+                >
+                  <Input.Password
+                    maxLength={30}
+                    className="  h-[3rem] rounded-[41px] dark:text-white"
+                    id="normal_signup_name"
+                    placeholder="Нууц*"
+                  />
+                </Form.Item>
+              </div>
+              <div>
+                <Form.Item
+                  name="confirm_password"
+                  dependencies={["password"]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Нууц үгээ дахин оруулна уу",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error("Нууц үг таарахгүй байна!")
+                        );
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password
+                    maxLength={30}
+                    className="  h-[3rem] rounded-[41px] dark:text-white"
+                    id="normal_signup_name"
+                    placeholder="Нууц*"
+                  />
+                </Form.Item>
+              </div>
+            </div>
+
+            <Form.Item>
+              <div className=" flex justify-center">
+                <Button
+                  style={{
+                    backgroundImage: "linear-gradient(45deg, #2E28D4, #AC27FD)",
+                  }}
+                  className=" dark:text-black dark:bg-gradient-to-br from-[#3C8CE7] to-[#00EAFF]  text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px]  border-none"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Хадгалах
+                </Button>
+              </div>
+            </Form.Item>
+          </Form>
         </div>
       </Modal>
     </div>

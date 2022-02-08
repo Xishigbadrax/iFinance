@@ -816,3 +816,32 @@ a {
   align-items: center !important;
   border: 1px solid black !important;
 } */
+.paymentModal .ant-collapse-header {
+  border: none !important;
+  background-color: white !important;
+  border-bottom: 1px solid #9ca6c0 !important;
+}
+.alidaa {
+  border: none !important;
+}
+.paymentModal .ant-collapse-header {
+  color: white !important;
+}
+.paymentModal .ant-collapse-header {
+  color: black !important;
+  background-image: none !important;
+}
+.paymentModal .ant-collapse-content {
+  border-top: none !important;
+  border-bottom: 1px solid #9ca6c0 !important;
+}
+.ant-collapse-item-active .ant-collapse-header {
+  border-bottom: none !important;
+}
+.subUser .ant-modal-footer {
+  display: none !important;
+}
+.subUser .ant-modal-content {
+  width: 970px !important;
+  margin-left: -40% !important;
+}

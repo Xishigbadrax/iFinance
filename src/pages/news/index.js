@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Image } from "antd";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
@@ -7,11 +7,13 @@ import NewsDown from "../../components/NewsDown";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Auth from "../../utils/auth";
+import Context from "../../context/Context";
 
 const News = () => {
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const [news, setNews] = useState();
+  const { setIsLoading } = useContext(Context);
 
   const onDetail = (id) => {
     id &&
@@ -24,6 +26,7 @@ const News = () => {
   };
 
   useEffect(async () => {
+    setIsLoading(true);
     const res = await axios.post(
       baseUrl + "get/news/less",
       {
@@ -38,6 +41,7 @@ const News = () => {
         },
       }
     );
+    setIsLoading(false);
     console.log(res, "medee");
     setNews(res?.data?.result);
   }, []);

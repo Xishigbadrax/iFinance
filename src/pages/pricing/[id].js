@@ -13,6 +13,7 @@ import {
   message,
   Modal,
   Input,
+  Collapse,
 } from "antd";
 import helper from "../../utils/helper";
 
@@ -31,7 +32,8 @@ const Pricing = ({ id }) => {
   // console.log(id, 'this is id')
 
   const { setIsLoading } = useContext(Context);
-
+  const { Panel } = Collapse;
+  const [invoiceId, setInvoiceId] = useState(null);
   const { Option } = Select;
   const { Meta } = Card;
   const { TabPane } = Tabs;
@@ -79,6 +81,7 @@ const Pricing = ({ id }) => {
   const [domain, setDomain] = useState();
   const [domainState, setDomainState] = useState(null);
   const [lock, setLock] = useState(false);
+  const [open, setOpen] = useState([]);
 
   // const [isChecked, setIsChecked] = useState([]);
 
@@ -88,10 +91,24 @@ const Pricing = ({ id }) => {
     value && setpServerPrice(Number(value[2]));
     setServerState1((prev) => !prev);
   };
+  const onChange = (itemIndex) => {
+    if (open.includes(itemIndex)) {
+      for (let i = 0; i < open.length; i++) {
+        if (open[i] === itemIndex) {
+          open.splice(i, 1);
+        }
+      }
+
+      setOpen(open);
+    } else {
+      setOpen((prev) => [...prev, itemIndex]);
+    }
+  };
   const handleCancel = (value) => {
     setIsModalVisible(false);
   };
   const onCheck = async () => {
+    setIsLoading(true);
     await axios
       .post(
         baseUrl + "subdomain/checker",
@@ -111,6 +128,7 @@ const Pricing = ({ id }) => {
       )
       .then((response) => {
         // console.log(response, "dom shalgah");
+        setIsLoading(false);
         setDomainState(response.data.result);
         response?.data?.result == true ? setLock(true) : setLock(false);
       })
@@ -135,6 +153,38 @@ const Pricing = ({ id }) => {
   };
   const onChangerServerPrice3 = () => {
     setServerState3((prev) => !prev);
+  };
+  const checkPayment = async () => {
+    await axios
+      .post(
+        baseUrl + "check/invoice",
+        {
+          jsonrpc: 2.0,
+          params: {
+            uid: Auth.getUserId,
+            invoice_id: invoiceId,
+          },
+        },
+
+        {
+          headers: {
+            "Set-Cookie": "session_id=" + sid,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        // console.log(response, "check");
+        if (response?.data?.result == true) {
+          message.success(
+            "Амжилттай төлөгдсөн. Та 5 минут хүлээх шаардлагатай. Захиалгын төлвийг Миний захиалгууд цэснээс харна уу"
+          );
+        } else if (response?.data?.result == false) {
+          message.warning("Төлбөр төлөгдөөгүй");
+        } else {
+          message.warning("Нэхэмжлэл олдсонгүй");
+        }
+      });
   };
   useEffect(async () => {
     setIsLoading(true);
@@ -173,6 +223,7 @@ const Pricing = ({ id }) => {
   }, []);
 
   const onPurchase = async (type) => {
+    setIsLoading(true);
     // console.log(sid, "siddd");
     // console.log(userID, "userIdddd");
     var productIds = [];
@@ -201,9 +252,11 @@ const Pricing = ({ id }) => {
           "Content-Type": "application/json",
         },
       });
+      setIsLoading(false);
       if (res.data.result && res.data.result) {
         // message.success("Хүсэлт амжилттай биеллээ.");
         setBank(res.data.result.bank);
+        setInvoiceId(res.data.result.invoice[0].invoice_id);
         setInvoice(res.data.result.invoice);
         setIsModalVisible(true);
       } else if (res.data.error) {
@@ -1149,7 +1202,7 @@ const Pricing = ({ id }) => {
               </div>
               <div className=" font-semibold text-[16px] text-[#2F3747]">
                 {invoice?.map((item) => {
-                  return item.invoice_amount + "₮";
+                  return helper.formatValue(item.invoice_amount) + "₮";
                 })}
               </div>
             </div>
@@ -1200,157 +1253,226 @@ const Pricing = ({ id }) => {
                 </div>
               </div>
             </div>
+            <div className="flex justify-center mt-[30px]">
+              <Button
+                onClick={checkPayment}
+                type="primary"
+                className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Шалгах
+              </Button>
+            </div>
           </TabPane>
-          <TabPane tab="Банкны дансаар" key="2">
-            <div>
-              <div className=" flex items-center mt-[20px]">
-                <div>
-                  {bank?.map((item) => {
-                    return (
-                      <Image
-                        preview={false}
-                        src={"data:image/png;base64," + item.invoice_bank_logo}
-                      />
-                    );
-                  })}
-                </div>
-                <div className=" ml-[16px] text-[24px] text-[#2F3747] font-bold">
-                  {bank?.map((item) => {
-                    return item.invoice_bank;
-                  })}
-                </div>
-              </div>
-              <div className=" w-full flex justify-between mt-[20px]">
-                <div>
-                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
-                    Дансны дугаар
-                  </div>
-                  <div className="text-[18px] text-[#2F3747] font-bold">
-                    {bank?.map((item) => {
-                      return item.invoice_bank_number;
-                    })}
-                  </div>
-                </div>
-                <div className=" flex items-center">
-                  <CopyToClipboard
-                    text={bank?.map((item) => {
-                      return item.invoice_bank_number;
-                    })}
+          <TabPane tab="БАНКНЫ ДАНСААР" key="2">
+            {bank?.map((item, index) => {
+              return (
+                <Collapse
+                  onChange={() => onChange(item)}
+                  expandIcon={() =>
+                    open.includes(item) ? (
+                      <div>
+                        <Image
+                          preview={false}
+                          className=" "
+                          src="/img/payPlus2.svg"
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        <Image preview={false} src="/img/payPlus.svg" />
+                      </div>
+                    )
+                  }
+                  className="alidaa"
+                  expandIconPosition="right"
+                  accordion
+                >
+                  <Panel
+                    className=" paymentModal"
+                    header={
+                      <div className=" flex ">
+                        <div>
+                          <Image
+                            className=" w-[40px] h-[40px] rounded-[8px]"
+                            preview={false}
+                            src={
+                              "data:image/png;base64," + item.invoice_bank_logo
+                            }
+                          />
+                        </div>
+                        <div className=" ml-[16px]">{item.invoice_bank}</div>
+                      </div>
+                    }
+                    key={index}
                   >
-                    <div
-                      onClick={() => message.success("Амжилттай хуулагдлаа")}
-                      className="cursor-pointer"
-                    >
-                      <Image preview={false} src="/img/copy.svg" />
+                    <div key={index}>
+                      {/* <div className=" flex items-center mt-[20px]">
+                        <div>
+                          <Image
+                            preview={false}
+                            src={
+                              "data:image/png;base64," + item.invoice_bank_logo
+                            }
+                          />
+                        </div>
+                        <div className=" ml-[16px] text-[24px] text-[#2F3747] font-bold">
+                          {item.invoice_bank}
+                        </div>
+                      </div> */}
+
+                      <div className=" w-full flex justify-between mt-[20px]">
+                        <div>
+                          <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                            Дансны дугаар
+                          </div>
+                          <div className="text-[18px] text-[#2F3747] font-bold">
+                            {item.invoice_bank_number}
+                          </div>
+                        </div>
+                        <div className=" flex items-center">
+                          <CopyToClipboard text={item.invoice_bank_number}>
+                            <div
+                              onClick={() =>
+                                message.success("Амжилттай хуулагдлаа")
+                              }
+                              className=" flex items-center cursor-pointer"
+                            >
+                              <div className="">
+                                <Image preview={false} src="/img/copy.svg" />
+                              </div>
+                              <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                                Хуулах
+                              </div>
+                            </div>
+                          </CopyToClipboard>
+                        </div>
+                      </div>
+                      <div className=" w-full flex justify-between mt-[20px]">
+                        <div>
+                          <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                            Дансны нэр
+                          </div>
+                          <div className="text-[18px] text-[#2F3747] font-bold">
+                            {item.invoice_bank_account_name}
+                          </div>
+                        </div>
+                        <div className=" flex items-center">
+                          <CopyToClipboard
+                            text={item.invoice_bank_account_name}
+                          >
+                            <div
+                              onClick={() =>
+                                message.success("Амжилттай хуулагдлаа")
+                              }
+                              className=" flex items-center cursor-pointer"
+                            >
+                              <div className="">
+                                <Image preview={false} src="/img/copy.svg" />
+                              </div>
+                              <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                                Хуулах
+                              </div>
+                            </div>
+                          </CopyToClipboard>
+                        </div>
+                      </div>
+                      <div className=" w-full flex justify-between mt-[20px]">
+                        <div>
+                          <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                            Гүйлгээний утга
+                          </div>
+                          <div className="text-[18px] text-[#2F3747] font-bold">
+                            {invoice?.map((item) => {
+                              return item.invoice_name;
+                            })}
+                          </div>
+                        </div>
+                        <div className=" flex items-center">
+                          <CopyToClipboard
+                            text={invoice?.map((item) => {
+                              return item.invoice_name;
+                            })}
+                          >
+                            <div
+                              onClick={() =>
+                                message.success("Амжилттай хуулагдлаа")
+                              }
+                              className=" flex items-center cursor-pointer"
+                            >
+                              <div className="">
+                                <Image preview={false} src="/img/copy.svg" />
+                              </div>
+                              <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                                Хуулах
+                              </div>
+                            </div>
+                          </CopyToClipboard>
+                        </div>
+                      </div>
+                      <div className=" w-full flex justify-between mt-[20px]">
+                        <div>
+                          <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
+                            Төлөх дүн
+                          </div>
+                          <div className="text-[18px] text-[#2F3747] font-bold">
+                            {invoice?.map((item) => {
+                              return (
+                                helper.formatValue(item.invoice_amount) + "₮"
+                              );
+                            })}
+                          </div>
+                        </div>
+                        <div className=" flex items-center">
+                          <CopyToClipboard
+                            text={invoice?.map((item) => {
+                              return item.invoice_amount;
+                            })}
+                          >
+                            <div
+                              onClick={() =>
+                                message.success("Амжилттай хуулагдлаа")
+                              }
+                              className=" flex items-center cursor-pointer"
+                            >
+                              <div className="">
+                                <Image preview={false} src="/img/copy.svg" />
+                              </div>
+                              <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
+                                Хуулах
+                              </div>
+                            </div>
+                          </CopyToClipboard>
+                        </div>
+                      </div>
+                      <div className=" flex items-center w-[510px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] h-[74px] mt-[24px]">
+                        <div className="flex ">
+                          <div className=" mr-[17px] pl-[17px]">
+                            <Image
+                              className=""
+                              preview={false}
+                              src="/img/warning.png"
+                            />
+                          </div>
+                          <div className=" w-[400px] text-[14px] text-[#F09A1A]  ">
+                            Таны төлбөр төлөлт амжилттай хийгдсэний дараа 5
+                            минутын дотор худалдан авалт хийгдэнэ.
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </CopyToClipboard>
-                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
-                    Хуулах
-                  </div>
-                </div>
-              </div>
-              <div className=" w-full flex justify-between mt-[20px]">
-                <div>
-                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
-                    Дансны нэр
-                  </div>
-                  <div className="text-[18px] text-[#2F3747] font-bold">
-                    {bank?.map((item) => {
-                      return item.invoice_bank_account_name;
-                    })}
-                  </div>
-                </div>
-                <div className=" flex items-center">
-                  <CopyToClipboard
-                    text={bank?.map((item) => {
-                      return item.invoice_bank_account_name;
-                    })}
-                  >
-                    <div
-                      onClick={() => message.success("Амжилттай хуулагдлаа")}
-                      className="cursor-pointer"
-                    >
-                      <Image preview={false} src="/img/copy.svg" />
-                    </div>
-                  </CopyToClipboard>
-                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
-                    Хуулах
-                  </div>
-                </div>
-              </div>
-              <div className=" w-full flex justify-between mt-[20px]">
-                <div>
-                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
-                    Гүйлгээний утга
-                  </div>
-                  <div className="text-[18px] text-[#2F3747] font-bold">
-                    {invoice?.map((item) => {
-                      return item.invoice_name;
-                    })}
-                  </div>
-                </div>
-                <div className=" flex items-center">
-                  <CopyToClipboard
-                    text={invoice?.map((item) => {
-                      return item.invoice_name;
-                    })}
-                  >
-                    <div
-                      onClick={() => message.success("Амжилттай хуулагдлаа")}
-                      className="cursor-pointer"
-                    >
-                      <Image preview={false} src="/img/copy.svg" />
-                    </div>
-                  </CopyToClipboard>
-                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
-                    Хуулах
-                  </div>
-                </div>
-              </div>
-              <div className=" w-full flex justify-between mt-[20px]">
-                <div>
-                  <div className="text-[14px] text-[#2F3747] opacity-60 font-thin">
-                    Төлөх дүн
-                  </div>
-                  <div className="text-[18px] text-[#2F3747] font-bold">
-                    {invoice?.map((item) => {
-                      return item.invoice_amount + "₮";
-                    })}
-                  </div>
-                </div>
-                <div className=" flex items-center">
-                  <CopyToClipboard
-                    text={invoice?.map((item) => {
-                      return item.invoice_amount;
-                    })}
-                  >
-                    <div
-                      onClick={() => message.success("Амжилттай хуулагдлаа")}
-                      className="cursor-pointer"
-                    >
-                      <Image preview={false} src="/img/copy.svg" />
-                    </div>
-                  </CopyToClipboard>
-                  <div className="ml-[16px] text-[16px] text-[#2F3747] opacity-40 font-normal">
-                    Хуулах
-                  </div>
-                </div>
-              </div>
-              <div className=" flex items-center w-[510px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] h-[74px] mt-[24px]">
-                <div className="flex ">
-                  <div className=" mr-[17px] pl-[17px]">
-                    <Image
-                      className=""
-                      preview={false}
-                      src="/img/warning.png"
-                    />
-                  </div>
-                  <div className=" w-[400px] text-[14px] text-[#F09A1A]  ">
-                    Таны төлбөр төлөлт амжилттай хийгдсэний дараа 5 минутын
-                    дотор худалдан авалт хийгдэнэ.
-                  </div>
-                </div>
-              </div>
+                  </Panel>
+                </Collapse>
+              );
+            })}
+
+            <div className="flex justify-center mt-[30px]">
+              <Button
+                onClick={checkPayment}
+                type="primary"
+                className=" w-[200px] h-[48px]   rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              >
+                Шалгах
+              </Button>
             </div>
           </TabPane>
         </Tabs>

@@ -208,6 +208,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     window.location.href.includes("dashboard") && setHover(1);
     window.location.href.includes("pricing") && setHover(2);
     window.location.href.includes("service") && setHover(3);
+    window.location.href.includes("news") && setHover(4);
 
     setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowSizeChange);
@@ -262,6 +263,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
 
   // console.log(width, "widdd");
   const onForgotConfirmModal = async () => {
+    setIsLoading(true);
     await axios
       .post(
         baseUrl + "user/reset_password",
@@ -280,12 +282,14 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         }
       )
       .then((response) => {
+        setIsLoading(false);
         console.log(response, "forgot res");
         response?.data?.result && onFunction();
       });
   };
 
   const onForgotConfirmModal2 = async () => {
+    setIsLoading(true);
     await axios
       .post(
         baseUrl + "user/reset_password",
@@ -298,17 +302,20 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
 
         {
           headers: {
-            "Set-Cookie": "session_id=" + sid,
+            "Set-Cookie": "session_id=" + Auth.getToken(),
             "Content-Type": "application/json",
           },
         }
       )
       .then((response) => {
+        setIsLoading(false);
         console.log(response, "forgot res");
+        response?.data?.result && onFunction();
       });
   };
 
   const onMobileForgot = async () => {
+    setIsLoading(true);
     await axios
       .post(
         baseUrl + "user/reset_password",
@@ -327,12 +334,14 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         }
       )
       .then((response) => {
+        setIsLoading(false);
         console.log(response, "forgot res");
         response?.data?.result && onMobileFunction();
       });
   };
 
   const onMobileForgot2 = async () => {
+    setIsLoading(true);
     await axios
       .post(
         baseUrl + "user/reset_password",
@@ -351,6 +360,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         }
       )
       .then((response) => {
+        setIsLoading(false);
         console.log(response, "forgot res");
       });
   };
@@ -373,6 +383,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     setLoginModal(true);
   };
   const onAgain = async () => {
+    setIsLoading(true);
     const res = await axios.post(
       baseUrl + "resend",
       {
@@ -389,12 +400,14 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         },
       }
     );
+    setIsLoading(false);
     console.log(res, "dahin kodnii res");
 
     clockRef.current.start();
     setReSend(false);
   };
   const onDelete = async (id, type) => {
+    setIsLoading(true);
     var data = {
       jsonrpc: 2.0,
       params: {
@@ -410,6 +423,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         "Content-Type": "application/json",
       },
     });
+    setIsLoading(false);
     // console.log(res, "delete ress");
     if (res.data.id == null) {
       // window.location.reload(false);
@@ -419,6 +433,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   };
 
   const Logout = async () => {
+    setIsLoading(true);
     const res = await axios.post(
       baseUrl + "logout",
       {
@@ -432,7 +447,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         },
       }
     );
-
+    setIsLoading(false);
     if (res.data.error && res.data.error) {
       setIsLogin(false);
       message.success("Амжилттай систэмээс гарлаа");
@@ -515,6 +530,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     setmessageShow(false);
   };
   const onConfirmEmail = async () => {
+    setIsLoading(true);
     const res = await axios.post(
       baseUrl + "signup/confirm",
       {
@@ -532,6 +548,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         },
       }
     );
+    setIsLoading(false);
     if (res.data.result && res.data.result) {
       setUserName(res.data.result.erp_info);
       setUserSid(res.data.result.sid);
@@ -606,6 +623,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   };
 
   const onMobileRegister = async (values) => {
+    setIsLoading(true);
     setScreen(true);
     // console.log("Received values of form: ", values);
     setEmail(values.email);
@@ -631,6 +649,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         "Content-Type": "application/json",
       },
     });
+    setIsLoading(false);
 
     // console.log(res, "sign up res");
     if (res.data.result && res.data.result.msg) {
@@ -651,6 +670,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   };
 
   const onFinishLogin = async (values) => {
+    setIsLoading(true);
     // console.log("Received values of form: ", values);
     const res = await axios.post(
       baseUrl + "login",
@@ -672,6 +692,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         },
       }
     );
+    setIsLoading(false);
     if (res.data.result && res.data.result) {
       setUserName(res.data.result.erp_info);
       auth_cookie.setToken(
@@ -700,17 +721,18 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     console.log(res, "login res");
   };
 
-  // useEffect(() => {
-  //   if (test) {
-  //     Auth.getToken()
-  //       ? null
-  //       : width < 768
-  //       ? setMobileLogin(true)
-  //       : setLoginModal(true);
-  //   } else {
-  //     setTest(true);
-  //   }
-  // }, [cartLogin]);
+  useEffect(() => {
+    if (test) {
+      Auth.getToken()
+        ? null
+        : width < 768
+        ? setMobileLogin(true)
+        : setLoginModal(true);
+    } else {
+      setTest(true);
+    }
+    // console.log(width, "ewe");
+  }, [cartLogin]);
 
   const menu = (
     <Menu className="profileDropdownPopup p-[20px]">
@@ -1777,7 +1799,6 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
               initialValues={{
                 remember: true,
               }}
-              onFinish={onFinishRegister}
             >
               <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-10">
                 Нууц үгээ мартсан
@@ -1837,7 +1858,6 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                   <Button
                     className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
                     type="primary"
-                    htmlType="submit"
                     onClick={onForgotConfirmModal2}
                   >
                     Илгээх
@@ -2897,11 +2917,11 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                     </Link>
                   </li>
                 )}
-                {hover == 3 ? (
+                {hover == 4 ? (
                   <li className=" text-lg">
-                    <Link href="/service">
+                    <Link href="/news">
                       <a className=" text-[18px]  opacity-100 font-poppins-semibold  text-white ">
-                        Үйлчилгээ
+                        Мэдээ
                       </a>
                     </Link>
                   </li>
