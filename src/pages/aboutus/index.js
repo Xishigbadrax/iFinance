@@ -167,19 +167,51 @@ const Aboutus = () => {
                     <div>{item.employee_position}</div>
                     <div className=" flex w-[60px] justify-between ">
                       <div>
-                        <a href="https://www.facebook.com" target="_blank">
+                        {!item.employee_social_fb ? (
+                          <a href="https://www.facebook.com" target="_blank">
+                            <Image preview={false} src="/img/facebook.svg" />
+                          </a>
+                        ) : (
+                          <a
+                            href={"https://www." + item.employee_social_fb}
+                            target="_blank"
+                          >
+                            <Image preview={false} src="/img/facebook.svg" />
+                          </a>
+                        )}
+                        {/* <a href="https://www.facebook.com" target="_blank">
                           <Image preview={false} src="/img/facebook.svg" />
-                        </a>
+                        </a> */}
                       </div>
                       <div>
-                        <a href="https://www.twitter.com" target="_blank">
-                          <Image preview={false} src="/img/twitter.svg" />
-                        </a>
+                        {!item.employee_social_twitter ? (
+                          <a href="https://www.twitter.com" target="_blank">
+                            <Image preview={false} src="/img/twitter.svg" />
+                          </a>
+                        ) : (
+                          <a
+                            href={"https://www." + item.employee_social_twitter}
+                            target="_blank"
+                          >
+                            <Image preview={false} src="/img/twitter.svg" />
+                          </a>
+                        )}
                       </div>
                       <div>
-                        <a href="https://www.instagram.com" target="_blank">
-                          <Image preview={false} src="/img/ig.svg" />
-                        </a>
+                        {!item.employee_social_instagram ? (
+                          <a href="https://www.instagram.com" target="_blank">
+                            <Image preview={false} src="/img/ig.svg" />
+                          </a>
+                        ) : (
+                          <a
+                            href={
+                              "https://www." + item.employee_social_instagram
+                            }
+                            target="_blank"
+                          >
+                            <Image preview={false} src="/img/ig.svg" />
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>

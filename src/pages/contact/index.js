@@ -1,10 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
-import { Image, Input, Button } from "antd";
+import { Image, Input, Button, message } from "antd";
+import GoogleMapReact from "google-map-react";
+import Auth from "../../utils/auth";
+import axios from "axios";
+
+const AnyReactComponent = ({ icon }) => (
+  <div>
+    {icon}
+    {/* <Image preview={false} src="/img/logo.png" /> */}
+  </div>
+);
 
 const Contact = () => {
+  const [username, setUserName] = useState();
+  const [email, setEmail] = useState();
+  const [title, setTitle] = useState();
+  const [suggestion, setSuggestion] = useState();
+
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
   const { TextArea } = Input;
+  var center = {
+    lat: 47.91311332612327,
+    lng: 106.92691611492839,
+  };
+  var zoom = 17;
+
+  const onSend = async () => {
+    const res = await axios.post(
+      baseUrl + "send/contactus",
+      {
+        jsonrpc: 2.0,
+        params: {
+          username: username,
+          email: email,
+          title: title,
+          suggestion: suggestion,
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + Auth.getToken(),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (res?.data?.id == null) {
+      message.success("Баярлалаа. Бид тантай эргээд холбогдох болно");
+    } else {
+      message.warning("Алдаа гарлаа");
+    }
+
+    console.log(res, "cont");
+  };
   return (
     <div>
       <div className="relative h-[100px] md:h-auto overflow-hidden md:overflow-visible">
@@ -36,7 +85,8 @@ const Contact = () => {
                     Хаяг:
                   </div>
                   <div className=" w-[240px] text-[#2F3747] text-[16px] font-semibold">
-                    Реженси Ресидэнс, 16 Олимпын гудамж, 14220, Улаанбаатар хот, Монгол Улс
+                    Реженси Ресидэнс, 16 Олимпын гудамж, 14220, Улаанбаатар хот,
+                    Монгол Улс
                   </div>
                 </div>
               </div>
@@ -48,10 +98,10 @@ const Contact = () => {
                 </div>
                 <div className="ml-[16px]">
                   <div className=" text-[#9CA6C0] font-thin text-[16px]">
-                  Имэйл хаяг:
+                    Имэйл хаяг:
                   </div>
                   <div className=" w-[240px] text-[#2F3747] text-[16px] font-semibold">
-                  info@ifinance.mn
+                    info@ifinance.mn
                   </div>
                 </div>
               </div>
@@ -63,18 +113,37 @@ const Contact = () => {
                 </div>
                 <div className="ml-[16px]">
                   <div className=" text-[#9CA6C0] font-thin text-[16px]">
-                  Утас:
+                    Утас:
                   </div>
                   <div className=" w-[240px] text-[#2F3747] text-[16px] font-semibold">
-                  976 89977771
+                    976 89977771
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between mt-[48px]">
-            <div>
-              <Image className=" scale-100 md:scale-100" preview={false} src="/img/Map.png" />
+          <div className="flex flex-col md:flex-row justify-between  w-full mt-[48px]">
+            <div style={{ height: "50vh", width: "667px" }}>
+              <GoogleMapReact
+                bootstrapURLKeys={{
+                  key: "AIzaSyBR_zGWPmH-jvGd9kgI_gh8c4iND_kmcW4",
+                }}
+                defaultCenter={center}
+                defaultZoom={zoom}
+              >
+                <AnyReactComponent
+                  lat={47.91311332612327}
+                  lng={106.92691611492839}
+                  icon={
+                    <Image
+                      preview={false}
+                      className=" w-[50px] h-[50px]"
+                      src="/img/dot.svg"
+                    />
+                  }
+                  // text={"/img/dot.svg"}
+                />
+              </GoogleMapReact>
             </div>
             <div className=" md:w-[470px]">
               <div className=" text-[#2F3747] text-[24px] font-bold">
@@ -83,26 +152,31 @@ const Contact = () => {
               <div className=" flex ">
                 <div className="mr-[16px]">
                   <Input
+                    onChange={(e) => setUserName(e.target.value)}
                     className="  md:w-[227px] h-[48px] rounded-[8px]"
                     placeholder="Хэрэглэгчийн нэр"
                   />
                 </div>
                 <div>
                   <Input
+                    onChange={(e) => setEmail(e.target.value)}
                     className="  md:w-[227px] h-[48px] rounded-[8px]"
                     placeholder="И-мэйл хаяг"
                   />
                 </div>
               </div>
               <Input
+                onChange={(e) => setTitle(e.target.value)}
                 className=" w-full h-[48px] rounded-[8px] mt-[16px]"
                 placeholder="Хүсэлтийн гарчиг"
               />
               <TextArea
+                onChange={(e) => setSuggestion(e.target.value)}
                 className="w-full h-[200px] rounded-[8px] mt-[16px]"
                 placeholder="Санал хүсэлтээ энд бичнэ үү"
               />
               <Button
+                onClick={onSend}
                 type="primary"
                 className=" mt-[40px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
               >
@@ -117,4 +191,7 @@ const Contact = () => {
   );
 };
 
+// export default GoogleApiWrapper({
+//   apiKey: "AIzaSyBR_zGWPmH-jvGd9kgI_gh8c4iND_kmcW4",
+// })(Contact);
 export default Contact;
