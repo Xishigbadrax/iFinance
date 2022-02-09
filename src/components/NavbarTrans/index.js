@@ -671,6 +671,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
 
   const onFinishLogin = async (values) => {
     setIsLoading(true);
+    handleCancel();
     // console.log("Received values of form: ", values);
     const res = await axios.post(
       baseUrl + "login",
@@ -2994,18 +2995,23 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                   >
                     <div>
                       <div className=" flex cursor-pointer box-border items-center   w-[200px] h-[48px]   justify-center rounded-[60px] bg-white">
-                        <div className=" flex mt-1">
-                          <div className=" mr-[10px]">
+                        <div className=" flex  items-center ">
+                          <div className=" mr-[5px]  h-[30px]">
                             <Image
-                              className=""
+                              className=" "
                               width={30}
                               height={30}
                               preview={false}
                               src="/img/profile.svg"
                             />
                           </div>
-                          <div className="text-[14px] text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] font-semibold ml-1 pt-1 font-sans uppercase">
-                            {Auth.getName()}
+                          <div className=" flex items-center">
+                            <div className="text-[14px] text-transparent bg-clip-text bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] font-semibold ml-1 pt-1 font-sans uppercase">
+                              {Auth.getName()}
+                            </div>
+                            <div className=" ml-[4px]  h-[15px]">
+                              <Image preview={false} src="/img/down.svg" />
+                            </div>
                           </div>
                         </div>
                       </div>

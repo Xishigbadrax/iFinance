@@ -1,17 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
 import { Image } from "antd";
 import { useRouter } from "next/router";
 import Auth from "../../utils/auth";
 import axios from "axios";
+import Context from "../../context/Context";
 
 const NewsId = () => {
   const router = useRouter();
   const { id } = router.query;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
-  console.log(id, "idii");
+  const [data, setData] = useState();
+  // console.log(id, "idii");
+  const { setIsLoading } = useContext(Context);
+
   useEffect(async () => {
+    setIsLoading(true);
     const res = await axios.post(
       baseUrl + "get/news/more",
       {
@@ -28,6 +33,8 @@ const NewsId = () => {
         },
       }
     );
+    setIsLoading(false);
+    setData(res?.data?.result[0]);
     console.log(res, "detail medee");
   }, []);
   return (
@@ -37,25 +44,12 @@ const NewsId = () => {
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans />
           </div>
-
-          {/* <div className=" hidden    my-auto font-poppins-semibold uppercase lg:flex justify-center items-center text-white h-2/3 text-[36px] font-semibold">
-            Манай бүтээгдэхүүн
-          </div> */}
         </div>
         <Image
           className="w-[100vw] h-[100px] scale-150 my-auto bg-blue-500 lg:h-auto"
           preview={false}
           src="/img/Slider.svg"
         />
-
-        {/* 
-        news.map((item, itex) => {
-          if((index % 2) == 0){
-           return <desheH item/>
-          }
-
-          return <doshoo item= {item}/>
-        }) */}
       </div>
       <div className="  relative ">
         <div className=" flex justify-center">
@@ -105,6 +99,87 @@ const NewsId = () => {
           />
         </div>
       </div>
+      <div className=" flex justify-center mt-[80px] mb-[20px]">
+        <div className="flex  w-[1170px] justify-between">
+          <div
+            className=" w-[770px]  shadow-md
+        "
+          >
+            <div>
+              <Image
+                preview={false}
+                src={"data:image/png;base64," + data?.news_image}
+              />
+            </div>
+            <div>
+              <div className=" flex justify-between m-[30px]">
+                <div className=" flex">
+                  <div>
+                    {" "}
+                    <Image
+                      className=" opacity-40"
+                      preview={false}
+                      src="/img/clock.svg"
+                    />
+                  </div>
+                  <div className=" ml-[10px] opacity-40">
+                    {data?.created_date.slice(11, 16)}
+                  </div>
+                </div>
+                <div className=" flex">
+                  <div>
+                    {" "}
+                    <Image
+                      className=" opacity-40"
+                      preview={false}
+                      src="/img/calendar.svg"
+                    />
+                  </div>
+                  <div className=" ml-[10px] opacity-40">
+                    {data?.created_date.slice(0, 10)}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className=" px-[30px]">
+              <div className=" text-[#2F3747] text-[30px] font-bold">
+                {data?.title}
+              </div>
+              <div
+                className=" mt-[24px]"
+                dangerouslySetInnerHTML={{ __html: data?.content_more }}
+              ></div>
+            </div>
+          </div>
+          <div className=" w-[370px] ">
+            <div className="">
+              <div className=" text-white flex items-center pl-[30px]  text-[18px] font-bold w-full h-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-t-[4px]">
+                Бусад мэдээ
+              </div>
+              <div className=" w-full h-[168px] flex justify-center mt-[30px] shadow-md ">
+                <div className=" flex w-[338px] justify-between">
+                  <div className="">
+                    <Image
+                      preview={false}
+                      className=" object-cover w-[100px] h-[133px]"
+                      src="/img/test.jpg"
+                    />
+                  </div>
+                  <div className=" w-[220px]">
+                    <div className=" text-[#2F3747] text-[16px] font-semibold">
+                      Poster MockUp PSD - Interior Scene
+                    </div>
+                    <div className=" text-[#2F3747] text-[16px]">
+                      Class aptent taciti sociosqu ad litora torquent per con...
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div>
         <Footer />
       </div>

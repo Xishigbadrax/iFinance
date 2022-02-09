@@ -13,6 +13,9 @@ const News = () => {
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const [news, setNews] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [page, setPage] = useState(0);
   const { setIsLoading } = useContext(Context);
 
   const onDetail = (id) => {
@@ -23,6 +26,19 @@ const News = () => {
           id: id,
         },
       });
+  };
+
+  const onBefore = () => {
+    if (currentPage != 1) {
+      setCurrentPage(currentPage - 1);
+      setPage(page - 1);
+    }
+  };
+  const onNext = () => {
+    if (currentPage < totalPage) {
+      setCurrentPage(currentPage + 1);
+      setPage(page + 1);
+    }
   };
 
   useEffect(async () => {
@@ -45,6 +61,12 @@ const News = () => {
     console.log(res, "medee");
     setNews(res?.data?.result);
   }, []);
+  useEffect(() => {
+    //  if(news % 10 > 0){
+
+    //  }
+    setTotalPage(Math.ceil(news?.length / 10));
+  }, [news]);
   return (
     <div>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
@@ -101,7 +123,7 @@ const News = () => {
 
       <div className=" flex mx-auto  lg:w-[1245px]">
         <div className="  grid lg:grid-cols-2 gap-[30px]  grid-cols-1 ">
-          {news?.map((item, index) => {
+          {news?.slice(page * 10, page * 10 + 10)?.map((item, index) => {
             if (index % 2 == 0) {
               return (
                 <div onClick={() => onDetail(item.news_id)}>
@@ -116,8 +138,31 @@ const News = () => {
               </div>
             );
           })}
-          {/* <NewsUp />
-          <NewsDown /> */}
+        </div>
+      </div>
+      <div className=" flex justify-center mb-[100px]">
+        <div className=" flex justify-center lg:justify-end  lg:w-[1245px]">
+          <div className=" flex items-center  w-[250px] justify-between">
+            <div className=" text-[#9CA6C0] text-[18px]  font-bold">
+              {"0" + currentPage}
+            </div>
+            <div className=" w-[80px] h-[2px] bg-[#9CA6C0]"></div>
+            <div className=" text-[#9CA6C0] text-[18px]  font-bold">
+              {"0" + totalPage}
+            </div>
+            <div
+              onClick={() => onBefore()}
+              className=" hover:bg-[#2E28D426] cursor-pointer w-[40px] h-[40px] rounded-[50px] border-[1px] flex justify-center items-center"
+            >
+              <Image preview={false} src="/img/arrow2.svg" />
+            </div>
+            <div
+              onClick={() => onNext()}
+              className="hover:bg-[#2E28D426] cursor-pointer w-[40px] h-[40px] rounded-[50px] border-[1px] flex justify-center items-center"
+            >
+              <Image preview={false} src="/img/arrow.svg" />
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

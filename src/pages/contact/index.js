@@ -10,8 +10,8 @@ import { useForm } from "antd/lib/form/Form";
 
 const AnyReactComponent = ({ icon, text }) => (
   <div>
-    {/* {icon} */}
-    {text}
+    {icon}
+    {/* {text} */}
   </div>
 );
 
@@ -75,11 +75,11 @@ const Contact = () => {
           src="/img/Slider.svg"
         />
       </div>
-      <div className=" flex justify-center md:mt-[100px] mb-[100px]">
-        <div className=" lg:w-[1170px] ">
-          <div className=" flex flex-col md:flex-row justify-between">
+      <div className=" flex justify-center md:mt-[100px] mb-[100px] ">
+        <div className=" lg:w-[1170px]">
+          <div className=" flex flex-col md:flex-row justify-between ">
             <div className="  w-[370px] h-[184px]  shadow-md ">
-              <div className="flex items-center pt-[30px] pl-[30px]">
+              <div className="flex items-center pt-[30px] pl-[30px] ">
                 <div>
                   <Image preview={false} src="/img/address.svg" />
                 </div>
@@ -126,7 +126,7 @@ const Contact = () => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between  w-full mt-[48px]">
-            <div style={{ height: "476px", width: "667px" }}>
+            <div className=" w-full h-[376px] lg:w-[667px] lg:h-[476px]">
               <GoogleMapReact
                 bootstrapURLKeys={{
                   key: "AIzaSyBR_zGWPmH-jvGd9kgI_gh8c4iND_kmcW4",
@@ -137,18 +137,18 @@ const Contact = () => {
                 <AnyReactComponent
                   lat={47.91311332612327}
                   lng={106.92691611492839}
-                  // icon={
-                  //   <Image
-                  //     preview={false}
-                  //     className=" w-[50px] h-[50px]"
-                  //     src="/img/dot.svg"
-                  //   />
-                  // }
-                  text="my markkk"
+                  icon={
+                    <Image
+                      preview={false}
+                      className=" w-[50px] h-[50px]"
+                      src="/img/dot.svg"
+                    />
+                  }
+                  // text="my markkk"
                 />
               </GoogleMapReact>
             </div>
-            <div className=" md:w-[470px]">
+            <div className=" md:w-[470px] mt-[20px] lg:mt-0">
               <div className=" text-[#2F3747] text-[24px] font-bold">
                 Санал хүсэлт
               </div>
@@ -160,7 +160,7 @@ const Contact = () => {
                 initialValues={{ remember: false }}
                 autoComplete="off"
               >
-                <div className=" flex ">
+                <div className=" flex mx-2 lg:mx-0 mt-[20px]">
                   <div className="mr-[16px]">
                     <Form.Item name="username">
                       <Input
@@ -180,27 +180,33 @@ const Contact = () => {
                     </Form.Item>
                   </div>
                 </div>
-                <Form.Item name="title">
-                  <Input
-                    onChange={(e) => setTitle(e.target.value)}
-                    className=" w-full h-[48px] rounded-[8px] mt-[16px]"
-                    placeholder="Хүсэлтийн гарчиг"
-                  />
-                </Form.Item>
-                <Form.Item name="suggestion">
-                  <TextArea
-                    onChange={(e) => setSuggestion(e.target.value)}
-                    className="w-full h-[200px] rounded-[8px] mt-[16px]"
-                    placeholder="Санал хүсэлтээ энд бичнэ үү"
-                  />
-                </Form.Item>
-                <Button
-                  onClick={onSend}
-                  type="primary"
-                  className=" mt-[40px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
-                >
-                  Илгээх
-                </Button>
+                <div className=" mx-2 lg:mx-0">
+                  <Form.Item name="title">
+                    <Input
+                      onChange={(e) => setTitle(e.target.value)}
+                      className=" w-full h-[48px] rounded-[8px] mt-[16px]"
+                      placeholder="Хүсэлтийн гарчиг"
+                    />
+                  </Form.Item>
+                </div>
+                <div className=" mx-2 lg:mx-0">
+                  <Form.Item name="suggestion">
+                    <TextArea
+                      onChange={(e) => setSuggestion(e.target.value)}
+                      className="w-full h-[200px] rounded-[8px] mt-[16px]"
+                      placeholder="Санал хүсэлтээ энд бичнэ үү"
+                    />
+                  </Form.Item>
+                </div>
+                <div className=" flex justify-center lg:justify-start">
+                  <Button
+                    onClick={onSend}
+                    type="primary"
+                    className="  mt-[40px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                  >
+                    Илгээх
+                  </Button>
+                </div>
               </Form>
             </div>
           </div>

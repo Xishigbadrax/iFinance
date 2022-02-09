@@ -21,7 +21,9 @@ const NewsUp = ({ item }) => {
               src="/img/clock.svg"
             />
           </div>
-          <div className=" ml-[10px] opacity-40">{item.created_date}</div>
+          <div className=" ml-[10px] opacity-40">
+            {item?.created_date.slice(11, 16)}
+          </div>
         </div>
         <div className=" flex">
           <div>
@@ -32,7 +34,9 @@ const NewsUp = ({ item }) => {
               src="/img/calendar.svg"
             />
           </div>
-          <div className=" ml-[10px] opacity-40">11.01.2022</div>
+          <div className=" ml-[10px] opacity-40">
+            {item?.created_date.slice(0, 10)}
+          </div>
         </div>
       </div>
       <div className=" mx-[30px]  ">
@@ -44,7 +48,7 @@ const NewsUp = ({ item }) => {
         </div>
       </div>
       <div className=" flex items-center justify-end mr-[30px]">
-        <div className=" mr-[8px] text-[14px] text-[#9CA6C0]">Read more</div>
+        <div className=" mr-[8px] text-[14px] text-[#9CA6C0]">Дэлгэрэнгүй</div>
         <div className=" cursor-pointer w-[30px] h-[30px] bg-[#2E28D426] flex items-center justify-center rounded-[50px] bg-opacity-60 ">
           <Image preview={false} src="/img/arrow.svg" />
         </div>
