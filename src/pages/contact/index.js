@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import NavbarTrans from "../../components/NavbarTrans";
 import Footer from "../../components/Footer";
-import { Image, Input, Button, message } from "antd";
+import { Image, Input, Button, message, Form } from "antd";
 import GoogleMapReact from "google-map-react";
 import Auth from "../../utils/auth";
 import axios from "axios";
+import { formatCountdown } from "antd/lib/statistic/utils";
+import { useForm } from "antd/lib/form/Form";
 
-const AnyReactComponent = ({ icon }) => (
+const AnyReactComponent = ({ icon, text }) => (
   <div>
-    {icon}
-    {/* <Image preview={false} src="/img/logo.png" /> */}
+    {/* {icon} */}
+    {text}
   </div>
 );
 
@@ -18,6 +20,7 @@ const Contact = () => {
   const [email, setEmail] = useState();
   const [title, setTitle] = useState();
   const [suggestion, setSuggestion] = useState();
+  const [form] = Form.useForm();
 
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const { TextArea } = Input;
@@ -48,11 +51,11 @@ const Contact = () => {
     );
     if (res?.data?.id == null) {
       message.success("Баярлалаа. Бид тантай эргээд холбогдох болно");
+      form.resetFields();
     } else {
       message.warning("Алдаа гарлаа");
     }
-
-    console.log(res, "cont");
+    // console.log(res, "cont");
   };
   return (
     <div>
@@ -116,14 +119,14 @@ const Contact = () => {
                     Утас:
                   </div>
                   <div className=" w-[240px] text-[#2F3747] text-[16px] font-semibold">
-                    976 89977771
+                    +976 72707007
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between  w-full mt-[48px]">
-            <div style={{ height: "50vh", width: "667px" }}>
+            <div style={{ height: "476px", width: "667px" }}>
               <GoogleMapReact
                 bootstrapURLKeys={{
                   key: "AIzaSyBR_zGWPmH-jvGd9kgI_gh8c4iND_kmcW4",
@@ -134,14 +137,14 @@ const Contact = () => {
                 <AnyReactComponent
                   lat={47.91311332612327}
                   lng={106.92691611492839}
-                  icon={
-                    <Image
-                      preview={false}
-                      className=" w-[50px] h-[50px]"
-                      src="/img/dot.svg"
-                    />
-                  }
-                  // text={"/img/dot.svg"}
+                  // icon={
+                  //   <Image
+                  //     preview={false}
+                  //     className=" w-[50px] h-[50px]"
+                  //     src="/img/dot.svg"
+                  //   />
+                  // }
+                  text="my markkk"
                 />
               </GoogleMapReact>
             </div>
@@ -149,43 +152,61 @@ const Contact = () => {
               <div className=" text-[#2F3747] text-[24px] font-bold">
                 Санал хүсэлт
               </div>
-              <div className=" flex ">
-                <div className="mr-[16px]">
-                  <Input
-                    onChange={(e) => setUserName(e.target.value)}
-                    className="  md:w-[227px] h-[48px] rounded-[8px]"
-                    placeholder="Хэрэглэгчийн нэр"
-                  />
-                </div>
-                <div>
-                  <Input
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="  md:w-[227px] h-[48px] rounded-[8px]"
-                    placeholder="И-мэйл хаяг"
-                  />
-                </div>
-              </div>
-              <Input
-                onChange={(e) => setTitle(e.target.value)}
-                className=" w-full h-[48px] rounded-[8px] mt-[16px]"
-                placeholder="Хүсэлтийн гарчиг"
-              />
-              <TextArea
-                onChange={(e) => setSuggestion(e.target.value)}
-                className="w-full h-[200px] rounded-[8px] mt-[16px]"
-                placeholder="Санал хүсэлтээ энд бичнэ үү"
-              />
-              <Button
-                onClick={onSend}
-                type="primary"
-                className=" mt-[40px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              <Form
+                form={form}
+                name="basic"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                initialValues={{ remember: false }}
+                autoComplete="off"
               >
-                Илгээх
-              </Button>
+                <div className=" flex ">
+                  <div className="mr-[16px]">
+                    <Form.Item name="username">
+                      <Input
+                        onChange={(e) => setUserName(e.target.value)}
+                        className="  md:w-[227px] h-[48px] rounded-[8px]"
+                        placeholder="Хэрэглэгчийн нэр"
+                      />
+                    </Form.Item>
+                  </div>
+                  <div>
+                    <Form.Item name="email">
+                      <Input
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="  md:w-[227px] h-[48px] rounded-[8px]"
+                        placeholder="И-мэйл хаяг"
+                      />
+                    </Form.Item>
+                  </div>
+                </div>
+                <Form.Item name="title">
+                  <Input
+                    onChange={(e) => setTitle(e.target.value)}
+                    className=" w-full h-[48px] rounded-[8px] mt-[16px]"
+                    placeholder="Хүсэлтийн гарчиг"
+                  />
+                </Form.Item>
+                <Form.Item name="suggestion">
+                  <TextArea
+                    onChange={(e) => setSuggestion(e.target.value)}
+                    className="w-full h-[200px] rounded-[8px] mt-[16px]"
+                    placeholder="Санал хүсэлтээ энд бичнэ үү"
+                  />
+                </Form.Item>
+                <Button
+                  onClick={onSend}
+                  type="primary"
+                  className=" mt-[40px] w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                >
+                  Илгээх
+                </Button>
+              </Form>
             </div>
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
