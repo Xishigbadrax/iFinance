@@ -243,17 +243,28 @@ const CategoryId = () => {
                                   </Button>
                                 )  */}
 
-                                <Button
-                                  onClick={
-                                    Auth.getToken()
-                                      ? () => onCart(item.product_id, 1)
-                                      : () => onCartLogin()
-                                  }
-                                  type="primary"
-                                  className=" w-[236px] h-[48px] rounded-[43px] hover:text-white hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]  bg-white border-[1px] border-[#9CA6C0] text-[#9CA6C0] text-[14px] font-bold"
-                                >
-                                  Сагсанд хийх
-                                </Button>
+                                {Auth.getToken() == "undefined" ||
+                                Auth.getToken() == null ? (
+                                  <Button
+                                    onClick={
+                                      Auth.getToken()
+                                        ? () => onCart(item.product_id, 1)
+                                        : () => onCartLogin()
+                                    }
+                                    type="primary"
+                                    className=" w-[236px] h-[48px] rounded-[43px] hover:text-white hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]  bg-white border-[1px] border-[#9CA6C0] text-[#9CA6C0] text-[14px] font-bold"
+                                  >
+                                    Сагсанд хийх
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    onClick={() => onCart(item.product_id, 1)}
+                                    type="primary"
+                                    className=" w-[236px] h-[48px] rounded-[43px] text-white bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD]   border-[1px]   text-[14px] font-bold"
+                                  >
+                                    Сагсанд хийх
+                                  </Button>
+                                )}
 
                                 <Button
                                   onClick={() => onDetails(id)}

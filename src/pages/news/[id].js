@@ -5,18 +5,70 @@ import { Image } from "antd";
 import { useRouter } from "next/router";
 import Auth from "../../utils/auth";
 import axios from "axios";
+import Slider from "react-slick";
 import Context from "../../context/Context";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Link from "next/link";
 
 const NewsId = () => {
   const router = useRouter();
   const { id } = router.query;
   const baseUrl = process.env.NEXT_PUBLIC_URL;
   const [data, setData] = useState();
+  const [more, setMore] = useState();
+  const [subId, setSubId] = useState(null);
+  const [special, setSpecial] = useState();
   // console.log(id, "idii");
   const { setIsLoading } = useContext(Context);
 
+  const settings = {
+    arrows: true,
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+  const onDetail = (id) => {
+    id &&
+      router.push({
+        pathname: `news/${id}`,
+        query: {
+          id: id,
+        },
+      });
+  };
+
   useEffect(async () => {
     setIsLoading(true);
+
     const res = await axios.post(
       baseUrl + "get/news/more",
       {
@@ -26,6 +78,11 @@ const NewsId = () => {
         },
       },
 
+      // .post(`/mails/users/sendVerificationMail`, null, { params: {
+      //   mail,
+      //   firstname
+      // }})
+
       {
         headers: {
           "Set-Cookie": "session_id=" + Auth.getToken(),
@@ -34,9 +91,11 @@ const NewsId = () => {
       }
     );
     setIsLoading(false);
-    setData(res?.data?.result[0]);
+    setData(res?.data?.result?.single[0]);
+    setMore(res?.data?.result?.more);
+    setSpecial(res?.data?.result?.special);
     console.log(res, "detail medee");
-  }, []);
+  }, [id]);
   return (
     <div>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
@@ -91,7 +150,7 @@ const NewsId = () => {
             </div>
           </div>
         </div>
-        <div className=" bg-black h-[348px] overflow-hidden">
+        <div className="  h-[348px] overflow-hidden">
           <Image
             className=" hidden lg:flex w-[100vw] mt-[100px]"
             preview={false}
@@ -156,30 +215,104 @@ const NewsId = () => {
               <div className=" text-white flex items-center pl-[30px]  text-[18px] font-bold w-full h-[48px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] rounded-t-[4px]">
                 Бусад мэдээ
               </div>
-              <div className=" w-full h-[168px] flex justify-center mt-[30px] shadow-md ">
-                <div className=" flex w-[338px] justify-between">
-                  <div className="">
-                    <Image
-                      preview={false}
-                      className=" object-cover w-[100px] h-[133px]"
-                      src="/img/test.jpg"
-                    />
-                  </div>
-                  <div className=" w-[220px]">
-                    <div className=" text-[#2F3747] text-[16px] font-semibold">
-                      Poster MockUp PSD - Interior Scene
+              {more?.map((item, index) => {
+                return (
+                  <div
+                    id={index}
+                    className=" w-full h-[168px] flex justify-center mt-[30px] shadow-md "
+                  >
+                    <div className=" flex w-[338px] justify-between">
+                      <div className="">
+                        <Image
+                          preview={false}
+                          className=" object-cover w-[100px] h-[133px]"
+                          src={"data:image/png;base64," + item.news_image}
+                        />
+                      </div>
+                      <div className=" w-[220px] h-[150px]  overflow-hidden ">
+                        <div className=" text-[#2F3747] text-[16px] font-semibold">
+                          {item.title}
+                        </div>
+                        <div className=" text-[#2F3747] text-[16px]   overflow-hidden">
+                          {item.content_less}
+                        </div>
+                      </div>
                     </div>
-                    <div className=" text-[#2F3747] text-[16px]">
-                      Class aptent taciti sociosqu ad litora torquent per con...
-                    </div>
                   </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </div>
 
+      <div className=" w-full bg-[#9CA6C0] bg-opacity-10 flex justify-center">
+        <div className=" w-[1326px]">
+          <div className=" text-[24px] text-[#2F3747] font-bold pt-[80px]">
+            Онцлох мэдээ
+          </div>
+          <div className=" mt-[40px] pb-[100px]">
+            <Slider className=" " {...settings}>
+              {special?.map((item, index) => {
+                return (
+                  <Link
+                    href={`/news/${item.news_id}?id=${item.news_id}`}
+                    key={{ index }}
+                  >
+                    <div className=" w-[370px] bg-gray-100 h-[450px] cursor-pointer ">
+                      <div className=" w-full ">
+                        <Image
+                          height={230}
+                          preview={false}
+                          src={"data:image/png;base64," + item?.news_image}
+                        />
+                      </div>
+                      <div className=" m-[20px]">
+                        <div className=" flex justify-between ">
+                          <div className=" flex">
+                            <div>
+                              {" "}
+                              <Image
+                                className=" opacity-40"
+                                preview={false}
+                                src="/img/clock.svg"
+                              />
+                            </div>
+                            <div className=" ml-[10px] opacity-40">
+                              {/* {"5465465"} */}
+                              {item?.created_date.slice(11, 16)}
+                            </div>
+                          </div>
+                          <div className=" flex">
+                            <div>
+                              {" "}
+                              <Image
+                                className=" opacity-40"
+                                preview={false}
+                                src="/img/calendar.svg"
+                              />
+                            </div>
+                            <div className=" ml-[10px] opacity-40">
+                              {/* {"84465 "} */}
+                              {item?.created_date.slice(0, 10)}
+                            </div>
+                          </div>
+                        </div>
+                        <div className=" text-[#151515] text-[18px] font-bold my-[14px]">
+                          {item.title}
+                        </div>
+                        <div className=" text-[#666666] text-[16px] opacity-60 ">
+                          {item.content_less}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </Slider>
+          </div>
+        </div>
+      </div>
       <div>
         <Footer />
       </div>

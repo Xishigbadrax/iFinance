@@ -239,25 +239,11 @@ export default function Home() {
       }
     );
 
-    // console.log(res, "lang res");
+    console.log(res, "lang res");
     setCountry(res?.data?.result?.country_list);
     setLang(res?.data?.result?.lang_list);
 
-    const res2 = await axios.post(
-      baseUrl + "get/news/less",
-      {
-        jsonrpc: 2.0,
-        params: {},
-      },
-
-      {
-        headers: {
-          "Set-Cookie": "session_id=" + Auth.getToken(),
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    setNews(res2?.data?.result.slice(0, 3));
+    setNews(res?.data?.result?.news_list);
     // console.log(res2, "medee");
   }, []);
 
