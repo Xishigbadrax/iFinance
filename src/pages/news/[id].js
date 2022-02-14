@@ -10,6 +10,7 @@ import Context from "../../context/Context";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import Head from "next/head";
 
 const NewsId = () => {
   const router = useRouter();
@@ -98,8 +99,12 @@ const NewsId = () => {
   }, [id]);
   return (
     <div>
+      <Head>
+        <title>iFinance | Мэдээ мэдээлэл</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
-        <div className="absolute z-30  flex flex-col w-full h-full">
+        <div className="absolute z-30  flex flex-col w-full ">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans />
           </div>
@@ -110,9 +115,9 @@ const NewsId = () => {
           src="/img/Slider.svg"
         />
       </div>
-      <div className="  relative ">
-        <div className=" flex justify-center">
-          <div className="xl:absolute z-20   flex flex-col  md:h-[200px] 2xl:h-[260px] mt-[90px]  ml-[2vw] w-[1200px]  ">
+      <div className="  relative  ">
+        <div className=" flex justify-center ">
+          <div className="xl:absolute z-20   flex flex-col  md:h-[200px] 2xl:h-[260px] xl:mt-[90px]  ml-[2vw] w-[1200px]  ">
             <div className=" mt-[20px]    lg:flex justify-between w-[350px] hidden">
               <div>
                 <Image preview={false} src="/img/home.svg" />
@@ -145,23 +150,23 @@ const NewsId = () => {
                 </a>
               </div>
             </div>
-            <div className=" text-center  text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white  text-[36px] font-semibold">
+            <div className=" hidden text-center  text-[#2E28D4]  my-auto font-poppins-semibold uppercase xl:flex  items-center xl:text-white  text-[36px] font-semibold">
               Мэдээ мэдээлэл
             </div>
           </div>
         </div>
-        <div className="  h-[348px] overflow-hidden">
+        <div className=" hidden   xl:flex  h-[348px] overflow-hidden">
           <Image
-            className=" hidden lg:flex w-[100vw] mt-[100px]"
+            className="w-[100vw] mt-[100px]"
             preview={false}
             src="/img/dashboard.svg"
           />
         </div>
       </div>
-      <div className=" flex justify-center mt-[80px] mb-[20px]">
-        <div className="flex  w-[1170px] justify-between">
+      <div className=" flex justify-center mt-[20px]  lg:mt-[80px] mb-[20px]">
+        <div className="flex flex-col lg:flex-row w-[1170px] justify-between">
           <div
-            className=" w-[770px]  shadow-md
+            className=" 2xl:w-[770px]  shadow-md
         "
           >
             <div>
@@ -217,28 +222,33 @@ const NewsId = () => {
               </div>
               {more?.map((item, index) => {
                 return (
-                  <div
-                    id={index}
-                    className=" w-full h-[168px] flex justify-center mt-[30px] shadow-md "
+                  <Link
+                    href={`/news/${item.news_id}?id=${item.news_id}`}
+                    key={{ index }}
                   >
-                    <div className=" flex w-[338px] justify-between">
-                      <div className="">
-                        <Image
-                          preview={false}
-                          className=" object-cover w-[100px] h-[133px]"
-                          src={"data:image/png;base64," + item.news_image}
-                        />
-                      </div>
-                      <div className=" w-[220px] h-[150px]  overflow-hidden ">
-                        <div className=" text-[#2F3747] text-[16px] font-semibold">
-                          {item.title}
+                    <div
+                      id={index}
+                      className=" cursor-pointer w-full h-[168px] flex justify-center mt-[30px] shadow-md "
+                    >
+                      <div className=" flex w-[338px] justify-between">
+                        <div className="">
+                          <Image
+                            preview={false}
+                            className=" object-cover w-[100px] h-[133px]"
+                            src={"data:image/png;base64," + item.news_image}
+                          />
                         </div>
-                        <div className=" text-[#2F3747] text-[16px]   overflow-hidden">
-                          {item.content_less}
+                        <div className=" w-[220px] h-[150px]  overflow-hidden ">
+                          <div className=" text-[#2F3747] text-[16px] font-semibold">
+                            {item.title}
+                          </div>
+                          <div className=" text-[#2F3747] text-[16px]   overflow-hidden">
+                            {item.content_less}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
@@ -247,11 +257,11 @@ const NewsId = () => {
       </div>
 
       <div className=" w-full bg-[#9CA6C0] bg-opacity-10 flex justify-center">
-        <div className=" w-[1326px]">
+        <div className=" max-w-[1326px] lg:w-[1170px]  w-[300px]">
           <div className=" text-[24px] text-[#2F3747] font-bold pt-[80px]">
             Онцлох мэдээ
           </div>
-          <div className=" mt-[40px] pb-[100px]">
+          <div className=" mt-[40px] pb-[100px] ">
             <Slider className=" " {...settings}>
               {special?.map((item, index) => {
                 return (
@@ -259,7 +269,7 @@ const NewsId = () => {
                     href={`/news/${item.news_id}?id=${item.news_id}`}
                     key={{ index }}
                   >
-                    <div className=" w-[370px] bg-gray-100 h-[450px] cursor-pointer ">
+                    <div className="  bg-white shadow-md pb-2  2xl:w-[370px] lg:w-[300px] cursor-pointer ">
                       <div className=" w-full ">
                         <Image
                           height={230}

@@ -3,15 +3,23 @@
 @tailwind utilities;
 
 @layer base {
-    @font-face {
-        font-family: 'Poppins, SemiBold', sans-serif;
-        font-weight: 600;
-        src: url('./fonts/poppin/Poppins-SemiBold.ttf') format('truetype');
-    }
+  @font-face {
+    font-family: "Poppins, SemiBold", sans-serif;
+    font-weight: 600;
+    src: url("./fonts/poppin/Poppins-SemiBold.ttf") format("truetype");
+  }
 
-    /* @font-face {
+  /* @font-face {
         font-family: 'Poppins, Bold', sans-serif;
         font-weight: 700;
         src: url('./fonts/poppin/Poppins-Bold.ttf') format('TrueType');
     } */
+
+  /* .test-dark {
+    @apply dark:text-white;
+  }
+
+  .test-dark > p {
+    @apply dark:text-white text-black;
+  } */
 }

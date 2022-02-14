@@ -1,6 +1,12 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useState, useEffect, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useContext,
+  useRef,
+} from "react";
 import Auth from "../../utils/auth";
 import axios from "axios";
 import Context from "../../context/Context";
@@ -55,6 +61,10 @@ const CategoryId = () => {
   const cartSuccess = () => {
     message.success("Амжилттай сагсанд нэмэгдлээ");
   };
+  const styleObj = {
+    color: "white",
+    // backgroundColor: "red",
+  };
   const onCartLogin = () => {
     setCartLogin(!cartLogin);
     // console.log(cartLogin);
@@ -100,6 +110,23 @@ const CategoryId = () => {
     fetchData();
   }, [id]);
 
+  const elRef = useRef();
+
+  useEffect(() => {
+    if (darkMode == "dark") {
+      for (let i = 0; i < elRef.current?.children.length; i++) {
+        elRef.current?.children[i].style.color = "white";
+      }
+
+      //
+    } else {
+      for (let i = 0; i < elRef.current?.children.length; i++) {
+        elRef.current?.children[i].style.color = "black";
+      }
+      //
+    }
+  });
+
   return (
     <div className="">
       <Head>
@@ -120,11 +147,26 @@ const CategoryId = () => {
             Манай бүтээгдэхүүн
           </div> */}
         </div>
-        <Image
-          className="w-[100vw] h-[100px] scale-150 my-auto  lg:h-auto"
-          preview={false}
-          src="/img/Slider.svg"
-        />
+        <div className="w-[100vw] h-[100px] ">
+          {darkMode == "dark" ? (
+            <Image
+              className="scale-150 my-auto  lg:h-full"
+              preview={false}
+              src="/img/darkHeader.svg"
+            />
+          ) : (
+            <Image
+              className=" scale-150 my-auto  lg:h-full"
+              preview={false}
+              src="/img/Slider.svg"
+            />
+          )}
+          {/* <Image
+            className="w-[100vw] h-[100px] scale-150 my-auto  lg:h-auto"
+            preview={false}
+            src="/img/Slider.svg"
+          /> */}
+        </div>
 
         {/* 
         news.map((item, itex) => {
@@ -135,7 +177,7 @@ const CategoryId = () => {
           return <doshoo item= {item}/>
         }) */}
       </div>
-      <div className="  relative   ">
+      <div className="  relative  dark:bg-[#08194B]   ">
         <div className="xl:absolute z-20    flex flex-col w-full md:h-[200px] 2xl:h-[260px] justify-center mt-[90px] ">
           <div className=" mt-[20px] 2xl:ml-[20vw] md:ml-[7vw]  lg:flex justify-between w-[450px] hidden">
             <div>
@@ -177,7 +219,7 @@ const CategoryId = () => {
           }
         />
       </div>
-      <div className=" 2xl:pl-[200px]  z-10  mb-[20px] dark:bg-[#08194B]  ">
+      <div className=" 2xl:pl-[200px]  z-10  pb-[20px] dark:bg-[#08194B]   ">
         <Tabs defaultActiveKey="1" className="angil">
           <TabPane className="mainTab" tab="Үндсэн модуль" key="1">
             <div className=" lg:mt-[20px] ">
@@ -227,8 +269,15 @@ const CategoryId = () => {
                           }
                           key={index}
                         >
-                          <div className="xl:w-[770px]   shadow-lg rounded mb-[40px] px-[30px] mr-[20px] pb-[30px] ">
-                            <p className=" ">{parse(content)} </p>
+                          <div className="xl:w-[770px] shadow-lg rounded mb-[40px] px-[30px] mr-[20px] pb-[30px] ">
+                            <div
+                              
+                              dangerouslySetInnerHTML={{ __html: content }}
+                              // style={styleObj}
+                              className="test-dark"
+                            >
+                              {/* {parse(content)} */}
+                            </div>
 
                             <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">

@@ -8,6 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Auth from "../../utils/auth";
 import Context from "../../context/Context";
+import Head from "next/head";
 
 const News = () => {
   const router = useRouter();
@@ -69,6 +70,10 @@ const News = () => {
   }, [news]);
   return (
     <div>
+      <Head>
+        <title>iFinance | Мэдээ </title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
         <div className="absolute z-30  flex flex-col w-full h-full">
           <div className="w-full flex justify-center mb-2 ">

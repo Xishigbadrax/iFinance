@@ -1003,7 +1003,7 @@ export default function Home() {
       </div>
       <div className=" w-full">
         <div className="tursh  w-full  ">
-          <div className="flex flex-col justify-center  md:flex-row">
+          <div className="flex flex-col justify-center dark:bg-[#172757]  md:flex-row">
             <div className="relative">
               <div className="h-full w-full absolute z-10 flex flex-col  items-center justify-center left-100px ">
                 <div className=" z-10 mt-[5vh] lg:mt-0 ml-[17vw] lg:ml-0">

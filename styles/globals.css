@@ -307,6 +307,10 @@ a {
 .ant-collapse-content-box {
   border-bottom: none !important;
 }
+.dark .ant-collapse-content-box {
+  border-bottom: none !important;
+  background-color: #39476f !important;
+}
 .ant-collapse-header {
   color: #2e28d4 !important;
   font-size: 24px;
@@ -591,7 +595,11 @@ a {
   background-color: purple !important;
 }
 .ant-collapse-item-active .ant-collapse-header {
-  background-image: linear-gradient(90deg, #2e28d4, #ac27fd) !important;
+  background-image: linear-gradient(45deg, #2e28d4, #ac27fd) !important;
+  color: white !important;
+}
+.dark .ant-collapse-item-active .ant-collapse-header {
+  background-image: linear-gradient(135deg, #3c8ce7, #00eaff) !important;
   color: white !important;
 }
 .mainTab .ant-tabs-tab-btn {
@@ -844,4 +852,21 @@ a {
 .subUser .ant-modal-content {
   width: 970px !important;
   margin-left: -40% !important;
+}
+.zaaz:hover {
+  background-image: linear-gradient(45deg, #011f70, #ac27fd);
+}
+.dark .ant-collapse-header {
+  background-color: rgb(57, 71, 111) !important;
+  color: #00eaff !important  ;
+}
+.ulchilgee {
+  background-image: linear-gradient(45deg, #2e28d4, #ac27fd) !important;
+}
+.dark .ant-tabs-content-holder {
+  color: white !important;
+}
+.ant-tabs-content-holder {
+  color: white !important;
+  /* background-color: #00eaff !important; */
 }

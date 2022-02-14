@@ -124,11 +124,25 @@ const Dashboard = () => {
           </div>
         </div>
         <div className=" 2xl:h-[347px] overflow-hidden ">
-          <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+          {/* <Image className=" w-[100vw]" preview={false} src="/img/Slider.svg" />
+           */}
+          {darkMode == "dark" ? (
+            <Image
+              className="w-[100vw]"
+              preview={false}
+              src="/img/darkPro.svg"
+            />
+          ) : (
+            <Image
+              className="w-[100vw]"
+              preview={false}
+              src="/img/Slider.svg"
+            />
+          )}
         </div>
       </div>
 
-      <div className=" w-full flex justify-center mt-10 z-[-1]">
+      <div className=" w-full flex justify-center pt-10 z-[-1] dark:bg-[#08194B]">
         <div className=" grid grid-cols-3 gap-3 md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:gap-4 mx-2 md:mx-0 ">
           {list &&
             list.map((item, index) => {
@@ -139,7 +153,7 @@ const Dashboard = () => {
                   onClick={() => onCategory(item.category_id)}
                   onMouseEnter={() => onAdd(item)}
                   onMouseLeave={() => onMinus(item)}
-                  className=" relative flex flex-col justify-center items-center md:w-[16.875rem] md:h-[16rem] border-[1px] hover:bg-gradient-to-tr hover: from-[#011F70] to-[#AC27FD]  md:text-[24px] hover:text-white font-semibold rounded-[4px] hover:mt-[-10px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
+                  className=" dark:hover:bg-gradient-to-tr hover: from-[#3C8CE7] to-[#00EAFF] zaaz dark:bg-[#FFFFFF] dark:bg-opacity-20 relative flex flex-col justify-center items-center md:w-[16.875rem] md:h-[16rem] border-[1px]   md:text-[24px] hover:text-white font-semibold rounded-[4px] hover:mt-[-10px] cursor-pointer text-[#2E28D4] border-[#2E28D4] "
                 >
                   {revert == item.category_id ? (
                     <div
@@ -159,7 +173,7 @@ const Dashboard = () => {
                   >
                     {a}
                   </div>
-                  <div className=" bg-white h-[100px] md:w-[100px] flex justify-center items-center rounded-[50px]">
+                  <div className="  dark:bg-transparent bg-white h-[100px] md:w-[100px] flex justify-center items-center rounded-[50px]">
                     {revert == item.category_id ? (
                       item.category_image_inverted == false ? (
                         <Image
@@ -168,14 +182,16 @@ const Dashboard = () => {
                           src="/img/default.png"
                         />
                       ) : (
-                        <Image
-                          preview={false}
-                          className=""
-                          src={
-                            "data:image/png;base64," +
-                            item.category_image_inverted
-                          }
-                        />
+                        <div className=" w-[100px] h-[100px] bg-white flex justify-center items-center rounded-full">
+                          <Image
+                            preview={false}
+                            className=""
+                            src={
+                              "data:image/png;base64," +
+                              item.category_image_inverted
+                            }
+                          />
+                        </div>
                       )
                     ) : item.category_image ? (
                       <Image
@@ -192,7 +208,7 @@ const Dashboard = () => {
                     )}
                   </div>
                   <div className=" w-full flex justify-center items-center ">
-                    <div className=" flex justify-center items-center text-center w-[100px]">
+                    <div className=" dark:text-white flex justify-center items-center text-center w-[100px]">
                       {item.category_name}
                     </div>
                   </div>
@@ -201,13 +217,13 @@ const Dashboard = () => {
             })}
         </div>
       </div>
-      <div className="flex justify-center">
-        <p className=" text-[24px] font-semibold mt-[6.25rem]">
+      <div className="flex justify-center dark:bg-[#08194B]">
+        <p className=" text-[24px] font-semibold mt-[6.25rem] dark:text-white">
           Сервер байршуулах сонголт
         </p>
       </div>
 
-      <div className=" w-full flex flex-col justify-center px-4 mb-[100px]">
+      <div className=" w-full flex flex-col justify-center px-4 pb-[100px] dark:bg-[#08194B]">
         <div className=" flex justify-center">
           <Collapse
             accordion
@@ -216,6 +232,10 @@ const Dashboard = () => {
                 <div>
                   {" "}
                   <Image preview={false} src="/img/plus2.svg" />
+                </div>
+              ) : darkMode == "dark" ? (
+                <div>
+                  <Image preview={false} className=" " src="/img/darkAdd.svg" />
                 </div>
               ) : (
                 <div>
@@ -246,7 +266,7 @@ const Dashboard = () => {
               >
                 <div className=" flex justify-center">
                   <Button
-                    className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
+                    className=" dark:bg-gradient-to-tr from-[#3C8CE7] to-[#00EAFF] w-[14.75rem] h-[3rem] rounded-[43px] ulchilgee font-bold text-[14px]"
                     type="primary f"
                   >
                     Үйлчилгээтэй танилцах
@@ -262,8 +282,11 @@ const Dashboard = () => {
             expandIcon={() =>
               open.includes(1) ? (
                 <div>
-                  {" "}
                   <Image preview={false} src="/img/plus2.svg" />
+                </div>
+              ) : darkMode == "dark" ? (
+                <div>
+                  <Image preview={false} className=" " src="/img/darkAdd.svg" />
                 </div>
               ) : (
                 <div>
@@ -277,7 +300,9 @@ const Dashboard = () => {
             className=" w-[73.125rem] bg-white  border-[#2E28D4]  mb-2"
           >
             <Panel header="АйКлауд.мн" key="1" className=" shadow-md">
-              <p className=" font-semibold text-[16px]">SAAS гэж юу вэ ?</p>
+              <p className=" font-semibold text-[16px] dark:text-white">
+                SAAS гэж юу вэ ?
+              </p>
               <p className=" text-[14px] text-[#9CA6C0]">
                 Software as a Service (SaaS) нь Клауд дэд бүтэц дээр ажиллаж буй
                 бэлэн лицензтэй систем/програм бөгөөд хэрэглэгчид сар болон
@@ -292,7 +317,7 @@ const Dashboard = () => {
               <a href="https://cloud.mn/pricing/" target={"_blank"}>
                 <div className=" flex justify-center">
                   <Button
-                    className=" w-[14.75rem] h-[3rem] rounded-[43px] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] font-bold text-[14px]"
+                    className=" dark:bg-gradient-to-tr from-[#3C8CE7] to-[#00EAFF] ulchilgee w-[14.75rem] h-[3rem] rounded-[43px] font-bold text-[14px]"
                     type="primary f"
                   >
                     Үйлчилгээтэй танилцах
