@@ -240,7 +240,7 @@ const CategoryId = () => {
                       // console.log(content, "contentteee");
                       return (
                         <TabPane
-                          className="test"
+                          className=""
                           tab={
                             <div className="flex  items-center  ">
                               {item.product_icon ? (
@@ -269,15 +269,8 @@ const CategoryId = () => {
                           }
                           key={index}
                         >
-                          <div className="xl:w-[770px] shadow-lg rounded mb-[40px] px-[30px] mr-[20px] pb-[30px] ">
-                            <div
-                              
-                              dangerouslySetInnerHTML={{ __html: content }}
-                              // style={styleObj}
-                              className="test-dark"
-                            >
-                              {/* {parse(content)} */}
-                            </div>
+                     <div className="xl:w-[770px]   shadow-lg rounded mb-[40px] px-[30px] mr-[20px] pb-[30px] ">
+                            <p className=" ">{parse(content)} </p>
 
                             <div className="flex"></div>
                             <div className=" mt-2 flex justify-center">

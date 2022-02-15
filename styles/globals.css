@@ -672,6 +672,7 @@ a {
 .ant-table-column-sorter {
   display: none !important;
 }
+
 .buyTab .ant-tabs-nav-list {
   width: 100% !important;
   border: none !important;
@@ -869,4 +870,14 @@ a {
 .ant-tabs-content-holder {
   color: white !important;
   /* background-color: #00eaff !important; */
+}
+.test .ant-tabs-content-holder {
+  color: white !important;
+  /* background-color: #00eaff !important; */
+}
+.work {
+  background-image: linear-gradient(45deg, #2e28d4, #ac27fd) !important;
+}
+.workModal .ant-modal-footer {
+  display: none !important;
 }

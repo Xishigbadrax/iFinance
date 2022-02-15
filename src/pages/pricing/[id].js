@@ -956,7 +956,7 @@ const Pricing = ({ id }) => {
             <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[375px] h-[3.875rem] rounded-t-[4px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
               Сервер байршуулах:
             </div>
-            <div>
+            {/* <div>
               <div className=" mx-[24px]   lg:w-[330px] lg:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
@@ -971,14 +971,7 @@ const Pricing = ({ id }) => {
                         1 сард
                       </div>
                       <div>
-                        {/* className={serverState2 || serverState3 ? " cursor-not-allowed" : null} */}
-
-                        {/* <Checkbox
-                            disabled={
-                              serverState2 || serverState3 ? true : false
-                            }
-                            onClick={() => onChangerServerPrice1()}
-                          /> */}
+                    
                       </div>
                     </div>
                   </div>
@@ -986,7 +979,7 @@ const Pricing = ({ id }) => {
                     <Select
                       disabled={serverState2 || serverState3 ? true : false}
                       defaultValue="Сонгох"
-                      // style={{ width: 300 }}
+                     
                       className=" w-[280px] lg:w-[290px]"
                       allowClear
                       onChange={handleChange}
@@ -1024,13 +1017,13 @@ const Pricing = ({ id }) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className=" w-full">
               <div className=" mx-[24px]  lg:w-[330px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      2. Cloud.mn Клауд Платформ
+                      1. Cloud.mn Клауд Платформ
                     </div>
                     <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
                       <div className=" text-[#2F3747] text-[16px] font-semibold">
@@ -1097,7 +1090,7 @@ const Pricing = ({ id }) => {
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      3. Өөрсдийн сервер дээр байршуулах
+                      2. Өөрсдийн сервер дээр байршуулах
                     </div>
                     <div className="">
                       <Checkbox
