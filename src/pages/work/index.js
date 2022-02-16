@@ -18,6 +18,9 @@ const Work = () => {
   const [workId, setWorkId] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
   const [userName, setUserName] = useState("");
+  const [fileName, setFileName] = useState(null);
+  const [realFile, setRealFile] = useState(null);
+
   var file = null;
   var base64URL = "";
   const settings = {
@@ -103,35 +106,40 @@ const Work = () => {
       // on reader load somthing...
       reader.onload = () => {
         // Make a fileInfo Object
-        console.log("Called", reader);
+        // console.log("Called", reader);
         baseURL = reader.result;
-        console.log(baseURL);
+        // console.log(baseURL);
         resolve(baseURL);
       };
-      console.log(fileInfo);
+      // console.log(fileInfo, "ene monuu");
     });
   };
 
   const handleFileInputChange = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
 
     file = e.target.files[0];
+    // console.log(file, "gg");
+
+    setFileName(file?.name);
 
     getBase64(file)
       .then((result) => {
         file["base64"] = result;
-        console.log("File Is", file);
+        // console.log("File Is", file);
 
         (base64URL = result), file;
+        setRealFile(file?.base64);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
 
     file = e.target.files[0];
   };
 
   const onSend = async () => {
+    // console.log(realFile, "real");
     // console.log(file?.base64, "aliw");
     // console.log(userName, "nerr");
     const res = await axios.post(
@@ -140,7 +148,7 @@ const Work = () => {
         jsonrpc: 2.0,
         params: {
           name: userName,
-          anket: file?.base64,
+          anket: realFile,
           employment_id: workId,
         },
       },
@@ -158,9 +166,9 @@ const Work = () => {
       }
     );
     res?.data?.result == true
-      ? message.success("Амжилттай явлаа")
+      ? message.success("Амжилттай явлаа") & handleCancel()
       : message.warning("Амжилтгүй");
-    console.log(res, "ajil ");
+    // console.log(res, "ajil ");
   };
   const handleCancel = () => {
     setModal(false);
@@ -206,11 +214,12 @@ const Work = () => {
     );
     setData(res?.data?.result);
     setWorkId(res?.data?.result[0]?.id);
-    console.log(res, "ajil ");
+    // console.log(res, "ajil ");
   }, []);
   useEffect(async () => {
-    console.log(selectedFile, "filee ");
-  }, [selectedFile]);
+    // console.log(realFile, "real filee ");
+    // console.log(file, "filee ");
+  }, [realFile]);
   return (
     <div>
       <Head>
@@ -329,7 +338,7 @@ const Work = () => {
                     } else {
                       return (
                         <div onClick={() => setWorkId(item.id)} key={index}>
-                          <div className=" dark:hover:bg-gradient-to-tr from-[#3C8CE7] to-[#00EAFF] dark:text-white text-center px-2 text-[#2F3747] hover:opacity-100 opacity-60 text-[18px] font-bold cursor-pointer hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] hover:text-white bg-[#9CA6C0] bg-opacity-20 mx-[30px] h-[60px] flex justify-center items-center rounded-[4px]">
+                          <div className="  dark:text-white text-center px-2 text-[#2F3747] hover:opacity-100 opacity-60 text-[18px] font-bold cursor-pointer work2 hover:bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] hover:text-white bg-[#9CA6C0] bg-opacity-20 mx-[30px] h-[60px] flex justify-center items-center rounded-[4px]">
                             {item.name}
                           </div>
                         </div>
@@ -397,7 +406,7 @@ const Work = () => {
                     <Button
                       onClick={() => onShow()}
                       type="primary"
-                      className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+                      className=" dark:bg-gradient-to-tr from-[#3c8ce7] to-[#00eaff] w-[236px] h-[48px] rounded-[43px] work border-none text-[14px] font-bold"
                     >
                       Анкет илгээх
                     </Button>
@@ -421,28 +430,75 @@ const Work = () => {
       >
         <div>
           <div>
-            <Image src="/img/logo.png" />
+            <Image preview={false} src="/img/logo.png" />
           </div>
-          <div>
-            <Input onChange={(e) => setUserName(e.target.value)} />
+
+          <div className=" mt-[20px]">
+            <Input
+              className=" w-full h-[3rem] rounded-[41px] dark:text-white"
+              maxLength={50}
+              placeholder=" Хэрэглэгчийн нэр*"
+              onChange={(e) => setUserName(e.target.value)}
+            />
           </div>
-          {/* <div>
-            <h1>GeeksforGeeks</h1>
-            <h3>File Upload using React!</h3>
-            <div>
-              <input type="file" onChange={onFileChange} />
-              <button onClick={onFileUpload}>Upload!</button>
+
+          {fileName == null ? (
+            <div className=" border-[1px] border-[#9CA6C0] border-dashed mt-[20px] h-[200px]">
+              <div className=" flex justify-center items-center h-full">
+                <div className="flex justify-center flex-col items-center">
+                  <div className=" ">
+                    <Image preview={false} src="/img/file.svg" />
+                  </div>
+                  <div className=" text-[#2F3747] font-bold text-[18px]">
+                    Та файлаа сонгоно уу!
+                  </div>
+                  <div className=" text-[#9CA6C0] text-[16px]">
+                    DOCX эсвэл PDF, илгээнэ үү! Файлын дээд хэмжээ 25MB
+                  </div>
+                  <div className=" rounded-[4px] mt-[24px] w-[100px] h-[40px] border-[1px] flex justify-center items-center border-[#AC27FD] ">
+                    <label
+                      className=" bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] cursor-pointer bg-clip-text text-transparent bg"
+                      for="files"
+                      class="btn"
+                    >
+                      Файл сонгох
+                    </label>
+                  </div>
+                  <input
+                    className="hidden"
+                    type="file"
+                    id="files"
+                    onChange={handleFileInputChange}
+                  />
+                </div>
+              </div>
             </div>
-            {fileData()}
-          </div> */}
-          <div>
-            <input type="file" name="file" onChange={handleFileInputChange} />
-          </div>
-          <div className=" flex justify-center mt-[50px]">
+          ) : (
+            <div className=" pl-[20px] mt-[24px]">
+              <div className=" text-[16px] font-bold">Сонгогдсон файл</div>
+              <div className=" flex justify-between">
+                <div className=" text-[16px]">{fileName}</div>
+                <div
+                  className=" cursor-pointer"
+                  onClick={() => setFileName(null)}
+                >
+                  <Image preview={false} src="/img/x.svg" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className=" flex justify-between mt-[50px]">
+            <Button
+              onClick={() => handleCancel()}
+              className=" border-none shadow-none text-[#9CA6C0]"
+            >
+              Цуцлах
+            </Button>
             <Button
               onClick={() => onSend()}
               type="primary"
-              className=" w-[236px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
+              className=" w-[200px] h-[48px] rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none text-[14px] font-bold"
             >
               илгээх
             </Button>

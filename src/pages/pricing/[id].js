@@ -529,8 +529,76 @@ const Pricing = ({ id }) => {
               <div className="pl-2  flex text-[1.5rem] text-white items-center xl:w-[48.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 {mainData && mainData[0]?.product_category}
               </div>
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-5 lg:gap-4   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
-                {mainData?.map((item, index) => {
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-0   xl:pl-6 pb-[30px] xl:w-[48.125rem] px-2 ">
+                {mainData?.map((mainItem, mainIndex) => {
+                  return (
+                    <div
+                      key={mainIndex}
+                      onClick={() =>
+                        isModuleCheck(mainItem, mainItem.is_required)
+                      }
+                      className={`
+                              ${mainItem.is_required && "cursor-not-allowed"}
+                              mt-[24px] xl:w-[165px]  h-auto cursor-pointer rounded-[8px] border-[1px]  ${
+                                state.includes(mainItem)
+                                  ? "border-[#2E28D4]"
+                                  : "border-[#9CA6C0]"
+                              }
+                            `}
+                    >
+                      <div className=" p-[10px]  flex justify-between  ">
+                        <div className="">
+                          <div className="text-[#2F3747] w-[120px]   font-semibold text-[14px] h-[80px]">
+                            {mainItem.product_name}
+                          </div>
+                          {/* <Divider className="price bg-black " /> */}
+                          <div className="  w-full">
+                            {mainItem.product_discount == 0 ? (
+                              <div className=" flex w-[100px] justify-start">
+                                <div className="text-[#2F3747] text-[16px] font-semibold  ">
+                                  {helper.formatValue(mainItem.product_price)}₮
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="   w-full  ">
+                                <div className="  text-[#2F3747]  text-[16px]  font-semibold     ">
+                                  {helper.formatValue(
+                                    Number(mainItem.product_price) -
+                                      Number(mainItem.product_price) *
+                                        (Number(mainItem.product_discount) /
+                                          100)
+                                  )}
+                                  ₮
+                                </div>
+                                <div className="  flex  justify-between w-[120px]  ">
+                                  <div className=" text-[#2F3747]  opacity-50 line-through">
+                                    {helper.formatValue(mainItem.product_price)}
+                                    ₮
+                                  </div>
+                                  <div className="flex    justify-between   items-center">
+                                    <div className=" bg-[#F01A634D] px-2 flex justify-start  h-[24px]  bg-opacity-30 ml-[10px]   text-[#F01A63] text-[14px] items-center font-medium">
+                                      -{mainItem.product_discount}%
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            {mainItem.is_required ? (
+                              <Checkbox checked />
+                            ) : (
+                              <Checkbox checked={state.includes(mainItem)} />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* {mainData?.map((item, index) => {
                   return (
                     <div
                       key={index}
@@ -589,7 +657,7 @@ const Pricing = ({ id }) => {
                       </div>
                     </div>
                   );
-                })}
+                })} */}
               </div>
             </div>
 
@@ -597,8 +665,72 @@ const Pricing = ({ id }) => {
               <div className=" pl-2 flex text-[1.5rem] text-white items-center xl:w-[49.125rem] h-[3.875rem] rounded-t-xl bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
                 Нэмэлт Модулиуд:
               </div>
-              <div className="grid grid-cols-2 gap-3  md:grid-cols-5 lg:gap-4   md:pl-4 pb-[30px] xl:w-[48.125rem] px-2 ">
+              <div className="grid grid-cols-2 gap-3  md:grid-cols-4 lg:gap-0   md:pl-4 pb-[30px] xl:w-[48.125rem] px-2 ">
                 {additionalData?.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => isModuleCheck(item, item.is_required)}
+                      className={`
+                              ${item.is_required && "cursor-not-allowed"}
+                              mt-[24px] xl:w-[165px]  h-auto cursor-pointer rounded-[8px] border-[1px]  ${
+                                state.includes(item)
+                                  ? "border-[#2E28D4]"
+                                  : "border-[#9CA6C0]"
+                              }
+                            `}
+                    >
+                      <div className=" p-[10px]  flex justify-between  ">
+                        <div className="">
+                          <div className="text-[#2F3747] w-[120px]   font-semibold text-[14px] h-[80px]">
+                            {item.product_name}
+                          </div>
+                          {/* <Divider className="price bg-black " /> */}
+                          <div className="  w-full">
+                            {item.product_discount == 0 ? (
+                              <div className=" flex w-[100px] justify-start">
+                                <div className="text-[#2F3747] text-[16px] font-semibold  ">
+                                  {helper.formatValue(item.product_price)}₮
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="   w-full  ">
+                                <div className="  text-[#2F3747]  text-[16px]  font-semibold     ">
+                                  {helper.formatValue(
+                                    Number(item.product_price) -
+                                      Number(item.product_price) *
+                                        (Number(item.product_discount) / 100)
+                                  )}
+                                  ₮
+                                </div>
+                                <div className="  flex  justify-between w-[120px]  ">
+                                  <div className=" text-[#2F3747]  opacity-50 line-through">
+                                    {helper.formatValue(item.product_price)}₮
+                                  </div>
+                                  <div className="flex    justify-between   items-center">
+                                    <div className=" flex justify-start  h-[24px]  bg-opacity-30 ml-[10px]   text-[#F01A63] text-[14px] items-center font-medium">
+                                      -{item.product_discount}%
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            {item.is_required ? (
+                              <Checkbox checked />
+                            ) : (
+                              <Checkbox checked={state.includes(item)} />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* {additionalData?.map((item, index) => {
                   return (
                     <div
                       key={index}
@@ -657,7 +789,7 @@ const Pricing = ({ id }) => {
                       </div>
                     </div>
                   );
-                })}
+                })} */}
               </div>
             </div>
           </div>
@@ -1018,12 +1150,12 @@ const Pricing = ({ id }) => {
                 </div>
               </div>
             </div> */}
-            <div className=" w-full">
+            <div className=" w-full pb-4">
               <div className=" mx-[24px]  lg:w-[330px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      1. Cloud.mn Клауд Платформ
+                      Cloud.mn Клауд Платформ
                     </div>
                     <div className="flex flex-col xl:flex-row w-[10vw] justify-around items-center">
                       <div className=" text-[#2F3747] text-[16px] font-semibold">
@@ -1085,7 +1217,7 @@ const Pricing = ({ id }) => {
                 </div>
               </div>
             </div>
-            <div className=" w-full pb-[17px]">
+            {/* <div className=" w-full pb-[17px]">
               <div className="   lg:w-[330px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
@@ -1101,7 +1233,7 @@ const Pricing = ({ id }) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className=" w-[370px]  shadow-lg lg:ml-[30px] mt-5 rounded-[4px] p-[20px]">
             <div className="flex">
