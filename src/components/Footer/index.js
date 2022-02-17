@@ -6,7 +6,12 @@ import Poppins from "typeface-poppins";
 const Footer = () => {
   return (
     <div className=" w-full lg:h-[339px] ">
-      <div style={{backgroundImage: "linear-gradient(to right, #473EDA, #B33DFD)" }}  className=" dark:bg-gradient-to-r from-[#2E28D4] to-[#2E28D4] ">
+      <div
+        style={{
+          backgroundImage: "linear-gradient(to right, #473EDA, #B33DFD)",
+        }}
+        className=" dark:bg-gradient-to-r from-[#2E28D4] to-[#2E28D4] "
+      >
         <div className="  justify-center    flex   items-center lg:h-[89px]">
           <div className="  flex flex-col pt-4 pb-4 xl:justify-between xl:w-[60vw] md:w-[80vw] md:justify-between  md:flex-row xl:flex-row xl:pt-0 xl:pb-0 max-w-[1920px]">
             <div className=" flex items-center">
@@ -59,22 +64,25 @@ const Footer = () => {
                 }}
               >
                 <strong>Хаяг:</strong> Реженси Ресидэнс, 16 Олимпын гудамж,
-                14220, Улаанбаатар хот,
-                <br />
-                Монгол улс
+                14220, Улаанбаатар хот, Монгол улс
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div style={{backgroundImage: "linear-gradient(to right, #2E28D4, #AC27FD)" }} className="  dark:bg-gradient-to-r from-[#011F70] to-[#011F70]  hidden w-full  min-h-[15.625rem]  md:flex flex-col justify-center items-center">
+      <div
+        style={{
+          backgroundImage: "linear-gradient(to right, #2E28D4, #AC27FD)",
+        }}
+        className="  dark:bg-gradient-to-r from-[#011F70] to-[#011F70]  hidden w-full  min-h-[15.625rem]  md:flex flex-col justify-center items-center"
+      >
         <div className=" mt-4 md:mt-0">
           <Image preview={false} src="/img/Logo2.svg" />
         </div>
         <br />
-        <div className=" max-w-[700px] flex  justify-center">
+        <div className=" max-w-[750px] flex  justify-center">
           <ul
-            className=" flex flex-col md:w-[600px] xl:w-[700px]  justify-between md:flex-row"
+            className=" flex flex-col md:w-[600px] xl:w-[750px]  justify-between md:flex-row"
             style={{
               fontFamily: Poppins,
               fontWeight: 600,
@@ -87,6 +95,11 @@ const Footer = () => {
             <li>
               <a href="/" className=" text-white ">
                 Эхлэл
+              </a>
+            </li>
+            <li>
+              <a href="/aboutus" className=" text-white ">
+                Бидний тухай
               </a>
             </li>
             <li>
@@ -113,12 +126,14 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="/faq" className=" text-white">
-                Түгээмэл асуулт хариулт
+              <a href="/work" className=" text-white">
+                Нээлттэй ажлын байр
               </a>
             </li>
             <li>
-              <a className=" text-white">Нээлттэй ажлын байр</a>
+              <a href="/faq" className=" text-white">
+                Түгээмэл асуулт хариулт
+              </a>
             </li>
           </ul>
         </div>
@@ -139,7 +154,7 @@ const Footer = () => {
           <Image className=" w-[50px]" preview={false} src="/img/link.svg" />
         </div>
       </div>
-      <div className=" flex justify-center">
+      <div className=" flex justify-center ">
         <div
           className=" flex flex-col md:flex-row md:w-[1920px] xl:flex-row px-10 justify-around"
           style={{ paddingTop: "22px", paddingBottom: "17px" }}

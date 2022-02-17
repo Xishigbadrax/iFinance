@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import { Button, Image } from "antd";
+import { Button, Image, Switch } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Auth from "../../utils/auth";
 
-const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
-  console.log(userName, "namee");
+const Sidebar = ({ Signup, Login, userName, Logout, isLogin, onDark }) => {
+  // console.log(userName, "namee");
   return (
     <div className="w-full">
       <div className="sidebar">
@@ -38,19 +38,51 @@ const Sidebar = ({ Signup, Login, userName, Logout, isLogin }) => {
               </Link>
             </li>
             <li className=" text-lg">
-              <Link href="/order">
-                <a className=" text-white font-semibold">Миний Захиалга</a>
+              <Link href="/news">
+                <a className=" text-white font-semibold">Мэдээ</a>
               </Link>
             </li>
             <li className=" text-lg">
-              <Link href="/cart">
-                <a className=" text-white font-semibold">Миний сагс</a>
+              <Link href="/service">
+                <a className=" text-white font-semibold">Үйлчилгээ</a>
               </Link>
             </li>
-            <li className=" text-lg">
-              <Link href="/info">
-                <a className=" text-white font-semibold">Миний мэдээлэл</a>
-              </Link>
+            {Auth.getToken() != null && (
+              <li className=" text-lg">
+                <Link href="/order">
+                  <a className=" text-white font-semibold">Миний Захиалга</a>
+                </Link>
+              </li>
+            )}
+            {Auth.getToken() != null && (
+              <li className=" text-lg">
+                <Link href="/cart">
+                  <a className=" text-white font-semibold">Миний сагс</a>
+                </Link>
+              </li>
+            )}
+            {Auth.getToken() != null && (
+              <li className=" text-lg">
+                <Link href="/info">
+                  <a className=" text-white font-semibold">Миний мэдээлэл</a>
+                </Link>
+              </li>
+            )}
+            <li>
+              <div className=" flex items-center  mb-2">
+                <div className="flex">
+                  <div className=" text-white font-bold text-[18px]">
+                    Dark mode
+                  </div>
+                </div>
+                <div className=" ml-[10px]">
+                  <Switch
+                    checked={Auth.getMode() == "dark" ? true : false}
+                    onClick={onDark}
+                    register
+                  />
+                </div>
+              </div>
             </li>
           </ul>
         </div>

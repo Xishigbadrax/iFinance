@@ -222,6 +222,109 @@ const Pricing = ({ id }) => {
       });
   }, []);
 
+  const isModuleCheck = async (item, isRequired) => {
+    if (!isRequired) {
+      if (state.includes(item)) {
+        // var filtered = state.filter(function (el) {
+        //   return el == item;
+        // });
+        var p = null;
+        mainData?.map((baraa) => {
+          if (baraa.product_dependency?.includes(item.product_id)) {
+            p = true;
+          }
+        });
+
+        if (p) {
+          mainData?.map((element) => {
+            if (element.product_dependency?.includes(item.product_id)) {
+              let filtered2 = state.filter(function (el) {
+                return el != element;
+              });
+
+              // console.log(filtered2, "filtered 2");
+
+              var lastFilter = filtered2.filter(function (el) {
+                return el != item;
+              });
+              setState(lastFilter);
+              p = false;
+            }
+
+            // else {
+            //   console.log("2");
+            //   var filtered = state.filter(function (el) {
+            //     return el != item;
+            //   });
+            //   setState(filtered);
+            // }
+          });
+        } else {
+          var filtered = state.filter(function (el) {
+            return el != item;
+          });
+          setState(filtered);
+        }
+
+        // setState(filtered);
+      } else {
+        if (item.product_dependency == false) {
+          setState([...state, item]);
+        } else {
+          // mainData?.map((el) => {
+          //   item.product_dependency?.map((hamt) => {
+          //     if (el.product_id == hamt) {
+          //       if (state.includes(el)) {
+          //         setState([...state, item]);
+          //       }
+          //       else {
+
+          //         console.log( hamt,"bnuu")
+          //         setState([...state, el, item]);
+          //       }
+          //     }
+          //   })
+
+          // })
+
+          var response2 = await Promise.all(
+            mainData?.map((baraa) => {
+              for (let i = 0; i < item.product_dependency.length; i++) {
+                if (baraa.product_id == item.product_dependency[i]) {
+                  return isChecked(baraa, baraa.is_required);
+                }
+              }
+            })
+          );
+          var test = [];
+          for (let i = 0; i < response2.length; i++) {
+            if (response2[i] instanceof Object) {
+              test.push(response2[i]);
+            }
+          }
+
+          // item.product_dependency?.map((el) => {
+          //   mainData?.map((hamt) => {
+          //     if (el == hamt.product_id) {
+          //       if (state.includes(hamt)) {
+          //         setState([...state, item]);
+          //       }
+          //       else {
+          //         var ar = [];
+          //         ar.push(...ar ,hamt);
+          //         // console.log( ar,"bnuu")
+          //       }
+          //       // setState([...state, ...hamt, item]);
+          //     }
+          //   })
+
+          // })
+          setState((prev) => [...prev, ...test, item]);
+        }
+      }
+    }
+  };
+
   const onPurchase = async (type) => {
     setIsLoading(true);
     // console.log(sid, "siddd");
@@ -796,15 +899,15 @@ const Pricing = ({ id }) => {
         </div>
         <div className=" flex flex-col mb-10 xl:mb-0">
           <div className=" lg:ml-[30px] w-[370px]   lg:h-[530px] shadow-custom rounded-[8px] ">
-            <Tabs className="payment" defaultActiveKey="1">
-              <TabPane tab="САР" key="1">
+            <Tabs className="payment" defaultActiveKey="2">
+              <TabPane tab="ЖИЛ" key="1">
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
                       {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(programPrice)}₮
+                      {helper.formatValue(programPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -814,7 +917,7 @@ const Pricing = ({ id }) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(serverPrice)}₮
+                      {helper.formatValue(serverPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -823,7 +926,7 @@ const Pricing = ({ id }) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(taxPrice)}₮
+                      {helper.formatValue(taxPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -832,7 +935,10 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {helper.formatValue(discount != 0 ? -discount : 0)}₮
+                      {helper.formatValue(
+                        discountYear != 0 ? -discountYear : 0
+                      )}
+                      ₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -842,7 +948,7 @@ const Pricing = ({ id }) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(totalPrice)}₮
+                      {helper.formatValue(totalPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -851,23 +957,23 @@ const Pricing = ({ id }) => {
                     {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" flex w-[322px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image preview={false} src="/img/warning.png" />
+                        <Image src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] w-[300px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
+                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
                         Хэрвээ та клауд сервэр сонгосон бол таны сервэр
                         автоматаар үүсэж худалдан авсан бараанууд автоматаар
                         суугдана.
                       </p>
                     </div>
                   </div>
-                  <div className=" flex justify-center mt-[30px] pb-4 lg:pb-0">
+                  <div className=" flex justify-center mt-[30px]">
                     {sid ? (
                       <Button
                         className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                         type="primary"
-                        onClick={() => onPurchase("month")}
+                        onClick={() => onPurchase("year")}
                       >
                         Захиалга хийх
                       </Button>
@@ -947,7 +1053,7 @@ const Pricing = ({ id }) => {
                     {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" flex w-[322px]  bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
                         <Image src="/img/warning.png" />
                       </div>
@@ -986,14 +1092,14 @@ const Pricing = ({ id }) => {
                   </div> */}
                 </div>
               </TabPane>
-              <TabPane tab="ЖИЛ" key="3">
+              <TabPane tab="САР" key="3">
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
                       {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(programPriceYear)}₮
+                      {helper.formatValue(programPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1003,7 +1109,7 @@ const Pricing = ({ id }) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(serverPriceYear)}₮
+                      {helper.formatValue(serverPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1012,7 +1118,7 @@ const Pricing = ({ id }) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(taxPriceYear)}₮
+                      {helper.formatValue(taxPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1021,10 +1127,7 @@ const Pricing = ({ id }) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {helper.formatValue(
-                        discountYear != 0 ? -discountYear : 0
-                      )}
-                      ₮
+                      {helper.formatValue(discount != 0 ? -discount : 0)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1034,7 +1137,7 @@ const Pricing = ({ id }) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(totalPriceYear)}₮
+                      {helper.formatValue(totalPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1043,23 +1146,23 @@ const Pricing = ({ id }) => {
                     {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" flex w-[322px]  bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                        <Image src="/img/warning.png" />
+                        <Image preview={false} src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      <p className=" pt-[16px] w-[300px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
                         Хэрвээ та клауд сервэр сонгосон бол таны сервэр
                         автоматаар үүсэж худалдан авсан бараанууд автоматаар
                         суугдана.
                       </p>
                     </div>
                   </div>
-                  <div className=" flex justify-center mt-[30px]">
+                  <div className=" flex justify-center mt-[30px] pb-4 lg:pb-0">
                     {sid ? (
                       <Button
                         className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                         type="primary"
-                        onClick={() => onPurchase("year")}
+                        onClick={() => onPurchase("month")}
                       >
                         Захиалга хийх
                       </Button>
@@ -1257,7 +1360,7 @@ const Pricing = ({ id }) => {
                 )}
               </div>
             )}
-            <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] ">
+            <div className=" flex w-[322px]  bg-[#F09A1A] bg-opacity-10 rounded-[4px] ">
               <div className=" pt-[16px] pl-[17px] pr-[17px]">
                 <Image preview={false} src="/img/warning.png" />
               </div>

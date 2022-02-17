@@ -75,7 +75,7 @@ const News = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
-        <div className="absolute z-30  flex flex-col w-full h-full">
+        <div className="absolute z-30  flex flex-col w-full ">
           <div className="w-full flex justify-center mb-2 ">
             <NavbarTrans />
           </div>
@@ -92,7 +92,7 @@ const News = () => {
       </div>
       <div className="  relative ">
         <div className=" flex justify-center">
-          <div className="xl:absolute z-20   flex flex-col  md:h-[200px] 2xl:h-[260px] mt-[90px]  ml-[2vw] w-[1200px]  ">
+          <div className="xl:absolute z-20   flex flex-col  md:h-[200px] 2xl:h-[260px] mt-[20px] lg:mt-[90px] ml-[2vw] w-[1200px]  ">
             <div className=" mt-[20px]    lg:flex justify-between w-[300px] hidden">
               <div>
                 <Image preview={false} src="/img/home.svg" />

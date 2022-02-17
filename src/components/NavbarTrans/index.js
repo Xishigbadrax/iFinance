@@ -579,6 +579,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     // console.log("Received values of form: ", values);
     setEmail(values.email);
     setPassword(values.password);
+    handleCancel();
     var data = {
       jsonrpc: 2.0,
 
@@ -950,7 +951,12 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
       ) : null}
       {/* mobile бүртгүүлэх */}
 
-      <Modal visible={mobileSignUp} footer={[]} onCancel={handleCancel}>
+      <Modal
+        visible={mobileSignUp}
+        className="mobileModal"
+        footer={[]}
+        onCancel={handleCancel}
+      >
         <div>
           <Image
             className="pt-[3rem] pl-[3rem] "
@@ -1103,7 +1109,12 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
 
       {/* mobile Login */}
 
-      <Modal visible={mobileLogin} footer={[]} onCancel={handleCancel}>
+      <Modal
+        className="mobileModal"
+        visible={mobileLogin}
+        footer={[]}
+        onCancel={handleCancel}
+      >
         <div>
           <Image
             className="pt-[3rem] pl-[3rem]"
@@ -2830,6 +2841,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
           {sideBarActive ? (
             <div className=" lg:hidden">
               <Sidebar
+                onDark={onDarkMode}
                 userName={userName}
                 isLogin={isLogin}
                 Signup={setMobileSignUp}

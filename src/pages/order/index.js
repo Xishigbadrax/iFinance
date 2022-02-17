@@ -556,7 +556,7 @@ text-[14px] font-bold flex justify-center"
           <div className="w-full flex justify-center h-1/3">
             <NavbarTrans />
           </div>
-          <div className=" flex justify-center">
+          <div className=" lg:flex justify-center hidden">
             <div className=" w-[1100px] ">
               <div className=" mt-[20px] flex justify-between w-[250px]">
                 <div>

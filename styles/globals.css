@@ -256,6 +256,10 @@ a {
   z-index: 200;
   padding: 32px;
 }
+.dark .sidebar {
+  /* background-image: linear-gradient(45deg, #3c8ce7, #00eaff); */
+  background-color: #08194b !important;
+}
 .shadowBox {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -361,6 +365,7 @@ a {
     width: 375px !important;
     height: 81px;
   }
+
   .mainTab {
     margin-left: 100px !important;
   }
@@ -695,11 +700,25 @@ a {
 .demoModal .ant-modal-footer {
   display: none !important;
 }
-.demoModal .ant-modal-content {
+@media only screen and (max-width: 600px) {
+  .demoModal .ant-modal-content {
+    /* margin-left: -15vw !important; */
+    width: 360px !important;
+    /* height: 708px !important; */
+  }
+}
+@media only screen and (min-width: 800px) {
+  .demoModal .ant-modal-content {
+    margin-left: -15vw !important;
+    width: 970px !important;
+    height: 708px !important;
+  }
+}
+/* .demoModal .ant-modal-content {
   margin-left: -15vw !important;
   width: 970px !important;
   height: 708px !important;
-}
+} */
 .ant-col-16 {
   max-width: none !important;
 }
@@ -886,4 +905,11 @@ a {
 } */
 .dark .work2:hover {
   background-image: linear-gradient(45deg, #3c8ce7, #00eaff) !important;
+}
+.mobileModal .ant-modal-close {
+  margin: 0px !important;
+  border: none !important;
+}
+.mobileModal {
+  height: auto !important;
 }

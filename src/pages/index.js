@@ -5,6 +5,7 @@ import Auth from "../utils/auth";
 import Footer from "../components/Footer";
 import { MaskedInput } from "antd-mask-input";
 import { Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 import {
   Button,
   Image,
@@ -24,8 +25,10 @@ import Head from "next/head";
 import { theme } from "../../tailwind.config";
 import axios from "axios";
 import Context from "../context/Context";
+import Link from "next/link";
 
 export default function Home() {
+  const router = useRouter();
   const { TextArea } = Input;
   const { Option } = Select;
   const { setIsLoading } = useContext(Context);
@@ -140,28 +143,18 @@ export default function Home() {
       },
     ],
   };
-  const settings2 = {
-    arrows: true,
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1900,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false,
-        },
-      },
-    ],
-  };
 
   const onDemo = () => {
     setDemoModal(true);
+  };
+  const onDetail = (id) => {
+    id &&
+      router.push({
+        pathname: `news/${id}`,
+        query: {
+          id: id,
+        },
+      });
   };
   const onFinishDemo = async (values) => {
     setIsLoading(true);
@@ -243,7 +236,7 @@ export default function Home() {
     setCountry(res?.data?.result?.country_list);
     setLang(res?.data?.result?.lang_list);
 
-    setNews(res?.data?.result?.news_list);
+    setNews(res?.data?.result?.news_list?.slice(0, 3));
     // console.log(res2, "medee");
   }, []);
 
@@ -343,14 +336,19 @@ export default function Home() {
 
         <div className=" flex justify-around xl:mt-[40px]">
           <div>
-            <Button className=" w-[166px] h-[48px] rounded-[43px] bg-[#2E28D4] text-white xl:bg-white xl:text-[#2E28D4] text-[14px] font-bold border-none mr-[24px]">
+            <Button
+              onClick={onDemo}
+              className=" w-[166px] h-[48px] rounded-[43px] bg-[#2E28D4] text-white xl:bg-white xl:text-[#2E28D4] text-[14px] font-bold border-none mr-[24px]"
+            >
               Демо
             </Button>
           </div>
           <div>
-            <Button className=" w-[166px] h-[48px] rounded-[43px] bg-transparent text-[#2E28D4]  xl:text-white font-bold border-[1px] border-[#2E28D4] xl:border-white">
-              Холбоо барих
-            </Button>
+            <a href="/contact">
+              <Button className=" w-[166px] h-[48px] rounded-[43px] bg-transparent text-[#2E28D4]  xl:text-white font-bold border-[1px] border-[#2E28D4] xl:border-white">
+                Холбоо барих
+              </Button>
+            </a>
           </div>
         </div>
       </div>
@@ -828,7 +826,7 @@ export default function Home() {
                   <div className="flex justify-center md:justify-start">
                     <Image preview={false} src="/img/app.svg" />
                   </div>
-                  <p className=" dark:text-white text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center md:justify-start">
+                  <p className=" dark:text-white h-[60px]   text-[#2F3747] text-[18px] font-bold mt-[24px] flex justify-center md:justify-start">
                     Андройд гар утасны апп
                   </p>
                   <p className=" dark:text-white dark:opacity-60 text-[#2F3747] text-justify text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
@@ -855,7 +853,7 @@ export default function Home() {
                     <div className="flex justify-center md:justify-start">
                       <Image preview={false} src="/img/ifin.svg" />
                     </div>
-                    <p className=" dark:text-white text-[#2F3747] text-[18px] font-bold mt-[24px] w-[300px] flex justify-center ">
+                    <p className=" h-[60px] dark:text-white text-[#2F3747] text-[18px] font-bold mt-[24px] w-[300px] flex justify-center ">
                       SaaS болон Cloud суурьтай програм хангамж
                     </p>
                     <p className=" dark:text-white dark:opacity-60 text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
@@ -881,7 +879,7 @@ export default function Home() {
                     <div className="flex justify-center md:justify-start">
                       <Image preview={false} src="/img/play.svg" />
                     </div>
-                    <p className=" dark:text-white flex justify-center  text-[#2F3747] text-[18px] font-bold mt-[24px] md:justify-start">
+                    <p className="h-[60px] dark:text-white flex justify-center  text-[#2F3747] text-[18px] font-bold mt-[24px] md:justify-start">
                       IOS гар утасны апп
                     </p>
                     <p className=" dark:text-white dark:opacity-60 text-justify text-[#2F3747] text-[16px] font-normal text-opacity-60 md:w-[370px] lg:w-[250px] ">
@@ -916,16 +914,32 @@ export default function Home() {
           </div>
           <div className=" bg-[#2E28D4] h-[1px] w-[48px]"></div>
         </div>
-        <div className=" flex justify-center">
-          <div className=" text-center dark:text-white w-[300px] md:w-auto xl:w-auto text-[#2F3747] text-[24px] font-bold flex justify-center">
-            Санхүүгийн мэдээ мэдээлэл
+        <div className=" flex justify-center items-center ">
+          <div className=" xl:w-[1170px]    ">
+            <div className=" text-center dark:text-white w-[300px] md:w-auto xl:w-auto text-[#2F3747] text-[24px] font-bold flex justify-center">
+              Санхүүгийн мэдээ мэдээлэл
+            </div>
+            <Link href="/news">
+              <div className=" flex  justify-end cursor-pointer">
+                <div className=" text-[#2F3747] text-[14px] font-medium mr-[10px]">
+                  Бүгдийг харах
+                </div>
+                <div>
+                  <Image preview={false} src="/img/arrow.svg" />
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
         <div className=" w-full justify-center flex mt-[40px] ">
           <div className=" grid lg:grid-cols-3 grid-cols-1 gap-4 w-[1170px]">
             {news?.map((item, index) => {
               return (
-                <div className="  w-[370px] flex flex-col  items-center cursor-pointer dark:hover:bg-[#2E28D4] dark:hover:bg-opacity-20 hover:shadow-lg pb-[24px] rounded-[8px]">
+                <div
+                  key={index}
+                  onClick={() => onDetail(item.news_id)}
+                  className="  w-[370px] flex flex-col  items-center cursor-pointer dark:hover:bg-[#2E28D4] dark:hover:bg-opacity-20 hover:shadow-lg pb-[24px] rounded-[8px]"
+                >
                   <div className=" w-[370px] flex flex-col h-[265px]  items-center  relative">
                     <div className=" ">
                       {/* <Image preview={false} src="/img/testNews.svg" /> */}
@@ -940,11 +954,11 @@ export default function Home() {
                         <Image preview={false} src="/img/timer.svg" />
                       </div>
                       <div className=" ml-[10px] text-white">
-                        {item.created_date}
+                        {item.created_date.slice(0, 10)}
                       </div>
                     </div>
                   </div>
-                  <div className=" text-[#2F3747] text-[18px] font-bold w-[322px] dark:text-white">
+                  <div className=" text-[#2F3747] text-[18px] font-bold w-[322px] dark:text-white mt-[24px]">
                     {item.title}
                   </div>
                   <div className=" text-[#2F3747] text-[16px] w-[322px] mt-[16px] opacity-60 dark:text-white">
@@ -1091,8 +1105,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <Footer />
+      <div>
+        <Footer />
+      </div>
       <Modal
         className="demoModal"
         visible={demoModal}
@@ -1117,7 +1132,7 @@ export default function Home() {
               onFinish={onFinishDemo}
               autoComplete="off"
             >
-              <div className=" grid grid-cols-2  gap-x-10  ">
+              <div className=" grid grid-cols-1 lg:grid-cols-2  gap-x-10  ">
                 <div>
                   <Form.Item
                     name="surname"
@@ -1130,7 +1145,7 @@ export default function Home() {
                   >
                     <Input
                       maxLength={30}
-                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
+                      className=" lg:w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Овог*"
                     />
@@ -1148,7 +1163,7 @@ export default function Home() {
                     ]}
                   >
                     <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
+                      className=" lg:w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       maxLength={30}
                       id="normal_signup_name"
                       placeholder="Нэр*"
@@ -1166,7 +1181,7 @@ export default function Home() {
                     ]}
                   >
                     <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
+                      className=" lg:w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="И-мэйл*"
                     />
@@ -1185,7 +1200,7 @@ export default function Home() {
                   >
                     <MaskedInput
                       mask="11111111"
-                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
+                      className=" lg:w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Утасны дугаар*"
                     />
@@ -1202,7 +1217,7 @@ export default function Home() {
                     ]}
                   >
                     <Input
-                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
+                      className=" lg:w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       maxLength={50}
                       placeholder="Байгууллагын нэр*"
@@ -1222,7 +1237,7 @@ export default function Home() {
                   >
                     <MaskedInput
                       mask="1111111"
-                      className=" w-[440px] h-[3rem] rounded-[41px] dark:text-white"
+                      className=" lg:w-[440px] h-[3rem] rounded-[41px] dark:text-white"
                       id="normal_signup_name"
                       placeholder="Байгууллагын регистэр*"
                     />
@@ -1239,7 +1254,7 @@ export default function Home() {
                     ]}
                   >
                     <Select
-                      className="demoldoo w-[440px] dark:text-white"
+                      className="demoldoo lg:w-[440px] dark:text-white"
                       placeholder="Улс сонгох"
                       allowClear
                     >
@@ -1264,7 +1279,7 @@ export default function Home() {
                     ]}
                   >
                     <Select
-                      className="demoldoo w-[440px] dark:text-white"
+                      className="demoldoo lg:w-[440px] dark:text-white"
                       placeholder="Хэл сонгох"
                     >
                       {lang?.map((item, index) => {
@@ -1273,7 +1288,7 @@ export default function Home() {
                     </Select>
                   </Form.Item>
                 </div>
-                <Form.Item className=" w-[910px]" name="description">
+                <Form.Item className=" lg:w-[910px]" name="description">
                   <TextArea
                     className=" h-[120px] rounded-[8px] dark:text-white"
                     placeholder="Зарцуулалтын шалтгаан"

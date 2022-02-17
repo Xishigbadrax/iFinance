@@ -669,7 +669,7 @@ const Pricing = ({}) => {
         />
       </div>
       <div className="  relative flex justify-center">
-        <div className="xl:absolute z-20  flex flex-col  w-[1200px] h-full mt-[90px] ">
+        <div className="xl:absolute z-20  flex flex-col  w-[1200px] h-full mt-[20px] lg:mt-[90px] ">
           <div className=" mt-[20px]    lg:flex justify-between w-[300px] hidden">
             <div>
               <Image preview={false} src="/img/home.svg" />
@@ -940,15 +940,15 @@ const Pricing = ({}) => {
         </div>
         <div className=" flex flex-col ">
           <div className=" lg:ml-[30px] w-[370px]   lg:h-[530px] shadow-custom rounded-[8px] ">
-            <Tabs className="payment" defaultActiveKey="1">
-              <TabPane tab="САР" key="1">
+            <Tabs className="payment" defaultActiveKey="2">
+              <TabPane tab="ЖИЛ" key="1">
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
                       {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(programPrice)}₮
+                      {helper.formatValue(programPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -958,7 +958,7 @@ const Pricing = ({}) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(serverPrice)}₮
+                      {helper.formatValue(serverPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -967,7 +967,7 @@ const Pricing = ({}) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(taxPrice)}₮
+                      {helper.formatValue(taxPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -976,7 +976,10 @@ const Pricing = ({}) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {helper.formatValue(discount != 0 ? -discount : 0)}₮
+                      {helper.formatValue(
+                        discountYear != 0 ? -discountYear : 0
+                      )}
+                      ₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -986,7 +989,7 @@ const Pricing = ({}) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(totalPrice)}₮
+                      {helper.formatValue(totalPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -995,13 +998,13 @@ const Pricing = ({}) => {
                     {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" flex w-[322px]  bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
                         <Image preview={false} src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium h-auto">
                         Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаарӨ
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
                         суугдана.
                       </p>
                     </div>
@@ -1011,7 +1014,7 @@ const Pricing = ({}) => {
                       <Button
                         className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                         type="primary"
-                        onClick={() => onPurchase("month")}
+                        onClick={() => onPurchase("year")}
                       >
                         Захиалга хийх
                       </Button>
@@ -1091,11 +1094,11 @@ const Pricing = ({}) => {
                     {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" flex w-[322px]  bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
                         <Image preview={false} src="/img/warning.png" />
                       </div>
-                      <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
+                      <p className=" pt-[16px] pr-[16px] w-[300px] h-auto text-[#F09A1A] text-[13px] font-medium">
                         Хэрвээ та клауд сервэр сонгосон бол таны сервэр
                         автоматаар үүсэж худалдан авсан бараанууд автоматаар
                         суугдана.
@@ -1130,14 +1133,14 @@ const Pricing = ({}) => {
                   </div> */}
                 </div>
               </TabPane>
-              <TabPane tab="ЖИЛ" key="3">
+              <TabPane tab="САР" key="3">
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
                       {numberOfProgram} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(programPriceYear)}₮
+                      {helper.formatValue(programPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1147,7 +1150,7 @@ const Pricing = ({}) => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(serverPriceYear)}₮
+                      {helper.formatValue(serverPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1156,7 +1159,7 @@ const Pricing = ({}) => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(taxPriceYear)}₮
+                      {helper.formatValue(taxPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1165,10 +1168,7 @@ const Pricing = ({}) => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {helper.formatValue(
-                        discountYear != 0 ? -discountYear : 0
-                      )}
-                      ₮
+                      {helper.formatValue(discount != 0 ? -discount : 0)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1178,7 +1178,7 @@ const Pricing = ({}) => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValue(totalPriceYear)}₮
+                      {helper.formatValue(totalPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -1187,13 +1187,13 @@ const Pricing = ({}) => {
                     {/* <div className="text-[13px] text-[#9CA6C0] font-normal">
                       (2) Billed annually: $216.00 USD
                     </div> */}
-                    <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
+                    <div className=" flex w-[322px]  bg-[#F09A1A] bg-opacity-10 rounded-[4px] mt-[16px]">
                       <div className=" pt-[16px] pl-[17px] pr-[17px]">
                         <Image preview={false} src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
                         Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
+                        автоматаар үүсэж худалдан авсан бараанууд автоматаарӨ
                         суугдана.
                       </p>
                     </div>
@@ -1203,7 +1203,7 @@ const Pricing = ({}) => {
                       <Button
                         className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                         type="primary"
-                        onClick={() => onPurchase("year")}
+                        onClick={() => onPurchase("month")}
                       >
                         Захиалга хийх
                       </Button>
@@ -1383,7 +1383,7 @@ const Pricing = ({}) => {
             <div>
               {invoice?.map((item, index) => {
                 return (
-                  <div className="flex justify-center">
+                  <div key={index} className="flex justify-center">
                     <Image
                       className=""
                       preview={false}
@@ -1499,10 +1499,10 @@ const Pricing = ({}) => {
                   <Panel
                     className=" paymentModal"
                     header={
-                      <div className=" flex ">
+                      <div className=" flex">
                         <div>
                           <Image
-                            className=" w-[40px] h-[40px] rounded-[8px]"
+                            className=" min-w-[40px] w-[40px]  h-[40px] rounded-[8px]"
                             preview={false}
                             src={
                               "data:image/png;base64," + item.invoice_bank_logo
