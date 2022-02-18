@@ -114,11 +114,8 @@ const NewsId = () => {
     <div>
       <Head>
         {/* <meta property="og:description" content={newsDesc} /> */}
-        <title>
-          Санхүүгийн SaaS систем нэвтрүүлж бизнесээ өргөжүүлэх боломж - АйСиТи
-          групп
-        </title>
-        {/* <meta property="og:url" content={newsUri} />
+        {/* <title>iFinance | Мэдээ мэдээлэл</title>
+        <meta property="og:url" content={newsUri} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
         <meta property="fb:app_id" content="516247196361202" />
@@ -127,13 +124,16 @@ const NewsId = () => {
         <meta property="og:type" content="article" />
         <meta
           property="og:title"
-          content="Санхүүгийн SaaS систем нэвтрүүлж бизнесээ өргөжүүлэх боломж - АйСиТи групп"
+          content="iFinance – SaaS-ERP систем юу хийж чадах вэ?"
         />
         <meta
           property="og:description"
           content="Санхүүгийн бүтээгдэхүүн үйлчилгээг зайнаас авах, онлайн худалдаа хийх, байгууллагын санхүүг алсаас удирдах гэх мэт маш олон боломжийг технологийн шийдэл бүрдүүлдэг. Үүний нэг нь iFinance SaaS ERP юм.  [&hellip;]"
         />
-        <meta property="og:url" content="https://ifinance.mn/news/1?id=1" />
+        <meta
+          property="og:url"
+          content="https://ifinance.mn/news/1?id=1status"
+        />
         <meta property="og:site_name" content="АйСиТи групп" />
         <meta
           property="article:publisher"
