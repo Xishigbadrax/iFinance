@@ -123,11 +123,12 @@ const NewsId = () => {
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
+        {console.log(newsTitle, "pppp")}
         <meta
           property="og:description"
           content="Аливаа байгууллагын хувьд эрхэлж буй бизнесээ хянаж тогтвортой гүйцэтгэл, өсөлттэй байлгахын тулд нягтлан бодох бүртгэл, санхүүгийн удирдлагын шилдэг программ хангамжийн шийдэл хамгийн чухалд тооцогддог. Тиймээс аж ахуй нэгж, бизнесийн байгууллагууд санхүүгийн цогц шийдлийг нэг дор шингээсэн, үүлэн технологид суурилсан системийг /Saas ERP/ үйл ажиллагаандаа нэвтрүүлж нөөцийг оновчтой хуваарилж, зардлыг бууруулж, үр ашигтай ажиллахад чиглэсэн шийдэлд [&hellip;]"
         />
-        <meta property="og:url" content="https://www.ictgroup.mn/1227/" />
+        <meta property="og:url" content={window.location.href} />
         <meta property="og:site_name" content="АйСиТи групп" />
         <meta
           property="article:publisher"
