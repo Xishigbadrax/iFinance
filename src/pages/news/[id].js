@@ -114,21 +114,26 @@ const NewsId = () => {
     <div>
       <Head>
         {/* <meta property="og:description" content={newsDesc} /> */}
-        <title>iFinance – SaaS-ERP систем юу хийж чадах вэ?</title>
+        <title>
+          Санхүүгийн SaaS систем нэвтрүүлж бизнесээ өргөжүүлэх боломж - АйСиТи
+          групп
+        </title>
         {/* <meta property="og:url" content={newsUri} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
-      <meta property="og:image" content={newsImg} /> */}
         <meta property="fb:app_id" content="516247196361202" />
+        <meta property="og:image" content={newsImg} /> */}
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={newsTitle} />
-        {console.log(newsTitle, "pppp")}
+        <meta
+          property="og:title"
+          content="Санхүүгийн SaaS систем нэвтрүүлж бизнесээ өргөжүүлэх боломж - АйСиТи групп"
+        />
         <meta
           property="og:description"
-          content="Аливаа байгууллагын хувьд эрхэлж буй бизнесээ хянаж тогтвортой гүйцэтгэл, өсөлттэй байлгахын тулд нягтлан бодох бүртгэл, санхүүгийн удирдлагын шилдэг программ хангамжийн шийдэл хамгийн чухалд тооцогддог. Тиймээс аж ахуй нэгж, бизнесийн байгууллагууд санхүүгийн цогц шийдлийг нэг дор шингээсэн, үүлэн технологид суурилсан системийг /Saas ERP/ үйл ажиллагаандаа нэвтрүүлж нөөцийг оновчтой хуваарилж, зардлыг бууруулж, үр ашигтай ажиллахад чиглэсэн шийдэлд [&hellip;]"
+          content="Санхүүгийн бүтээгдэхүүн үйлчилгээг зайнаас авах, онлайн худалдаа хийх, байгууллагын санхүүг алсаас удирдах гэх мэт маш олон боломжийг технологийн шийдэл бүрдүүлдэг. Үүний нэг нь iFinance SaaS ERP юм.  [&hellip;]"
         />
-        <meta property="og:url" content={newsUri} />
+        <meta property="og:url" content="https://ifinance.mn/news/1?id=1" />
         <meta property="og:site_name" content="АйСиТи групп" />
         <meta
           property="article:publisher"
