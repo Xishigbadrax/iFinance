@@ -258,39 +258,6 @@ export default function Home() {
       <Head>
         <title>iFinance | Интеллижент Финанс ХХК</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta property="fb:pages" content="1712269079064850" />
-    <meta property="og:type" content="website" />
-    <meta name="author" content="Zarig.mn" />
-    <meta name="description" content="Хөгжлийн банкнаас зээл авсан " Алтайн
-    констракшн" компанийн захирал Х.Бат-Эрдэнэ, "Капитал" банкны гүйцэтгэх
-    захирал асан А.Ариунболд болон зээл олгосон гэх Хөгжлийн банкны дэд захирал
-    асан Б.Чойжилжал&#8230;"><meta name="keywords" content="Хөгжлийн, банкнаас,
-    зээл, авсан, " Алтайн, констракшн", компанийн, захирал, Х.Бат-Эрдэнэ,,
-    "Капитал", банкны, гүйцэтгэх, захирал, асан, А.Ариунболд, болон, зээл,
-    олгосон, гэх, Хөгжлийн, банкны, дэд, захирал, асан, Б.Чойжилжал&#8230;">
-    <meta property="fb:app_id" content="1347085502005051" />
-    <meta property="og:type" content="article" />
-    <meta
-      property="og:title"
-      content="Шүүхээс Б.Чойжилжалбуу, Х.Бат-Эрдэнэ нарын шүүх хурлыг хойшлууллаа"
-    />
-    <meta property="og:description" content="Хөгжлийн банкнаас зээл авсан "
-    Алтайн констракшн" компанийн захирал Х.Бат-Эрдэнэ, "Капитал" банкны
-    гүйцэтгэх захирал асан А.Ариунболд болон зээл олгосон гэх Хөгжлийн банкны
-    дэд захирал асан Б.Чойжилжал&#8230;" />
-    <meta property="og:url" content="https://zarig.mn/vtn" />
-    <meta
-      property="og:image"
-      content="https://zarig.mn/images/news/main/22.02/f5b052200750672d008dbce013cc6754.jpg"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@zarig" />
-    <meta name="twitter:domain" content="zarig.mn" />
-    <meta name="twitter:creator" content="@zarig" />
-    <meta
-      name="twitter:image:src"
-      content="https://zarig.mn/images/news/main/22.02/f5b052200750672d008dbce013cc6754.jpg"
-    />
       </Head>
       <div className="relative  w-full">
         <div id="head" className=" absolute z-20 flex flex-col w-full h-full">
