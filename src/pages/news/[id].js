@@ -114,7 +114,7 @@ const NewsId = () => {
     <div>
       <Head>
         {/* <meta property="og:description" content={newsDesc} /> */}
-        <title>iFinance | Мэдээ мэдээлэл</title>
+        <title>{newsUri}</title>
         {/* <meta property="og:url" content={newsUri} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
@@ -132,7 +132,7 @@ const NewsId = () => {
         <meta property="og:site_name" content="АйСиТи групп" />
         <meta
           property="article:publisher"
-          content="https://www.facebook.com/ictgroupmongolia"
+          content={newsImg}
         />
         <meta
           property="article:published_time"
@@ -144,7 +144,7 @@ const NewsId = () => {
         />
         <meta
           property="og:image"
-          content="https://www.ictgroup.mn/wp-content/uploads/2022/02/272381896_669970770707619_8650509537384539062_n.png"
+          content={"data:image/png;base64," + } 
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="628" />
