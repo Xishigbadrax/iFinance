@@ -114,7 +114,7 @@ const NewsId = () => {
     <div>
       <Head>
         {/* <meta property="og:description" content={newsDesc} /> */}
-        <title>{newsUri}</title>
+        <title>iFinance – SaaS-ERP систем юу хийж чадах вэ?</title>
         {/* <meta property="og:url" content={newsUri} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
