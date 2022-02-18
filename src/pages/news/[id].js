@@ -103,20 +103,55 @@ const NewsId = () => {
     console.log(res, "detail medee");
   }, [id]);
   useEffect(() => {
+    console.log(window.location.href, "Zzzz");
     setnewsUri(window.location.href);
+    console.log(data?.title, "rere");
     setnewsTitle(data?.title);
-    setnewsDesc(data?.content_more);
+    // setnewsDesc(data?.content_more);
     setnewsImg("data:image/png;base64," + data?.news_image);
   }, [data]);
   return (
     <div>
       <Head>
-        <title>iFinance | Мэдээ мэдээлэл</title>
+        {/* <meta property="og:description" content={newsDesc} /> */}
+        {/* <title>iFinance | Мэдээ мэдээлэл</title>
         <meta property="og:url" content={newsUri} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
-        <meta property="og:description" content={newsDesc} />
-        <meta property="og:image" content={newsImg} />
+        <meta property="fb:app_id" content="516247196361202" />
+        <meta property="og:image" content={newsImg} /> */}
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="article" />
+        <meta
+          property="og:title"
+          content="Санхүүгийн SaaS систем нэвтрүүлж бизнесээ өргөжүүлэх боломж - АйСиТи групп"
+        />
+        <meta
+          property="og:description"
+          content="Аливаа байгууллагын хувьд эрхэлж буй бизнесээ хянаж тогтвортой гүйцэтгэл, өсөлттэй байлгахын тулд нягтлан бодох бүртгэл, санхүүгийн удирдлагын шилдэг программ хангамжийн шийдэл хамгийн чухалд тооцогддог. Тиймээс аж ахуй нэгж, бизнесийн байгууллагууд санхүүгийн цогц шийдлийг нэг дор шингээсэн, үүлэн технологид суурилсан системийг /Saas ERP/ үйл ажиллагаандаа нэвтрүүлж нөөцийг оновчтой хуваарилж, зардлыг бууруулж, үр ашигтай ажиллахад чиглэсэн шийдэлд [&hellip;]"
+        />
+        <meta property="og:url" content="https://www.ictgroup.mn/1227/" />
+        <meta property="og:site_name" content="АйСиТи групп" />
+        <meta
+          property="article:publisher"
+          content="https://www.facebook.com/ictgroupmongolia"
+        />
+        <meta
+          property="article:published_time"
+          content="2022-02-12T08:56:40+00:00"
+        />
+        <meta
+          property="article:modified_time"
+          content="2022-02-12T09:00:01+00:00"
+        />
+        <meta
+          property="og:image"
+          content="https://www.ictgroup.mn/wp-content/uploads/2022/02/272381896_669970770707619_8650509537384539062_n.png"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="628" />
+        <meta property="og:image:type" content="image/png" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
         <div className="absolute z-30  flex flex-col w-full ">
