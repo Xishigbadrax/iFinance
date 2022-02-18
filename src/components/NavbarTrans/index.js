@@ -63,7 +63,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   const [forgotPassConfirm, setForgotPassConfirm] = useState(false);
   const [forgotConfirmCode, setForgotConfirmCode] = useState("");
   const [cartNumber, setCartNumber] = useState(0);
-  const [timer, setTimer] = useState(10000);
+  const [timer, setTimer] = useState(30000);
   const [badTimer, setBadTimer] = useState(false);
   const [news, setNews] = useState([]);
 
@@ -105,6 +105,8 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   var totalPrice = 0;
 
   var conCode = 0;
+  var newPassword = 0;
+  var newPasswordConfrim = 0;
 
   // dark mode state
   const { systemTheme, theme, setTheme } = useTheme();
@@ -141,6 +143,16 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     // setConfirmCode(value);
     conCode = value;
     console.log(conCode);
+  };
+  const onNewPass = (e) => {
+    // setConfirmCode(value);
+    newPassword = e.target.value;
+    console.log(newPassword);
+  };
+  const onNewPassConfirm = (e) => {
+    // setConfirmCode(value);
+    newPasswordConfrim = e.target.value;
+    console.log(newPasswordConfrim);
   };
 
   const onShadowBox = () => {
@@ -263,6 +275,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
 
   // console.log(width, "widdd");
   const onForgotConfirmModal = async () => {
+    handleCancel();
     setIsLoading(true);
     await axios
       .post(
@@ -406,6 +419,30 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
     clockRef.current.start();
     setReSend(false);
   };
+  const onAgainForgot = async () => {
+    setIsLoading(true);
+    const res = await axios.post(
+      baseUrl + "resend",
+      {
+        jsonrpc: 2.0,
+        params: {
+          login: forgotEmailValue,
+          is_mobile: true,
+        },
+      },
+      {
+        headers: {
+          "Set-Cookie": "session_id=" + userSid,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setIsLoading(false);
+    console.log(res, "dahin kodnii res");
+
+    clockRef.current.start();
+    setReSend(false);
+  };
   const onDelete = async (id, type) => {
     setIsLoading(true);
     var data = {
@@ -469,9 +506,9 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
           jsonrpc: 2.0,
           params: {
             email: forgotEmailValue,
-            code: forgotConfirmCode,
-            password: newPass,
-            password_confirm: newPassConfirm,
+            code: conCode,
+            password: newPassword,
+            password_confirm: newPasswordConfrim,
           },
         },
 
@@ -815,9 +852,11 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                   <div className="">
                     <div className=" w-[492px]  flex justify-between">
                       <div>
-                        <div className=" text-[#2F3747] font-bold text-[18px]">
-                          {item.product_name}
-                        </div>
+                        <a href="/cart">
+                          <div className=" text-[#2F3747] font-bold text-[18px]">
+                            {item.product_name}
+                          </div>
+                        </a>
                         <Divider className=" w-[422px] my-[16px]" />
                         <div className=" flex justify-between">
                           <div className=" text-[#2F3747] text-[16px] opacity-60">
@@ -1826,7 +1865,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                 ]}
               >
                 {/* aliv */}
-                {forgotType == 1 ? (
+                {/* {forgotType == 1 ? (
                   <Input
                     maxLength={8}
                     suffix={
@@ -1837,36 +1876,36 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                     placeholder="Бүртгэлтэй утасны дугаар"
                     onChange={(e) => setForgotPhoneValue(e.target.value)}
                   />
-                ) : (
-                  <Input
-                    maxLength={30}
-                    suffix={
-                      <MailOutlined className="text-[1.25rem] opacity-70" />
-                    }
-                    className=" w-[27.5rem] h-[3rem] rounded-[41px]"
-                    id="normal_signup_утйшл"
-                    placeholder="Бүртгэлтэй и-мэйл хаяг"
-                    onChange={(e) => setForgotEmailValue(e.target.value)}
-                  />
-                )}
+                ) : ( */}
+                <Input
+                  maxLength={30}
+                  suffix={
+                    <MailOutlined className="text-[1.25rem] opacity-70" />
+                  }
+                  className=" w-[27.5rem] h-[3rem] rounded-[41px]"
+                  id="normal_signup_утйшл"
+                  placeholder="Бүртгэлтэй и-мэйл хаяг"
+                  onChange={(e) => setForgotEmailValue(e.target.value)}
+                />
+                {/* )} */}
               </Form.Item>
 
-              <Radio.Group onChange={onForgotTypeChange} value={forgotType}>
+              {/* <Radio.Group onChange={onForgotTypeChange} value={forgotType}>
                 <Radio value={1}>Утасны дугаараар</Radio>
                 <Radio value={2}>Имэйл хаягаар</Radio>
-              </Radio.Group>
+              </Radio.Group> */}
               <div className=" flex justify-center mt-[1.875rem] ">
                 <div className="flex w-[27.5rem] items-center h-[4.625rem] justify-center bg-[#F09A1A] bg-opacity-30 rounded-[4px]">
                   <div>
                     <WarningOutlined className="text-[20px]" />
                   </div>
                   <div className=" text-[14px] pl-2 text-[#F09A1A]">
-                    Бүртгэлтэй утасны дугаар болон имэйл хаягаа зөв оруулна уу!
+                    Бүртгэлтэй имэйл хаягаа зөв оруулна уу!
                   </div>
                 </div>
               </div>
               <Form.Item>
-                {forgotType == 1 ? (
+                {/* {forgotType == 1 ? (
                   <Button
                     className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
                     type="primary"
@@ -1874,15 +1913,15 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                   >
                     Илгээх
                   </Button>
-                ) : (
-                  <Button
-                    className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
-                    type="primary"
-                    onClick={onForgotConfirmModal}
-                  >
-                    Илгээх
-                  </Button>
-                )}
+                ) : ( */}
+                <Button
+                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                  type="primary"
+                  onClick={onForgotConfirmModal}
+                >
+                  Илгээх
+                </Button>
+                {/* )} */}
               </Form.Item>
             </Form>
           </div>
@@ -2213,6 +2252,23 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
               </p>
 
               <Form.Item
+                name="forgotCode"
+                rules={[
+                  {
+                    required: true,
+                    message: "Баталгаажуулах кодоо оруулна уу!",
+                  },
+                ]}
+              >
+                <Space>
+                  <ReactCodeInput
+                    onChange={(e) => onCount(e)}
+                    className="confirmInput"
+                    fields={4}
+                  />
+                </Space>
+              </Form.Item>
+              {/* <Form.Item
                 name="forgotValue"
                 rules={[
                   {
@@ -2228,7 +2284,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                     fields={4}
                   />
                 </Space>
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item
                 name="forgotValue"
                 rules={[
@@ -2244,19 +2300,31 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                     style={{ borderBottom: "1px solid black" }}
                   >
                     <Input.Password
-                      onChange={(e) => setNewPass(e.target.value)}
+                      onChange={(e) => onNewPass(e)}
+                      // onChange={(e) => setNewPass(e.target.value)}
                       bordered={false}
                       placeholder="Шинэ нууц үг "
                     />
                   </div>
                 </div>
+              </Form.Item>
+              <Form.Item
+                name="forgotValueConfirm"
+                rules={[
+                  {
+                    required: true,
+                    message: "Мэдээллээ оруулна уу!",
+                  },
+                ]}
+              >
                 <div className=" w-full flex justify-center  mt-[20px]  ">
                   <div
                     className=" w-[300px]"
                     style={{ borderBottom: "1px solid black" }}
                   >
                     <Input.Password
-                      onChange={(e) => setNewPassConfirm(e.target.value)}
+                      onChange={(e) => onNewPassConfirm(e)}
+                      // onChange={(e) => setNewPassConfirm(e.target.value)}
                       bordered={false}
                       placeholder="Шинэ нууц үг давтах"
                     />
@@ -2264,16 +2332,41 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                 </div>
               </Form.Item>
 
-              <div className=" w-full flex justify-center">
+              {/* <div className=" w-full flex justify-center">
                 <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
                   <div className="text-[#F01A63]">
                     <Countdown renderer={renderer} date={Date.now() + 180000} />
                   </div>
                 </div>
+              </div> */}
+              <div className=" w-full flex justify-center">
+                <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
+                  <div className="text-[#F01A63]">
+                    <Countdown
+                      renderer={renderer}
+                      ref={clockRef}
+                      autoStart={true}
+                      onComplete={() => onCompleteTimer()}
+                      date={Date.now() + timer}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="text-[13px] text-[#acabc9] mt-[1.5rem] cursor-pointer">
+              {/* <div className="text-[13px] text-[#acabc9] mt-[1.5rem] cursor-pointer">
                 Баталгаажуулах код авах
-              </div>
+              </div> */}
+              {reSend ? (
+                <div
+                  onClick={() => onAgainForgot()}
+                  className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-pointer "
+                >
+                  Дахин илгээх
+                </div>
+              ) : (
+                <div className="text-[13px] text-[#2E28D4] mt-[1.5rem] cursor-not-allowed ">
+                  Дахин илгээх
+                </div>
+              )}
               <Form.Item>
                 <Button
                   className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
@@ -2949,24 +3042,26 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                 )}
               </ul>
             </div>
-            <div className="flex items-center ">
-              <Dropdown
-                arrow
-                placement="bottomLeft"
-                overlay={cart}
-                trigger={["click"]}
-              >
-                <div className="relative cursor-pointer mt-2  mr-4">
-                  <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
-                    {cartNumber}
+            <div className="flex items-center h-full  ">
+              <div className=" relative" id="area">
+                <Dropdown
+                  arrow
+                  placement="bottomLeft"
+                  overlay={cart}
+                  trigger={["click"]}
+                >
+                  <div className="relative cursor-pointer mt-2  mr-4">
+                    <div className="   absolute z-10 right-0 w-[14px] h-[14px] rounded-[22px] items-center border-[1px] text-[8px] font-bold flex justify-center text-[#F01A63] border-[#F01A63] bg-white">
+                      {cartNumber}
+                    </div>
+                    <Image
+                      className=" "
+                      preview={false}
+                      src="/img/cartIcon.svg"
+                    />
                   </div>
-                  <Image
-                    className=" "
-                    preview={false}
-                    src="/img/cartIcon.svg"
-                  />
-                </div>
-              </Dropdown>
+                </Dropdown>
+              </div>
             </div>
 
             {token === "undefined" || token == null ? (

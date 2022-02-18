@@ -173,7 +173,7 @@ const Cart = () => {
       .then((response) => {
         setProduct(response?.data?.result?.products);
         setServer(response?.data?.result?.server);
-        // console.log(response, "haha");
+        console.log(response, "get cart");
         setIsLoading(false);
       });
 
@@ -261,8 +261,11 @@ const Cart = () => {
       }
     }
 
+    var pd = "";
+
     // console.log(unique, "<===");
     setCatName(unique);
+
     // for (let index = 0; index < product?.length; index++) {
     // console.log(product[index], "lalar");
 
@@ -485,8 +488,8 @@ const Cart = () => {
           />
         </div> */}
           <div className=" ml-[10px] w-[370px]  mb-5 pb-5  lg:h-[530px] shadow-custom rounded-[8px] ">
-            <Tabs className="payment" defaultActiveKey="1">
-              <TabPane tab="САР" key="1">
+            <Tabs className="payment" defaultActiveKey="2">
+              <TabPane tab="ЖИЛ" key="1">
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
@@ -494,7 +497,7 @@ const Cart = () => {
                       {product?.length} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValueReverse(programPrice)}₮
+                      {helper.formatValueReverse(programPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -504,8 +507,7 @@ const Cart = () => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {/* {serverPrice.toFixed(2)} */}
-                      {helper.formatValueReverse(serverPrice)}₮
+                      {helper.formatValueReverse(serverPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -514,8 +516,7 @@ const Cart = () => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {/* {taxPrice.toFixed(2)} */}
-                      {helper.formatValueReverse(tax)}₮
+                      {helper.formatValueReverse(taxPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -524,7 +525,9 @@ const Cart = () => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {helper.formatValueReverse(discount != 0 ? -discount : 0)}
+                      {helper.formatValueReverse(
+                        discountYear != 0 ? -discountYear : 0
+                      )}
                       ₮
                     </div>
                   </div>
@@ -535,7 +538,7 @@ const Cart = () => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValueReverse(totalPrice)}₮
+                      {helper.formatValueReverse(totalPriceYear)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -559,10 +562,11 @@ const Cart = () => {
                     <Button
                       className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                       type="primary"
-                      onClick={() => onPurchase("month")}
+                      onClick={() => onPurchase("year")}
                     >
                       Төлбөр төлөх
                     </Button>
+                    <a></a>
                   </div>
                   {/* <div className=" mx-[24px] my-[30px]">
                     <p className="text-[14px] text-[#9CA6C0] font-normal">
@@ -658,7 +662,7 @@ const Cart = () => {
                   </div> */}
                 </div>
               </TabPane>
-              <TabPane tab="ЖИЛ" key="3">
+              <TabPane tab="САР" key="3">
                 <div className=" flex flex-col justify-center items-center">
                   <div className=" flex justify-between  w-[322px]">
                     <div className=" text-[#2F3747] text-[16px] font-medium">
@@ -666,7 +670,7 @@ const Cart = () => {
                       {product?.length} модуль
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValueReverse(programPriceYear)}₮
+                      {helper.formatValueReverse(programPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -676,7 +680,8 @@ const Cart = () => {
                       Сервер
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValueReverse(serverPriceYear)}₮
+                      {/* {serverPrice.toFixed(2)} */}
+                      {helper.formatValueReverse(serverPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -685,7 +690,8 @@ const Cart = () => {
                       НӨАТ
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValueReverse(taxPriceYear)}₮
+                      {/* {taxPrice.toFixed(2)} */}
+                      {helper.formatValueReverse(tax)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -694,9 +700,7 @@ const Cart = () => {
                       Хөнгөлөлт
                     </div>
                     <div className="text-[#30D82E] text-[16px] font-semibold">
-                      {helper.formatValueReverse(
-                        discountYear != 0 ? -discountYear : 0
-                      )}
+                      {helper.formatValueReverse(discount != 0 ? -discount : 0)}
                       ₮
                     </div>
                   </div>
@@ -707,7 +711,7 @@ const Cart = () => {
                       Нийт төлбөр
                     </div>
                     <div className="text-[#2F3747] text-[16px] font-semibold">
-                      {helper.formatValueReverse(totalPriceYear)}₮
+                      {helper.formatValueReverse(totalPrice)}₮
                     </div>
                   </div>
                   <Divider className="bill" />
@@ -731,7 +735,7 @@ const Cart = () => {
                     <Button
                       className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
                       type="primary"
-                      onClick={() => onPurchase("year")}
+                      onClick={() => onPurchase("month")}
                     >
                       Төлбөр төлөх
                     </Button>

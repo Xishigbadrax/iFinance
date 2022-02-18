@@ -886,10 +886,7 @@ a {
 .dark .ant-tabs-content-holder {
   color: white !important;
 }
-.ant-tabs-content-holder {
-  color: white !important;
-  /* background-color: #00eaff !important; */
-}
+
 .test .ant-tabs-content-holder {
   color: white !important;
   /* background-color: #00eaff !important; */
