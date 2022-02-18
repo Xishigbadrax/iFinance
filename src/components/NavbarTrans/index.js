@@ -328,7 +328,9 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   };
 
   const onMobileForgot = async () => {
-    setIsLoading(true);
+    handleCancel();
+    onMobileFunction();
+    // setIsLoading(true);
     await axios
       .post(
         baseUrl + "user/reset_password",
@@ -347,9 +349,9 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
         }
       )
       .then((response) => {
-        setIsLoading(false);
-        console.log(response, "forgot res");
-        response?.data?.result && onMobileFunction();
+        // setIsLoading(false);
+        // console.log(response, "forgot res");
+        // response?.data?.result && onMobileFunction();
       });
   };
 
@@ -648,8 +650,8 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
       setMobileSignUp(false);
       setLoginModal(false);
     } else if (res.data.error && res.data.error.data.message) {
-      settitle("Алдлаа гарлаа");
-      settext(res.data.error.data.message);
+      // settitle("Алдлаа гарлаа");
+      settext("Бүртгэхэд алдаа гарлаа");
       setstatus("error");
       setmessageShow(true);
     } else {
@@ -1012,7 +1014,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
             onFinish={onMobileRegister}
           >
             <p className=" text-[1.5rem] text-[#2E28D4] font-semibold pt-2">
-              Бүртгүүлэхы
+              Бүртгүүлэх
             </p>
             <Form.Item
               name="radioType"
@@ -1255,7 +1257,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                 },
               ]}
             >
-              {forgotType == 1 ? (
+              {/* {forgotType == 1 ? (
                 <Input
                   maxLength={8}
                   suffix={
@@ -1266,35 +1268,33 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                   placeholder="Бүртгэлтэй утасны дугаар"
                   onChange={(e) => setForgotPhoneValue(e.target.value)}
                 />
-              ) : (
-                <Input
-                  suffix={
-                    <MailOutlined className="text-[1.25rem] opacity-70" />
-                  }
-                  className=" w-[20rem] h-[3rem] rounded-[41px]"
-                  id="normal_signup_name"
-                  placeholder="Бүртгэлтэй и-мэйл хаяг"
-                  onChange={(e) => setForgotEmailValue(e.target.value)}
-                />
-              )}
+              ) : ( */}
+              <Input
+                suffix={<MailOutlined className="text-[1.25rem] opacity-70" />}
+                className=" w-[20rem] h-[3rem] rounded-[41px]"
+                id="normal_signup_name"
+                placeholder="Бүртгэлтэй и-мэйл хаяг"
+                onChange={(e) => setForgotEmailValue(e.target.value)}
+              />
+              {/* )} */}
             </Form.Item>
 
-            <Radio.Group onChange={onForgotTypeChange} value={forgotType}>
+            {/* <Radio.Group onChange={onForgotTypeChange} value={forgotType}>
               <Radio value={1}>Утасны дугаараар</Radio>
               <Radio value={2}>Имэйл хаягаар</Radio>
-            </Radio.Group>
+            </Radio.Group> */}
             <div className=" flex justify-center mt-[1.875rem] ">
               <div className="flex w-[27.5rem] items-center h-[4.625rem] justify-center bg-[#F09A1A] bg-opacity-30 rounded-[4px]">
                 <div>
                   <WarningOutlined className="text-[20px]" />
                 </div>
                 <div className=" text-[14px] pl-2 text-[#F09A1A]">
-                  Бүртгэлтэй утасны дугаар болон имэйл хаягаа зөв оруулна уу!
+                  Бүртгэлтэй имэйл хаягаа зөв оруулна уу!
                 </div>
               </div>
             </div>
             <Form.Item>
-              {forgotType == 1 ? (
+              {/* {forgotType == 1 ? (
                 <Button
                   className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
                   type="primary"
@@ -1302,15 +1302,15 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                 >
                   Илгээх
                 </Button>
-              ) : (
-                <Button
-                  className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
-                  type="primary"
-                  onClick={onMobileForgot}
-                >
-                  Илгээх
-                </Button>
-              )}
+              ) : ( */}
+              <Button
+                className=" w-[12.5rem] h-[3rem] bg-gradient-to-r from-[#2E28D4] to-[#AC27FD] rounded-[43px] mt-[2.5rem]"
+                type="primary"
+                onClick={onMobileForgot}
+              >
+                Илгээх
+              </Button>
+              {/* )} */}
             </Form.Item>
           </Form>
         </div>
@@ -1354,7 +1354,13 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
             <div className=" w-full flex justify-center">
               <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
                 <div className="text-[#F01A63]">
-                  <Countdown renderer={renderer} date={Date.now() + 180000} />
+                  <Countdown
+                    renderer={renderer}
+                    ref={clockRef}
+                    autoStart={true}
+                    onComplete={() => onCompleteTimer()}
+                    date={Date.now() + timer}
+                  />
                 </div>
               </div>
             </div>
@@ -1415,7 +1421,13 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
             <div className=" w-full flex justify-center">
               <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
                 <div className="text-[#F01A63]">
-                  <Countdown renderer={renderer} date={Date.now() + 180000} />
+                  <Countdown
+                    renderer={renderer}
+                    ref={clockRef}
+                    autoStart={true}
+                    onComplete={() => onCompleteTimer()}
+                    date={Date.now() + timer}
+                  />
                 </div>
               </div>
             </div>
@@ -1514,7 +1526,13 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
             <div className=" w-full flex justify-center">
               <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
                 <div className="text-[#F01A63]">
-                  <Countdown renderer={renderer} date={Date.now() + 180000} />
+                  <Countdown
+                    renderer={renderer}
+                    ref={clockRef}
+                    autoStart={true}
+                    onComplete={() => onCompleteTimer()}
+                    date={Date.now() + timer}
+                  />
                 </div>
               </div>
             </div>
@@ -2089,7 +2107,13 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
               <div className=" w-full flex justify-center">
                 <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
                   <div className="text-[#F01A63]">
-                    <Countdown renderer={renderer} date={Date.now() + 180000} />
+                    <Countdown
+                      renderer={renderer}
+                      ref={clockRef}
+                      autoStart={true}
+                      onComplete={() => onCompleteTimer()}
+                      date={Date.now() + timer}
+                    />
                   </div>
                 </div>
               </div>
@@ -2576,7 +2600,13 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
               <div className=" w-full flex justify-center">
                 <div className=" flex justify-center items-center w-[4.188rem] h-[2.625rem] bg-[#F01A63] bg-opacity-10 rounded-[4px]">
                   <div className="text-[#F01A63]">
-                    <Countdown renderer={renderer} date={Date.now() + 180000} />
+                    <Countdown
+                      renderer={renderer}
+                      ref={clockRef}
+                      autoStart={true}
+                      onComplete={() => onCompleteTimer()}
+                      date={Date.now() + timer}
+                    />
                   </div>
                 </div>
               </div>

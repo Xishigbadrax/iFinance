@@ -907,6 +907,10 @@ a {
   margin: 0px !important;
   border: none !important;
 }
+.demoModal .ant-modal-close {
+  margin: 0px !important;
+  border: none !important;
+}
 .mobileModal {
   height: auto !important;
 }

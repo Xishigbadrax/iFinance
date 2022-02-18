@@ -20,13 +20,18 @@ const NewsId = () => {
   const [more, setMore] = useState();
   const [subId, setSubId] = useState(null);
   const [special, setSpecial] = useState();
+  const [newsUri, setnewsUri] = useState();
+  const [newsTitle, setnewsTitle] = useState();
+  const [newsDesc, setnewsDesc] = useState();
+  const [newsImg, setnewsImg] = useState();
+
   // console.log(id, "idii");
   const { setIsLoading } = useContext(Context);
 
   const settings = {
     arrows: true,
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -36,7 +41,7 @@ const NewsId = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: true,
+          infinite: false,
           dots: false,
         },
       },
@@ -97,11 +102,21 @@ const NewsId = () => {
     setSpecial(res?.data?.result?.special);
     console.log(res, "detail medee");
   }, [id]);
+  useEffect(() => {
+    setnewsUri(window.location.href);
+    setnewsTitle(data?.title);
+    setnewsDesc(data?.content_more);
+    setnewsImg("data:image/png;base64," + data?.news_image);
+  }, [data]);
   return (
     <div>
       <Head>
         <title>iFinance | Мэдээ мэдээлэл</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:url" content={newsUri} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={newsTitle} />
+        <meta property="og:description" content={newsDesc} />
+        <meta property="og:image" content={newsImg} />
       </Head>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
         <div className="absolute z-30  flex flex-col w-full ">
