@@ -1487,6 +1487,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
                   type="number"
                   className=" w-[15rem]"
                 />
+                <meta property="og:title" content={post.title} />
               </Space>
             </Form.Item>
             <Form.Item
