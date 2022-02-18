@@ -114,18 +114,15 @@ const NewsId = () => {
     <div>
       <Head>
         {/* <meta property="og:description" content={newsDesc} /> */}
-        {/* <title>iFinance | Мэдээ мэдээлэл</title>
-        <meta property="og:url" content={newsUri} />
+        <title>iFinance | Мэдээ мэдээлэл</title>
+        {/* <meta property="og:url" content={newsUri} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
+      <meta property="og:image" content={newsImg} /> */}
         <meta property="fb:app_id" content="516247196361202" />
-        <meta property="og:image" content={newsImg} /> */}
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="article" />
-        <meta
-          property="og:title"
-          content="Санхүүгийн SaaS систем нэвтрүүлж бизнесээ өргөжүүлэх боломж - АйСиТи групп"
-        />
+        <meta property="og:title" content={newsTitle} />
         <meta
           property="og:description"
           content="Аливаа байгууллагын хувьд эрхэлж буй бизнесээ хянаж тогтвортой гүйцэтгэл, өсөлттэй байлгахын тулд нягтлан бодох бүртгэл, санхүүгийн удирдлагын шилдэг программ хангамжийн шийдэл хамгийн чухалд тооцогддог. Тиймээс аж ахуй нэгж, бизнесийн байгууллагууд санхүүгийн цогц шийдлийг нэг дор шингээсэн, үүлэн технологид суурилсан системийг /Saas ERP/ үйл ажиллагаандаа нэвтрүүлж нөөцийг оновчтой хуваарилж, зардлыг бууруулж, үр ашигтай ажиллахад чиглэсэн шийдэлд [&hellip;]"
