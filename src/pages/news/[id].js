@@ -114,11 +114,16 @@ const NewsId = () => {
     <div>
       <Head>
         {/* <meta property="og:description" content={newsDesc} /> */}
-        <title>{newsUri}</title>
+
+        <title>Мэдээ мэдээлэл</title>
+
         {/* <meta property="og:url" content={newsUri} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
       <meta property="og:image" content={newsImg} /> */}
+
+        {/* metaaaa */}
+        {/* 
         <meta property="fb:app_id" content="516247196361202" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="article" />
@@ -149,7 +154,9 @@ const NewsId = () => {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="628" />
         <meta property="og:image:type" content="image/png" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary_large_image" /> */}
+
+        {/* metaaa */}
       </Head>
       <div className=" xl:fixed z-30 h-[100px] flex  overflow-hidden ">
         <div className="absolute z-30  flex flex-col w-full ">
