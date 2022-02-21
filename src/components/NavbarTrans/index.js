@@ -665,6 +665,7 @@ const NavbarTrans = ({ cartLogin, cartRender, darkaa }) => {
   const onMobileRegister = async (values) => {
     setIsLoading(true);
     setScreen(true);
+    handleCancel();
     // console.log("Received values of form: ", values);
     setEmail(values.email);
     setPassword(values.password);

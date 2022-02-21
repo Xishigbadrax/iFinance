@@ -938,8 +938,59 @@ const Pricing = ({}) => {
             </div>
           </div>
         </div>
+
         <div className=" flex flex-col ">
-          <div className=" lg:ml-[30px] w-[370px]   lg:h-[530px] shadow-custom rounded-[8px] ">
+          <div className=" w-[370px]  shadow-lg lg:ml-[30px]  rounded-[4px] p-[20px]">
+            <div className="flex">
+              <Input
+                addonBefore="https://"
+                addonAfter=".ifinance.mn"
+                placeholder="Домайн нэр"
+                disabled={lock}
+                onChange={(e) => setDomain(e.target.value)}
+              />
+              <Button type="default" onClick={() => setLock(false)}>
+                X
+              </Button>
+            </div>
+            {domainState != null && (
+              <div className=" flex justify-center mt-4">
+                {domainState ? (
+                  <p className=" text-green-500">Боломжтой</p>
+                ) : (
+                  <p className=" text-red-500">Боломжгүй</p>
+                )}
+              </div>
+            )}
+            <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] ">
+              <div className=" pt-[16px] pl-[17px] pr-[17px]">
+                <Image preview={false} src="/img/warning.png" />
+              </div>
+              <p className=" pt-[16px] w-[350px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
+                Домайн хаягаа дараа нь өөрийн хаягаараа солих боломжтой.
+              </p>
+            </div>
+            <div className=" flex justify-center mt-[30px]">
+              {sid ? (
+                <Button
+                  className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
+                  type="primary"
+                  onClick={onCheck}
+                >
+                  Шалгах
+                </Button>
+              ) : (
+                <Button
+                  className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-[#9CA6C0] border-none"
+                  type="primary"
+                  disabled
+                >
+                  Шалгах
+                </Button>
+              )}
+            </div>
+          </div>
+          <div className=" lg:ml-[30px] w-[370px] mt-5 lg:h-[530px] shadow-custom rounded-[8px] ">
             <Tabs className="payment" defaultActiveKey="2">
               <TabPane tab="ЖИЛ" key="1">
                 <div className=" flex flex-col justify-center items-center">
@@ -1003,9 +1054,9 @@ const Pricing = ({}) => {
                         <Image preview={false} src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium h-auto">
-                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
-                        суугдана.
+                        Та худалдан авалт хийж төлбөр төлөгдсөн цагаас ERP
+                        систем сонгосон серверт байршиж, нийт 8 минутын
+                        хугацаанд шууд ашиглахад бэлэн болно.
                       </p>
                     </div>
                   </div>
@@ -1099,9 +1150,9 @@ const Pricing = ({}) => {
                         <Image preview={false} src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] h-auto text-[#F09A1A] text-[13px] font-medium">
-                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаар
-                        суугдана.
+                        Та худалдан авалт хийж төлбөр төлөгдсөн цагаас ERP
+                        систем сонгосон серверт байршиж, нийт 8 минутын
+                        хугацаанд шууд ашиглахад бэлэн болно.
                       </p>
                     </div>
                   </div>
@@ -1192,9 +1243,9 @@ const Pricing = ({}) => {
                         <Image preview={false} src="/img/warning.png" />
                       </div>
                       <p className=" pt-[16px] pr-[16px] w-[300px] text-[#F09A1A] text-[13px] font-medium">
-                        Хэрвээ та клауд сервэр сонгосон бол таны сервэр
-                        автоматаар үүсэж худалдан авсан бараанууд автоматаарӨ
-                        суугдана.
+                        Та худалдан авалт хийж төлбөр төлөгдсөн цагаас ERP
+                        систем сонгосон серверт байршиж, нийт 8 минутын
+                        хугацаанд шууд ашиглахад бэлэн болно.
                       </p>
                     </div>
                   </div>
@@ -1228,12 +1279,12 @@ const Pricing = ({}) => {
               </TabPane>
             </Tabs>
           </div>
-          <div className=" lg:ml-[30px] mt-[1.875rem] mb-[30px] shadow-custom  w-[375px]">
-            <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[375px] h-[3.875rem] rounded-t-[4px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
+          {/* <div className=" lg:ml-[30px] mt-[1.875rem] mb-[30px] shadow-custom  w-[375px]"> */}
+          {/* <div className=" pl-2 flex  text-[1.5rem] text-white items-center lg:w-[375px] h-[3.875rem] rounded-t-[4px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] ">
               Сервер байршуулах:
-            </div>
+            </div> */}
 
-            <div className=" w-full pb-4">
+          {/* <div className=" w-full pb-4">
               <div className=" mx-[24px]  lg:w-[330px] xl:mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px] rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
@@ -1248,12 +1299,7 @@ const Pricing = ({}) => {
                         1 сард
                       </div>
                       <div>
-                        {/* <Checkbox
-                            disabled={
-                              serverState1 || serverState3 ? true : false
-                            }
-                            onClick={() => onChangerServerPrice2()}
-                          /> */}
+                     
                       </div>
                     </div>
                   </div>
@@ -1261,7 +1307,7 @@ const Pricing = ({}) => {
                     <Select
                       disabled={serverState1 || serverState3 ? true : false}
                       defaultValue="Сонгох"
-                      // style={{ width: 300 }}
+                    
                       allowClear
                       className=" w-[280px] xl:w-[290px]"
                       onChange={handleChange2}
@@ -1299,8 +1345,8 @@ const Pricing = ({}) => {
                   </div>
                 </div>
               </div>
-            </div>
-            {/* <div className=" w-full pb-[17px]">
+            </div> */}
+          {/* <div className=" w-full pb-[17px]">
               <div className="   lg:w-[330px] mx-[24px] border-[1px] border-[#9CA6C0] mt-[24px]  rounded-[8px]">
                 <div className=" p-[20px]">
                   <div className=" flex w-full  justify-between">
@@ -1317,57 +1363,7 @@ const Pricing = ({}) => {
                 </div>
               </div>
             </div> */}
-          </div>
-          <div className=" w-[370px]  shadow-lg lg:ml-[30px] mt-5 rounded-[4px] p-[20px]">
-            <div className="flex">
-              <Input
-                addonBefore="https://"
-                addonAfter=".ifinance.mn"
-                placeholder="Домайн нэр"
-                disabled={lock}
-                onChange={(e) => setDomain(e.target.value)}
-              />
-              <Button type="default" onClick={() => setLock(false)}>
-                X
-              </Button>
-            </div>
-            {domainState != null && (
-              <div className=" flex justify-center mt-4">
-                {domainState ? (
-                  <p className=" text-green-500">Боломжтой</p>
-                ) : (
-                  <p className=" text-red-500">Боломжгүй</p>
-                )}
-              </div>
-            )}
-            <div className=" flex w-[322px] h-[86px] bg-[#F09A1A] bg-opacity-10 rounded-[4px] ">
-              <div className=" pt-[16px] pl-[17px] pr-[17px]">
-                <Image preview={false} src="/img/warning.png" />
-              </div>
-              <p className=" pt-[16px] w-[350px] pr-[16px] text-[#F09A1A] text-[13px] font-medium">
-                Домайн хаягаа дараа нь өөрийн хаягаараа солих боломжтой.
-              </p>
-            </div>
-            <div className=" flex justify-center mt-[30px]">
-              {sid ? (
-                <Button
-                  className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-gradient-to-tr from-[#2E28D4] to-[#AC27FD] border-none"
-                  type="primary"
-                  onClick={onCheck}
-                >
-                  Шалгах
-                </Button>
-              ) : (
-                <Button
-                  className=" text-[14px] font-bold w-[200px] h-[48px] text-white rounded-[43px] bg-[#9CA6C0] border-none"
-                  type="primary"
-                  disabled
-                >
-                  Шалгах
-                </Button>
-              )}
-            </div>
-          </div>
+          {/* </div> */}
         </div>
       </div>
       <Footer />

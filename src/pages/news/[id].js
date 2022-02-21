@@ -108,8 +108,10 @@ const NewsId = () => {
     console.log(data?.title, "rere");
     setnewsTitle(data?.title);
     // setnewsDesc(data?.content_more);
-    setnewsImg("data:image/png;base64," + data?.news_image);
+    setnewsImg(data?.news_image);
+    Auth.setImage(data?.news_image);
   }, [data]);
+  // console.log(newsImg, "ss");
   return (
     <div>
       <Head>
@@ -130,10 +132,7 @@ const NewsId = () => {
           property="og:description"
           content="Санхүүгийн бүтээгдэхүүн үйлчилгээг зайнаас авах, онлайн худалдаа хийх, байгууллагын санхүүг алсаас удирдах гэх мэт маш олон боломжийг технологийн шийдэл бүрдүүлдэг. Үүний нэг нь iFinance SaaS ERP юм.  [&hellip;]"
         />
-        <meta
-          property="og:url"
-          content="https://ifinance.mn/news/1?id=1status"
-        />
+        <meta property="og:url" content="https://ifinance.mn/news/1?id=1" />
         <meta property="og:site_name" content="АйСиТи групп" />
         <meta
           property="article:publisher"
@@ -150,6 +149,7 @@ const NewsId = () => {
         <meta
           property="og:image"
           content="https://www.ictgroup.mn/wp-content/uploads/2022/02/272381896_669970770707619_8650509537384539062_n.png"
+          // content ==
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="628" />

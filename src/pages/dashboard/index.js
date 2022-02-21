@@ -142,7 +142,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className=" w-full flex justify-center pt-10 z-[-1] dark:bg-[#08194B]">
+      <div className=" w-full flex justify-center py-10 z-[-1] dark:bg-[#08194B]">
         <div className=" grid grid-cols-3 gap-3 md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:gap-4 mx-2 md:mx-0 ">
           {list &&
             list.map((item, index) => {
@@ -217,13 +217,13 @@ const Dashboard = () => {
             })}
         </div>
       </div>
-      <div className="flex justify-center dark:bg-[#08194B]">
+      {/* <div className="flex justify-center dark:bg-[#08194B]">
         <p className=" text-[24px] font-semibold mt-[6.25rem] dark:text-white">
           Сервер байршуулах сонголт
         </p>
-      </div>
+      </div> */}
 
-      <div className=" w-full flex flex-col justify-center px-4 pb-[100px] dark:bg-[#08194B]">
+      {/* <div className=" w-full flex flex-col justify-center px-4 pb-[100px] dark:bg-[#08194B]">
         <div className=" flex justify-center">
           <Collapse
             accordion
@@ -327,7 +327,7 @@ const Dashboard = () => {
             </Panel>
           </Collapse>
         </div>
-      </div>
+      </div> */}
       <div>
         <Footer />
       </div>

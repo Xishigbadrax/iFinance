@@ -352,7 +352,7 @@ const Work = () => {
         </div>
       </div>
       <div className=" flex justify-center pb-[100px] px-[8px] lg:px-0 dark:bg-[#08194B] ">
-        <div className=" w-[970px] max-h-[941px] shadow-md mt-[40px] dark:bg-[#172757]">
+        <div className=" w-[970px]  shadow-md mt-[40px] dark:bg-[#172757]">
           {data?.map((item, index) => {
             if (workId == item.id) {
               return (

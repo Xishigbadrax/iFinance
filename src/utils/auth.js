@@ -10,6 +10,9 @@ export default class Auth {
   static setMode(mode) {
     Cookies.set("darkMode", mode);
   }
+  static setImage(img) {
+    Cookies.set("image", img);
+  }
 
   static destroyId() {
     Cookies.remove("uId");
@@ -24,6 +27,10 @@ export default class Auth {
   static getMode() {
     const mode = Cookies.get("darkMode");
     return mode;
+  }
+  static getImage() {
+    const img = Cookies.get("image");
+    return img;
   }
   static getToken() {
     const token = Cookies.get("authToken");
